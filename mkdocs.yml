@@ -1,0 +1,77 @@
+# Project Information
+site_name: Agentic Risk & Capability Framework
+site_author: GovTech AI Practice
+copyright: GovTech Singapore
+docs_dir: docs
+
+# Theme Configuration
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.sections
+    - toc.integrate
+    - toc.follow
+    - navigation.path
+    - navigation.expand
+  palette:
+    scheme: default
+    primary: white
+    accent: blue
+  icon: 
+    logo: material/shield-star
+
+markdown_extensions:
+  - footnotes
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+# Extra Configuration
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/orgs/govtech-responsibleai/
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/govtech-singapore
+    - icon: fontawesome/brands/twitter
+      link: https://x.com/GovTechSG
+  analytics:
+    provider: google
+    property: G-D8325S860G
+    feedback: 
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >- 
+            Thanks for your feedback! Help us improve this page by
+            using our <a href="https://forms.gle/v8bB9pNAARDctmpT6" target="_blank" rel="noopener">feedback form</a>.
+    
+# Navigation
+nav:
+  - Introduction: 
+    - index.md
+    - Why the ARC Framework?: intro/why_arc.md
+    - About the ARC Framework: intro/about_arc.md
+  - Baseline: baseline/index.md
+  - Capability:
+    - capability/index.md
+    - Capabilities: capability/capabilities/index.md
+    - Risks: capability/risks/index.md
+    - Controls: capability/controls/index.md
+  - Implementation:
+    - implementation/index.md
+# Plugins
+plugins:
+  - search
+  - section-index

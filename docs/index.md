@@ -1,0 +1,42 @@
+# :material-shield-star: Agentic Risk & Capability Framework
+
+We introduce the Agentic Risk & Capability ("ARC") Framework, a **technical governance framework** that enables organisations to manage the **safety and security risks of agentic AI systems** through **a risk-based approach**. We do this by:
+
+* Defining **a hierarchical taxonomy of capabilities** that agentic AI systems may have, depending on their use case and how they are designed  
+* Distinguishing between **baseline risks** (applicable to all agentic AI systems) and **capability-specific risks** (applicable to agentic AI systems with that capability)  
+* Mapping **each risk to a set of technical controls** which help to mitigate the risk to an acceptable level  
+* Providing a framework to **scale governance of agentic AI systems**, especially for large organisations   
+
+## This website
+
+We have organised our content into four sections:
+
+1. **Introduction**: We explain the overall concept of the ARC Framework, how it distinguishes between baseline risks and capability-specific risks, and how it fills a much-needed gap in current discussions on agentic AI governance.   
+2. **Baseline**: We explain what baseline risks are, outline a set of baseline risks that apply to all agentic AI systems, and list the corresponding technical controls for tackling those risks.  
+3. **Capabilities**: We explore the concept of capabilities, go through our proposed taxonomy of agentic capabilities, describe the safety and security risks arising from each capability, and set out the relevant technical controls we recommend for mitigating those risks.  
+4. **Implementation**: We provide a plan for operationalising the ARC framework in an organisation, using stylised examples to help the reader understand the practical implications of the framework.  
+
+For first time readers, we suggest following the order of the contents above. For those who are more familiar with agentic AI governance or with the ARC framework, please feel free to jump ahead to the relevant sections.
+
+## About us
+
+[to be filled in - GovTech, MDDI-NAIG, CSA collaboration]
+
+## Citing our work
+
+To cite our work, please use the following BibText citation:
+
+```
+@article{agentic_risk_capability_framework,
+    title   = {Agentic Risk & Capability Framework},
+    author  = {Khoo, Shaun and Foo, Jessica and Lee, Roy Ka-Wei},
+    year    = {2025},
+    month   = {July},
+    url     = {tbc}
+}
+```
+
+Alternatively, you may use the APA-formatted citation below:
+
+> Khoo, S. & Foo, J. & Lee, R. K.-W. (2025) Agentic Risk & Capability Framework. URL <>
+
