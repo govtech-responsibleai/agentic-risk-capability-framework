@@ -1,14 +1,14 @@
-# :simple-lightning: Why the ARC Framework?
+# :material-shield-alert: Why the ARC Framework?
 
 In this section, we explain why we developed the ARC framework, how it fits into the existing literature, and why we chose to focus on capabilities specifically.
 
-## Motivation
+## Background
 
-OpenAI dubbed 2025 the "year of the AI agent”,[^1] a prediction which quickly proved prescient. Within the first few months, major companies launched increasingly powerful systems that allow large language model (LLM) agents to reason, plan, and autonomously execute tasks.[^2] However, this surge in agent-driven AI innovation also brought renewed scrutiny to these systems' safety and security risks. Recent research has shown that LLM agents are often more prone to unsafe behaviors than their base models,[^3] partly due to their growing autonomy and expanded capabilities through tool integration. As the ecosystem for agentic systems, including frameworks like Model Context Protocol[^4], continues to mature, there is greater urgency to establish robust governance mechanisms. 
+OpenAI dubbed 2025 the "year of the AI agent”,[^1] a prediction which quickly proved prescient. Within the first half of the year, major companies launched increasingly powerful systems that allow large language model (LLM) agents to reason, plan, and autonomously execute tasks such as code development or trip planning.[^2] However, this surge in agent-driven AI innovation also brought renewed scrutiny to these systems' safety and security risks. Recent research has shown that LLM agents are often more prone to unsafe behaviors than their base models,[^3] partly due to their growing autonomy and expanded capabilities through tool integration. As the ecosystem for agentic systems, including frameworks like Model Context Protocol[^4], continues to mature, there is greater urgency to establish robust governance mechanisms. 
 
 ## Existing literature
 
-While regulatory frameworks such as the EU AI Act[^5] and NIST Risk Management Framework[^6] provide overarching principles and guidelines to manage AI risks, they are too high-level and conceptual for organizations to meaningful translate into governance policies.
+While regulatory frameworks such as the EU AI Act[^5] and NIST Risk Management Framework[^6] provide overarching principles and guidelines to manage AI risks, they are too high-level and conceptual for organizations to meaningful translate into governance policies. [to be edited]
 
 To measure agentic AI risks, task-based frameworks have emerged to evaluate the ability of LLMs to execute malicious tasks. Benchmarks like CVEBench,[^7] CyBench,[^8] AgentHarm,[^9] and AgentDojo[^10] help to assess whether LLMs can complete cybersecurity attacks or harmful tasks like fraud. In these settings, agentic systems are required to not only comply with but also complete multi-step malicious requests. However, the ever-evolving landscape of attack scenarios make it difficult for organizations to constantly maintain a collection of harmful tasks and test their systems against them. This is also impractical when organizations deploy several agentic AI systems with differing goals.
 
@@ -16,18 +16,34 @@ Other works focus on evaluating the risks of individual tools that agents have a
 
  A potential middle ground could be to conduct risk evaluations of agents themselves. OpenAI breaks down an agent into three design choices - model, tools, and instructions, recommending interventions at each of these levels, including best practices like constraining the agent's action spaces, setting default behaviors and ensuring attributabilty.[^14] Similarly, Progent introduces a language for flexibly expressing privilege control policies applied during execution for each agent,[^15] while the UK AI Security Institute proposes a framework for evaluating each agent's capability profile across different dimensions.[^16] However, identifying risk at the individual agent level makes it difficult for organizations to prescriptively and preemptively manage risks across many different teams and systems. Hence, we build on these frameworks and introduce a structured taxonomy of ***capabilities*** that agents can acquire. This enables organizations to operationalize agentic risk management by establishing and maintaining a taxonomy of risk categories and controls at the capabilities level, while giving teams the flexibility in how to implement the controls. 
 
+## Why focus on capabilities?
+
+Beyond the common components and design patterns, there is an overwhelming diversity of use cases and applications for agentic AI systems across various industries and horizontals. For example, agents have been adopted by companies to [accelerate paperwork and document writing for scientific research](https://www.anthropic.com/customers/bluenote), [support merchants on ecommerce platforms](https://www.grab.com/sg/press/others/grab-deploys-agentic-ai-to-empower-merchants-and-driver-partners/), and [improve customer service across various industries](https://cloud.google.com/transform/101-real-world-generative-ai-use-cases-from-industry-leaders). 
+
+As such, **a monolithic standard for agentic risks and controls is simply not effective** - governance frameworks need flexibility to tailor risk identification and mitigation to the specifics of their organisation's context and the system's use case. However, good frameworks also need to provide meaningful guidance and establish a minimal baseline across the organisation. Leaving it completely up to system owners is not ideal either.
+
+While misaligned models present a fundamental challenge, misalignment alone is not inherently dangerous if the model lacks the ability to act. A misaligned but powerless model is unable to cause much harm. For instance, even if an adversary tricks an agent into generating malicious code, the risk remains low if the agent cannot execute that code in a live environment. This underscores a central insight of our work: **risk arises not just from what an agent can think or say, but more from what it can do**. Much of the current literature has focused on vulnerabilities introduced by granting agents access to specific tools, such as web browsers, email APIs, or code execution environments. However, these analyses are often tool-specific and do not generalize well across the fast-evolving agentic ecosystem.
+
+We advocate instead for a capability-centric view of agentic AI governance. We define **capabilities as the general classes of actions an agentic system can perform, given the tools, memory, and instructions available to it**. Crucially, capabilities are distinct from tools: a single tool may enable multiple capabilities, and conversely, a single capability may be enabled by multiple tools. For example, access to a user's Facebook account (a single tool) may enable capabilities of communication (e.g., messaging contacts) and transactions (e.g., updating account details) respectively. In contrast, the capability of web search may be implemented via a variety of tools.
+
+We argue that effective governance should focus on capabilities rather than tools for the following reasons:
+
+1. Impact-focused precision: It is the action performed, not the specific tool used, that poses risk. A capability-centric model allows governance to focus on the consequences of actions, ensuring more consistent treatment across different implementations.
+2. Action-level granularity: A single tool can enable different types of actions, and these will need to be governed differently from each other. Governing at the capability level allows organizations to tailor controls more precisely to each type of action.
+3. Scalability across platforms: The agentic tool ecosystem is vast and rapidly growing. A governance approach tied to specific tools does not generalize well. A capability-centric framework abstracts away tool dependencies and provides a scalable foundation for managing diverse systems.
+
  <!--- Footnotes below --->
 
 [^1]: Hamilton, E. 2025 is the year of ai agents, OpenAI CPO says. Axios, January 2025. URL <https://www.axios.com/2025/01/23/davos-2025-ai-agents>. Accessed: 2025-05-11.
-[^2]: d
+[^2]: Both Anthropic and Google released agentic tools ([Claude Code](https://www.anthropic.com/solutions/agents) and [Gemini CLI](https://blog.google/technology/developers/introducing-gemini-cli-open-source-ai-agent/) respectively), built on top of their popular models. Most recently, OpenAI released ChatGPT Agent in July 2025 ([article](https://openai.com/index/introducing-chatgpt-agent/)).
 [^3]: See the following articles: (i) Chiang et al. Harmful helper: Perform malicious tasks? web AI agents might help. In ICLR 2025 Workshop on Building Trust in Language Models and Applications, 2025. URL <https://openreview.net/forum?id=4KoMbO2RJ9>, (ii) Kumar et al. Aligned LLMs are not aligned browser agents. In The Thirteenth International Conference on Learning Representations, 2025. URL <https://openreview.net/forum?id=NsFZZU9gvk>, (iii) Yu, C. and Papakyriakopoulos, O. Safety devolution in AI agents. In ICLR 2025 Workshop on Human-AI Coevolution, 2025. URL <https://openreview.net/forum?id=7nJmuFFkWd>.
 [^4]: Anthropic. Model Context Protocol (MCP). <https://docs.anthropic.com/en/docs/agents-and-tools/mcp>, 2024. Accessed: 2025-05-11.
 [^5]: European Parliament and Council of the European Union. Regulation (EU) 2024/1689 of the European Parliament and of the Council of 13 June 2024 Laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>, 2024. Accessed: 2025- 05-11.
 [^6]: National Institute of Standards and Technology. NIST AI Risk Management Framework Playbook. <https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook>, 2023. Accessed: 2025-05-11.
-[^7]: Zhu et al. CVE-Bench: A Benchmark for AI Agents' Ability to Exploit Real-World Web Application Vulnerabilities . <https://arxiv.org/abs/2503.17332>, 2025. Accessed: 2025-05-11.
-[^8]: cybench
-[^9]: agentharm
-[^10]: agentdojo
+[^7]: Zhu et al. CVE-Bench: A Benchmark for AI Agents' Ability to Exploit Real-World Web Application Vulnerabilities. <https://arxiv.org/abs/2503.17332>, 2024. Accessed: 2025-05-11.
+[^8]: Zhang et al. Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models. <https://arxiv.org/abs/2408.08926>, 2024. Accessed: 2025-05-11.
+[^9]: Andriushchenko et al. AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents. <https://arxiv.org/abs/2410.09024>, 2025. Accessed: 2025-05-11.
+[^10]: Debenedetti et al. AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents. <https://arxiv.org/abs/2406.13352>, 2024. Accessed: 2025-05-11.
 [^11]: Patil et al. Gorilla: Large Language Model Connected with Massive APIs. <https://arxiv.org/abs/2305.15334>, 2023. Accessed: 2025-05-11.
 [^12]: Ye et al. ToolSword: Unveiling Safety Issues of Large Language Models in Tool Learning Across Three Stages. <https://arxiv.org/abs/2402.10753>, 2024. Accessed: 2025-05-11.
 [^13]: Ruan et al. Identifying the Risks of LM Agents with an LM-Emulated Sandbox. <https://arxiv.org/abs/2309.15817>, 2023. Accessed: 2025-05-11.

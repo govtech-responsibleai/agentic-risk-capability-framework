@@ -22,6 +22,7 @@ theme:
     accent: blue
   icon: 
     logo: material/shield-star
+    favicon: material/shield-star
 
 markdown_extensions:
   - footnotes
