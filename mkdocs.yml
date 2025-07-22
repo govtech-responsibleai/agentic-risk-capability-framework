@@ -8,12 +8,13 @@ docs_dir: docs
 theme:
   name: material
   features:
+    - toc.integrate
+    - toc.follow
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.top
     - navigation.sections
-    - toc.integrate
-    - toc.follow
+    - navigation.footer
     - navigation.path
     - navigation.expand
   palette:
@@ -64,9 +65,12 @@ nav:
     - index.md
     - Why the ARC Framework?: intro/why_arc.md
     - About the ARC Framework: intro/about_arc.md
-  - Baseline: baseline/index.md
+  - Baseline: 
+    - What is a Baseline?: baseline/index.md
+    - Baseline Risks: baseline/risks.md
+    - Baseline Controls: baseline/controls.md
   - Capability:
-    - capability/index.md
+    - What is a Capability?: capability/index.md
     - Capabilities: capability/capabilities/index.md
     - Risks: capability/risks/index.md
     - Controls: capability/controls/index.md
