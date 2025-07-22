@@ -20,7 +20,9 @@ For first time readers, we suggest following the order of the contents above. Fo
 
 ## About us
 
-[to be filled in - GovTech, MDDI-NAIG, CSA collaboration]
+The ARC Framework is developed by the Responsible AI team in GovTech Singapore's AI Practice. We develop deep technical capabilities in Responsible AI to improve how the Singapore government develops, evaluates, deploys, and monitors AI systems in a safe, trustworthy, and ethical manner.
+
+In developing this framework, we work closely with other teams in the Singapore government, such as the Ministry for Digital Development and Information and the Cybersecurity Agency of Singapore. We are grateful for their feedback and contributions, which have helped to make this framework more effective, robust, and thorough.
 
 ## Citing our work
 

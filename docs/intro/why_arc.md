@@ -8,7 +8,7 @@ OpenAI dubbed 2025 the "year of the AI agent”,[^1] a prediction which quickly 
 
 ## Existing literature
 
-While regulatory frameworks such as the EU AI Act[^5] and NIST Risk Management Framework[^6] provide overarching principles and guidelines to manage AI risks, they are too high-level and conceptual for organizations to meaningful translate into governance policies. [to be edited]
+<font color="red">While regulatory frameworks such as the EU AI Act[^5] and NIST Risk Management Framework[^6] provide overarching principles and guidelines to manage AI risks, they are too high-level and conceptual for organizations to meaningful translate into governance policies. [to be edited]</font>
 
 To measure agentic AI risks, task-based frameworks have emerged to evaluate the ability of LLMs to execute malicious tasks. Benchmarks like CVEBench,[^7] CyBench,[^8] AgentHarm,[^9] and AgentDojo[^10] help to assess whether LLMs can complete cybersecurity attacks or harmful tasks like fraud. In these settings, agentic systems are required to not only comply with but also complete multi-step malicious requests. However, the ever-evolving landscape of attack scenarios make it difficult for organizations to constantly maintain a collection of harmful tasks and test their systems against them. This is also impractical when organizations deploy several agentic AI systems with differing goals.
 
@@ -22,7 +22,10 @@ Beyond the common components and design patterns, there is an overwhelming diver
 
 As such, **a monolithic standard for agentic risks and controls is simply not effective** - governance frameworks need flexibility to tailor risk identification and mitigation to the specifics of their organisation's context and the system's use case. However, good frameworks also need to provide meaningful guidance and establish a minimal baseline across the organisation. Leaving it completely up to system owners is not ideal either.
 
-While misaligned models present a fundamental challenge, misalignment alone is not inherently dangerous if the model lacks the ability to act. A misaligned but powerless model is unable to cause much harm. For instance, even if an adversary tricks an agent into generating malicious code, the risk remains low if the agent cannot execute that code in a live environment. This underscores a central insight of our work: **risk arises not just from what an agent can think or say, but more from what it can do**. Much of the current literature has focused on vulnerabilities introduced by granting agents access to specific tools, such as web browsers, email APIs, or code execution environments. However, these analyses are often tool-specific and do not generalize well across the fast-evolving agentic ecosystem.
+<font color="red">While misaligned models present a fundamental challenge, misalignment alone is not inherently dangerous if the model lacks the ability to act. A misaligned but powerless model is unable to cause much harm. For instance, even if an adversary tricks an agent into generating malicious code, the risk remains low if the agent cannot execute that code in a live environment. This underscores a central insight of our work: **risk arises not just from what an agent can think or say, but more from what it can do**. Much of the current literature has focused on vulnerabilities introduced by granting agents access to specific tools, such as web browsers, email APIs, or code execution environments. However, these analyses are often tool-specific and do not generalize well across the fast-evolving agentic ecosystem.
+
+because there are multiple tools that could enable the same capability (for example, a local `bash` terminal, versus one in a Docker container, versus one in an EC2 instance), and a single tool can enable multiple capabilities (for example, GitHub's MCP server enables the LLM to list all existing repositories, examine the code in each one of them, push code changes via a Git commit, and even merge a pull request). For a deeper discussion,
+
 
 We advocate instead for a capability-centric view of agentic AI governance. We define **capabilities as the general classes of actions an agentic system can perform, given the tools, memory, and instructions available to it**. Crucially, capabilities are distinct from tools: a single tool may enable multiple capabilities, and conversely, a single capability may be enabled by multiple tools. For example, access to a user's Facebook account (a single tool) may enable capabilities of communication (e.g., messaging contacts) and transactions (e.g., updating account details) respectively. In contrast, the capability of web search may be implemented via a variety of tools.
 
@@ -30,7 +33,9 @@ We argue that effective governance should focus on capabilities rather than tool
 
 1. Impact-focused precision: It is the action performed, not the specific tool used, that poses risk. A capability-centric model allows governance to focus on the consequences of actions, ensuring more consistent treatment across different implementations.
 2. Action-level granularity: A single tool can enable different types of actions, and these will need to be governed differently from each other. Governing at the capability level allows organizations to tailor controls more precisely to each type of action.
-3. Scalability across platforms: The agentic tool ecosystem is vast and rapidly growing. A governance approach tied to specific tools does not generalize well. A capability-centric framework abstracts away tool dependencies and provides a scalable foundation for managing diverse systems.
+3. Scalability across platforms: The agentic tool ecosystem is vast and rapidly growing. A governance approach tied to specific tools does not generalize well. A capability-centric framework abstracts away tool dependencies and provides a scalable foundation for managing diverse systems. 
+
+[to be edited]</font>
 
  <!--- Footnotes below --->
 
