@@ -64,5 +64,3 @@ Defining roles and access controls poorly may result in agents having unauthoris
 
 [^1]: While this is not always the case
 [^3]: <https://developer.nvidia.com/blog/agentic-autonomy-levels-and-security/> or <https://huggingface.co/blog/ethics-soc-7>
-[^9]: <https://www.redhat.com/en/blog/model-context-protocol-mcp-understanding-security-risks-and-controls> For more details, see <https://en.wikipedia.org/wiki/Confused_deputy_problem>
-[^10]: <https://www.prompt.security/blog/top-10-mcp-security-risks>
