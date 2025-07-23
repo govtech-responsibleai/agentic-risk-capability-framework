@@ -1,29 +1,29 @@
 # Baseline Risks
 
-In this section, we list the baseline risks from (i) the components of an agent and (ii) the design of an agentic system. Note that this list is meant as a reference and is not meant to be exhaustive.
+In this section, we list the baseline risks from (i) the components of an agent and (ii) the design of an agentic system. Note that this list is meant as a reference and is not meant to be exhaustive. Clicking on any of the risks will bring you to the next page with the corresponding controls.
 
 ## List of Baseline Risks
 
 | Origin | Risk |
 |---------------|-------|
-| <a name="llm-alignment"></a>LLM | Poorly aligned LLMs may pursue objectives which technically satisfy instructions but violate safety principles.[^1] |
-| <a name="llm-performance"></a>LLM | Weaker LLMs have a higher tendency to produce unpredictable outputs which make agent behaviour erratic.[^2] |
-| <a name="llm-security"></a>LLM | LLMs with poor safety tuning are more susceptible to prompt injection attacks and jailbreaking attempts.[^3] |
-| <a name="llm-data"></a>LLM | Using LLMs trained on poisoned or biased data introduces manipulation risk, discriminatory decisions, or misinformation.[^4] |
-| <a name="tools-auth"></a>Tools | Poorly implemented tools may not correctly verify user identity or permissions when executing privileged actions.[^5] |
-| <a name="tools-malicious"></a>Tools | Rogue tools that mimic legitimate ones can contain hidden malicious code that executes when loaded.[^6] |
-| <a name="tools-validation"></a>Tools | Tools that do not properly sanitise or validate inputs can be exploited through prompt injection attacks.[^7] |
-| <a name="tools-privilege"></a>Tools | Tools that demand broader permissions than necessary create unnecessary attack surfaces for malicious actors.[^8] |
-| <a name="instructions-objectives"></a>Instructions | Simplistic instructions with narrow metrics and without broader constraints may result in agents engaging in specification gaming, resulting in poor performance or safety violations.[^9] |
-| <a name="instructions-ambiguous"></a>Instructions | Vague instructions may compel agents to attempt to fill in missing constraints, resulting in unpredictable actions or incorrect steps taken.[^10] |
-| <a name="instructions-conflicting"></a>Instructions | Instructions without a clear distinction between system prompts and user requests may confuse agents and result in greater vulnerability to prompt injection attacks.[^11] |
-| <a name="memory-poisoning"></a>Memory | Malicious actors can inject false or misleading facts into the knowledge base, resulting in the agent acting on incorrect data or facts.[^12] |
-| <a name="memory-privacy"></a>Memory | Agents may inadvertently store sensitive user or organisational data from prior interactions, resulting in data privacy risks.[^13]|
-| <a name="memory-errors"></a>Memory | Agents may mistakenly save momentary glitches and hallucinations into memory, resulting in compounding mistakes when the agent relies on the incorrect information for its decision or actions.|
-| <a name="architecture-cascade"></a>Agentic Architecture | In linear agentic pipelines where each stage blindly trusts the previous stage, single early mistakes may be propagated and magnified.[^15] |
-| <a name="architecture-spof"></a>Agentic Architecture | In hub-and-spoke architectures which route all decisions through one controller agent, any bug or compromise may distributes faulty instructions across the entire system.|
-| <a name="architecture-observability"></a>Agentic Architecture | More complex agentic architectures may make it difficult to fully reconstruct decision processes across multiple agents.|
-| <a name="access-deputy"></a>Roles and Access Controls | tbc |
+| <a name="llm-alignment-failure"></a>LLM | [Poorly aligned LLMs may pursue objectives which technically satisfy instructions but violate safety principles.](controls.md#llm-alignment-failure)[^1] |
+| <a name="llm-unpredictable-performance"></a>LLM | [Weaker LLMs have a higher tendency to produce unpredictable outputs which make agent behaviour erratic.](controls.md#llm-unpredictable-performance)[^2] |
+| <a name="llm-poor-safety-tuning"></a>LLM | [LLMs with poor safety tuning are more susceptible to prompt injection attacks and jailbreaking attempts.](controls.md#llm-poor-safety-tuning)[^3] |
+| <a name="llm-data-contamination"></a>LLM | [Using LLMs trained on poisoned or biased data introduces manipulation risk, discriminatory decisions, or misinformation.](controls.md#llm-data-contamination)[^4] |
+| <a name="tools-authentication-failure"></a>Tools | [Poorly implemented tools may not correctly verify user identity or permissions when executing privileged actions.](controls.md#tools-authentication-failure)[^5] |
+| <a name="tools-rogue-malicious"></a>Tools | [Rogue tools that mimic legitimate ones can contain hidden malicious code that executes when loaded.](controls.md#tools-rogue-malicious)[^6] |
+| <a name="tools-input-validation"></a>Tools | [Tools that do not properly sanitise or validate inputs can be exploited through prompt injection attacks.](controls.md#tools-input-validation)[^7] |
+| <a name="tools-excessive-privileges"></a>Tools | [Tools that demand broader permissions than necessary create unnecessary attack surfaces for malicious actors.](controls.md#tools-excessive-privileges)[^8] |
+| <a name="instructions-specification-gaming"></a>Instructions | [Simplistic instructions with narrow metrics and without broader constraints may result in agents engaging in specification gaming, resulting in poor performance or safety violations.](controls.md#instructions-specification-gaming)[^9] |
+| <a name="instructions-underspecified"></a>Instructions | [Vague instructions may compel agents to attempt to fill in missing constraints, resulting in unpredictable actions or incorrect steps taken.](controls.md#instructions-underspecified)[^10] |
+| <a name="instructions-hierarchy-confusion"></a>Instructions | [Instructions without a clear distinction between system prompts and user requests may confuse agents and result in greater vulnerability to prompt injection attacks.](controls.md#instructions-hierarchy-confusion)[^11] |
+| <a name="memory-data-poisoning"></a>Memory | [Malicious actors can inject false or misleading facts into the knowledge base, resulting in the agent acting on incorrect data or facts.](controls.md#memory-data-poisoning)[^12] |
+| <a name="memory-privacy-leakage"></a>Memory | [Agents may inadvertently store sensitive user or organisational data from prior interactions, resulting in data privacy risks.](controls.md#memory-privacy-leakage)[^13]|
+| <a name="memory-hallucination-persistence"></a>Memory | [Agents may mistakenly save momentary glitches and hallucinations into memory, resulting in compounding mistakes when the agent relies on the incorrect information for its decision or actions.](controls.md#memory-hallucination-persistence)|
+| <a name="architecture-error-propagation"></a>Agentic Architecture | [In linear agentic pipelines where each stage blindly trusts the previous stage, single early mistakes may be propagated and magnified.](controls.md#architecture-error-propagation)[^15] |
+| <a name="architecture-single-point-failure"></a>Agentic Architecture | [In hub-and-spoke architectures which route all decisions through one controller agent, any bug or compromise may distributes faulty instructions across the entire system.](controls.md#architecture-single-point-failure)|
+| <a name="architecture-decision-traceability"></a>Agentic Architecture | [More complex agentic architectures may make it difficult to fully reconstruct decision processes across multiple agents.](controls.md#architecture-decision-traceability)|
+| <a name="access-tbc"></a>Roles and Access Controls | tbc |
 
 <!-- footnotes -->
 
