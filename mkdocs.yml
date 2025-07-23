@@ -71,9 +71,9 @@ nav:
     - Baseline Controls: baseline/controls.md
   - Capability:
     - What is a Capability?: capability/index.md
-    - Capabilities: capability/capabilities/index.md
-    - Risks: capability/risks/index.md
-    - Controls: capability/controls/index.md
+    - Capabilities: capability/capabilities.md
+    - Risks: capability/risks.md
+    - Controls: capability/controls.md
   - Implementation:
     - implementation/index.md
 # Plugins
