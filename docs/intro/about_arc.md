@@ -32,14 +32,20 @@ Find out more in [our dedicated section on capability risks](../capability/index
 
 ## Implementation
 
-A well-known adage in the Singapore civil service is "Policy is implementation and implementation is policy",[^4] and this is resoundingly true for AI governance. In designing this framework, we took much care to consider the concerns of both policymakers and developers, and to ensure that the framework strikes an appropriate balance between:
+A well-known adage in the Singapore civil service is "Policy is implementation and implementation is policy",[^4] and this is resoundingly true for AI governance. In designing this framework, we took much care to consider the concerns of both policymakers and developers, and the unique characteristics of the Singapore government context: 
 
+- **Diverse use cases** - the Singapore Government oversees many domains, such as healthcare, education and the environment, on top of the wide array of horizontals (e.g., finance, HR) 
+- **Varying capabilities** - Few agencies understand agentic AI systems, uch less how to manage, identify or govern their risks 
+- **Large scale** - There will be many prototypes, products and systems with some agentic AI component, but will have different architectures 
+- **Semi-centralised governance** - Individual agencies should be ultimately responsible for their own products and systems, with the one governing authority providing centralised support and guidance 
+
+Given these characteristics, we apply the ARC to the Singapore government context, providing a step-by-step guide for both policymakers (i.e. how to assess the capabilities of an agentic AI system) and developers (i.e. how to contextualise the recommended control for your system).
+
+<!-- to ensure that the framework strikes an appropriate balance between:
 * Thoroughly mapping out the risk landscape, and not being too inflexible to changes
 * Being applicable and adaptable to all agentic AI systems, and not being too generic or watered down
 * Providing meaningful guidance on the risks and controls, and not being too prescriptive
-* Making it scalable at an organisation-level, and not simply being a paper exercise
-
-In the ARC Framework, we provide a step-by-step approach for organisations to adopt and implement the ARC Framework, including a guide for both policymakers (i.e. how to assess the capabilities of an agentic AI system) and developers (i.e. how to contextualise the recommended control for your system).
+* Making it scalable at an organisation-level, and not simply being a paper exercise -->
 
 Find out more in [our dedicated section on implementation](../implementation/index.md).
 
