@@ -1,6 +1,6 @@
 # Baseline Controls
 
-Here we provide a list of technical controls to mitigate the baseline risks discussed in the previous section. Our aim here is to provide sensible and concrete recommendations for teams - as such, we do not include all potential measures here.
+Here we provide a list of technical controls to mitigate the baseline risks discussed in the previous section. As our aim here is to provide sensible and concrete recommendations for teams, we do not include all potential mitigation measures here.
 
 ## List of Baseline Controls
 
