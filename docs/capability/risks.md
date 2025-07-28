@@ -4,48 +4,48 @@ Similar to what we did for baseline components and risks, we identify safety and
 
 | First-level | Second-level | Risk |
 |---|---|---|
-| Cognitive | Reasoning & Problem-Solving | Becoming ineffective, inefficient, or unsafe due to overthinking[^1] |
-| Cognitive | Reasoning & Problem-Solving | Engaging in deceptive behaviour through pursuing or prioritising other goals[^2] |
-| Cognitive | Planning & Goal Management | Devising plans that are not effective in meeting the user's requirements[^3] |
-| Cognitive | Planning & Goal Management | Devising plans that do not adhere to common sense or implicit assumptions about the user's instructions[^4] |
-| Cognitive | Tool Use & Delegation | Assigning tasks incorrectly to other agents[^5] |
-| Cognitive | Tool Use & Delegation | Attempting to use other agents maliciously[^6] |
-| Cognitive | Tool Use & Delegation | Choosing the wrong tool for the given action or task[^7] |
-| Interaction | Natural Language Communication | Generating undesirable content (e.g. toxic, hateful, sexual)[^8] |
-| Interaction | Natural Language Communication | Generating unqualified advice in specialised domains (e.g. medical, financial, legal)[^9] |
-| Interaction | Natural Language Communication | Generating controversial content (e.g. political, competitors)[^10] |
-| Interaction | Natural Language Communication | Regurgitating personally identifiable information[^11] |
-| Interaction | Natural Language Communication | Generating non-factual or hallucinated content[^12] |
-| Interaction | Natural Language Communication | Generating copyrighted content[^13] |
-| Interaction | Multimodal Understanding & Generation | Generating undesirable content (e.g. toxic, hateful, sexual)[^14] |
-| Interaction | Multimodal Understanding & Generation | Generating unqualified advice in specialised domains (e.g. medical, financial, legal)[^15] |
-| Interaction | Multimodal Understanding & Generation | Generating controversial content (e.g. political, competitors)[^16] |
-| Interaction | Multimodal Understanding & Generation | Regurgitating personally identifiable information[^17] |
-| Interaction | Multimodal Understanding & Generation | Generating non-factual or hallucinated content[^18] |
-| Interaction | Multimodal Understanding & Generation | Generating copyrighted content[^19] |
-| Interaction | Official Communications | Making inaccurate promises or statements to the public[^20] |
-| Interaction | Official Communications | Sending undesirable content to recipients[^21] |
-| Interaction | Official Communications | Sending malicious content to recipients[^22] |
-| Interaction | Official Communications | Misleading recipients about the authorship of the communications[^23] |
-| Interaction | Official Communications | Sending personally identifiable or sensitive data[^24] |
-| Interaction | Agent Communication | Communicating insecurely resulting in man-in-the-middle attacks[^25] |
-| Interaction | Agent Communication | Misinterpreting inter-agent messages due to poor formatting or weak protocols[^26] |
-| Interaction | Agent Communication | Passing on prompt injection attacks across agents[^27] |
-| Interaction | Transactions | Allowing unauthorised transactions[^28] |
-| Interaction | Transactions | Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent[^29] |
-| Interaction | Internet & Search Access | Opening vulnerabilities to prompt injection attacks via malicious websites[^30] |
-| Interaction | Internet & Search Access | Returning unreliable information or websites[^31] |
-| Interaction | Computer Use | Opening vulnerabilities to prompt injection attacks[^32] |
-| Interaction | Computer Use | Accessing personally identifiable or sensitive data[^33] |
-| Operational | Code Execution | Executing poor code[^34] |
-| Operational | Code Execution | Executing vulnerable or malicious code[^35] |
-| Operational | File & Data Management | Overwriting or deleting database tables or files[^36] |
-| Operational | File & Data Management | Overwhelming the database with poor, inefficient, or repeated queries[^37] |
-| Operational | File & Data Management | Exposing personally identifiable or sensitive data from databases or files[^38] |
-| Operational | File & Data Management | Opening vulnerabilities to prompt injection attacks via malicious data or files[^39] |
-| Operational | System Management | Escalating the agent's own privileges[^40] |
-| Operational | System Management | Misconfiguring system resources, compromising system integrity and availability[^41] |
-| Operational | System Management | Overwhelming the system with poor, inefficient, or repeated requests[^42] |
+| Cognitive | Reasoning & Problem-Solving | <a name="cognitive-reasoning-overthinking"></a>[Becoming ineffective, inefficient, or unsafe due to overthinking](controls.md#cognitive-reasoning-overthinking)[^1] |
+| Cognitive | Reasoning & Problem-Solving | <a name="cognitive-reasoning-deceptive-behavior"></a>[Engaging in deceptive behaviour through pursuing or prioritising other goals](controls.md#cognitive-reasoning-deceptive-behavior)[^2] |
+| Cognitive | Planning & Goal Management | <a name="cognitive-planning-ineffective-plans"></a>Devising plans that are not effective in meeting the user's requirements[^3] |
+| Cognitive | Planning & Goal Management | <a name="cognitive-planning-common-sense"></a>[Devising plans that do not adhere to common sense or implicit assumptions about the user's instructions](controls.md#cognitive-planning-common-sense)[^4] |
+| Cognitive | Tool Use & Delegation | <a name="cognitive-tools-incorrect-assignment"></a>[Assigning tasks incorrectly to other agents](controls.md#cognitive-tools-incorrect-assignment)[^5] |
+| Cognitive | Tool Use & Delegation | <a name="cognitive-tools-malicious-use"></a>[Attempting to use other agents maliciously](controls.md#cognitive-tools-malicious-use)[^6] |
+| Cognitive | Tool Use & Delegation | <a name="cognitive-tools-wrong-choice"></a>Choosing the wrong tool for the given action or task[^7] |
+| Interaction | Natural Language Communication | <a name="interaction-nlc-undesirable-content"></a>[Generating undesirable content (e.g. toxic, hateful, sexual)](controls.md#interaction-nlc-undesirable-content)[^8] |
+| Interaction | Natural Language Communication | <a name="interaction-nlc-unqualified-advice"></a>[Generating unqualified advice in specialised domains (e.g. medical, financial, legal)](controls.md#interaction-nlc-unqualified-advice)[^9] |
+| Interaction | Natural Language Communication | <a name="interaction-nlc-controversial-content"></a>[Generating controversial content (e.g. political, competitors)](controls.md#interaction-nlc-controversial-content)[^10] |
+| Interaction | Natural Language Communication | <a name="interaction-nlc-pii-regurgitation"></a>[Regurgitating personally identifiable information](controls.md#interaction-nlc-pii-regurgitation)[^11] |
+| Interaction | Natural Language Communication | <a name="interaction-nlc-hallucination"></a>[Generating non-factual or hallucinated content](controls.md#interaction-nlc-hallucination)[^12] |
+| Interaction | Natural Language Communication | <a name="interaction-nlc-copyright"></a>[Generating copyrighted content](controls.md#interaction-nlc-copyright)[^13] |
+| Interaction | Multimodal Understanding & Generation | <a name="interaction-multimodal-undesirable-content"></a>[Generating undesirable content (e.g. toxic, hateful, sexual)](controls.md#interaction-multimodal-undesirable-content)[^14] |
+| Interaction | Multimodal Understanding & Generation | <a name="interaction-multimodal-unqualified-advice"></a>[Generating unqualified advice in specialised domains (e.g. medical, financial, legal)](controls.md#interaction-multimodal-unqualified-advice)[^15] |
+| Interaction | Multimodal Understanding & Generation | <a name="interaction-multimodal-controversial-content"></a>[Generating controversial content (e.g. political, competitors)](controls.md#interaction-multimodal-controversial-content)[^16] |
+| Interaction | Multimodal Understanding & Generation | <a name="interaction-multimodal-pii-regurgitation"></a>[Regurgitating personally identifiable information](controls.md#interaction-multimodal-pii-regurgitation)[^17] |
+| Interaction | Multimodal Understanding & Generation | <a name="interaction-multimodal-hallucination"></a>Generating non-factual or hallucinated content[^18] |
+| Interaction | Multimodal Understanding & Generation | <a name="interaction-multimodal-copyright"></a>[Generating copyrighted content](controls.md#interaction-multimodal-copyright)[^19] |
+| Interaction | Official Communications | <a name="interaction-official-inaccurate-statements"></a>[Making inaccurate promises or statements to the public](controls.md#interaction-official-inaccurate-statements)[^20] |
+| Interaction | Official Communications | <a name="interaction-official-undesirable-content"></a>[Sending undesirable content to recipients](controls.md#interaction-official-undesirable-content)[^21] |
+| Interaction | Official Communications | <a name="interaction-official-malicious-content"></a>[Sending malicious content to recipients](controls.md#interaction-official-malicious-content)[^22] |
+| Interaction | Official Communications | <a name="interaction-official-authorship-deception"></a>[Misleading recipients about the authorship of the communications](controls.md#interaction-official-authorship-deception)[^23] |
+| Interaction | Official Communications | <a name="interaction-official-sensitive-data"></a>[Sending personally identifiable or sensitive data](controls.md#interaction-official-sensitive-data)[^24] |
+| Interaction | Agent Communication | <a name="interaction-agent-insecure-communication"></a>Communicating insecurely resulting in man-in-the-middle attacks[^25] |
+| Interaction | Agent Communication | <a name="interaction-agent-message-misinterpretation"></a>Misinterpreting inter-agent messages due to poor formatting or weak protocols[^26] |
+| Interaction | Agent Communication | <a name="interaction-agent-prompt-injection"></a>Passing on prompt injection attacks across agents[^27] |
+| Interaction | Transactions | <a name="interaction-transactions-unauthorized"></a>[Allowing unauthorised transactions](controls.md#interaction-transactions-unauthorized)[^28] |
+| Interaction | Transactions | <a name="interaction-transactions-credential-vulnerability"></a>[Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent](controls.md#interaction-transactions-credential-vulnerability)[^29] |
+| Interaction | Internet & Search Access | <a name="interaction-internet-prompt-injection"></a>[Opening vulnerabilities to prompt injection attacks via malicious websites](controls.md#interaction-internet-prompt-injection)[^30] |
+| Interaction | Internet & Search Access | <a name="interaction-internet-unreliable-info"></a>[Returning unreliable information or websites](controls.md#interaction-internet-unreliable-info)[^31] |
+| Interaction | Computer Use | <a name="interaction-computer-prompt-injection"></a>[Opening vulnerabilities to prompt injection attacks](controls.md#interaction-computer-prompt-injection)[^32] |
+| Interaction | Computer Use | <a name="interaction-computer-sensitive-access"></a>[Accessing personally identifiable or sensitive data](controls.md#interaction-computer-sensitive-access)[^33] |
+| Operational | Code Execution | <a name="operational-code-poor-execution"></a>[Executing poor code](controls.md#operational-code-poor-execution)[^34] |
+| Operational | Code Execution | <a name="operational-code-malicious-execution"></a>[Executing vulnerable or malicious code](controls.md#operational-code-malicious-execution)[^35] |
+| Operational | File & Data Management | <a name="operational-files-overwrite-delete"></a>[Overwriting or deleting database tables or files](controls.md#operational-files-overwrite-delete)[^36] |
+| Operational | File & Data Management | <a name="operational-files-query-overload"></a>[Overwhelming the database with poor, inefficient, or repeated queries](controls.md#operational-files-query-overload)[^37] |
+| Operational | File & Data Management | <a name="operational-files-data-exposure"></a>[Exposing personally identifiable or sensitive data from databases or files](controls.md#operational-files-data-exposure)[^38] |
+| Operational | File & Data Management | <a name="operational-files-prompt-injection"></a>[Opening vulnerabilities to prompt injection attacks via malicious data or files](controls.md#operational-files-prompt-injection)[^39] |
+| Operational | System Management | <a name="operational-system-privilege-escalation"></a>[Escalating the agent's own privileges](controls.md#operational-system-privilege-escalation)[^40] |
+| Operational | System Management | <a name="operational-system-misconfiguration"></a>[Misconfiguring system resources, compromising system integrity and availability](controls.md#operational-system-misconfiguration)[^41] |
+| Operational | System Management | <a name="operational-system-request-overload"></a>[Overwhelming the system with poor, inefficient, or repeated requests](controls.md#operational-system-request-overload)[^42] |
 
 [^1]: [arXiv:2502.08235](https://arxiv.org/pdf/2502.08235) (arXiv, 2025)
 [^2]: [Reasoning Models Dont Say Think](https://www.anthropic.com/research/reasoning-models-dont-say-think) (Anthropic, 2025)
@@ -89,40 +89,3 @@ Similar to what we did for baseline components and risks, we identify safety and
 [^40]: [arXiv:2503.15547v1](https://arxiv.org/html/2503.15547v1?utm_source=chatgpt.com) (arXiv, 2025)
 [^41]: [97835](https://neurips.cc/virtual/2024/poster/97835?utm_source=chatgpt.com) (NeurIPS, 2024); [arXiv:2507.10584v1](https://arxiv.org/html/2507.10584v1?utm_source=chatgpt.com) (arXiv, 2025)
 [^42]: [arXiv:2407.20859v1](https://arxiv.org/html/2407.20859v1) (arXiv, 2085); [Llm102025 Unbounded Consumption](https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/?utm_source=chatgpt.com) (OWASP GenAI, 2025)
-
-| First-level | Second-level | Risk |
-| ------ | ------ | ------ |
-| Cognitive   | Reasoning & Problem-Solving           | Becoming ineffective, inefficient, or unsafe due to overthinking                                                     |
-| Cognitive   | Reasoning & Problem-Solving           | Engaging in deceptive behaviour through pursuing or prioritising other goals                                         |
-| Cognitive   | Planning & Goal Management            | Devising plans that are not effective in meeting the user's requirements                                             |
-| Cognitive   | Planning & Goal Management            | Devising plans that d...on sense or implicit assumptions about the user's instructions                               |
-| Cognitive   | Tool Use & Delegation                 | Assigning tasks incorrectly to other agents                                                                          |
-| Cognitive   | Tool Use & Delegation                 | Attempting to use other agents maliciously                                                                           |
-| Cognitive   | Tool Use & Delegation                 | Choosing the wrong tool for the given action or task                                                                 |
-| Interaction | Natural Language Communication        | Generating undesirable content (e.g. toxic, hateful, sexual)                                                         |
-| Interaction | Natural Language Communication        | Generating unqu...advice in specialised domains (e.g. medical, financial, legal)                                     |
-| Interaction | Natural Language Communication        | Generating controversial content (e.g. political, competitors)                                                       |
-| Interaction | Natural Language Communication        | Regurgitating personally identifiable information                                                                    |
-| Interaction | Natural Language Communication        | Generating non-factual or hallucinated content                                                                       |
-| Interaction | Natural Language Communication        | Generating copyrighted content                                                                                       |
-| Interaction | Multimodal Understanding & Generation | Generating undesirable content (e.g. toxic, hateful, sexual)                                                         |
-| Interaction | Multimodal Understanding & Generation | Generating misinformation or non-factual content                                                                     |
-| Interaction | Multimodal Understanding & Generation | Generating copyrighted content                                                                                       |
-| Interaction | Multimodal Understanding & Generation | Regurgitating personally identifiable information                                                                    |
-| Interaction | Transactions                          | Conducting unauthorized transactions                                                                                 |
-| Interaction | Transactions                          | Imposing difficult-to-reverse commitments                                                                            |
-| Interaction | Transactions                          | Disclosing sensitive data during transactions                                                                        |
-| Interaction | Transactions                          | Increasing the system's vulnerability to external actors exfiltrating credentials for transactions through the agent |
-| Interaction | Internet & Search Access              | Opening vulnerabilities to prompt injection attacks via malicious websites                                           |
-| Interaction | Internet & Search Access              | Returning unreliable information or websites                                                                         |
-| Interaction | Computer Use                          | Opening vulnerabilities to prompt injection attacks                                                                  |
-| Interaction | Computer Use                          | Accessing personally identifiable or sensitive data                                                                  |
-| Operational | Code Execution                        | Executing poor code                                                                                                  |
-| Operational | Code Execution                        | Executing vulnerable or malicious code                                                                               |
-| Operational | File & Data Management                | Overwriting or deleting database tables or files                                                                     |
-| Operational | File & Data Management                | Overwhelming the database with poor, inefficient, or repeated queries                                                |
-| Operational | File & Data Management                | Exposing personally identifiable or sensitive data from databases or files                                           |
-| Operational | File & Data Management                | Opening vulnerabilities to prompt injection attacks via malicious data or files                                      |
-| Operational | System Management                     | Escalating the agent's own privileges                                                                                |
-| Operational | System Management                     | Misconfiguring system resources, compromising system integrity and availability                                      |
-| Operational | System Management                     | Overwhelming the system with poor, inefficient, or repeated requests                                                 |
