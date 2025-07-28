@@ -75,8 +75,8 @@ nav:
     - Controls: capability/controls.md
   - Implementation:
     - Implementing ARC: implementation/index.md
-    - For AI Developers: implementation/for-ai-developers.md
     - For Governance Teams: implementation/for-governance-teams.md
+    - For AI Developers: implementation/for-ai-developers.md
 # Plugins
 plugins:
   - search

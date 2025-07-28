@@ -1,141 +1,77 @@
 # For Governance Teams
 
+In this section, we outline a step-by-step approach for applying the ARC Framework for your organisation and provide two fictional case studies to illustrate how it can be applied.
 
-## Desiderata for agentic AI governance
+## Applying the ARC Framework
 
-In this subsection, we explain the five desiderata (or desired characteristics) for a good agentic AI governance framework. 
+### Step 1: Review the capability taxonomy
 
-|#| Desiderata | What it means | Why this is important |
-| -: | ---- | ---- | ---- |
-|  1 | Map out the risk landscape clearly and with flexibility                     | The framework should provide a clear structure for understanding agentic AI risks while being adaptable to future developments in the agentic AI space. | Technology in the AI space is evolving rapidly, with new capabilities and risks emerging frequently. Organisations need a stable governance foundation that will not become obsolete quickly, while remaining adaptable enough to accommodate innovation and technological changes without requiring complete framework overhauls.                                           |
-|  2 | Apply to all types of AI systems, agentic or otherwise                      | The framework should work across different AI applications, not just agentic AI systems.                                                                | Organisations typically deploy multiple types of AI systems across different use cases, and having separate governance frameworks for each type creates complexity, inconsistency, gaps, and training overhead that hinders effective risk management and organisational agility.                                                                                                                 |
-|  3 | Distinguish between safer and riskier AI systems                            | The framework should differentiate risk levels and apply proportional controls.                                                                         | Applying uniform controls across all agentic AI systems wastes resources on low-risk applications while potentially under-protecting high-risk systems, making proportional governance essential for building stakeholder confidence, enabling appropriate innovation, and effectively prioritising organisational resources.                                                                     |
-|  4 | Recommend useful, concrete, proportional, and practical mitigation measures | Controls should be specific, implementable, appropriately scaled to risk, and feasible for teams to execute.                                            | Vague guidance leads to inconsistent implementation and security theatre rather than real risk reduction, while impractical or disproportionate controls either create excessive burden or inadequate protection. Concrete, actionable measures are essential for effective governance that protect the organisation from safety and security risks while not hindering legitimate AI deployment. |
-|  5 | Scale easily to manage and govern many AI systems                           | The framework should be efficient for organizations to implement across multiple AI systems without excessive overhead.                                 | Teams may start rapidly deploying multiple agentic AI systems within an organisation, and manual case-by-case governance assessments creates bottlenecks, inconsistencies, and vulnerabilities while preventing the organisation from scaling AI adoption safely and efficiently across different teams and use cases.                                                                            |
+Although we designed [our capability taxonomy](../capability/index.md) to be comprehensive in capturing the wide gamut of agentic capabilities today, we also recognise that there may be very niche capabilities which are especially relevant for specific domains. For example, companies operating in the intersection of agentic AI systems and robotics may have a whole umbrella of capabilities relating to hardware interaction, such as physical movement or object manipulation, while fintech companies may want more granularity for the capability to perform transactions by distinguishing between different types of transactions (e.g. cash, stocks, bonds).
 
+**Governance teams should begin by reviewing the capability taxonomy and identifying the key capabilities which are intuitively most relevant to the organisation, and consider breaking out more specific second-level categories if the first-level categories are insufficient.** We generally do not recommend organisations to drop any of the existing capabilities in the taxonomy, even if they are unlikely to be used, as this may hurt the taxonomy's generalisability across different verticals within the organisation (e.g. manufacturing, finance, or legal).
 
-## Impact Levels in the Framework
+### Step 2: Contextualise the risk mapping
 
-### What Are Impact Levels?
+Each organisation has a different risk profile, and contextualising the risk mapping is important to ensure tight alignment between the organisation's risk management needs and the ARC Framework. For example, while the ARC Framework describes hallucination as a general risk for the capability of Natural Language Communication, it is more significant for a law firm rather than a social companion chatbot. 
 
-The framework uses a three-tier impact classification system (Low/Medium/High) that determines which technical controls are required for each AI system. Teams must select the **highest impact level** across any of the three criteria:
+**Governance teams should go through the list of risks associated with each capability and apply the organisation's context (be it country- or industry-specific)** to help the organisation and its internal AI development teams better understand the potential harms that could arise from such a capability. This is necessary if the capability taxonomy has been updated, since the current risk mapping is valid only for the present taxonomy.
 
-**Current Criteria:**
-- **Data Classification:** Open data (Low) → Staff-only circulation (Medium) → Confidential (High)
-- **Domain:** All other use cases (Low) → Health/safety/compliance use cases (Medium) → National interest (High)
-- **Target Audience:** Internal-facing (Low) → Public facing (Medium) → Critical infrastructure (High)
+### Step 3: Adapt the controls
 
-### Importance in the Framework
+Similar to capabilities and risks, the technical controls themselves also require adaptation to the organisation's operating context and technical stack. For example, a fact-checking system operating in the European Union must comply with GDPR's strict data protection requirements, which might necessitate additional privacy controls beyond what's specified in the framework. Moreover, some controls may require specific technical expertise or infrastructure that is not available to all organisations, necessitating alternative approaches that achieve similar risk mitigation outcomes.
 
-**1. Proportional Risk Management**
-Impact levels ensure that more sensitive or critical AI systems receive appropriately stringent controls. For example, a simple internal chatbot (Low impact) might only need basic output filtering, while an AI system handling confidential national security data (High impact) would require comprehensive monitoring, human approval workflows, and regular audits.
+**Governance teams should systematically map their jurisdiction's AI and data protection requirements against the ARC Framework controls and conduct technical readiness assessments before mandating specific controls.** For smaller teams, focusing initial efforts on controls that address the highest-impact risks within the organisation's regulatory and technical constraints may be more fruitful. Implementing audits which evaluate both compliance and efficacy will help to identify controls which may need to be adjusted and ensure that the framework stays relevant in the longer run.
 
-**2. Resource Optimization**
-By scaling control requirements with impact level, organizations avoid over-engineering low-risk systems while ensuring adequate protection for high-risk applications. This prevents governance from becoming a barrier to innovation on routine use cases.
+### Step 4: Define relevance criteria
 
-**3. Control Activation Logic**
-Controls are tagged with impact level requirements:
-- **LMH:** Required for all systems (fundamental protections)
-- **MH:** Required only for Medium and High impact systems (enhanced protections)
-- **H:** Required only for High impact systems (maximum protections)
+Not all risks are equally relevant, especially given the diversity of domains and use cases even within an organisation. For example, the risk of "generating controversial content" is minimal for an internal document processing system but represents a critical concern for a public-facing fact-checking platform that could influence public opinion. Relevance criteria provide a structured filter to help developers focus their limited time and resources on risks that actually matter for their specific system and use case.
 
-**4. Scalable Decision-Making**
-Impact levels provide a clear, objective way to determine control requirements without requiring case-by-case governance review, enabling the framework to scale across many AI systems efficiently.
+Under the ARC Framework, we recommend setting two main relevance criteria: **impact** (the magnitude of potential consequences) and **likelihood** (the probability of risk materialising). Each criterion is set along a five-point scale, and the final score is calculated by multiplying the two values together. This simplicity makes implementation easier. 
 
-## Domain-Specific Adaptations
+**Governance teams should then calibrate these criteria to their organisation's context and risk appetite, and provide guidance on what score is required for a risk to be considered as "relevant".**  For instance, a conservative financial institution might consider any risk scoring 6 or above (3x2 or 2x3) as relevant and requiring mandatory controls, while a technology startup might set the threshold at 9 or above (3x3). The calibration should also account for regulatory requirements - risks with direct compliance implications may be deemed relevant regardless of their calculated score. Additionally, governance teams should establish review periods to reassess these thresholds as the organisation's risk profile and business context evolve.
 
-Different organizations can adapt the impact level criteria to reflect their unique risk profiles and regulatory environments. Here are examples:
+### Step 5: Standardise and scale
 
-### Healthcare Organization
+Rolling out the ARC Framework - capability taxonomy, risk mapping, and technical controls - will not be an overnight feat, and requires significant change management and training across multiple departments. **Governance teams should look to streamline the reporting process by providing a simple form or checklist for AI developers to declare their system's capabilities, relevant risks, and technical controls.** As more data points for different systems start to stream in, governance teams will get a better organisation-wide view of system capabilities, risk exposures, and control adoption rates, which in turn will enhance the governance design process.
 
-**Criteria Adaptation:**
-- **Patient Data Sensitivity:** De-identified research data (Low) → Individual patient records (Medium) → Genetic/psychiatric data (High)
-- **Clinical Decision Impact:** Administrative support (Low) → Clinical decision support (Medium) → Autonomous treatment recommendations (High)
-- **Regulatory Scope:** Internal research (Low) → FDA-regulated devices (Medium) → Life-critical interventions (High)
+Beyond the day-to-day operations of validating compliance to the framework, governance teams should leverage the framework to deliver more agile governance for agentic AI systems. For example, when new threats emerge or regulatory requirements change, **governance teams can efficiently update the framework by adjusting impact levels, adding new risks, or enhancing control specifications, with changes automatically propagating to all systems** through the next assessment cycle. This transforms AI governance from a reactive, project-by-project exercise into a proactive, portfolio-level capability that scales with organisational AI adoption and maintains effectiveness as both technology and threat landscapes evolve.
 
-**Rationale:** Healthcare organizations face unique risks around patient privacy (HIPAA), clinical safety, and medical device regulations that don't map well to generic "confidential data" categories.
+## Case Study: Domain-specific adaptations
 
-### Financial Services Institution
+In this subsection, we provide two fictional examples of how an organisation can adapt the ARC Framework to their operating context. 
 
-**Criteria Adaptation:**
-- **Financial Impact:** <$10K exposure (Low) → $10K-$1M exposure (Medium) → >$1M exposure (High)
-- **Regulatory Classification:** Internal operations (Low) → Customer-facing services (Medium) → Trading/market-making systems (High)
-- **Data Sensitivity:** Public market data (Low) → Customer PII (Medium) → Trading algorithms/positions (High)
+### Healthcare Organisation
 
-**Rationale:** Financial institutions need to consider market impact, systemic risk, and specific financial regulations (SOX, Basel III) that require different thresholds than general government classifications.
+**Step 1: Review the capability taxonomy**
+Healthcare organisations should expand the "Natural Language Communication" capability to distinguish between patient-facing communications and clinical decision support, as these may carry different regulatory implications (such as FDA medical device regulations and Singapore's Health Sciences Authority ("HSA") medical device guidelines). They may also need to add specific capabilities for medical image analysis under "Multimodal Understanding & Generation" and create subcategories for different types of clinical data access under "File & Data Management" (e.g., accessing electronic health records vs. medical literature databases). The "Transactions" capability should be refined to include medication ordering, appointment scheduling, and insurance claim processing, each with distinct risk profiles under healthcare regulations.
+
+**Step 2: Contextualise the risk mapping**
+Risk contextualisation must emphasize patient safety and data protection compliance. "Generating unqualified advice in specialised domains" becomes a critical risk requiring FDA medical device approval pathways or HSA therapeutic product registration rather than just disclaimer implementation. "Regurgitating personally identifiable information" takes on heightened significance due to HIPAA requirements in the US and Singapore's Personal Data Protection Act (PDPA) for healthcare data, with potential criminal penalties in both jurisdictions. "Generating hallucinated content" in clinical contexts could lead to patient harm, making this a patient safety issue under FDA guidelines. The organisation should map each risk against specific healthcare regulations (such as HIPAA, FDA 21 CFR Part 820, Joint Commission standards, HSA medical device regulations, MOH clinical practice guidelines) and patient safety frameworks.
+
+**Step 3: Adapt the controls**
+Controls must align with healthcare quality management systems and clinical workflows in both jurisdictions. "Implement output guardrails" becomes "Implement clinical decision support alerts with physician override capabilities and audit trails compliant with prevailing regulations", such as FDA 21 CFR Part 820 and HSA quality management system requirements. "Require human approval" transforms into "Require licensed clinician review with documented clinical reasoning". The organisation must integrate controls with existing clinical governance structures, electronic health record systems, and medical staff credentialing processes. Controls should also address clinical validation requirements, with mandatory testing against clinical datasets and integration with hospital incident reporting systems that in accordance with local requirements, be it the US Joint Commission sentinel event reporting or Singapore's MOH adverse event reporting requirements.
+
+**Step 4: Define relevance criteria**
+Healthcare organizations typically operate with very low risk tolerance due to patient safety implications and regulatory scrutiny in both the US and Singapore. The relevance threshold should be set conservatively - any risk scoring 4 or above (2x2) should be considered relevant given the potential for patient harm. Impact criteria must consider patient safety outcomes, regulatory compliance, and malpractice liability. Likelihood assessments should account for the clinical environment's high-stress conditions where users may over-rely on AI recommendations. All risks with direct patient safety implications should be deemed relevant regardless of calculated scores, especially for healthcare organisations in Singapore given Singapore's emphasis on healthcare quality through the National Healthcare Quality and Safety Framework.
+
+**Step 5: Standardise and scale**
+The rollout must integrate with existing clinical governance structures, including medical staff committees, quality assurance programs, and clinical informatics teams. Training should be incorporated into medical staff orientation and continuing education requirements. The framework should align with hospital accreditation standards and integrate with existing clinical audit processes. 
 
 ### Manufacturing Company
 
-**Criteria Adaptation:**
-- **Safety Impact:** Quality control (Low) → Equipment optimization (Medium) → Safety-critical systems (High)
-- **Operational Scope:** Single facility (Low) → Regional operations (Medium) → Global supply chain (High)
-- **Environmental Impact:** No environmental risk (Low) → Reportable emissions (Medium) → Hazardous materials (High)
+**Step 1: Review the capability taxonomy**
+Manufacturing organisations should significantly expand operational capabilities to include industrial equipment control, sensor data processing, and supply chain coordination. Under "System Management," they may need subcategories for industrial control systems ("ICS"), supervisory control and data acquisition ("SCADA") systems, and manufacturing execution systems ("MES"). The "Transactions" capability should be refined to distinguish between procurement, inventory management, and supplier communications, particularly important given Singapore's role as a regional manufacturing and logistics hub. They may also need to add capabilities for predictive maintenance, quality control analysis, and production optimization under a new "Industrial Operations" category.
 
-**Rationale:** Manufacturing faces physical safety risks, environmental regulations, and supply chain vulnerabilities that don't align with information-centric government criteria.
+**Step 2: Contextualise the risk mapping**
+Risk contextualisation must emphasize operational safety, production continuity, and supply chain security. "Misconfiguring system resources" becomes critical as it could shut down production lines or damage expensive equipment, violating standards like OSHA's safety standards and Singapore's Workplace Safety and Health Act. "Executing malicious code" takes on heightened significance in industrial environments where cyberattacks could cause physical damage or safety incidents, subject to frameworks like NIST's cybersecurity frameworks or Singapore's Cybersecurity Act requirements for critical information infrastructure. Risks should be mapped against industrial safety standards (ISO 45001, OSHA regulations, Singapore's WSH Act), quality management systems (ISO 9001), and cybersecurity frameworks for industrial control systems (IEC 62443, NIST, Singapore's Cybersecurity Agency guidelines).
 
-### Technology Platform Company
+**Step 3: Adapt the controls**
+Controls must integrate with existing industrial safety and quality management systems under both jurisdictions. "Scope system privileges strictly" becomes "Implement role-based access control aligned with safety integrity levels (SIL) and functional safety requirements". "Monitor system health metrics" transforms into "Integrate with plant-wide distributed control systems ("DCS") with automatic failsafe mechanisms compliant with prevailing regulations". Controls should align with manufacturing execution systems, integrate with existing maintenance management systems, and comply with industrial cybersecurity standards. Safety-critical systems may require redundant control mechanisms and fail-safe designs to meet the requisite safety standards.
 
-**Criteria Adaptation:**
-- **User Scale:** Internal tools (Low) → <1M users (Medium) → >1M users (High)
-- **Content Impact:** Feature functionality (Low) → Content moderation (Medium) → Algorithmic feed ranking (High)
-- **Platform Criticality:** Optional features (Low) → Core functionality (Medium) → Trust & safety systems (High)
+**Step 4: Define relevance criteria**
+Manufacturing organisations must balance operational efficiency with safety and continuity requirements under both regulatory environments. Risk tolerance varies significantly between safety-critical systems (very low tolerance) and optimisation systems (moderate tolerance). The relevance threshold should be set at 6 or above (3x2 or 2x3) for most systems, but any risk affecting safety-critical operations should be relevant regardless of score. Impact criteria must consider production downtime costs, equipment damage potential, worker safety implications, and supply chain disruption effects. Likelihood assessments should account for the industrial environment's complexity and the potential for cascading physical failures.
 
-**Rationale:** Tech platforms face unique risks around user manipulation, content amplification, and platform integrity that require scale-based and algorithmic impact considerations.
+**Step 5: Standardise and scale**
+The rollout must integrate with existing plant engineering, maintenance, and safety management systems, and training should be incorporated into existing safety training programs and technical competency development. The framework should align with manufacturing quality management systems and integrate with existing operational risk management processes, with regular reviews coinciding with planned maintenance shutdowns and safety audit cycles, thereby ensuring that AI governance becomes part of standard operational excellence programs.
 
-### Academic Research Institution
-
-**Criteria Adaptation:**
-- **Research Sensitivity:** Published research (Low) → Pre-publication findings (Medium) → Human subjects research (High)
-- **Institutional Impact:** Individual projects (Low) → Department-wide tools (Medium) → Institution-wide systems (High)
-- **Ethical Considerations:** No human impact (Low) → Indirect human impact (Medium) → Direct human subjects (High)
-
-**Rationale:** Academic institutions must balance research freedom with ethical obligations, institutional reputation, and varying levels of research sensitivity.
-
-## Key Adaptation Principles
-
-When adapting impact level criteria, organizations should consider:
-
-1. **Regulatory Environment:** What specific laws and regulations apply to your domain?
-2. **Stakeholder Impact:** Who could be harmed and how severely?
-3. **Organizational Risk Tolerance:** What level of risk is acceptable for different types of operations?
-4. **Operational Context:** What makes an AI system more or less critical in your specific environment?
-5. **Measurability:** Can the criteria be objectively assessed and consistently applied?
-
-The flexibility to adapt impact level criteria while maintaining the same control structure allows the framework to be broadly applicable across different domains while respecting the unique risk profiles and regulatory requirements each organization faces.
-
-
-
-
-
-
-**How the framework meets it:** 
-
-* Uses a hierarchical taxonomy with exhaustive Level 1 capabilities (Cognitive, Interaction, Operational) and extensible Level 2 capabilities beneath them
-* This structure helps organise discussions about different capabilities while allowing flexibility to add or remove specific capabilities as technology evolves
-* For example, new capabilities like hardware control (e.g. embodied AI) could be added under Interaction without restructuring the entire framework
-
-**How the framework meets it:**
-
-* AI systems can be described through combinations of capabilities regardless of their domain or use case. There is no defined threshold for when a system is "agentic" - it simply depends on the capabilities.
-* Everything from simple LLM chatbots (like ChatGPT) to more advanced agentic coding assistants (like Cursor, V0, or Replit) can be adequately described and managed using the ARC Framework.
-
-**How the framework meets it:**
-
-* Systems with more and riskier capabilities automatically have more risks and controls assigned under the ARC Framework - proportionality is an intrinsic part of the design
-* Impact levels (Low / Medium / High) based on data classification, domain, and target audience determine which controls apply
-* Clear progression shown: Pair Assistant (8 risks, 12 controls) → AI Bots (11 risks, 18 controls) → Spaceship (20 risks, 43 controls)
-* Controls are tagged with levels (LMH, MH, H) indicating which impact systems require them
-
-**How the framework meets it:**
-- Controls are written with minimal ambiguity (e.g., "Limit communications to standard processes where communication templates are available")
-- Controls are easily verifiable rather than vague statements
-- Proportional application - sensitive controls only required for medium/high impact systems
-- Covers both cybersecurity and responsible AI considerations
-- Consider practical implementation constraints
-
-**How the framework meets it:**
-- Simple compliance assessment: check that teams correctly identified capabilities and implemented required controls
-- Central governance teams can focus on maintaining the taxonomy, risk mapping, and control definitions rather than assessing each system individually
-- Easy to adjust overall risk posture by modifying impact levels or adding risks
-- Standardized approach allows consistent evaluation across all AI systems in an organization
 
