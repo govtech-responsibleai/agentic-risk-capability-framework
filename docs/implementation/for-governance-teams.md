@@ -1,8 +1,6 @@
 # For Governance Teams
 
 
-
-
 ## Desiderata for agentic AI governance
 
 In this subsection, we explain the five desiderata (or desired characteristics) for a good agentic AI governance framework. 
@@ -15,6 +13,95 @@ In this subsection, we explain the five desiderata (or desired characteristics) 
 |  4 | Recommend useful, concrete, proportional, and practical mitigation measures | Controls should be specific, implementable, appropriately scaled to risk, and feasible for teams to execute.                                            | Vague guidance leads to inconsistent implementation and security theatre rather than real risk reduction, while impractical or disproportionate controls either create excessive burden or inadequate protection. Concrete, actionable measures are essential for effective governance that protect the organisation from safety and security risks while not hindering legitimate AI deployment. |
 |  5 | Scale easily to manage and govern many AI systems                           | The framework should be efficient for organizations to implement across multiple AI systems without excessive overhead.                                 | Teams may start rapidly deploying multiple agentic AI systems within an organisation, and manual case-by-case governance assessments creates bottlenecks, inconsistencies, and vulnerabilities while preventing the organisation from scaling AI adoption safely and efficiently across different teams and use cases.                                                                            |
 
+
+## Impact Levels in the Framework
+
+### What Are Impact Levels?
+
+The framework uses a three-tier impact classification system (Low/Medium/High) that determines which technical controls are required for each AI system. Teams must select the **highest impact level** across any of the three criteria:
+
+**Current Criteria:**
+- **Data Classification:** Open data (Low) → Staff-only circulation (Medium) → Confidential (High)
+- **Domain:** All other use cases (Low) → Health/safety/compliance use cases (Medium) → National interest (High)
+- **Target Audience:** Internal-facing (Low) → Public facing (Medium) → Critical infrastructure (High)
+
+### Importance in the Framework
+
+**1. Proportional Risk Management**
+Impact levels ensure that more sensitive or critical AI systems receive appropriately stringent controls. For example, a simple internal chatbot (Low impact) might only need basic output filtering, while an AI system handling confidential national security data (High impact) would require comprehensive monitoring, human approval workflows, and regular audits.
+
+**2. Resource Optimization**
+By scaling control requirements with impact level, organizations avoid over-engineering low-risk systems while ensuring adequate protection for high-risk applications. This prevents governance from becoming a barrier to innovation on routine use cases.
+
+**3. Control Activation Logic**
+Controls are tagged with impact level requirements:
+- **LMH:** Required for all systems (fundamental protections)
+- **MH:** Required only for Medium and High impact systems (enhanced protections)
+- **H:** Required only for High impact systems (maximum protections)
+
+**4. Scalable Decision-Making**
+Impact levels provide a clear, objective way to determine control requirements without requiring case-by-case governance review, enabling the framework to scale across many AI systems efficiently.
+
+## Domain-Specific Adaptations
+
+Different organizations can adapt the impact level criteria to reflect their unique risk profiles and regulatory environments. Here are examples:
+
+### Healthcare Organization
+
+**Criteria Adaptation:**
+- **Patient Data Sensitivity:** De-identified research data (Low) → Individual patient records (Medium) → Genetic/psychiatric data (High)
+- **Clinical Decision Impact:** Administrative support (Low) → Clinical decision support (Medium) → Autonomous treatment recommendations (High)
+- **Regulatory Scope:** Internal research (Low) → FDA-regulated devices (Medium) → Life-critical interventions (High)
+
+**Rationale:** Healthcare organizations face unique risks around patient privacy (HIPAA), clinical safety, and medical device regulations that don't map well to generic "confidential data" categories.
+
+### Financial Services Institution
+
+**Criteria Adaptation:**
+- **Financial Impact:** <$10K exposure (Low) → $10K-$1M exposure (Medium) → >$1M exposure (High)
+- **Regulatory Classification:** Internal operations (Low) → Customer-facing services (Medium) → Trading/market-making systems (High)
+- **Data Sensitivity:** Public market data (Low) → Customer PII (Medium) → Trading algorithms/positions (High)
+
+**Rationale:** Financial institutions need to consider market impact, systemic risk, and specific financial regulations (SOX, Basel III) that require different thresholds than general government classifications.
+
+### Manufacturing Company
+
+**Criteria Adaptation:**
+- **Safety Impact:** Quality control (Low) → Equipment optimization (Medium) → Safety-critical systems (High)
+- **Operational Scope:** Single facility (Low) → Regional operations (Medium) → Global supply chain (High)
+- **Environmental Impact:** No environmental risk (Low) → Reportable emissions (Medium) → Hazardous materials (High)
+
+**Rationale:** Manufacturing faces physical safety risks, environmental regulations, and supply chain vulnerabilities that don't align with information-centric government criteria.
+
+### Technology Platform Company
+
+**Criteria Adaptation:**
+- **User Scale:** Internal tools (Low) → <1M users (Medium) → >1M users (High)
+- **Content Impact:** Feature functionality (Low) → Content moderation (Medium) → Algorithmic feed ranking (High)
+- **Platform Criticality:** Optional features (Low) → Core functionality (Medium) → Trust & safety systems (High)
+
+**Rationale:** Tech platforms face unique risks around user manipulation, content amplification, and platform integrity that require scale-based and algorithmic impact considerations.
+
+### Academic Research Institution
+
+**Criteria Adaptation:**
+- **Research Sensitivity:** Published research (Low) → Pre-publication findings (Medium) → Human subjects research (High)
+- **Institutional Impact:** Individual projects (Low) → Department-wide tools (Medium) → Institution-wide systems (High)
+- **Ethical Considerations:** No human impact (Low) → Indirect human impact (Medium) → Direct human subjects (High)
+
+**Rationale:** Academic institutions must balance research freedom with ethical obligations, institutional reputation, and varying levels of research sensitivity.
+
+## Key Adaptation Principles
+
+When adapting impact level criteria, organizations should consider:
+
+1. **Regulatory Environment:** What specific laws and regulations apply to your domain?
+2. **Stakeholder Impact:** Who could be harmed and how severely?
+3. **Organizational Risk Tolerance:** What level of risk is acceptable for different types of operations?
+4. **Operational Context:** What makes an AI system more or less critical in your specific environment?
+5. **Measurability:** Can the criteria be objectively assessed and consistently applied?
+
+The flexibility to adapt impact level criteria while maintaining the same control structure allows the framework to be broadly applicable across different domains while respecting the unique risk profiles and regulatory requirements each organization faces.
 
 
 
