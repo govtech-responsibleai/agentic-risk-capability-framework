@@ -21,9 +21,11 @@ In this section, we list the baseline risks from (i) the components of an agent 
 | <a name="memory-privacy-leakage"></a>Memory | [Agents may inadvertently store sensitive user or organisational data from prior interactions, resulting in data privacy risks.](controls.md#memory-privacy-leakage)[^13]|
 | <a name="memory-hallucination-persistence"></a>Memory | [Agents may mistakenly save momentary glitches and hallucinations into memory, resulting in compounding mistakes when the agent relies on the incorrect information for its decision or actions.](controls.md#memory-hallucination-persistence)|
 | <a name="architecture-error-propagation"></a>Agentic Architecture | [In linear agentic pipelines where each stage blindly trusts the previous stage, single early mistakes may be propagated and magnified.](controls.md#architecture-error-propagation)[^15] |
-| <a name="architecture-single-point-failure"></a>Agentic Architecture | [In hub-and-spoke architectures which route all decisions through one controller agent, any bug or compromise may distributes faulty instructions across the entire system.](controls.md#architecture-single-point-failure)|
+| <a name="architecture-single-point-failure"></a>Agentic Architecture | [In hub-and-spoke architectures which route all decisions through one controller agent, any bug or compromise may distributes faulty instructions across the entire system.](controls.md#architecture-single-point-failure)[^16]|
 | <a name="architecture-decision-traceability"></a>Agentic Architecture | [More complex agentic architectures may make it difficult to fully reconstruct decision processes across multiple agents.](controls.md#architecture-decision-traceability)|
-| <a name="access-tbc"></a>Roles and Access Controls | tbc |
+| <a name="access-role-impersonation"></a>Roles and Access Controls | [Unauthorised actors can impersonate agents and gain access to restricted resources.](controls.md/#access-role-impersonation)[^17] |
+| <a name="access-misconfigured-roles"></a>Roles and Access Controls | [Agents may gain unauthorized access to restricted resources by exploiting misconfigured or overly permissive roles.](controls.md/#access-misconfigured-roles)[^18] |
+
 
 <!-- footnotes -->
 
@@ -44,5 +46,9 @@ In this section, we list the baseline risks from (i) the components of an agent 
 [^13]: [SoK: The Privacy Paradox of Large Language Models: Advancements, Privacy Risks, and Mitigation (Shanmugarasa et al, 2025)](https://arxiv.org/abs/2506.12699v2)
 [^14]: [Emergent social conventions and collective bias in LLM populations (Ashery et al, 2025)](https://arxiv.org/abs/2410.08948v2)
 [^15]: [On the Resilience of LLM-Based Multi-Agent Collaboration with Faulty Agents (Huang et al, 2025)](https://arxiv.org/abs/2408.00989v3)
+[^16]: Peigné-Lefebvre et al. Multi-Agent Security Tax: Trading Off Security and Collaboration Capabilities in [^16]Multi-Agent Systems. arXiv preprint arXiv:2502.19145, 2025. <https://arxiv.org/pdf/2502.19145>, Accessed: 2025‑07‑27.
+[^17]: Chen et al. AI Agents Are Here. So Are the Threats. Palo Alto Networks Unit 42 blog, May 1 2025. <https://unit42.paloaltonetworks.com/agentic-ai-threats/>, Accessed: 2025‑07‑27.
+[^18]: Goutham A S. Escaping Reality: Privilege Escalation in Gen AI Admin Panel (aka The Chaos of a Misconfigured Admin Panel). Medium blog, Sept 23 2024. <https://cyberweapons.medium.com/escaping-reality-privilege-escalation-in-gen-ai-admin-panel-aka-the-chaos-of-a-misconfigured-b6ad73bf1b65>, Accessed: 2025‑07‑27.
+
 
 ---
