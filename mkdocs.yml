@@ -74,7 +74,9 @@ nav:
     - Risks: capability/risks.md
     - Controls: capability/controls.md
   - Implementation:
-    - implementation/index.md
+    - Implementing ARC: implementation/index.md
+    - For AI Developers: implementation/for-ai-developers.md
+    - For Governance Teams: implementation/for-governance-teams.md
 # Plugins
 plugins:
   - search
