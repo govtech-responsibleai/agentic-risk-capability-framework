@@ -21,7 +21,7 @@ The choice of LLM has significant implications for the safety and security of th
 
 What sets agents apart from standard LLM applications is the ability to autonomously execute actions, and the most critical enabler of that is tool use. Tools transform the agent from a passive conversational system into **an active problem-solver that can manipulate files, query databases, control devices, or access APIs based on the LLM's reasoning and user needs.** Underlying the ecosystem of tools for agents is the Model Context Protocol ("MCP"), which provides a consistent interface for LLMs to discover and interact with a variety of external tools and services, thereby enabling simpler actions from executing code on the local `bash` terminal as well as more complex ones like merging pull requests on GitHub automatically. 
 
-Tools are closely related to capabilities because tools enable capabilities - executing code or reading databases would not be possible without a MCP server to bridge between the LLM and the external tool (i.e. the `bash` terminal or the Postgres database). However, tools are distinct from capabilities (see the previous section [Why the ARC Framework?](../intro/why_arc.md#why-focus-on-capabilities) for the full discussion), and we analyse them as a distinct component of an agent.
+Tools are closely related to capabilities because tools enable capabilities - executing code or reading databases would not be possible without a MCP server to bridge between the LLM and the external tool (i.e. the `bash` terminal or the Postgres database). However, tools are distinct from capabilities (see the previous section [Why the ARC Framework?](../intro/why_arc.md#what-is-different-about-the-arc) for the full discussion), and we analyse them as a distinct component of an agent.
 
 While the risks relating to tools tend to be linked to their capabilities (e.g. code execution risks arise from having access to the `bash` terminal), there are some common risks which are shared by all tools, such as weak authentication protocols, rogue MCP tools, or vulnerability to prompt injections. Basic hygiene standards for the use of tools in agentic AI systems may be needed to manage these risks.
 
@@ -43,7 +43,7 @@ We now broaden our perspective to examine how agentic AI systems are assembled f
 
 ### Agentic Architecture
 
-The agentic architecture defines **how multiple agents are interconnected, coordinated, and orchestrated to collectively solve complex tasks that exceed individual agent capabilities**, including patterns like hierarchical delegation, parallel processing, or sequential handoffs between specialised agents. One key aspect of any agentic architecture is the level of agentic autonomy, or the range of decisions that agents are permitted to make.[^3] 
+The agentic architecture defines **how multiple agents are interconnected, coordinated, and orchestrated to collectively solve complex tasks that exceed individual agent capabilities**, including patterns like hierarchical delegation, parallel processing, or sequential handoffs between specialised agents. One key aspect of any agentic architecture is the level of agentic autonomy, or the range of decisions that agents are permitted to make.[^1] 
 
 <img src="../assets/agent-workflows.png" alt="Agentic architectures" style="width: min(600px, 50%); display: block; margin: 0 auto;">
 <font style="font-style: italic; text-align: center;">Figure 2: Illustration of two different agentic architectures</font>
@@ -62,5 +62,4 @@ Defining roles and access controls poorly may result in agents having unauthoris
 
 <!---- footnotes --->
 
-[^1]: While this is not always the case
-[^3]: <https://developer.nvidia.com/blog/agentic-autonomy-levels-and-security/> or <https://huggingface.co/blog/ethics-soc-7>
+[^1]: These are often described as levels of agency, see: <https://developer.nvidia.com/blog/agentic-autonomy-levels-and-security/> or <https://huggingface.co/blog/ethics-soc-7>

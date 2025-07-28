@@ -34,11 +34,11 @@ To cite our work, please use the following BibText citation:
     author  = {Khoo, Shaun and Foo, Jessica and Lee, Roy Ka-Wei},
     year    = {2025},
     month   = {July},
-    url     = {tbc}
+    url     = {https://govtech-responsibleai.github.io/agentic-risk-capability-framework/}
 }
 ```
 
 Alternatively, you may use the APA-formatted citation below:
 
-> Khoo, S. & Foo, J. & Lee, R. K.-W. (2025) Agentic Risk & Capability Framework. URL <>
+> Khoo, S. & Foo, J. & Lee, R. K.-W. (2025) Agentic Risk & Capability Framework. URL <https://govtech-responsibleai.github.io/agentic-risk-capability-framework/>
 
