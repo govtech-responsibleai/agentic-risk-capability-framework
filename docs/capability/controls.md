@@ -67,6 +67,7 @@ For each capability and risk combination identified in the previous sections, we
 | Operational | Code Execution | Executing vulnerable or malicious code | Create a Deny list of commands that agents are not allowed to run autonomously |
 | Operational | File & Data Management | <a name="operational-files-overwrite-delete"></a>Overwriting or deleting database tables or files | No write access to tables in the database unless strictly required |
 | Operational | File & Data Management | Overwriting or deleting database tables or files | Require human approval for any changes to the database, table, or file |
+| Operational | File & Data Management | Overwriting or deleting database tables or files | Avoid mounting broad or persistant paths |
 | Operational | File & Data Management | <a name="operational-files-query-overload"></a>Overwhelming the database with poor, inefficient, or repeated queries | Limit the number of concurrent queries to the database from the agent |
 | Operational | File & Data Management | Overwhelming the database with poor, inefficient, or repeated queries | Analyse past database queries to identify repeated or inefficient queries |
 | Operational | File & Data Management | <a name="operational-files-data-exposure"></a>Exposing personally identifiable or sensitive data from databases or files | Implement input guardrails to detect personally identifiable information |
