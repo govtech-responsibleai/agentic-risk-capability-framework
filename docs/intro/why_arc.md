@@ -28,7 +28,7 @@ Instead of providing a list of risks and controls upfront, some works have inste
 
 ## What is different about the ARC? 
 
-The ARC builds on existing works to enable organizations to govern agentic systems effectively and provide practical guidance in assessing and mitigating the associated risks. Importantly, it attempts to structure the risks and controls identified in existing works into a unified and actionable framework. This is achieved mainly by including and differentiating between **baseline** and **capability** risks and controls. With a structured approach, the ARC attempts to strike an appropriate balance between:
+The ARC builds on existing works to ena ble organisations to govern agentic systems effectively and provide practical guidance in assessing and mitigating the associated risks. Importantly, it attempts to structure the risks and controls identified in existing works into a unified and actionable framework. This is achieved mainly by including and differentiating between **baseline** and **capability** risks and controls. With a structured approach, the ARC attempts to strike an appropriate balance between:
 
 * **Thoroughly mapping out the risk landscape, and not being too inflexible to changes** - Instead of listing out all possible agentic risks upfront, the ARC ties capabilities to risks, providing flexibility for identifying more risks as agentic systems acquire more capabilities
 * **Being applicable and adaptable to all agentic AI systems, and not being too generic or watered down** - The ARC combines both generic (i.e., baseline) and specific (i.e., capability) risks and controls to ensure broad applicability and minimal standards while mantaining customisability

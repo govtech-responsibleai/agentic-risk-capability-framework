@@ -2,7 +2,7 @@
 
 For teams building agentic AI systems, the ARC Framework provides a good starting point for thinking through the risks and controls required to manage safety and security risks. Instead of having to brainstorm a laundry list from scratch, teams can use the ARC Framework and adapt it to the specifics of their agentic AI system.
 
-The aim of this section is to help AI development teams understand and apply the ARC Framework to their own agentic AI systems. The first sub-section provides a general explanation of how teams can apply the ARC Framework to their own agentic AI systems, and the second sub-sections provides a case study to illustrate how this would work for real-world agentic AI systems. 
+The aim of this section is to help AI development teams understand and apply the ARC Framework to their own agentic AI systems. The first sub-section provides a general explanation of how teams can apply the ARC Framework to their own agentic AI systems, and the second sub-section provides an example to illustrate how this would work for real-world agentic AI systems. 
 
 ## Applying the framework
 
@@ -36,7 +36,7 @@ With the controls in place, teams should assess what the residual risks are and 
 
 If teams find that the residual risks are still unacceptable, then more controls would be needed to reduce either the likelihood or impact of the risk. 
 
-## Case Study: Agentic Fact Checker
+## Example: Agentic Fact Checker
 
 Fact-checking is a very time-consuming process, requiring deep thought about each claim, what evidence there is for that claim, and whether it is sufficient to support that claim. Our colleagues in the AI Practice recently developed an agentic fact-checking system (read their [Agentic AI Primer](https://playbooks.aip.gov.sg/agentic-ai-primer/09_applications_for_singapore_govt/) for details), using a complex multi-agent architecture with capabilities spanning cognitive reasoning, web search, database operations, and natural language generation to validate the veracity of any claim that is made. 
 

@@ -1,6 +1,6 @@
 # Implementating the ARC Framework
 
-A well-known adage in the Singapore civil service is "Policy is implementation and implementation is policy",[^1] and this is resoundingly true for AI governance. qThe ARC Framework aims to **bridge the gap between academic work on agentic AI safety and security with real-world governance considerations** by synthesising a systematic way to:
+A well-known adage in the Singapore civil service is "Policy is implementation and implementation is policy",[^1] and this is resoundingly true for AI governance. The ARC Framework aims to **bridge the gap between academic work on agentic AI safety and security with real-world governance considerations** by synthesising a systematic way to:
 
 * Anticipate safety and security risks before they manifest
 * Scale governance across diverse AI applications
@@ -8,7 +8,10 @@ A well-known adage in the Singapore civil service is "Policy is implementation a
 * Focus human oversight on critical decisions
 * Adapt to technological change without rebuilding governance
 
-Here, we outline how two different parties, AI developers and governance teams, can apply the ARC Framework for their own use. For AI developers, the ARC Framework helps in identifying the relevant risks and controls to mitigate the safety and security risks for their agentic AI system. For governance teams, the ARC Framework provides a scalable and sustainable way to manage the immediate and emergent risks of agentic AI systems in their organisation. 
+Here, we outline how two different parties, AI developers and governance teams, can apply the ARC Framework for their own use. 
+
+* For **governance teams**, the ARC Framework provides a scalable and sustainable way to manage the immediate and emergent risks of agentic AI systems in their organisation. 
+* For **AI developers**, the ARC Framework helps in identifying the relevant risks and controls to mitigate the safety and security risks for their agentic AI system. 
 
 <!-- footnote -->
 

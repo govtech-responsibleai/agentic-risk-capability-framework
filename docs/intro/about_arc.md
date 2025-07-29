@@ -32,22 +32,17 @@ Find out more in [our dedicated section on capability risks](../capability/index
 
 ## Implementation
 
-A well-known adage in the Singapore civil service is "Policy is implementation and implementation is policy",[^4] and this is resoundingly true for AI governance. In designing this framework, we took much care to consider the concerns of both policymakers and developers, and the unique characteristics of the Singapore government context: 
+Frameworks are only as useful when they are applied to real-world use. In designing this framework, we took much care to consider the practical constraints that organisations face as well as the competing concerns of governance teams and AI developers.
 
-- **Diverse use cases** - the Singapore Government oversees many domains, such as healthcare, education and the environment, on top of the wide array of horizontals (e.g., finance, HR) 
-- **Varying capabilities** - Few agencies understand agentic AI systems, uch less how to manage, identify or govern their risks 
-- **Large scale** - There will be many prototypes, products and systems with some agentic AI component, but will have different architectures 
-- **Semi-centralised governance** - Individual agencies should be ultimately responsible for their own products and systems, with the one governing authority providing centralised support and guidance 
+To make the ARC Framework easier to implement, we provide detailed step-by-step approaches for **how governance teams can implement the ARC Framework at an organisational level** as well as **how AI developers can apply the ARC Framework to manage the safety and security risks at a system level**. We also go through detailed examples to illustrate how this would work in specific situations. 
 
-Given these characteristics, we apply the ARC to the Singapore government context, providing a step-by-step guide for both policymakers (i.e. how to assess the capabilities of an agentic AI system) and developers (i.e. how to contextualise the recommended control for your system).
+Find out more in [our dedicated section on implementation](../implementation/index.md).
 
 <!-- to ensure that the framework strikes an appropriate balance between:
 * Thoroughly mapping out the risk landscape, and not being too inflexible to changes
 * Being applicable and adaptable to all agentic AI systems, and not being too generic or watered down
 * Providing meaningful guidance on the risks and controls, and not being too prescriptive
 * Making it scalable at an organisation-level, and not simply being a paper exercise -->
-
-Find out more in [our dedicated section on implementation](../implementation/index.md).
 
  <!--- Footnotes below --->
 
