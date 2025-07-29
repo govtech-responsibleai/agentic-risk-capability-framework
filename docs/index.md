@@ -1,6 +1,6 @@
 # :material-shield-star: Agentic Risk & Capability Framework
 
-<img src="../assets/robot-banner.png" alt="Robot" style="width: min(600px, 50%); display: block; margin: 0 auto;">
+<img src="assets/robot-banner.png" alt="Robot" style="width: min(600px, 50%); display: block; margin: 0 auto;">
 
 We introduce the Agentic Risk & Capability ("ARC") Framework, a **technical governance framework** that enables organisations to manage the **safety and security risks of agentic AI systems** through **a risk-based approach**. We do this by:
 
