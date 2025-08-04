@@ -47,9 +47,9 @@ In this section, we list the baseline risks from (i) the components of an agent 
 [^12]: See [One Shot Dominance: Knowledge Poisoning Attack on Retrieval-Augmented Generation Systems (Chang et al, 2025)](https://arxiv.org/abs/2505.11548v2) and [PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models (Zou et al, 2025)](https://arxiv.org/abs/2402.07867) for text-based knowledge bases; see [PoisonedEye: Knowledge Poisoning Attack on Retrieval-Augmented Generation based Large Vision-Language Models (Zhang et al, 2025)](https://openreview.net/pdf?id=6SIymOqJlc) for image-based knowledge bases.
 [^13]: [SoK: The Privacy Paradox of Large Language Models: Advancements, Privacy Risks, and Mitigation (Shanmugarasa et al, 2025)](https://arxiv.org/abs/2506.12699v2)
 [^15]: [On the Resilience of LLM-Based Multi-Agent Collaboration with Faulty Agents (Huang et al, 2025)](https://arxiv.org/abs/2408.00989v3)
-[^16]: Peigné-Lefebvre et al. Multi-Agent Security Tax: Trading Off Security and Collaboration Capabilities in [^16]Multi-Agent Systems. arXiv preprint arXiv:2502.19145, 2025. <https://arxiv.org/pdf/2502.19145>, Accessed: 2025‑07‑27.
+[^16]: Peigné-Lefebvre et al. Multi-Agent Security Tax: Trading Off Security and Collaboration Capabilities in Multi-Agent Systems. arXiv preprint arXiv:2502.19145, 2025. <https://arxiv.org/pdf/2502.19145>, Accessed: 2025‑07‑27.
 [^17]: Chen et al. AI Agents Are Here. So Are the Threats. Palo Alto Networks Unit 42 blog, May 1 2025. <https://unit42.paloaltonetworks.com/agentic-ai-threats/>, Accessed: 2025‑07‑27.
 [^18]: Goutham A S. Escaping Reality: Privilege Escalation in Gen AI Admin Panel (aka The Chaos of a Misconfigured Admin Panel). Medium blog, Sept 23 2024. <https://cyberweapons.medium.com/escaping-reality-privilege-escalation-in-gen-ai-admin-panel-aka-the-chaos-of-a-misconfigured-b6ad73bf1b65>, Accessed: 2025‑07‑27.
-
+[^19]: Chan et al. Visibility into AI Agents. ACM FAccT 2024, 2024. <https://arxiv.org/abs/2401.13138>, Accessed: 2025-08-04.
 
 ---
