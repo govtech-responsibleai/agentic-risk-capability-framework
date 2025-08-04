@@ -25,6 +25,8 @@ In this section, we list the baseline risks from (i) the components of an agent 
 | <a name="architecture-decision-traceability"></a>Agentic Architecture | [More complex agentic architectures may make it difficult to fully reconstruct decision processes across multiple agents.](controls.md#architecture-decision-traceability)|
 | <a name="access-role-impersonation"></a>Roles and Access Controls | [Unauthorised actors can impersonate agents and gain access to restricted resources.](controls.md/#access-role-impersonation)[^17] |
 | <a name="access-misconfigured-roles"></a>Roles and Access Controls | [Agents may gain unauthorized access to restricted resources by exploiting misconfigured or overly permissive roles.](controls.md/#access-misconfigured-roles)[^18] |
+| <a name="monitoring-failure"></a>Monitoring and Traceability | [Lack of monitoring results in delayed detection of agent failures and downstream risks.](controls.md/#monitoring-failure)[^19] |
+| <a name="monitoring-audit"></a>Monitoring and Traceability | [Lack of traceability inhibit proper audit of decision-making paths in the event of failures.](controls.md/#monitoring-audit)[^18] |
 
 
 <!-- footnotes -->
