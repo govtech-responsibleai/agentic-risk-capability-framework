@@ -848,17 +848,17 @@
 </tr>
 <tr>
 <td>Cognitive</td>
-<td>Tool Use &amp; Delegation</td>
+<td>Agent Delegation</td>
 <td><a name="cognitive-tools-incorrect-assignment"></a><a href="../controls/#cognitive-tools-incorrect-assignment">Assigning tasks incorrectly to other agents</a><sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup></td>
 </tr>
 <tr>
 <td>Cognitive</td>
-<td>Tool Use &amp; Delegation</td>
+<td>Agent Delegation</td>
 <td><a name="cognitive-tools-malicious-use"></a><a href="../controls/#cognitive-tools-malicious-use">Attempting to use other agents maliciously</a><sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></td>
 </tr>
 <tr>
 <td>Cognitive</td>
-<td>Tool Use &amp; Delegation</td>
+<td>Tool Use</td>
 <td><a name="cognitive-tools-wrong-choice"></a><a href="../controls/#cognitive-tools-wrong-choice">Choosing the wrong tool for the given action or task</a><sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup></td>
 </tr>
 <tr>
@@ -948,98 +948,108 @@
 </tr>
 <tr>
 <td>Interaction</td>
-<td>Agent Communication</td>
-<td><a name="interaction-agent-data-exfiltration"></a><a href="../controls/#interaction-agent-data-exfiltration">Enabling the exfiltration of sensitive data</a><sup id="fnref:25"><a class="footnote-ref" href="#fn:25">25</a></sup></td>
+<td>Business Transactions</td>
+<td><a name="interaction-transactions-unauthorized"></a><a href="../controls/#interaction-transactions-unauthorized">Allowing unauthorised transactions</a><sup id="fnref:25"><a class="footnote-ref" href="#fn:25">25</a></sup></td>
 </tr>
 <tr>
 <td>Interaction</td>
-<td>Agent Communication</td>
-<td><a name="interaction-agent-insecure-communication"></a><a href="../controls/#interaction-agent-insecure-communication">Communicating insecurely resulting in man-in-the-middle attacks</a><sup id="fnref:26"><a class="footnote-ref" href="#fn:26">26</a></sup></td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Agent Communication</td>
-<td><a name="interaction-agent-message-misinterpretation"></a><a href="../controls/#interaction-agent-message-misinterpretation">Misinterpreting inter-agent messages due to poor formatting or weak protocols</a><sup id="fnref:27"><a class="footnote-ref" href="#fn:27">27</a></sup></td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Agent Communication</td>
-<td><a name="interaction-agent-prompt-injection"></a><a href="../controls/#interaction-agent-prompt-injection">Passing on prompt injection attacks across agents</a><sup id="fnref:28"><a class="footnote-ref" href="#fn:28">28</a></sup></td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Transactions</td>
-<td><a name="interaction-transactions-unauthorized"></a><a href="../controls/#interaction-transactions-unauthorized">Allowing unauthorised transactions</a><sup id="fnref:29"><a class="footnote-ref" href="#fn:29">29</a></sup></td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Transactions</td>
-<td><a name="interaction-transactions-credential-vulnerability"></a><a href="../controls/#interaction-transactions-credential-vulnerability">Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent</a><sup id="fnref:30"><a class="footnote-ref" href="#fn:30">30</a></sup></td>
+<td>Business Transactions</td>
+<td><a name="interaction-transactions-credential-vulnerability"></a><a href="../controls/#interaction-transactions-credential-vulnerability">Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent</a><sup id="fnref:26"><a class="footnote-ref" href="#fn:26">26</a></sup></td>
 </tr>
 <tr>
 <td>Interaction</td>
 <td>Internet &amp; Search Access</td>
-<td><a name="interaction-internet-prompt-injection"></a><a href="../controls/#interaction-internet-prompt-injection">Opening vulnerabilities to prompt injection attacks via malicious websites</a><sup id="fnref:31"><a class="footnote-ref" href="#fn:31">31</a></sup></td>
+<td><a name="interaction-internet-prompt-injection"></a><a href="../controls/#interaction-internet-prompt-injection">Opening vulnerabilities to prompt injection attacks via malicious websites</a><sup id="fnref:27"><a class="footnote-ref" href="#fn:27">27</a></sup></td>
 </tr>
 <tr>
 <td>Interaction</td>
 <td>Internet &amp; Search Access</td>
-<td><a name="interaction-internet-unreliable-info"></a><a href="../controls/#interaction-internet-unreliable-info">Returning unreliable information or websites</a><sup id="fnref:32"><a class="footnote-ref" href="#fn:32">32</a></sup></td>
+<td><a name="interaction-internet-unreliable-info"></a><a href="../controls/#interaction-internet-unreliable-info">Returning unreliable information or websites</a><sup id="fnref:28"><a class="footnote-ref" href="#fn:28">28</a></sup></td>
 </tr>
 <tr>
 <td>Interaction</td>
 <td>Computer Use</td>
-<td><a name="interaction-computer-prompt-injection"></a><a href="../controls/#interaction-computer-prompt-injection">Opening vulnerabilities to prompt injection attacks</a><sup id="fnref:33"><a class="footnote-ref" href="#fn:33">33</a></sup></td>
+<td><a name="interaction-computer-prompt-injection"></a><a href="../controls/#interaction-computer-prompt-injection">Opening vulnerabilities to prompt injection attacks</a><sup id="fnref:29"><a class="footnote-ref" href="#fn:29">29</a></sup></td>
 </tr>
 <tr>
 <td>Interaction</td>
 <td>Computer Use</td>
-<td><a name="interaction-computer-sensitive-access"></a><a href="../controls/#interaction-computer-sensitive-access">Accessing personally identifiable or sensitive data</a><sup id="fnref:34"><a class="footnote-ref" href="#fn:34">34</a></sup></td>
+<td><a name="interaction-computer-sensitive-access"></a><a href="../controls/#interaction-computer-sensitive-access">Accessing personally identifiable or sensitive data</a><sup id="fnref:30"><a class="footnote-ref" href="#fn:30">30</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td><a name="interaction-programmatic-sensitive"></a><a href="../controls/#interaction-programmatic-sensitive">Leaking personally identifiable or sensitive data</a><sup id="fnref:31"><a class="footnote-ref" href="#fn:31">31</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td><a name="interaction-programmatic-supply-chain"></a><a href="../controls/#interaction-programmatic-supply-chain">Increasing the system's vulnerability to supply chain attacks</a><sup id="fnref:32"><a class="footnote-ref" href="#fn:32">32</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-data-exfiltration"></a><a href="../controls/#interaction-agent-data-exfiltration">Enabling the exfiltration of sensitive data</a><sup id="fnref:33"><a class="footnote-ref" href="#fn:33">33</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-insecure-communication"></a><a href="../controls/#interaction-agent-insecure-communication">Communicating insecurely resulting in man-in-the-middle attacks</a><sup id="fnref:34"><a class="footnote-ref" href="#fn:34">34</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-message-misinterpretation"></a><a href="../controls/#interaction-agent-message-misinterpretation">Misinterpreting inter-agent messages due to poor formatting or weak protocols</a><sup id="fnref:35"><a class="footnote-ref" href="#fn:35">35</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-prompt-injection"></a><a href="../controls/#interaction-agent-prompt-injection">Passing on prompt injection attacks across agents</a><sup id="fnref:36"><a class="footnote-ref" href="#fn:36">36</a></sup></td>
 </tr>
 <tr>
 <td>Operational</td>
 <td>Code Execution</td>
-<td><a name="operational-code-poor-execution"></a><a href="../controls/#operational-code-poor-execution">Executing poor code</a><sup id="fnref:35"><a class="footnote-ref" href="#fn:35">35</a></sup></td>
+<td><a name="operational-code-poor-execution"></a><a href="../controls/#operational-code-poor-execution">Executing poor code</a><sup id="fnref:37"><a class="footnote-ref" href="#fn:37">37</a></sup></td>
 </tr>
 <tr>
 <td>Operational</td>
 <td>Code Execution</td>
-<td><a name="operational-code-malicious-execution"></a><a href="../controls/#operational-code-malicious-execution">Executing vulnerable or malicious code</a><sup id="fnref:36"><a class="footnote-ref" href="#fn:36">36</a></sup></td>
+<td><a name="operational-code-malicious-execution"></a><a href="../controls/#operational-code-malicious-execution">Executing vulnerable or malicious code</a><sup id="fnref:38"><a class="footnote-ref" href="#fn:38">38</a></sup></td>
 </tr>
 <tr>
 <td>Operational</td>
 <td>File &amp; Data Management</td>
-<td><a name="operational-files-overwrite-delete"></a><a href="../controls/#operational-files-overwrite-delete">Overwriting or deleting database tables or files</a><sup id="fnref:37"><a class="footnote-ref" href="#fn:37">37</a></sup></td>
+<td><a name="operational-files-overwrite-delete"></a><a href="../controls/#operational-files-overwrite-delete">Overwriting or deleting database tables or files</a><sup id="fnref:39"><a class="footnote-ref" href="#fn:39">39</a></sup></td>
 </tr>
 <tr>
 <td>Operational</td>
 <td>File &amp; Data Management</td>
-<td><a name="operational-files-query-overload"></a><a href="../controls/#operational-files-query-overload">Overwhelming the database with poor, inefficient, or repeated queries</a><sup id="fnref:38"><a class="footnote-ref" href="#fn:38">38</a></sup></td>
+<td><a name="operational-files-query-overload"></a><a href="../controls/#operational-files-query-overload">Overwhelming the database with poor, inefficient, or repeated queries</a><sup id="fnref:40"><a class="footnote-ref" href="#fn:40">40</a></sup></td>
 </tr>
 <tr>
 <td>Operational</td>
 <td>File &amp; Data Management</td>
-<td><a name="operational-files-data-exposure"></a><a href="../controls/#operational-files-data-exposure">Exposing personally identifiable or sensitive data from databases or files</a><sup id="fnref:39"><a class="footnote-ref" href="#fn:39">39</a></sup></td>
+<td><a name="operational-files-data-exposure"></a><a href="../controls/#operational-files-data-exposure">Exposing personally identifiable or sensitive data from databases or files</a><sup id="fnref:41"><a class="footnote-ref" href="#fn:41">41</a></sup></td>
 </tr>
 <tr>
 <td>Operational</td>
 <td>File &amp; Data Management</td>
-<td><a name="operational-files-prompt-injection"></a><a href="../controls/#operational-files-prompt-injection">Opening vulnerabilities to prompt injection attacks via malicious data or files</a><sup id="fnref:40"><a class="footnote-ref" href="#fn:40">40</a></sup></td>
+<td><a name="operational-files-prompt-injection"></a><a href="../controls/#operational-files-prompt-injection">Opening vulnerabilities to prompt injection attacks via malicious data or files</a><sup id="fnref:42"><a class="footnote-ref" href="#fn:42">42</a></sup></td>
 </tr>
 <tr>
 <td>Operational</td>
 <td>System Management</td>
-<td><a name="operational-system-privilege-escalation"></a><a href="../controls/#operational-system-privilege-escalation">Escalating the agent's own privileges</a><sup id="fnref:41"><a class="footnote-ref" href="#fn:41">41</a></sup></td>
+<td><a name="operational-system-privilege-escalation"></a><a href="../controls/#operational-system-privilege-escalation">Escalating the agent's own privileges</a><sup id="fnref:43"><a class="footnote-ref" href="#fn:43">43</a></sup></td>
 </tr>
 <tr>
 <td>Operational</td>
 <td>System Management</td>
-<td><a name="operational-system-misconfiguration"></a><a href="../controls/#operational-system-misconfiguration">Misconfiguring system resources, compromising system integrity and availability</a><sup id="fnref:42"><a class="footnote-ref" href="#fn:42">42</a></sup></td>
+<td><a name="operational-system-misconfiguration"></a><a href="../controls/#operational-system-misconfiguration">Misconfiguring system resources, compromising system integrity and availability</a><sup id="fnref:44"><a class="footnote-ref" href="#fn:44">44</a></sup></td>
 </tr>
 <tr>
 <td>Operational</td>
 <td>System Management</td>
-<td><a name="operational-system-request-overload"></a><a href="../controls/#operational-system-request-overload">Overwhelming the system with poor, inefficient, or repeated requests</a><sup id="fnref:43"><a class="footnote-ref" href="#fn:43">43</a></sup></td>
+<td><a name="operational-system-request-overload"></a><a href="../controls/#operational-system-request-overload">Overwhelming the system with poor, inefficient, or repeated requests</a><sup id="fnref:45"><a class="footnote-ref" href="#fn:45">45</a></sup></td>
 </tr>
 </tbody>
 </table>
@@ -1120,62 +1130,68 @@ preprint arXiv:2309.01219, 2023. <a href="https://arxiv.org/abs/2309.01219">http
 <p>See footnote 9.&#160;<a class="footnote-backref" href="#fnref:24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
 </li>
 <li id="fn:25">
-<p>Park, Sean. Unveiling AI Agent Vulnerabilities Part III: Data Exfiltration. TrendMicro, May 2025.  <a href="https://www.trendmicro.com/vinfo/sg/security/news/threat-landscape/unveiling-ai-agent-vulnerabilities-part-iii-data-exfiltration">https://www.trendmicro.com/vinfo/sg/security/news/threat-landscape/unveiling-ai-agent-vulnerabilities-part-iii-data-exfiltration</a>, Accessed: 2025-07-29.&#160;<a class="footnote-backref" href="#fnref:25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+<p>Kulp, Patrick. AI agents may be vulnerable to financial attacks. Tech Brew (Emerging Tech Brew), May 29 2025. <a href="https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks">https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
 </li>
 <li id="fn:26">
-<p>He et al. Red-Teaming LLM Multi-Agent Systems via Communication Attacks. arXiv preprint arXiv:2502.14847, 2025. <a href="https://arxiv.org/pdf/2502.14847">https://arxiv.org/pdf/2502.14847</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+<p>Alizadeh et al. Simple Prompt Injection Attacks Can Leak Personal Data Observed by LLM Agents During Task Execution. arXiv preprint arXiv:2506.01055, 2025. <a href="https://arxiv.org/pdf/2506.01055">https://arxiv.org/pdf/2506.01055</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
 </li>
 <li id="fn:27">
-<p>Kong et al. A Survey of LLM-Driven AI Agent Communication: Protocols, Security Risks, and Defense Countermeasures. arXiv preprint arXiv:2506.19676, 2025. <a href="https://arxiv.org/html/2506.19676">https://arxiv.org/html/2506.19676</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+<p>Chen et al. AI Agents Are Here—So Are the Threats: Unit 42 Unveils the Top 10 Agentic‑AI Security Risks. Palo Alto Networks Unit 42 blog, 2025. <a href="https://unit42.paloaltonetworks.com/agentic-ai-threats/">https://unit42.paloaltonetworks.com/agentic-ai-threats/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
 </li>
 <li id="fn:28">
-<p>Ferrag et al. From Prompt Injections to Protocol Exploits: Threats in LLM-Powered AI Agents Workflows. arXiv preprint arXiv:2506.23260, 2025. <a href="https://arxiv.org/html/2506.23260">https://arxiv.org/html/2506.23260</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+<p>Delaney, Max. Google's AI Overviews are often so confidently wrong that I've lost all trust in them. TechRadar, 2025. <a href="https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them">https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
 </li>
 <li id="fn:29">
-<p>Kulp, Patrick. AI agents may be vulnerable to financial attacks. Tech Brew (Emerging Tech Brew), May 29 2025. <a href="https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks">https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
+<p>Mudryi et al. The Hidden Dangers of Browsing AI Agents. arXiv preprint arXiv:2505.13076v1, 2025. <a href="https://arxiv.org/html/2505.13076v1">https://arxiv.org/html/2505.13076v1</a>, Accessed: 2025‑07‑27. Martin, Jason. Indirect Prompt Injection of Claude Computer Use. HiddenLayer blog, 2025. <a href="https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/">https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
 </li>
 <li id="fn:30">
-<p>Alizadeh et al. Simple Prompt Injection Attacks Can Leak Personal Data Observed by LLM Agents During Task Execution. arXiv preprint arXiv:2506.01055, 2025. <a href="https://arxiv.org/pdf/2506.01055">https://arxiv.org/pdf/2506.01055</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
+<p>Yang et al. RiOSWorld: Benchmarking the Risk of Multimodal Computer‑Use Agents. arXiv preprint arXiv:2506.00618, 2025. <a href="https://arxiv.org/html/2506.00618v3">https://arxiv.org/html/2506.00618v3</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
 </li>
 <li id="fn:31">
-<p>Chen et al. AI Agents Are Here—So Are the Threats: Unit 42 Unveils the Top 10 Agentic‑AI Security Risks. Palo Alto Networks Unit 42 blog, 2025. <a href="https://unit42.paloaltonetworks.com/agentic-ai-threats/">https://unit42.paloaltonetworks.com/agentic-ai-threats/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:31" title="Jump back to footnote 31 in the text">&#8617;</a></p>
+<p>Park, Sean. Unveiling AI Agent Vulnerabilities Part III: Data Exfiltration. TrendMicro, May 2025.  <a href="https://www.trendmicro.com/vinfo/sg/security/news/threat-landscape/unveiling-ai-agent-vulnerabilities-part-iii-data-exfiltration">https://www.trendmicro.com/vinfo/sg/security/news/threat-landscape/unveiling-ai-agent-vulnerabilities-part-iii-data-exfiltration</a>, Accessed: 2025-07-29.&#160;<a class="footnote-backref" href="#fnref:31" title="Jump back to footnote 31 in the text">&#8617;</a></p>
 </li>
 <li id="fn:32">
-<p>Delaney, Max. Google's AI Overviews are often so confidently wrong that I've lost all trust in them. TechRadar, 2025. <a href="https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them">https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:32" title="Jump back to footnote 32 in the text">&#8617;</a></p>
+<p>Unit 42. GitHub Actions Supply Chain Attack: A Targeted Attack on Coinbase Expanded to the Widespread tj-actions/changed-files Incident: Threat Assessment. Palo Alto Networks, Apr 2025.  <a href="https://unit42.paloaltonetworks.com/github-actions-supply-chain-attack/">https://unit42.paloaltonetworks.com/github-actions-supply-chain-attack/</a>, Accessed: 2025-08-04.&#160;<a class="footnote-backref" href="#fnref:32" title="Jump back to footnote 32 in the text">&#8617;</a></p>
 </li>
 <li id="fn:33">
-<p>Mudryi et al. The Hidden Dangers of Browsing AI Agents. arXiv preprint arXiv:2505.13076v1, 2025. <a href="https://arxiv.org/html/2505.13076v1">https://arxiv.org/html/2505.13076v1</a>, Accessed: 2025‑07‑27. Martin, Jason. Indirect Prompt Injection of Claude Computer Use. HiddenLayer blog, 2025. <a href="https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/">https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:33" title="Jump back to footnote 33 in the text">&#8617;</a></p>
+<p>Munoz, Alvaro. GHSL-2024-294: Environment variable injection leading to potential secret exfiltration and privilege escalation in Azure/cli. Security Lab, Dec 2024. <a href="https://securitylab.github.com/advisories/GHSL-2024-294_Azure-cli/?utm_source=chatgpt.com">https://securitylab.github.com/advisories/GHSL-2024-294_Azure-cli/?utm_source=chatgpt.com</a>, Accessed: 2025-08-04.&#160;<a class="footnote-backref" href="#fnref:33" title="Jump back to footnote 33 in the text">&#8617;</a></p>
 </li>
 <li id="fn:34">
-<p>Yang et al. RiOSWorld: Benchmarking the Risk of Multimodal Computer‑Use Agents. arXiv preprint arXiv:2506.00618, 2025. <a href="https://arxiv.org/html/2506.00618v3">https://arxiv.org/html/2506.00618v3</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:34" title="Jump back to footnote 34 in the text">&#8617;</a></p>
+<p>He et al. Red-Teaming LLM Multi-Agent Systems via Communication Attacks. arXiv preprint arXiv:2502.14847, 2025. <a href="https://arxiv.org/pdf/2502.14847">https://arxiv.org/pdf/2502.14847</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:34" title="Jump back to footnote 34 in the text">&#8617;</a></p>
 </li>
 <li id="fn:35">
-<p>Spracklen et al. We Have a Package for You! A Comprehensive Analysis of Package Hallucinations
-by Code Generating LLMs. USENIX Security Symposium 2025 (preprint), 2025. <a href="https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf">https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf</a>, Accessed: 2025‑07‑27. METR. Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity. METR blog, July 10 2025. <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/</a>, Accessed: 2025‑07‑27. Guo et al. RedCode: Risky Code Execution and Generation Benchmark for Code Agents. NeurIPS 2024 Datasets and Benchmarks Track, 2024. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html">https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:35" title="Jump back to footnote 35 in the text">&#8617;</a></p>
+<p>Kong et al. A Survey of LLM-Driven AI Agent Communication: Protocols, Security Risks, and Defense Countermeasures. arXiv preprint arXiv:2506.19676, 2025. <a href="https://arxiv.org/html/2506.19676">https://arxiv.org/html/2506.19676</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:35" title="Jump back to footnote 35 in the text">&#8617;</a></p>
 </li>
 <li id="fn:36">
-<p>Peng et al. CWEVAL: Outcome‑driven Evaluation on Functionality and Security of LLM Code Generation. arXiv preprint arXiv:2501.08200, 2025. <a href="https://arxiv.org/pdf/2501.08200">https://arxiv.org/pdf/2501.08200</a>, Accessed: 2025‑07‑27. Dilgren et al. SecRepoBench: Benchmarking LLMs for Secure Code Generation in Real-World Repositories. arXiv preprint arXiv:2504.21205, 2025. <a href="https://arxiv.org/html/2504.21205v1">https://arxiv.org/html/2504.21205v1</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:36" title="Jump back to footnote 36 in the text">&#8617;</a></p>
+<p>Ferrag et al. From Prompt Injections to Protocol Exploits: Threats in LLM-Powered AI Agents Workflows. arXiv preprint arXiv:2506.23260, 2025. <a href="https://arxiv.org/html/2506.23260">https://arxiv.org/html/2506.23260</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:36" title="Jump back to footnote 36 in the text">&#8617;</a></p>
 </li>
 <li id="fn:37">
-<p>Pedro et al. Holodeck: Prompt-to-SQL Injections in LLM-Integrated Web Applications: Risks and Defenses. ICSE 2025 research track. <a href="https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf">https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:37" title="Jump back to footnote 37 in the text">&#8617;</a></p>
+<p>Spracklen et al. We Have a Package for You! A Comprehensive Analysis of Package Hallucinations
+by Code Generating LLMs. USENIX Security Symposium 2025 (preprint), 2025. <a href="https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf">https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf</a>, Accessed: 2025‑07‑27. METR. Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity. METR blog, July 10 2025. <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/</a>, Accessed: 2025‑07‑27. Guo et al. RedCode: Risky Code Execution and Generation Benchmark for Code Agents. NeurIPS 2024 Datasets and Benchmarks Track, 2024. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html">https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:37" title="Jump back to footnote 37 in the text">&#8617;</a></p>
 </li>
 <li id="fn:38">
-<p>Ramirez et al. Which LLM Writes the Best SQL? Benchmarking analytical SQL generation by LLMs. Tinybird Blog, 2025. <a href="https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql">https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:38" title="Jump back to footnote 38 in the text">&#8617;</a></p>
+<p>Peng et al. CWEVAL: Outcome‑driven Evaluation on Functionality and Security of LLM Code Generation. arXiv preprint arXiv:2501.08200, 2025. <a href="https://arxiv.org/pdf/2501.08200">https://arxiv.org/pdf/2501.08200</a>, Accessed: 2025‑07‑27. Dilgren et al. SecRepoBench: Benchmarking LLMs for Secure Code Generation in Real-World Repositories. arXiv preprint arXiv:2504.21205, 2025. <a href="https://arxiv.org/html/2504.21205v1">https://arxiv.org/html/2504.21205v1</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:38" title="Jump back to footnote 38 in the text">&#8617;</a></p>
 </li>
 <li id="fn:39">
-<p>Poireault, Kevin. Microsoft 365 Copilot hit by a zero‑click AI vulnerability allowing data exfiltration. Infosecurity Magazine, 2025. <a href="https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/">https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:39" title="Jump back to footnote 39 in the text">&#8617;</a></p>
+<p>Pedro et al. Holodeck: Prompt-to-SQL Injections in LLM-Integrated Web Applications: Risks and Defenses. ICSE 2025 research track. <a href="https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf">https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:39" title="Jump back to footnote 39 in the text">&#8617;</a></p>
 </li>
 <li id="fn:40">
-<p>diskordia. Inside CVE-2025-32711 (EchoLeak): Prompt injection meets AI exfiltration. Hack The Box Blog, 2025. <a href="https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability">https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</a>, Accessed: 2025‑07‑27. Burgess, Matt. Here Come the AI Worms. WIRED, 2025. <a href="https://www.wired.com/story/here-come-the-ai-worms/">https://www.wired.com/story/here-come-the-ai-worms/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:40" title="Jump back to footnote 40 in the text">&#8617;</a></p>
+<p>Ramirez et al. Which LLM Writes the Best SQL? Benchmarking analytical SQL generation by LLMs. Tinybird Blog, 2025. <a href="https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql">https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:40" title="Jump back to footnote 40 in the text">&#8617;</a></p>
 </li>
 <li id="fn:41">
-<p>Kim et al. Prompt Flow Integrity to Prevent Privilege Escalation in LLM Agents. arXiv preprint arXiv:2503.15547v1, 2025. <a href="https://arxiv.org/html/2503.15547v1">https://arxiv.org/html/2503.15547v1</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:41" title="Jump back to footnote 41 in the text">&#8617;</a></p>
+<p>Poireault, Kevin. Microsoft 365 Copilot hit by a zero‑click AI vulnerability allowing data exfiltration. Infosecurity Magazine, 2025. <a href="https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/">https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:41" title="Jump back to footnote 41 in the text">&#8617;</a></p>
 </li>
 <li id="fn:42">
-<p>Kon et al. IaC-Eval: A Code Generation Benchmark for Cloud Infrastructure-as-Code Programs. NeurIPS 2024 poster, 2024. <a href="https://neurips.cc/virtual/2024/poster/97835">https://neurips.cc/virtual/2024/poster/97835</a>, Accessed: 2025‑07‑27. Romeo et al. ARPaCCino: An Agentic-RAG for Policy as Code Compliance. arXiv preprint arXiv:2507.10584v1, 2025. <a href="https://arxiv.org/html/2507.10584v1">https://arxiv.org/html/2507.10584v1</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:42" title="Jump back to footnote 42 in the text">&#8617;</a></p>
+<p>diskordia. Inside CVE-2025-32711 (EchoLeak): Prompt injection meets AI exfiltration. Hack The Box Blog, 2025. <a href="https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability">https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</a>, Accessed: 2025‑07‑27. Burgess, Matt. Here Come the AI Worms. WIRED, 2025. <a href="https://www.wired.com/story/here-come-the-ai-worms/">https://www.wired.com/story/here-come-the-ai-worms/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:42" title="Jump back to footnote 42 in the text">&#8617;</a></p>
 </li>
 <li id="fn:43">
-<p>Zhang et al. Breaking Agents: Compromising Autonomous LLM Agents Through Malfunction Amplification. arXiv preprint arXiv:2407.20859v1, 2024. <a href="https://arxiv.org/html/2407.20859v1">https://arxiv.org/html/2407.20859v1</a>, Accessed: 2025‑07‑27. OWASP. LLMRISK‑102025: Unbounded Consumption. OWASP GenAI Risk Database, 2025. <a href="https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/">https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:43" title="Jump back to footnote 43 in the text">&#8617;</a></p>
+<p>Kim et al. Prompt Flow Integrity to Prevent Privilege Escalation in LLM Agents. arXiv preprint arXiv:2503.15547v1, 2025. <a href="https://arxiv.org/html/2503.15547v1">https://arxiv.org/html/2503.15547v1</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:43" title="Jump back to footnote 43 in the text">&#8617;</a></p>
+</li>
+<li id="fn:44">
+<p>Kon et al. IaC-Eval: A Code Generation Benchmark for Cloud Infrastructure-as-Code Programs. NeurIPS 2024 poster, 2024. <a href="https://neurips.cc/virtual/2024/poster/97835">https://neurips.cc/virtual/2024/poster/97835</a>, Accessed: 2025‑07‑27. Romeo et al. ARPaCCino: An Agentic-RAG for Policy as Code Compliance. arXiv preprint arXiv:2507.10584v1, 2025. <a href="https://arxiv.org/html/2507.10584v1">https://arxiv.org/html/2507.10584v1</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:44" title="Jump back to footnote 44 in the text">&#8617;</a></p>
+</li>
+<li id="fn:45">
+<p>Zhang et al. Breaking Agents: Compromising Autonomous LLM Agents Through Malfunction Amplification. arXiv preprint arXiv:2407.20859v1, 2024. <a href="https://arxiv.org/html/2407.20859v1">https://arxiv.org/html/2407.20859v1</a>, Accessed: 2025‑07‑27. OWASP. LLMRISK‑102025: Unbounded Consumption. OWASP GenAI Risk Database, 2025. <a href="https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/">https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:45" title="Jump back to footnote 45 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

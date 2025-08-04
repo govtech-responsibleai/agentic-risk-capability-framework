@@ -606,6 +606,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#monitoring-and-traceability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring and Traceability
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -963,6 +972,10 @@
 <p>Roles and access controls <strong>establish differentiated responsibilities and permissions across agents within the system</strong>, ensuring that each agent operates within appropriate boundaries while being able to fulfill its designated function. This is critical because it limits unauthorised actions, contains the blast radius of potential failures or security breaches, and enables the system to maintain reliability even when individual agents may be compromised or behave unexpectedly.</p>
 <p>There are various possible roles depending on the level of specialisation required, such as orchestrator agents that manage workflows, specialist agents that perform pre-defined technical functions, or interface agents that handle external communications. Returning to our earlier example, some types of agents in a customer support system may include intake agents that receive and classify queries, knowledge agents that search documentation for answers, and response agents that craft and send customer communications. In contrast, an internal analytics system would employ different roles, such as data ingestion agents to collect information from various sources, analysis agents to generate insights, and reporting agents to create visualizations and reports.</p>
 <p>Defining roles and access controls poorly may result in agents having unauthorised access to data or systems, allowing compromised agents to delete files, steal information, or break critical systems. Additionally, agents may inherit too many privileges from shared accounts, meaning a simple data processing agent could accidentally cause major damage because it has access to powerful system controls it was never meant to use.</p>
+<h3 id="monitoring-and-traceability">Monitoring and Traceability</h3>
+<p>Monitoring and traceability enable visibility into agentic system behaviour, interactions, and decision-making pathways, allowing developers and operators to understand what agents are doing, why they made particular choices, and how outcomes were produced. This capability is essential for post-hoc debugging, real-time anomaly detection, and establishing accountability particularly when agents operate with a degree of autonomy or interact with sensitive systems and data.</p>
+<p>Effective monitoring involves logging key agent actions, inputs and outputs, tool usage, and communication between agents or with external systems. Traceability goes a step further by linking these records together into coherent execution traces or decision trees that reflect the flow of information and control across the system. For example, in an automated loan approval system, traceability would reveal not just the final decision but also how the credit scoring agent, document parser, and fraud detection agent each contributed to it. This can be crucial for audits, regulatory compliance, or user explanations.</p>
+<p>Insufficient monitoring and traceability pose significant risks. Without visibility, it becomes difficult to detect when agents are malfunctioning, making biased or unsafe decisions, or deviating from their intended behaviour. It also creates blind spots where malicious activity can go unnoticed. In high-stakes domains, a lack of traceability can prevent incident investigation and undermine trust.</p>
 <!---- footnotes --->
 
 <div class="footnote">

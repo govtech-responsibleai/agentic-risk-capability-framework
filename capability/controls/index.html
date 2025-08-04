@@ -877,147 +877,27 @@
 </tr>
 <tr>
 <td>Cognitive</td>
-<td>Tool Use &amp; Delegation</td>
+<td>Agent Delegation</td>
 <td><a name="cognitive-tools-incorrect-assignment"></a>Assigning tasks incorrectly to other agents</td>
 <td>Apply guardrails to limit the scope of tasks that can be assigned to specialised agents</td>
 </tr>
 <tr>
 <td>Cognitive</td>
-<td>Tool Use &amp; Delegation</td>
+<td>Agent Delegation</td>
 <td><a name="cognitive-tools-malicious-use"></a>Attempting to use other agents maliciously</td>
 <td>Log all task assignments by the agent to other agents</td>
 </tr>
 <tr>
 <td>Cognitive</td>
-<td>Tool Use &amp; Delegation</td>
+<td>Agent Delegation</td>
 <td>Attempting to use other agents maliciously</td>
 <td>Conduct rigorous adversarial testing on centralised planning agents</td>
 </tr>
 <tr>
 <td>Cognitive</td>
-<td>Tool Use &amp; Delegation</td>
+<td>Tool Use</td>
 <td><a name="cognitive-tools-wrong-choice"></a>Choosing the wrong tool for the given action or task</td>
 <td>Provide comprehensive descriptions of each tool, including its intended use, required inputs, and potential outputs</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Agent Communication</td>
-<td><a name="interaction-agent-data-exfiltration"></a>Enabling the exfiltration of sensitive data</td>
-<td>Implement a whitelist approach for outward network access, including API requests</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Agent Communication</td>
-<td>Enabling the exfiltration of sensitive data</td>
-<td>Ensure that sensitive data is not passed and leaked between agents by using appropriate guardrails</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Agent Communication</td>
-<td><a name="interaction-agent-insecure-communication"></a>Communicating insecurely resulting in man-in-the-middle attacks</td>
-<td>Ensure all cross-agent authentication and message validation and encryption where necessary</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Agent Communication</td>
-<td><a name="interaction-agent-message-misinterpretation"></a>Misinterpreting inter-agent messages due to poor formatting or weak protocols</td>
-<td>Constrain agent communication with structured outputs and interactions</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Agent Communication</td>
-<td><a name="interaction-agent-prompt-injection"></a>Passing on prompt injection attacks across agents</td>
-<td>Sanitise messages before agents process them - strip or escape unexpected instruction-like content that may have been injected</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Agent Communication</td>
-<td>Impersonating or accessing peer agents or services via shared roles or credentials</td>
-<td>Isolate roles and credentials of each agent</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Computer Use</td>
-<td><a name="interaction-computer-prompt-injection"></a>Opening vulnerabilities to prompt injection attacks</td>
-<td>Ensure computer use protocol or application provides immediate interruptability</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Computer Use</td>
-<td>Opening vulnerabilities to prompt injection attacks</td>
-<td>Limit computer use to accessing only safe resources on the computer</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Computer use</td>
-<td><a name="interaction-computer-sensitive-access"></a>Accessing personally identifiable or sensitive data</td>
-<td>Ensure "take over" mode is activated when keying in sensitive data (e.g. passwords, API keys)</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Internet &amp; Search Access</td>
-<td><a name="interaction-internet-prompt-injection"></a>Opening vulnerabilities to prompt injection attacks via malicious websites</td>
-<td>Implement input guardrails to detect prompt injection or adversarial attacks</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Internet &amp; Search Access</td>
-<td>Opening vulnerabilities to prompt injection attacks via malicious websites</td>
-<td>Implement escape filtering before including web content into prompts</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Internet &amp; Search Access</td>
-<td>Opening vulnerabilities to prompt injection attacks via malicious websites</td>
-<td>Use structured retrieval APIs for searching the web rather than through web scraping</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Internet &amp; Search Access</td>
-<td><a name="interaction-internet-unreliable-info"></a>Returning unreliable information or websites</td>
-<td>Prioritise results from verified, high-quality domains (e.g. .gov, .edu, well-known publishers)</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Internet &amp; Search Access</td>
-<td>Returning unreliable information or websites</td>
-<td>Require cross-source validation for some of the claims made</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Multimodal Understanding &amp; Generation</td>
-<td><a name="interaction-multimodal-undesirable-content"></a>Generating undesirable content (e.g. toxic, hateful, sexual)</td>
-<td>Implement output multimodal safety guardrails for the output to detect if undesirable content is being generated</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Multimodal Understanding &amp; Generation</td>
-<td><a name="interaction-multimodal-unqualified-advice"></a>Generating unqualified advice in specialised domains (e.g. medical, financial, legal)</td>
-<td>Implement input multimodal guardrails to detect if the instruction is related to one of the specialised domains, and if so, to decline fulfilling the instruction</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Multimodal Understanding &amp; Generation</td>
-<td><a name="interaction-multimodal-controversial-content"></a>Generating controversial content (e.g. political, competitors)</td>
-<td>Implement input multimodal guardrails to detect instructions to generate content that is controversial according to the organisation's policies</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Multimodal Understanding &amp; Generation</td>
-<td><a name="interaction-multimodal-pii-regurgitation"></a>Regurgitating personally identifiable information</td>
-<td>Implement output multimodal guardrails to detect personally identifiable information in the LLM's outputs before it reaches the user</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Multimodal Understanding &amp; Generation</td>
-<td><a name="interaction-multimodal-hallucination"></a>Generating non-factual or hallucinated content</td>
-<td>Conduct testing to measure hallucination and factuality rates for multimodal outputs</td>
-</tr>
-<tr>
-<td>Interaction</td>
-<td>Multimodal Understanding &amp; Generation</td>
-<td><a name="interaction-multimodal-copyright"></a>Generating copyrighted content</td>
-<td>Implement input guardrails to detect instructions to generate copyrighted content</td>
 </tr>
 <tr>
 <td>Interaction</td>
@@ -1069,6 +949,42 @@
 </tr>
 <tr>
 <td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-undesirable-content"></a>Generating undesirable content (e.g. toxic, hateful, sexual)</td>
+<td>Implement output multimodal safety guardrails for the output to detect if undesirable content is being generated</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-unqualified-advice"></a>Generating unqualified advice in specialised domains (e.g. medical, financial, legal)</td>
+<td>Implement input multimodal guardrails to detect if the instruction is related to one of the specialised domains, and if so, to decline fulfilling the instruction</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-controversial-content"></a>Generating controversial content (e.g. political, competitors)</td>
+<td>Implement input multimodal guardrails to detect instructions to generate content that is controversial according to the organisation's policies</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-pii-regurgitation"></a>Regurgitating personally identifiable information</td>
+<td>Implement output multimodal guardrails to detect personally identifiable information in the LLM's outputs before it reaches the user</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-hallucination"></a>Generating non-factual or hallucinated content</td>
+<td>Conduct testing to measure hallucination and factuality rates for multimodal outputs</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-copyright"></a>Generating copyrighted content</td>
+<td>Implement input guardrails to detect instructions to generate copyrighted content</td>
+</tr>
+<tr>
+<td>Interaction</td>
 <td>Official Communications</td>
 <td><a name="interaction-official-inaccurate-statements"></a>Making inaccurate promises or statements to the public</td>
 <td>Limit the communications to standard processes, where communication templates are available</td>
@@ -1117,33 +1033,135 @@
 </tr>
 <tr>
 <td>Interaction</td>
-<td>Transactions</td>
+<td>Business Transactions</td>
 <td><a name="interaction-transactions-unauthorized"></a>Allowing unauthorised transactions</td>
 <td>Require human validation for high-impact transactions</td>
 </tr>
 <tr>
 <td>Interaction</td>
-<td>Transactions</td>
+<td>Business Transactions</td>
 <td>Allowing unauthorised transactions</td>
 <td>Logging all requests leading up to the transaction</td>
 </tr>
 <tr>
 <td>Interaction</td>
-<td>Transactions</td>
+<td>Business Transactions</td>
 <td>Allowing unauthorised transactions</td>
 <td>Apply fraud detection models or heuristics to the agent's own decisions</td>
 </tr>
 <tr>
 <td>Interaction</td>
-<td>Transactions</td>
+<td>Business Transactions</td>
 <td><a name="interaction-transactions-credential-vulnerability"></a>Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent</td>
 <td>Ensure virtual isolation for agents carrying out transactions</td>
 </tr>
 <tr>
 <td>Interaction</td>
-<td>Transactions</td>
+<td>Business Transactions</td>
 <td>Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent</td>
 <td>Do not share credentials with the agent directly, require the agent to use a separate service for authentication and transactions</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td><a name="interaction-internet-prompt-injection"></a>Opening vulnerabilities to prompt injection attacks via malicious websites</td>
+<td>Implement input guardrails to detect prompt injection or adversarial attacks</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td>Opening vulnerabilities to prompt injection attacks via malicious websites</td>
+<td>Implement escape filtering before including web content into prompts</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td>Opening vulnerabilities to prompt injection attacks via malicious websites</td>
+<td>Use structured retrieval APIs for searching the web rather than through web scraping</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td><a name="interaction-internet-unreliable-info"></a>Returning unreliable information or websites</td>
+<td>Prioritise results from verified, high-quality domains (e.g. .gov, .edu, well-known publishers)</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td>Returning unreliable information or websites</td>
+<td>Require cross-source validation for some of the claims made</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Computer Use</td>
+<td><a name="interaction-computer-prompt-injection"></a>Opening vulnerabilities to prompt injection attacks</td>
+<td>Ensure computer use protocol or application provides immediate interruptability</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Computer Use</td>
+<td>Opening vulnerabilities to prompt injection attacks</td>
+<td>Limit computer use to accessing only safe resources on the computer</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Computer Use</td>
+<td><a name="interaction-computer-sensitive-access"></a>Accessing personally identifiable or sensitive data</td>
+<td>Ensure "take over" mode is activated when keying in sensitive data (e.g. passwords, API keys)</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td><a name="interaction-programmatic-sensitive"></a>Leaking personally identifiable or sensitive data</td>
+<td>Use short‑lived, rotating credentials that expire immediately after agent use</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td>Leaking personally identifiable or sensitive data</td>
+<td>Specify a whitelist of interfaces that agents are allowed to use</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td><a name="interaction-programmatic-supply-chain"></a>Increasing the system's vulnerability to supply chain attacks</td>
+<td>Enforce zero-trust input handling and validate all data flows</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-data-exfiltration"></a>Enabling the exfiltration of sensitive data</td>
+<td>Implement a whitelist approach for outward network access, including API requests</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td>Enabling the exfiltration of sensitive data</td>
+<td>Ensure that sensitive data is not passed and leaked between agents by using appropriate guardrails</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-insecure-communication"></a>Communicating insecurely resulting in man-in-the-middle attacks</td>
+<td>Ensure all cross-agent authentication and message validation and encryption where necessary</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-message-misinterpretation"></a>Misinterpreting inter-agent messages due to poor formatting or weak protocols</td>
+<td>Constrain agent communication with structured outputs and interactions</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-prompt-injection"></a>Passing on prompt injection attacks across agents</td>
+<td>Sanitise messages before agents process them - strip or escape unexpected instruction-like content that may have been injected</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td>Impersonating or accessing peer agents or services via shared roles or credentials</td>
+<td>Isolate roles and credentials of each agent</td>
 </tr>
 <tr>
 <td>Operational</td>
