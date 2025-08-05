@@ -62,7 +62,7 @@ Defining roles and access controls poorly may result in agents having unauthoris
 
 ### Monitoring and Traceability
 
-Monitoring and traceability enable visibility into agentic system behaviour, interactions, and decision-making pathways, allowing developers and operators to understand what agents are doing, why they made particular choices, and how outcomes were produced. This capability is essential for post-hoc debugging, real-time anomaly detection, and establishing accountability particularly when agents operate with a degree of autonomy or interact with sensitive systems and data.
+Monitoring and traceability **enable visibility into agentic system behaviour, interactions, and decision-making pathways**, allowing developers and operators to understand what agents are doing, why they made particular choices, and how outcomes were produced. This capability is essential for post-hoc debugging, real-time anomaly detection, and establishing accountability particularly when agents operate with a degree of autonomy or interact with sensitive systems and data.
 
 Effective monitoring involves logging key agent actions, inputs and outputs, tool usage, and communication between agents or with external systems. Traceability goes a step further by linking these records together into coherent execution traces or decision trees that reflect the flow of information and control across the system. For example, in an automated loan approval system, traceability would reveal not just the final decision but also how the credit scoring agent, document parser, and fraud detection agent each contributed to it. This can be crucial for audits, regulatory compliance, or user explanations.
 

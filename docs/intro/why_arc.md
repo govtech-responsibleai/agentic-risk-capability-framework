@@ -80,7 +80,6 @@ We argue that effective governance should focus on capabilities rather than tool
 [^12]: Patil et al. Gorilla: Large Language Model Connected with Massive APIs. <https://arxiv.org/abs/2305.15334>, 2023. Accessed: 2025-05-11.
 [^13]: Ye et al. ToolSword: Unveiling Safety Issues of Large Language Models in Tool Learning Across Three Stages. <https://arxiv.org/abs/2402.10753>, 2024. Accessed: 2025-05-11.
 [^14]: Ruan et al. Identifying the Risks of LM Agents with an LM-Emulated Sandbox. <https://arxiv.org/abs/2309.15817>, 2023. Accessed: 2025-05-11.
-
 [^15]: Greenblatt et al. arXiv preprint arXiv:2312.06942, 2023. https://arxiv.org/abs/2312.06942, accessed: 2025‑07‑26. 
 [^16]: Shi et al. Progent: Programmable Privilege Control for LLM Agents. <https://arxiv.org/abs/2504.11703>, 2025. Accessed: 2025-05-11.
 [^17]: Korbak et al. How to evaluate control measures for LLM agents? A trajectory from today to superintelligence. <https://arxiv.org/abs/2504.05259>, 2025. Accessed: 2025-05-11.

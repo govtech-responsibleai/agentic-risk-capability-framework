@@ -49,4 +49,3 @@ Find out more in [our dedicated section on implementation](../implementation/ind
 [^1]: Goh et al. Measuring What Matters: A Framework for Evaluating Safety Risks in Real-World LLM Applications. <https://arxiv.org/abs/2507.09820>, 2025. Accessed: 2025-07-21.
 [^2]: We deliberately borrow this phrase from Amartya Sen's Capability Approach, which this framework is partially inspired by. For more background, see <https://iep.utm.edu/sen-cap/>.
 [^3]: This is adapted from OpenAI's guide to building agents ([article](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf)), though we include the extra component of the memory or knowledge base.
-[^4]: Ho, Peter. Opening Address at 2010 Administrative Service Dinner and Promotion Ceremony. Public Service Division, March 2010. <https://www.psd.gov.sg/files/opening-address-by-mr-peter-ho-at-2010-administrative-service-dinner-and-promotion-ceremony.pdf>. Accessed: 2025-07-21.
