@@ -2,9 +2,11 @@
 
 Here we provide a list of technical controls to mitigate the baseline risks discussed in the previous section. As our aim here is to provide sensible and concrete recommendations for teams, we do not include all potential mitigation measures here.
 
+Click [here](https://docs.google.com/spreadsheets/d/1LHyMPrL5IbVELPztK3xcPaxqlism9HryrpjcuGsRWhk/edit?usp=sharing) for a downloadable version.
+
 ## List of Baseline Controls
 
-| Origin | Risk | Control |
+| Component | Risk | Control |
 | ----- | ----- | ----- |
 | LLM | <a name="llm-alignment-failure"></a>Poorly aligned LLMs may pursue objectives which technically satisfy instructions but violate safety principles. | Review the LLM's system card for potential alignment issues before using the LLM for more complex tasks. |
 | LLM | Poorly aligned LLMs may pursue objectives which technically satisfy instructions but violate safety principles. | Integrate an explicit safety constraint layer (e.g., policy engine or constitutional rules) that overrides unsafe outputs at runtime. |

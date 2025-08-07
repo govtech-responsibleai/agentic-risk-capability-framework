@@ -59,8 +59,6 @@ We argue that effective governance should focus on capabilities rather than tool
 
 [to be edited]</font> -->
 
-
-
  <!--- Footnotes below --->
 
 [^1]: Hamilton, E. 2025 is the year of ai agents, OpenAI CPO says. Axios, January 2025. URL <https://www.axios.com/2025/01/23/davos-2025-ai-agents>. Accessed: 2025-05-11.

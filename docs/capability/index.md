@@ -2,6 +2,8 @@
 
 In this section, we describe the different capabilities that agentic AI systems may have. We start with three broad categories of capabilities - cognitive, interaction, and operational - and break it down into more granular capabilities.
 
+Click [here](https://docs.google.com/spreadsheets/d/1LHyMPrL5IbVELPztK3xcPaxqlism9HryrpjcuGsRWhk/edit?usp=sharing) for a downloadable version.
+
 ## Cognitive Capabilities
 
 Cognitive capabilities encompass the agentic AI system's internal "thinking" skills – how it analyses information, forms plans, learns from experience, and monitors its own performance.
@@ -43,5 +45,3 @@ Operational capabilities focus on the agentic AI system's ability to execute act
 3. **File & Data Management: The capability to create, read, modify, organise, convert, query, and update information** across both unstructured files (e.g., PDFs, Word docs, spreadsheets) and structured data stores (e.g., SQL/NoSQL databases, data warehouses, vector stores). For example, it can find and merge documents, extract and transform data in CSV files, write and execute database queries, or move files to different locations. 
 
 4. **System Management: The capability to adjust system configurations, manage computing resources, and handle technical infrastructure tasks.** This includes monitoring system performance, securely handle authentication information and access controls, and making optimizations as needed while maintaining security best practices. For instance, it might allocate additional memory to a slow-running process or configure network settings for a new application, and it might rotate API keys on a schedule or grant temporary access permissions to team members for specific projects.
-
-

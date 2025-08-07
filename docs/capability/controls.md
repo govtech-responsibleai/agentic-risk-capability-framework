@@ -1,8 +1,10 @@
-# Controls
+# Capability Controls
 
 For each capability and risk combination identified in the previous sections, we provide a list of technical controls that may be useful in mitigating those safety or security risks. Due to the rapid developments in the agentic AI space, this list provides a simple starting point and is far from complete or thorough.
 
-| First-level | Second-level | Risks | Technical Controls |
+Click [here](https://docs.google.com/spreadsheets/d/1LHyMPrL5IbVELPztK3xcPaxqlism9HryrpjcuGsRWhk/edit?usp=sharing) for a downloadable version.
+
+| Category | Capability | Risk | Technical Control |
 |---|---|---|---|
 | Cognitive | Planning & Goal Management | <a name="cognitive-planning-ineffective-plans"></a>Devising plans that are not effective in meeting the user's requirements | Prompt the agent to self-reflect on the adherence of the plan to the user's instructions |
 | Cognitive | Planning & Goal Management | Devising plans that are not effective in meeting the user's requirements | Require the user to approve the plan in high-impact cases |

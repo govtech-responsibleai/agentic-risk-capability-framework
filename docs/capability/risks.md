@@ -1,8 +1,11 @@
-# Risks
+# Capability Risks
 
 Similar to what we did for baseline components and risks, we identify safety and security risks that may arise from the specific [capabilities identified in the previous section](index.md). For each risk, we provide an academic paper, case study, or article which provides more details about the nature of the risk.
 
-| First-level | Second-level | Risk |
+Click [here](https://docs.google.com/spreadsheets/d/1LHyMPrL5IbVELPztK3xcPaxqlism9HryrpjcuGsRWhk/edit?usp=sharing) for a downloadable version.
+
+
+| Category | Capability | Risk |
 |---|---|---|
 | Cognitive | Reasoning & Problem-Solving | <a name="cognitive-reasoning-overthinking"></a>[Becoming ineffective, inefficient, or unsafe due to overthinking](controls.md#cognitive-reasoning-overthinking)[^1] |
 | Cognitive | Reasoning & Problem-Solving | <a name="cognitive-reasoning-deceptive-behavior"></a>[Engaging in deceptive behaviour through pursuing or prioritising other goals](controls.md#cognitive-reasoning-deceptive-behavior)[^2] |

@@ -2,9 +2,11 @@
 
 In this section, we list the baseline risks from (i) the components of an agent and (ii) the design of an agentic system. Note that this list is meant as a reference and is not meant to be exhaustive. Clicking on any of the risks will bring you to the next page with the corresponding controls.
 
+Click [here](https://docs.google.com/spreadsheets/d/1LHyMPrL5IbVELPztK3xcPaxqlism9HryrpjcuGsRWhk/edit?usp=sharing) for a downloadable version.
+
 ## List of Baseline Risks
 
-| Origin | Risk |
+| Component | Risk |
 |---------------|-------|
 | <a name="llm-alignment-failure"></a>LLM | [Poorly aligned LLMs may pursue objectives which technically satisfy instructions but violate safety principles.](controls.md#llm-alignment-failure)[^1] |
 | <a name="llm-unpredictable-performance"></a>LLM | [Weaker LLMs have a higher tendency to produce unpredictable outputs which make agent behaviour erratic.](controls.md#llm-unpredictable-performance)[^2] |

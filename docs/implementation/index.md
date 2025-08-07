@@ -8,6 +8,8 @@ A well-known adage in the Singapore civil service is "Policy is implementation a
 * Focus human oversight on critical decisions
 * Adapt to technological change without rebuilding governance
 
+Click [here](https://docs.google.com/spreadsheets/d/1LHyMPrL5IbVELPztK3xcPaxqlism9HryrpjcuGsRWhk/edit?usp=sharing) for a downloadable version of the Agentic Risk & Capability Framework - we provide the taxonomy, risk mapping, and technical controls in Google Sheets so that it's easy to download and adapt it.
+
 Here, we outline how two different parties, AI developers and governance teams, can apply the ARC Framework for their own use. 
 
 * For **governance teams**, the ARC Framework provides a scalable and sustainable way to manage the immediate and emergent risks of agentic AI systems in their organisation. 

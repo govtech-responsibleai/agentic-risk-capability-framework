@@ -2,6 +2,8 @@
 
 There are common aspects across all agentic AI systems - the agents themselves have similar components (LLM, tools, instructions, memory), while the system itself has some architectural requirements for the "agentic" part to work effectively. In this section, we describe each of these aspects and explain how they may give rise to certain risks (but we defer the full treatment of the risks to the next section).
 
+Click [here](https://docs.google.com/spreadsheets/d/1LHyMPrL5IbVELPztK3xcPaxqlism9HryrpjcuGsRWhk/edit?usp=sharing) for a downloadable version.
+
 ## Components of an Agent
 
 <img src="../assets/agent-components.png" alt="Components of an agent" style="width: min(600px, 50%); display: block; margin: 0 auto;">

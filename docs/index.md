@@ -47,4 +47,4 @@ Alternatively, you may use the APA-formatted citation below:
 > Khoo, S. & Foo, J. & Lee, R. K.-W. (2025) Agentic Risk & Capability Framework. URL <https://govtech-responsibleai.github.io/agentic-risk-capability-framework/>
 
 <br/>
-*Note: This page was last updated on 5 Aug 2025.*
+*Note: This page was last updated on 7 Aug 2025.*
