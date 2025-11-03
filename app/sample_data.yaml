@@ -1,0 +1,16 @@
+sample_application:
+  description: "A customer service chatbot that helps users resolve issues, process returns, and answer questions about products. Users interact through a web interface where they can type questions and receive AI-powered responses. The system can also escalate complex issues to human agents when needed."
+  
+  components: "Frontend: React web application with chat interface. \nBackend: Node.js API server with Express. \nDatabase: PostgreSQL for storing conversation history and user data. \nAI Agent: OpenAI GPT-4 with tool-calling capabilities. \nMCP Servers: File system server for accessing customer documents, Database server for querying order history. \nTools: Stripe payment processor, Shopify order manager, PDF generator for receipts, Slack notifier for escalations. \nData flows: User input → Frontend → Backend API → AI Agent → MCP Servers/Tools → Tool execution → Response back to user."
+  
+  data_classification: "Confidential"
+  
+  deployment_type: "Custom"
+  
+  public_facing: "Yes"
+  
+  criticality: "High"
+  
+  pii_data: "Yes, we collect customer names, email addresses, phone numbers, and order history. This data is used to personalize responses and maintain conversation context. PII is stored in encrypted PostgreSQL database and shared with external APIs (Stripe, Shopify) for transaction processing."
+  
+  human_in_loop: "Yes, human agents are involved when the AI cannot resolve complex issues or when customers request to speak with a human. The system automatically escalates conversations based on sentiment analysis and complexity scoring. Human agents can also review and approve certain actions like refunds or account changes."
