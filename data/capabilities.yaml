@@ -1,0 +1,64 @@
+CAP-01:
+  name: "Planning and Goal Management"
+  category: "Cognitive"
+  description: "The capability to develop detailed, step-by-step, and executable plans with specific tasks in response to broad instructions. This includes prioritizing activities based on importance and dependencies between tasks, monitoring how well its plan is working, and adjusting when circumstances change or obstacles arise."
+
+CAP-02:
+  name: "Agent Delegation"
+  category: "Cognitive"
+  description: "The capability to assign subtasks to other agents and coordinate their activities to achieve broader goals. This includes identifying which components are best suited for specific tasks, issuing clear instructions, managing inter-agent dependencies, and monitoring performance or failures."
+
+CAP-03:
+  name: "Tool Use"
+  category: "Cognitive"
+  description: "The capability to evaluate available options and choose the best tool for specific subtasks, based on the capabilities and limitations of different tools and matching them appropriately to the tasks."
+
+CAP-04:
+  name: "Natural Language Communication"
+  category: "Interaction"
+  description: "The capability to fluently and meaningfully converse with human users, handling a wide range of situations such as explaining complex topics, generating documents or prose, or discussing issues with human users."
+
+CAP-05:
+  name: "Multimodal Understanding and Generation"
+  category: "Interaction"
+  description: "The capability to take in image, audio, or video inputs and / or generate image, audio, or video outputs. This includes analyzing visual information, transcribing speech, or creating multimedia content as needed."
+
+CAP-06:
+  name: "Official Communication"
+  category: "Interaction"
+  description: "The capability to compose and directly publish communications that formally represent an organization to external parties (e.g. customers, partners, regulators, courts, media) via approved channels and formats without human oversight."
+
+CAP-07:
+  name: "Business Transactions"
+  category: "Interaction"
+  description: "The capability to execute transactions that involve exchanging money, services, or commitments with external parties. It can process payments, make reservations, and handle other business transactions within authorized limits."
+
+CAP-08:
+  name: "Internet and Search Access"
+  category: "Interaction"
+  description: "The capability to access and search the Internet for knowledge resources, especially for up-to-date information to provide accurate answers."
+
+CAP-09:
+  name: "Computer Use"
+  category: "Interaction"
+  description: "The capability to directly control a computer interface by moving the mouse, clicking buttons, and typing on behalf of the user. It can navigate applications and perform tasks that require interacting with graphical user interfaces."
+
+CAP-10:
+  name: "Other Programmatic Interfaces"
+  category: "Interaction"
+  description: "The capability to interact with external systems through APIs, SDKs, or backend services. This includes sending and receiving data via RESTful APIs, pushing code to a remote repository, or invoking cloud services to retrieve or manipulate information from other systems. "
+
+CAP-11:
+  name: "Code Execution"
+  category: "Operational"
+  description: "The capability to write, execute, and debug code in various programming languages to automate tasks or solve computational problems."
+
+CAP-12:
+  name: "File and Data Management"
+  category: "Operational"
+  description: "The capability to create, read, modify, organize, convert, query, and update information across both unstructured files (e.g. PDFs, Word docs, spreadsheets) and structured data stores (e.g. SQL/NoSQL databases, data warehouses, vector stores). "
+
+CAP-13:
+  name: "System Management"
+  category: "Operational"
+  description: "The capability to adjust system configurations, manage computing resources, and handle technical infrastructure tasks. This includes monitoring system performance, securely handle authentication information and access controls, and making optimizations as needed while maintaining security best practices."
