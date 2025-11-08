@@ -1,5 +1,7 @@
 # :material-shield-star: Agentic Risk & Capability Framework
 
+<img src="assets/robot-banner.png" alt="Robot" style="width: min(600px, 50%); display: block; margin: 0 auto;">
+
 We introduce the Agentic Risk & Capability ("ARC") Framework, a **technical governance framework** that enables organisations to manage the **safety and security risks of agentic AI systems** through **a risk-based approach**. We do this by:
 
 * Defining **a hierarchical taxonomy of capabilities** that agentic AI systems may have, depending on their use case and how they are designed  
@@ -24,6 +26,8 @@ The ARC Framework is developed by the Responsible AI team in GovTech Singapore's
 
 In developing this framework, we work closely with other teams in the Singapore government, such as the Ministry for Digital Development and Information and the Cybersecurity Agency of Singapore. We are grateful for their feedback and contributions, which have helped to make this framework more effective, robust, and thorough.
 
+To reach out to us, please fill out the Google form <a href="https://forms.gle/KoXecxDuPHf8izP2A" target="_blank">here</a>.
+
 ## Citing our work
 
 To cite our work, please use the following BibText citation:
@@ -34,11 +38,13 @@ To cite our work, please use the following BibText citation:
     author  = {Khoo, Shaun and Foo, Jessica and Lee, Roy Ka-Wei},
     year    = {2025},
     month   = {July},
-    url     = {tbc}
+    url     = {https://govtech-responsibleai.github.io/agentic-risk-capability-framework/}
 }
 ```
 
 Alternatively, you may use the APA-formatted citation below:
 
-> Khoo, S. & Foo, J. & Lee, R. K.-W. (2025) Agentic Risk & Capability Framework. URL <>
+> Khoo, S. & Foo, J. & Lee, R. K.-W. (2025) Agentic Risk & Capability Framework. URL <https://govtech-responsibleai.github.io/agentic-risk-capability-framework/>
 
+<br/>
+*Note: This page was last updated on 7 Aug 2025.*

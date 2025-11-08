@@ -43,7 +43,7 @@ extra:
       link: https://x.com/GovTechSG
   analytics:
     provider: google
-    property: G-D8325S860G
+    property: G-VDHLWLGZ1W
     feedback: 
       title: Was this page helpful?
       ratings:
@@ -57,7 +57,7 @@ extra:
           data: 0
           note: >- 
             Thanks for your feedback! Help us improve this page by
-            using our <a href="https://forms.gle/v8bB9pNAARDctmpT6" target="_blank" rel="noopener">feedback form</a>.
+            using our <a href="https://forms.gle/KoXecxDuPHf8izP2A" target="_blank" rel="noopener">feedback form</a>.
     
 # Navigation
 nav:
@@ -71,11 +71,12 @@ nav:
     - Baseline Controls: baseline/controls.md
   - Capability:
     - What is a Capability?: capability/index.md
-    - Capabilities: capability/capabilities/index.md
-    - Risks: capability/risks/index.md
-    - Controls: capability/controls/index.md
+    - Risks: capability/risks.md
+    - Controls: capability/controls.md
   - Implementation:
-    - implementation/index.md
+    - Implementing ARC: implementation/index.md
+    - For Governance Teams: implementation/for-governance-teams.md
+    - For AI Developers: implementation/for-ai-developers.md
 # Plugins
 plugins:
   - search
