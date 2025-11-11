@@ -1,0 +1,1393 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="GovTech AI Practice">
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../controls/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Capability Risks - Agentic Risk & Capability Framework</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-VDHLWLGZ1W"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-VDHLWLGZ1W",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-VDHLWLGZ1W",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capability-risks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agentic Risk &amp; Capability Framework" class="md-header__button md-logo" aria-label="Agentic Risk & Capability Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm3.08 15L12 14.15 8.93 16l.81-3.5-2.71-2.34 3.58-.31L12 6.55l1.39 3.29 3.58.31-2.71 2.35z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agentic Risk & Capability Framework
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capability Risks
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  Introduction
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../baseline/" class="md-tabs__link">
+          
+  
+  
+  Baseline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Capability
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../implementation/" class="md-tabs__link">
+          
+  
+  
+  Implementation
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agentic Risk &amp; Capability Framework" class="md-nav__button md-logo" aria-label="Agentic Risk & Capability Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm3.08 15L12 14.15 8.93 16l.81-3.5-2.71-2.34 3.58-.31L12 6.55l1.39 3.29 3.58.31-2.71 2.35z"/></svg>
+
+    </a>
+    Agentic Risk & Capability Framework
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Agentic Risk &amp; Capability Framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/why_arc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Why the ARC Framework?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/about_arc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About the ARC Framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Baseline
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Baseline
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is a Baseline?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../baseline/risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Baseline Risks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../baseline/controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Baseline Controls
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Capability
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Capability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is a Capability?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability Risks
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability Controls
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Implementation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Implementation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementing ARC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/for-governance-teams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    For Governance Teams
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/for-ai-developers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    For AI Developers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="capability-risks">Capability Risks</h1>
+<p>Similar to what we did for baseline components and risks, we identify safety and security risks that may arise from the specific <a href="../">capabilities identified in the previous section</a>. For each risk, we provide an academic paper, case study, or article which provides more details about the nature of the risk.</p>
+<p>Click <a href="https://docs.google.com/spreadsheets/d/1LHyMPrL5IbVELPztK3xcPaxqlism9HryrpjcuGsRWhk/edit?usp=sharing">here</a> for a downloadable version.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Capability</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cognitive</td>
+<td>Reasoning &amp; Problem-Solving</td>
+<td><a name="cognitive-reasoning-overthinking"></a><a href="../controls/#cognitive-reasoning-overthinking">Becoming ineffective, inefficient, or unsafe due to overthinking</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Reasoning &amp; Problem-Solving</td>
+<td><a name="cognitive-reasoning-deceptive-behavior"></a><a href="../controls/#cognitive-reasoning-deceptive-behavior">Engaging in deceptive behaviour through pursuing or prioritising other goals</a><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Planning &amp; Goal Management</td>
+<td><a name="cognitive-planning-ineffective-plans"></a><a href="../controls/#cognitive-planning-ineffective-plans">Devising plans that are not effective in meeting the user's requirements</a><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Planning &amp; Goal Management</td>
+<td><a name="cognitive-planning-common-sense"></a><a href="../controls/#cognitive-planning-common-sense">Devising plans that do not adhere to common sense or implicit assumptions about the user's instructions</a><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Agent Delegation</td>
+<td><a name="cognitive-tools-incorrect-assignment"></a><a href="../controls/#cognitive-tools-incorrect-assignment">Assigning tasks incorrectly to other agents</a><sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup></td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Agent Delegation</td>
+<td><a name="cognitive-tools-malicious-use"></a><a href="../controls/#cognitive-tools-malicious-use">Attempting to use other agents maliciously</a><sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Tool Use</td>
+<td><a name="cognitive-tools-wrong-choice"></a><a href="../controls/#cognitive-tools-wrong-choice">Choosing the wrong tool for the given action or task</a><sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-undesirable-content"></a><a href="../controls/#interaction-nlc-undesirable-content">Generating undesirable content (e.g. toxic, hateful, sexual)</a><sup id="fnref:8"><a class="footnote-ref" href="#fn:8">8</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-unqualified-advice"></a><a href="../controls/#interaction-nlc-unqualified-advice">Generating unqualified advice in specialised domains (e.g. medical, financial, legal)</a><sup id="fnref:9"><a class="footnote-ref" href="#fn:9">9</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-controversial-content"></a><a href="../controls/#interaction-nlc-controversial-content">Generating controversial content (e.g. political, competitors)</a><sup id="fnref:10"><a class="footnote-ref" href="#fn:10">10</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-pii-regurgitation"></a><a href="../controls/#interaction-nlc-pii-regurgitation">Regurgitating personally identifiable information</a><sup id="fnref:11"><a class="footnote-ref" href="#fn:11">11</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-hallucination"></a><a href="../controls/#interaction-nlc-hallucination">Generating non-factual or hallucinated content</a><sup id="fnref:12"><a class="footnote-ref" href="#fn:12">12</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-copyright"></a><a href="../controls/#interaction-nlc-copyright">Generating copyrighted content</a><sup id="fnref:13"><a class="footnote-ref" href="#fn:13">13</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-undesirable-content"></a><a href="../controls/#interaction-multimodal-undesirable-content">Generating undesirable content (e.g. toxic, hateful, sexual)</a><sup id="fnref:14"><a class="footnote-ref" href="#fn:14">14</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-unqualified-advice"></a><a href="../controls/#interaction-multimodal-unqualified-advice">Generating unqualified advice in specialised domains (e.g. medical, financial, legal)</a><sup id="fnref:15"><a class="footnote-ref" href="#fn:15">15</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-controversial-content"></a><a href="../controls/#interaction-multimodal-controversial-content">Generating controversial content (e.g. political, competitors)</a><sup id="fnref:16"><a class="footnote-ref" href="#fn:16">16</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-pii-regurgitation"></a><a href="../controls/#interaction-multimodal-pii-regurgitation">Regurgitating personally identifiable information</a><sup id="fnref:17"><a class="footnote-ref" href="#fn:17">17</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-hallucination"></a><a href="../controls/#interaction-multimodal-hallucination">Generating non-factual or hallucinated content</a><sup id="fnref:18"><a class="footnote-ref" href="#fn:18">18</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-copyright"></a><a href="../controls/#interaction-multimodal-copyright">Generating copyrighted content</a><sup id="fnref:19"><a class="footnote-ref" href="#fn:19">19</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-inaccurate-statements"></a><a href="../controls/#interaction-official-inaccurate-statements">Making inaccurate promises or statements to the public</a><sup id="fnref:20"><a class="footnote-ref" href="#fn:20">20</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-undesirable-content"></a><a href="../controls/#interaction-official-undesirable-content">Sending undesirable content to recipients</a><sup id="fnref:21"><a class="footnote-ref" href="#fn:21">21</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-malicious-content"></a><a href="../controls/#interaction-official-malicious-content">Sending malicious content to recipients</a><sup id="fnref:22"><a class="footnote-ref" href="#fn:22">22</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-authorship-deception"></a><a href="../controls/#interaction-official-authorship-deception">Misleading recipients about the authorship of the communications</a><sup id="fnref:23"><a class="footnote-ref" href="#fn:23">23</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-sensitive-data"></a><a href="../controls/#interaction-official-sensitive-data">Sending personally identifiable or sensitive data</a><sup id="fnref:24"><a class="footnote-ref" href="#fn:24">24</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Business Transactions</td>
+<td><a name="interaction-transactions-unauthorized"></a><a href="../controls/#interaction-transactions-unauthorized">Allowing unauthorised transactions</a><sup id="fnref:25"><a class="footnote-ref" href="#fn:25">25</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Business Transactions</td>
+<td><a name="interaction-transactions-credential-vulnerability"></a><a href="../controls/#interaction-transactions-credential-vulnerability">Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent</a><sup id="fnref:26"><a class="footnote-ref" href="#fn:26">26</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td><a name="interaction-internet-prompt-injection"></a><a href="../controls/#interaction-internet-prompt-injection">Opening vulnerabilities to prompt injection attacks via malicious websites</a><sup id="fnref:27"><a class="footnote-ref" href="#fn:27">27</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td><a name="interaction-internet-unreliable-info"></a><a href="../controls/#interaction-internet-unreliable-info">Returning unreliable information or websites</a><sup id="fnref:28"><a class="footnote-ref" href="#fn:28">28</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Computer Use</td>
+<td><a name="interaction-computer-prompt-injection"></a><a href="../controls/#interaction-computer-prompt-injection">Opening vulnerabilities to prompt injection attacks</a><sup id="fnref:29"><a class="footnote-ref" href="#fn:29">29</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Computer Use</td>
+<td><a name="interaction-computer-sensitive-access"></a><a href="../controls/#interaction-computer-sensitive-access">Accessing personally identifiable or sensitive data</a><sup id="fnref:30"><a class="footnote-ref" href="#fn:30">30</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td><a name="interaction-programmatic-sensitive"></a><a href="../controls/#interaction-programmatic-sensitive">Leaking personally identifiable or sensitive data</a><sup id="fnref:31"><a class="footnote-ref" href="#fn:31">31</a></sup></td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td><a name="interaction-programmatic-supply-chain"></a><a href="../controls/#interaction-programmatic-supply-chain">Increasing the system's vulnerability to supply chain attacks</a><sup id="fnref:32"><a class="footnote-ref" href="#fn:32">32</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-data-exfiltration"></a><a href="../controls/#interaction-agent-data-exfiltration">Enabling the exfiltration of sensitive data</a><sup id="fnref:33"><a class="footnote-ref" href="#fn:33">33</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-insecure-communication"></a><a href="../controls/#interaction-agent-insecure-communication">Communicating insecurely resulting in man-in-the-middle attacks</a><sup id="fnref:34"><a class="footnote-ref" href="#fn:34">34</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-message-misinterpretation"></a><a href="../controls/#interaction-agent-message-misinterpretation">Misinterpreting inter-agent messages due to poor formatting or weak protocols</a><sup id="fnref:35"><a class="footnote-ref" href="#fn:35">35</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-prompt-injection"></a><a href="../controls/#interaction-agent-prompt-injection">Passing on prompt injection attacks across agents</a><sup id="fnref:36"><a class="footnote-ref" href="#fn:36">36</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td><a name="operational-code-poor-execution"></a><a href="../controls/#operational-code-poor-execution">Executing poor code</a><sup id="fnref:37"><a class="footnote-ref" href="#fn:37">37</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td><a name="operational-code-malicious-execution"></a><a href="../controls/#operational-code-malicious-execution">Executing vulnerable or malicious code</a><sup id="fnref:38"><a class="footnote-ref" href="#fn:38">38</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td><a name="operational-files-overwrite-delete"></a><a href="../controls/#operational-files-overwrite-delete">Overwriting or deleting database tables or files</a><sup id="fnref:39"><a class="footnote-ref" href="#fn:39">39</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td><a name="operational-files-query-overload"></a><a href="../controls/#operational-files-query-overload">Overwhelming the database with poor, inefficient, or repeated queries</a><sup id="fnref:40"><a class="footnote-ref" href="#fn:40">40</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td><a name="operational-files-data-exposure"></a><a href="../controls/#operational-files-data-exposure">Exposing personally identifiable or sensitive data from databases or files</a><sup id="fnref:41"><a class="footnote-ref" href="#fn:41">41</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td><a name="operational-files-prompt-injection"></a><a href="../controls/#operational-files-prompt-injection">Opening vulnerabilities to prompt injection attacks via malicious data or files</a><sup id="fnref:42"><a class="footnote-ref" href="#fn:42">42</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td><a name="operational-system-privilege-escalation"></a><a href="../controls/#operational-system-privilege-escalation">Escalating the agent's own privileges</a><sup id="fnref:43"><a class="footnote-ref" href="#fn:43">43</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td><a name="operational-system-misconfiguration"></a><a href="../controls/#operational-system-misconfiguration">Misconfiguring system resources, compromising system integrity and availability</a><sup id="fnref:44"><a class="footnote-ref" href="#fn:44">44</a></sup></td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td><a name="operational-system-request-overload"></a><a href="../controls/#operational-system-request-overload">Overwhelming the system with poor, inefficient, or repeated requests</a><sup id="fnref:45"><a class="footnote-ref" href="#fn:45">45</a></sup></td>
+</tr>
+</tbody>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Cuadron et al. The Danger of Overthinking: Examining the Reasoning‑Action Dilemma in Agentic Tasks. arXiv preprint arXiv:2502.08235, 2025. <a href="https://arxiv.org/pdf/2502.08235">https://arxiv.org/pdf/2502.08235</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Chen et al. Reasoning Models Don't Always Say What They Think. <a href="https://www.anthropic.com/research/reasoning-models-dont-say-think">https://www.anthropic.com/research/reasoning-models-dont-say-think</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Xie et al. TravelPlanner: A Benchmark for Real‑World Planning with Language Agents. arXiv preprint arXiv:2402.01622, 2024. <a href="https://arxiv.org/pdf/2402.01622v4">https://arxiv.org/pdf/2402.01622v4</a>, Accessed: 2025‑07‑26. Xie et al. Revealing the Barriers of Language Agents in Planning. NAACL Long Papers 2025. <a href="https://aclanthology.org/2025.naacl-long.93.pdf">https://aclanthology.org/2025.naacl-long.93.pdf</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Marcus et al. AI still lacks "common" sense, 70 years later. Substack essay, January 5, 2025. <a href="https://garymarcus.substack.com/p/ai-still-lacks-common-sense-70-years">https://garymarcus.substack.com/p/ai-still-lacks-common-sense-70-years</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>Cemri et al. Why Do Multi‑Agent LLM Systems Fail? arXiv preprint arXiv:2503.13657, 2025. <a href="https://arxiv.org/abs/2503.13657">https://arxiv.org/abs/2503.13657</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>Lupinacci et al. The Dark Side of LLMs: Agent‑based Attacks for Complete Computer Takeover. arXiv preprint arXiv:2507.06850, 2025. <a href="https://arxiv.org/abs/2507.06850">https://arxiv.org/abs/2507.06850</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>Kokane et al. ToolScan: A Benchmark for Characterizing Errors in Tool‑Use LLMs. arXiv preprint arXiv:2411.13547, 2024. <a href="https://arxiv.org/abs/2411.13547">https://arxiv.org/abs/2411.13547</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:8">
+<p>Mazeika et al. HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal. arXiv preprint arXiv:2402.04249v2, 2024. <a href="https://arxiv.org/abs/2402.04249v2">https://arxiv.org/abs/2402.04249v2</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9">
+<p>Barbera, Isabel. AI Privacy Risks &amp; Mitigations in Large Language Models (LLMs). European Data Protection Board Report, 2025. <a href="https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf">https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:10">
+<p>Stanford HAI. AI models like ChatGPT, Claude, and Gemini show partisan bias, study finds. Stanford News, May 22, 2025. <a href="https://news.stanford.edu/stories/2025/05/ai-models-llms-chatgpt-claude-gemini-partisan-bias-research-study">https://news.stanford.edu/stories/2025/05/ai-models-llms-chatgpt-claude-gemini-partisan-bias-research-study</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:11">
+<p>See footnote 9.&#160;<a class="footnote-backref" href="#fnref:11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:12">
+<p>Zhang et al. Siren's Song in the AI Ocean: A Survey on Hallucination in Large Language Models. arXiv 
+preprint arXiv:2309.01219, 2023. <a href="https://arxiv.org/abs/2309.01219">https://arxiv.org/abs/2309.01219</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:13">
+<p>Chen et al. CopyBench: Measuring Literal and Non-Literal Reproduction of Copyright‑Protected Text in Language Model Generation. arXiv preprint arXiv:2407.07087, 2024. <a href="https://arxiv.org/abs/2407.07087">https://arxiv.org/abs/2407.07087</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:14">
+<p>Liu et al. MM‑SafetyBench: A Benchmark for Safety Evaluation of Multimodal Large Language Models. arXiv preprint arXiv:2311.17600, 2023. <a href="https://arxiv.org/abs/2311.17600">https://arxiv.org/abs/2311.17600</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:15">
+<p>Yan et al. Worse than Random? An Embarrassingly Simple Probing Evaluation of Large Multimodal Models in Medical VQA. Findings of ACL 2025. <a href="https://aclanthology.org/2025.findings-acl.981.pdf">https://aclanthology.org/2025.findings-acl.981.pdf</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:16">
+<p>Motoki et al. Assessing political bias and value misalignment in generative artificial intelligence. Journal of Economic Behavior &amp; Organization, 2025. <a href="https://www.sciencedirect.com/science/article/pii/S0167268125000241">https://www.sciencedirect.com/science/article/pii/S0167268125000241</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:17">
+<p>Carlini et al. Extracting Training Data from Diffusion Models. arXiv preprint arXiv:2301.13188, 2023. <a href="https://arxiv.org/abs/2301.13188">https://arxiv.org/abs/2301.13188</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:18">
+<p>Bai et al. Hallucination of Multimodal Large Language Models: A Survey. arXiv preprint arXiv:2404.18930v2, 2025. <a href="https://arxiv.org/abs/2404.18930">https://arxiv.org/abs/2404.18930</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:19">
+<p>See footnote 17.&#160;<a class="footnote-backref" href="#fnref:19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:20">
+<p>The Decoder. People buy brand-new Chevrolets for $1 from a ChatGPT chatbot. The Decoder, 2025. <a href="https://the-decoder.com/people-buy-brand-new-chevrolets-for-1-from-a-chatgpt-chatbot/">https://the-decoder.com/people-buy-brand-new-chevrolets-for-1-from-a-chatgpt-chatbot/</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+<li id="fn:21">
+<p>Harwell, Drew. X ordered its Grok chatbot to 'tell like it is.' Then the Nazi tirade began., July 11, 2025. <a href="https://www.washingtonpost.com/technology/2025/07/11/grok-ai-elon-musk-antisemitism/">https://www.washingtonpost.com/technology/2025/07/11/grok-ai-elon-musk-antisemitism/</a>, Accessed: 2025‑07‑26.&#160;<a class="footnote-backref" href="#fnref:21" title="Jump back to footnote 21 in the text">&#8617;</a></p>
+</li>
+<li id="fn:22">
+<p>Threat Hunter Team. AI: Advent of Agents Opens New Possibilities for Attackers. Threat Intelligence Blog (Symantec / Broadcom), March 13 2025. <a href="https://www.security.com/threat-intelligence/ai-agent-attacks">https://www.security.com/threat-intelligence/ai-agent-attacks</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:22" title="Jump back to footnote 22 in the text">&#8617;</a></p>
+</li>
+<li id="fn:23">
+<p>Goldman. A customer support AI went rogue—and it's a warning for every company. Fortune, April 2025. <a href="https://fortune.com/article/customer-support-ai-cursor-went-rogue/">https://fortune.com/article/customer-support-ai-cursor-went-rogue/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:23" title="Jump back to footnote 23 in the text">&#8617;</a></p>
+</li>
+<li id="fn:24">
+<p>See footnote 9.&#160;<a class="footnote-backref" href="#fnref:24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
+</li>
+<li id="fn:25">
+<p>Kulp, Patrick. AI agents may be vulnerable to financial attacks. Tech Brew (Emerging Tech Brew), May 29 2025. <a href="https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks">https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+</li>
+<li id="fn:26">
+<p>Alizadeh et al. Simple Prompt Injection Attacks Can Leak Personal Data Observed by LLM Agents During Task Execution. arXiv preprint arXiv:2506.01055, 2025. <a href="https://arxiv.org/pdf/2506.01055">https://arxiv.org/pdf/2506.01055</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+</li>
+<li id="fn:27">
+<p>Chen et al. AI Agents Are Here—So Are the Threats: Unit 42 Unveils the Top 10 Agentic‑AI Security Risks. Palo Alto Networks Unit 42 blog, 2025. <a href="https://unit42.paloaltonetworks.com/agentic-ai-threats/">https://unit42.paloaltonetworks.com/agentic-ai-threats/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+</li>
+<li id="fn:28">
+<p>Delaney, Max. Google's AI Overviews are often so confidently wrong that I've lost all trust in them. TechRadar, 2025. <a href="https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them">https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+</li>
+<li id="fn:29">
+<p>Mudryi et al. The Hidden Dangers of Browsing AI Agents. arXiv preprint arXiv:2505.13076v1, 2025. <a href="https://arxiv.org/html/2505.13076v1">https://arxiv.org/html/2505.13076v1</a>, Accessed: 2025‑07‑27. Martin, Jason. Indirect Prompt Injection of Claude Computer Use. HiddenLayer blog, 2025. <a href="https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/">https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
+</li>
+<li id="fn:30">
+<p>Yang et al. RiOSWorld: Benchmarking the Risk of Multimodal Computer‑Use Agents. arXiv preprint arXiv:2506.00618, 2025. <a href="https://arxiv.org/html/2506.00618v3">https://arxiv.org/html/2506.00618v3</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
+</li>
+<li id="fn:31">
+<p>Park, Sean. Unveiling AI Agent Vulnerabilities Part III: Data Exfiltration. TrendMicro, May 2025.  <a href="https://www.trendmicro.com/vinfo/sg/security/news/threat-landscape/unveiling-ai-agent-vulnerabilities-part-iii-data-exfiltration">https://www.trendmicro.com/vinfo/sg/security/news/threat-landscape/unveiling-ai-agent-vulnerabilities-part-iii-data-exfiltration</a>, Accessed: 2025-07-29.&#160;<a class="footnote-backref" href="#fnref:31" title="Jump back to footnote 31 in the text">&#8617;</a></p>
+</li>
+<li id="fn:32">
+<p>Unit 42. GitHub Actions Supply Chain Attack: A Targeted Attack on Coinbase Expanded to the Widespread tj-actions/changed-files Incident: Threat Assessment. Palo Alto Networks, Apr 2025.  <a href="https://unit42.paloaltonetworks.com/github-actions-supply-chain-attack/">https://unit42.paloaltonetworks.com/github-actions-supply-chain-attack/</a>, Accessed: 2025-08-04.&#160;<a class="footnote-backref" href="#fnref:32" title="Jump back to footnote 32 in the text">&#8617;</a></p>
+</li>
+<li id="fn:33">
+<p>Munoz, Alvaro. GHSL-2024-294: Environment variable injection leading to potential secret exfiltration and privilege escalation in Azure/cli. Security Lab, Dec 2024. <a href="https://securitylab.github.com/advisories/GHSL-2024-294_Azure-cli/?utm_source=chatgpt.com">https://securitylab.github.com/advisories/GHSL-2024-294_Azure-cli/?utm_source=chatgpt.com</a>, Accessed: 2025-08-04.&#160;<a class="footnote-backref" href="#fnref:33" title="Jump back to footnote 33 in the text">&#8617;</a></p>
+</li>
+<li id="fn:34">
+<p>He et al. Red-Teaming LLM Multi-Agent Systems via Communication Attacks. arXiv preprint arXiv:2502.14847, 2025. <a href="https://arxiv.org/pdf/2502.14847">https://arxiv.org/pdf/2502.14847</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:34" title="Jump back to footnote 34 in the text">&#8617;</a></p>
+</li>
+<li id="fn:35">
+<p>Kong et al. A Survey of LLM-Driven AI Agent Communication: Protocols, Security Risks, and Defense Countermeasures. arXiv preprint arXiv:2506.19676, 2025. <a href="https://arxiv.org/html/2506.19676">https://arxiv.org/html/2506.19676</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:35" title="Jump back to footnote 35 in the text">&#8617;</a></p>
+</li>
+<li id="fn:36">
+<p>Ferrag et al. From Prompt Injections to Protocol Exploits: Threats in LLM-Powered AI Agents Workflows. arXiv preprint arXiv:2506.23260, 2025. <a href="https://arxiv.org/html/2506.23260">https://arxiv.org/html/2506.23260</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:36" title="Jump back to footnote 36 in the text">&#8617;</a></p>
+</li>
+<li id="fn:37">
+<p>Spracklen et al. We Have a Package for You! A Comprehensive Analysis of Package Hallucinations
+by Code Generating LLMs. USENIX Security Symposium 2025 (preprint), 2025. <a href="https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf">https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf</a>, Accessed: 2025‑07‑27. METR. Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity. METR blog, July 10 2025. <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/</a>, Accessed: 2025‑07‑27. Guo et al. RedCode: Risky Code Execution and Generation Benchmark for Code Agents. NeurIPS 2024 Datasets and Benchmarks Track, 2024. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html">https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:37" title="Jump back to footnote 37 in the text">&#8617;</a></p>
+</li>
+<li id="fn:38">
+<p>Peng et al. CWEVAL: Outcome‑driven Evaluation on Functionality and Security of LLM Code Generation. arXiv preprint arXiv:2501.08200, 2025. <a href="https://arxiv.org/pdf/2501.08200">https://arxiv.org/pdf/2501.08200</a>, Accessed: 2025‑07‑27. Dilgren et al. SecRepoBench: Benchmarking LLMs for Secure Code Generation in Real-World Repositories. arXiv preprint arXiv:2504.21205, 2025. <a href="https://arxiv.org/html/2504.21205v1">https://arxiv.org/html/2504.21205v1</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:38" title="Jump back to footnote 38 in the text">&#8617;</a></p>
+</li>
+<li id="fn:39">
+<p>Pedro et al. Holodeck: Prompt-to-SQL Injections in LLM-Integrated Web Applications: Risks and Defenses. ICSE 2025 research track. <a href="https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf">https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:39" title="Jump back to footnote 39 in the text">&#8617;</a></p>
+</li>
+<li id="fn:40">
+<p>Ramirez et al. Which LLM Writes the Best SQL? Benchmarking analytical SQL generation by LLMs. Tinybird Blog, 2025. <a href="https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql">https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:40" title="Jump back to footnote 40 in the text">&#8617;</a></p>
+</li>
+<li id="fn:41">
+<p>Poireault, Kevin. Microsoft 365 Copilot hit by a zero‑click AI vulnerability allowing data exfiltration. Infosecurity Magazine, 2025. <a href="https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/">https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:41" title="Jump back to footnote 41 in the text">&#8617;</a></p>
+</li>
+<li id="fn:42">
+<p>diskordia. Inside CVE-2025-32711 (EchoLeak): Prompt injection meets AI exfiltration. Hack The Box Blog, 2025. <a href="https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability">https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</a>, Accessed: 2025‑07‑27. Burgess, Matt. Here Come the AI Worms. WIRED, 2025. <a href="https://www.wired.com/story/here-come-the-ai-worms/">https://www.wired.com/story/here-come-the-ai-worms/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:42" title="Jump back to footnote 42 in the text">&#8617;</a></p>
+</li>
+<li id="fn:43">
+<p>Kim et al. Prompt Flow Integrity to Prevent Privilege Escalation in LLM Agents. arXiv preprint arXiv:2503.15547v1, 2025. <a href="https://arxiv.org/html/2503.15547v1">https://arxiv.org/html/2503.15547v1</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:43" title="Jump back to footnote 43 in the text">&#8617;</a></p>
+</li>
+<li id="fn:44">
+<p>Kon et al. IaC-Eval: A Code Generation Benchmark for Cloud Infrastructure-as-Code Programs. NeurIPS 2024 poster, 2024. <a href="https://neurips.cc/virtual/2024/poster/97835">https://neurips.cc/virtual/2024/poster/97835</a>, Accessed: 2025‑07‑27. Romeo et al. ARPaCCino: An Agentic-RAG for Policy as Code Compliance. arXiv preprint arXiv:2507.10584v1, 2025. <a href="https://arxiv.org/html/2507.10584v1">https://arxiv.org/html/2507.10584v1</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:44" title="Jump back to footnote 44 in the text">&#8617;</a></p>
+</li>
+<li id="fn:45">
+<p>Zhang et al. Breaking Agents: Compromising Autonomous LLM Agents Through Malfunction Amplification. arXiv preprint arXiv:2407.20859v1, 2024. <a href="https://arxiv.org/html/2407.20859v1">https://arxiv.org/html/2407.20859v1</a>, Accessed: 2025‑07‑27. OWASP. LLMRISK‑102025: Unbounded Consumption. OWASP GenAI Risk Database, 2025. <a href="https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/">https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/</a>, Accessed: 2025‑07‑27.&#160;<a class="footnote-backref" href="#fnref:45" title="Jump back to footnote 45 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://forms.gle/KoXecxDuPHf8izP2A" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: What is a Capability?">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                What is a Capability?
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../controls/" class="md-footer__link md-footer__link--next" aria-label="Next: Capability Controls">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Capability Controls
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      GovTech Singapore
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/orgs/govtech-responsibleai/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/govtech-singapore" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/GovTechSG" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["toc.integrate", "toc.follow", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.sections", "navigation.footer", "navigation.path", "navigation.expand"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

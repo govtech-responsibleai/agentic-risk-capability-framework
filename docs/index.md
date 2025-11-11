@@ -20,6 +20,12 @@ We have organised our content into four sections:
 
 For first time readers, we suggest following the order of the contents above. For those who are more familiar with agentic AI governance or with the ARC framework, please feel free to jump ahead to the relevant sections.
 
+!!! info "Major Update"
+
+    Note that we have significantly fleshed out and updated the ARC Framework based on the feedback we have received. The main changes are:
+
+    * to be filled in
+
 ## About us
 
 The ARC Framework is developed by the Responsible AI team in GovTech Singapore's AI Practice. We develop deep technical capabilities in Responsible AI to improve how the Singapore government develops, evaluates, deploys, and monitors AI systems in a safe, trustworthy, and ethical manner.
@@ -47,4 +53,4 @@ Alternatively, you may use the APA-formatted citation below:
 > Khoo, S. & Foo, J. & Lee, R. K.-W. (2025) Agentic Risk & Capability Framework. URL <https://govtech-responsibleai.github.io/agentic-risk-capability-framework/>
 
 <br/>
-*Note: This page was last updated on 7 Aug 2025.*
+*Note: This page was last updated on 12 Nov 2025.*

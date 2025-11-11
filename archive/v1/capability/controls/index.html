@@ -1,0 +1,1579 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="GovTech AI Practice">
+      
+      
+      
+        <link rel="prev" href="../risks/">
+      
+      
+        <link rel="next" href="../../implementation/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Capability Controls - Agentic Risk & Capability Framework</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-VDHLWLGZ1W"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-VDHLWLGZ1W",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-VDHLWLGZ1W",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capability-controls" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agentic Risk &amp; Capability Framework" class="md-header__button md-logo" aria-label="Agentic Risk & Capability Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm3.08 15L12 14.15 8.93 16l.81-3.5-2.71-2.34 3.58-.31L12 6.55l1.39 3.29 3.58.31-2.71 2.35z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agentic Risk & Capability Framework
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capability Controls
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  Introduction
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../baseline/" class="md-tabs__link">
+          
+  
+  
+  Baseline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Capability
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../implementation/" class="md-tabs__link">
+          
+  
+  
+  Implementation
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agentic Risk &amp; Capability Framework" class="md-nav__button md-logo" aria-label="Agentic Risk & Capability Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm3.08 15L12 14.15 8.93 16l.81-3.5-2.71-2.34 3.58-.31L12 6.55l1.39 3.29 3.58.31-2.71 2.35z"/></svg>
+
+    </a>
+    Agentic Risk & Capability Framework
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Agentic Risk &amp; Capability Framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/why_arc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Why the ARC Framework?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/about_arc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About the ARC Framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Baseline
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Baseline
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is a Baseline?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../baseline/risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Baseline Risks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../baseline/controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Baseline Controls
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Capability
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Capability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is a Capability?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability Risks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability Controls
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Implementation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Implementation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementing ARC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/for-governance-teams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    For Governance Teams
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/for-ai-developers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    For AI Developers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="capability-controls">Capability Controls</h1>
+<p>For each capability and risk combination identified in the previous sections, we provide a list of technical controls that may be useful in mitigating those safety or security risks. Due to the rapid developments in the agentic AI space, this list provides a simple starting point and is far from complete or thorough.</p>
+<p>Click <a href="https://docs.google.com/spreadsheets/d/1LHyMPrL5IbVELPztK3xcPaxqlism9HryrpjcuGsRWhk/edit?usp=sharing">here</a> for a downloadable version.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Capability</th>
+<th>Risk</th>
+<th>Technical Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cognitive</td>
+<td>Planning &amp; Goal Management</td>
+<td><a name="cognitive-planning-ineffective-plans"></a>Devising plans that are not effective in meeting the user's requirements</td>
+<td>Prompt the agent to self-reflect on the adherence of the plan to the user's instructions</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Planning &amp; Goal Management</td>
+<td>Devising plans that are not effective in meeting the user's requirements</td>
+<td>Require the user to approve the plan in high-impact cases</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Planning &amp; Goal Management</td>
+<td><a name="cognitive-planning-common-sense"></a>Devising plans that do not adhere to common sense or implicit assumptions about the user's instructions</td>
+<td>Prompt the agent to self-reflect on whether the plan is sensible and reasonable, given the user's original request</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Planning &amp; Goal Management</td>
+<td>Devising plans that do not adhere to common sense or implicit assumptions about the user's instructions</td>
+<td>Ensure important assumptions about feasibility, scope, and cost, where relevant, are included in the system prompt</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Reasoning &amp; Problem-Solving</td>
+<td><a name="cognitive-reasoning-overthinking"></a>Becoming ineffective, inefficient, or unsafe due to overthinking</td>
+<td>Enforce time or token limits for agents' reasoning</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Reasoning &amp; Problem-Solving</td>
+<td>Becoming ineffective, inefficient, or unsafe due to overthinking</td>
+<td>Test different variations of the prompt to estimate likelihood of overthinking</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Reasoning &amp; Problem-Solving</td>
+<td>Becoming ineffective, inefficient, or unsafe due to overthinking</td>
+<td>Adjust short-term and long-term memory options for the agent</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Reasoning &amp; Problem-Solving</td>
+<td><a name="cognitive-reasoning-deceptive-behavior"></a>Engaging in deceptive behaviour through pursuing or prioritising other goals</td>
+<td>Provide access to a scratchpad for agents to use to record its inner thoughts</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Agent Delegation</td>
+<td><a name="cognitive-tools-incorrect-assignment"></a>Assigning tasks incorrectly to other agents</td>
+<td>Apply guardrails to limit the scope of tasks that can be assigned to specialised agents</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Agent Delegation</td>
+<td><a name="cognitive-tools-malicious-use"></a>Attempting to use other agents maliciously</td>
+<td>Log all task assignments by the agent to other agents</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Agent Delegation</td>
+<td>Attempting to use other agents maliciously</td>
+<td>Conduct rigorous adversarial testing on centralised planning agents</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>Tool Use</td>
+<td><a name="cognitive-tools-wrong-choice"></a>Choosing the wrong tool for the given action or task</td>
+<td>Provide comprehensive descriptions of each tool, including its intended use, required inputs, and potential outputs</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-undesirable-content"></a>Generating undesirable content (e.g. toxic, hateful, sexual)</td>
+<td>Implement output safety text guardrails to detect if undesirable content is being generated</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-unqualified-advice"></a>Generating unqualified advice in specialised domains (e.g. medical, financial, legal)</td>
+<td>Implement input text guardrails to detect if the question is related to one of the specialised domains, and if so, to decline answering the question</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-controversial-content"></a>Generating controversial content (e.g. political, competitors)</td>
+<td>Implement input text guardrails to detect instructions to generate content that is controversial according to the organisation's policies</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-pii-regurgitation"></a>Regurgitating personally identifiable information</td>
+<td>Implement output text guardrails to detect personally identifiable information in the LLM's outputs before it reaches the user</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-hallucination"></a>Generating non-factual or hallucinated content</td>
+<td>Implement methods to reduce hallucination rates (e.g. retrieval-augmented generation)</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td>Generating non-factual or hallucinated content</td>
+<td>Implement UI/UX cues to highlight the risk of hallucination to the user</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td>Generating non-factual or hallucinated content</td>
+<td>Implement features to enable users to easily verify the generated answer against the original content</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Natural Language Communication</td>
+<td><a name="interaction-nlc-copyright"></a>Generating copyrighted content</td>
+<td>Implement input text guardrails to detect instructions to generate copyrighted content</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-undesirable-content"></a>Generating undesirable content (e.g. toxic, hateful, sexual)</td>
+<td>Implement output multimodal safety guardrails for the output to detect if undesirable content is being generated</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-unqualified-advice"></a>Generating unqualified advice in specialised domains (e.g. medical, financial, legal)</td>
+<td>Implement input multimodal guardrails to detect if the instruction is related to one of the specialised domains, and if so, to decline fulfilling the instruction</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-controversial-content"></a>Generating controversial content (e.g. political, competitors)</td>
+<td>Implement input multimodal guardrails to detect instructions to generate content that is controversial according to the organisation's policies</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-pii-regurgitation"></a>Regurgitating personally identifiable information</td>
+<td>Implement output multimodal guardrails to detect personally identifiable information in the LLM's outputs before it reaches the user</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-hallucination"></a>Generating non-factual or hallucinated content</td>
+<td>Conduct testing to measure hallucination and factuality rates for multimodal outputs</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Multimodal Understanding &amp; Generation</td>
+<td><a name="interaction-multimodal-copyright"></a>Generating copyrighted content</td>
+<td>Implement input guardrails to detect instructions to generate copyrighted content</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-inaccurate-statements"></a>Making inaccurate promises or statements to the public</td>
+<td>Limit the communications to standard processes, where communication templates are available</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td>Making inaccurate promises or statements to the public</td>
+<td>Require human approval for communications for more sensitive matters</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td>Making inaccurate promises or statements to the public</td>
+<td>Provide alternate channels for users to clarify communications or give feedback</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-undesirable-content"></a>Sending undesirable content to recipients</td>
+<td>Implement output safety guardrails to detect if undesirable content is in the communications before it is sent to the user</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-malicious-content"></a>Sending malicious content to recipients</td>
+<td>Check for adherence to communication templates prior to sending email</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td>Sending malicious content to recipients</td>
+<td>Validate all links and attachments prior to sending them to users</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-authorship-deception"></a>Misleading recipients about the authorship of the communications</td>
+<td>Declare upfront that the communications are generated by an AI system</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Official Communications</td>
+<td><a name="interaction-official-sensitive-data"></a>Sending personally identifiable or sensitive data</td>
+<td>Implement output guardrails to detect personally identifiable information in the communications before it is sent to the user</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Business Transactions</td>
+<td><a name="interaction-transactions-unauthorized"></a>Allowing unauthorised transactions</td>
+<td>Require human validation for high-impact transactions</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Business Transactions</td>
+<td>Allowing unauthorised transactions</td>
+<td>Logging all requests leading up to the transaction</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Business Transactions</td>
+<td>Allowing unauthorised transactions</td>
+<td>Apply fraud detection models or heuristics to the agent's own decisions</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Business Transactions</td>
+<td><a name="interaction-transactions-credential-vulnerability"></a>Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent</td>
+<td>Ensure virtual isolation for agents carrying out transactions</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Business Transactions</td>
+<td>Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent</td>
+<td>Do not share credentials with the agent directly, require the agent to use a separate service for authentication and transactions</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td><a name="interaction-internet-prompt-injection"></a>Opening vulnerabilities to prompt injection attacks via malicious websites</td>
+<td>Implement input guardrails to detect prompt injection or adversarial attacks</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td>Opening vulnerabilities to prompt injection attacks via malicious websites</td>
+<td>Implement escape filtering before including web content into prompts</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td>Opening vulnerabilities to prompt injection attacks via malicious websites</td>
+<td>Use structured retrieval APIs for searching the web rather than through web scraping</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td><a name="interaction-internet-unreliable-info"></a>Returning unreliable information or websites</td>
+<td>Prioritise results from verified, high-quality domains (e.g. .gov, .edu, well-known publishers)</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Internet &amp; Search Access</td>
+<td>Returning unreliable information or websites</td>
+<td>Require cross-source validation for some of the claims made</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Computer Use</td>
+<td><a name="interaction-computer-prompt-injection"></a>Opening vulnerabilities to prompt injection attacks</td>
+<td>Ensure computer use protocol or application provides immediate interruptability</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Computer Use</td>
+<td>Opening vulnerabilities to prompt injection attacks</td>
+<td>Limit computer use to accessing only safe resources on the computer</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Computer Use</td>
+<td><a name="interaction-computer-sensitive-access"></a>Accessing personally identifiable or sensitive data</td>
+<td>Ensure "take over" mode is activated when keying in sensitive data (e.g. passwords, API keys)</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td><a name="interaction-programmatic-sensitive"></a>Leaking personally identifiable or sensitive data</td>
+<td>Use short‑lived, rotating credentials that expire immediately after agent use</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td>Leaking personally identifiable or sensitive data</td>
+<td>Specify a whitelist of interfaces that agents are allowed to use</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Other Programmatic Interfaces</td>
+<td><a name="interaction-programmatic-supply-chain"></a>Increasing the system's vulnerability to supply chain attacks</td>
+<td>Enforce zero-trust input handling and validate all data flows</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-data-exfiltration"></a>Enabling the exfiltration of sensitive data</td>
+<td>Implement a whitelist approach for outward network access, including API requests</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td>Enabling the exfiltration of sensitive data</td>
+<td>Ensure that sensitive data is not passed and leaked between agents by using appropriate guardrails</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-insecure-communication"></a>Communicating insecurely resulting in man-in-the-middle attacks</td>
+<td>Ensure all cross-agent authentication and message validation and encryption where necessary</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-message-misinterpretation"></a>Misinterpreting inter-agent messages due to poor formatting or weak protocols</td>
+<td>Constrain agent communication with structured outputs and interactions</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td><a name="interaction-agent-prompt-injection"></a>Passing on prompt injection attacks across agents</td>
+<td>Sanitise messages before agents process them - strip or escape unexpected instruction-like content that may have been injected</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Agent Communication</td>
+<td>Impersonating or accessing peer agents or services via shared roles or credentials</td>
+<td>Isolate roles and credentials of each agent</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td><a name="operational-code-poor-execution"></a>Executing poor code</td>
+<td>Use code linters to screen for bad practices, anti-patterns, unused variables, or poor syntax</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing poor code</td>
+<td>Use static code analysers to detect problems with the code</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing poor code</td>
+<td>Run code only in virtually isolated compute environments (e.g. Docker containers)</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing poor code</td>
+<td>Ensure monitoring of code runtime and memory consumption</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td><a name="operational-code-malicious-execution"></a>Executing vulnerable or malicious code</td>
+<td>Use static code analysers to identify dangerous patterns in the code before execution</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing vulnerable or malicious code</td>
+<td>Conduct CVE scanning and block execution if any High or Critical CVEs are detected</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing vulnerable or malicious code</td>
+<td>Block all inward and outward network access by default</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing vulnerable or malicious code</td>
+<td>Scope execution privileges strictly only to what is necessary, ensuring that privileges are customised to each agent within a system</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing vulnerable or malicious code</td>
+<td>Do not grant admin or sudo privileges</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing vulnerable or malicious code</td>
+<td>Sanitise all inputs</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing vulnerable or malicious code</td>
+<td>Implement a whitelist approach for inward network access</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing vulnerable or malicious code</td>
+<td>Review all code generated by agents, including shell scripts, before execution</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Code Execution</td>
+<td>Executing vulnerable or malicious code</td>
+<td>Create a Deny list of commands that agents are not allowed to run autonomously</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td><a name="operational-files-overwrite-delete"></a>Overwriting or deleting database tables or files</td>
+<td>No write access to tables in the database unless strictly required</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Overwriting or deleting database tables or files</td>
+<td>Require human approval for any changes to the database, table, or file</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Overwriting or deleting database tables or files</td>
+<td>Avoid mounting broad or persistant paths</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td><a name="operational-files-query-overload"></a>Overwhelming the database with poor, inefficient, or repeated queries</td>
+<td>Limit the number of concurrent queries to the database from the agent</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Overwhelming the database with poor, inefficient, or repeated queries</td>
+<td>Analyse past database queries to identify repeated or inefficient queries</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td><a name="operational-files-data-exposure"></a>Exposing personally identifiable or sensitive data from databases or files</td>
+<td>Implement input guardrails to detect personally identifiable information</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Exposing personally identifiable or sensitive data from databases or files</td>
+<td>Do not allow access to personally identifiable data or sensitive data unless strictly required</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Exposing personally identifiable or sensitive data from databases or files</td>
+<td>Log all database queries in production</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td><a name="operational-files-prompt-injection"></a>Opening vulnerabilities to prompt injection attacks via malicious data or files</td>
+<td>Validate new data used to supplement RAG databases or training data</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Opening vulnerabilities to prompt injection attacks via malicious data or files</td>
+<td>Implement input guardrails to detect prompt injection or adversarial attacks</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Opening vulnerabilities to prompt injection attacks via malicious data or files</td>
+<td>Disallow unknown or external files unless it is scanned</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Overwriting or deleting required files</td>
+<td>Require user confirmation before overwriting or deleting any files</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Overwriting or deleting required files</td>
+<td>Keep separate copy of original files</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Overwriting or deleting required files</td>
+<td>Ensure second copy of database is not changed until a pre-specified amount of time has passed / ensure database versioning</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>File &amp; Data Management</td>
+<td>Making unauthorised changes to files</td>
+<td>Require user confirmation before executing each change to a file</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td><a name="operational-system-privilege-escalation"></a>Escalating the agent's own privileges</td>
+<td>Scope system privileges strictly only to what is necessary</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td>Escalating the agent's own privileges</td>
+<td>Do not grant admin privileges to agents</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td>Escalating the agent's own privileges</td>
+<td>Do not allow agents to modify privileges</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td><a name="operational-system-misconfiguration"></a>Misconfiguring system resources, compromising system integrity and availability</td>
+<td>Only grant agents privileges to modify system resources if strictly necessary for completion of tasks</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td>Misconfiguring system resources, compromising system integrity and availability</td>
+<td>Set minimum and maximum limits to what the agent can modify within a given system resource</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td>Misconfiguring system resources, compromising system integrity and availability</td>
+<td>Ensure logging of system health metrics and automated alerts to the developer team if any metrics are abnormal</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td><a name="operational-system-request-overload"></a>Overwhelming the system with poor, inefficient, or repeated requests</td>
+<td>Limit the number of concurrent queries to external systems from the agent</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>System Management</td>
+<td>Overwhelming the system with poor, inefficient, or repeated requests</td>
+<td>Log all queries to external systems from the agent</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://forms.gle/KoXecxDuPHf8izP2A" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../risks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Capability Risks">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Capability Risks
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../implementation/" class="md-footer__link md-footer__link--next" aria-label="Next: Implementing ARC">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Implementing ARC
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      GovTech Singapore
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/orgs/govtech-responsibleai/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/govtech-singapore" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/GovTechSG" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["toc.integrate", "toc.follow", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.sections", "navigation.footer", "navigation.path", "navigation.expand"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>
