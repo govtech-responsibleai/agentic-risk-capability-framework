@@ -82,3 +82,5 @@ class SessionKeys:
     PII_TEXT = "pii_text"
     HUMAN_IN_LOOP_TEXT = "human_in_loop_text"
     FINAL_DESCRIPTION_DISPLAY = "final_description_display"
+    REPO_URL = "repo_url"
+    REPO_ANALYSIS = "repo_analysis"

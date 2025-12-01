@@ -32,6 +32,12 @@ def initialize_session_state():
     
     if SessionKeys.SELECTED_CAPABILITIES not in st.session_state:
         st.session_state[SessionKeys.SELECTED_CAPABILITIES] = []
+
+    # Repository analysis defaults
+    if SessionKeys.REPO_URL not in st.session_state:
+        st.session_state[SessionKeys.REPO_URL] = ""
+    if SessionKeys.REPO_ANALYSIS not in st.session_state:
+        st.session_state[SessionKeys.REPO_ANALYSIS] = ""
     
     # Threshold defaults
     if SessionKeys.LIKELIHOOD_THRESHOLD not in st.session_state:
