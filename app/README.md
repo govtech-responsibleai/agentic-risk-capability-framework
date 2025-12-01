@@ -82,6 +82,8 @@ airbase container deploy
 - Auto-fill with sample data via "Try Sample" button
 - AI-generated comprehensive description using LiteLLM
 - Editable description with real-time updates
+- **New:** Optional public GitHub repo analysis. Paste a repo URL to pull a lightweight snapshot, have a coding-focused LLM describe the codebase (overview, architecture, data/config flows), and pre-fill the Components/Application Description fields.
+  - Snapshot still prioritizes files that move data in/out of the app (API handlers, webhooks, clients, queues, DB access) so the description reflects real interfaces.
 
 ### 2. Capability Identification
 - AI-driven capability analysis based on application details

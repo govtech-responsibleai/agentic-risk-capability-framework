@@ -12,7 +12,7 @@ COPY --chown=app:app app/ ./app/
 COPY --chown=app:app data/ ./data/
 
 # Copy .deploy.env as .env file
-COPY --chown=app:app .deploy.env ./.env
+COPY --chown=app:app .env ./.env
 
 USER app
 CMD ["bash", "-c", "streamlit run app/app.py --server.port=$PORT"]

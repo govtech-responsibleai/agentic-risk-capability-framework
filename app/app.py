@@ -7,7 +7,12 @@ import os
 # Import our modules
 from models.schemas import SessionKeys, RiskAssessment, ScoreAssessment
 from utils.data_loader import load_data, load_sample_data, get_controls_for_risk
-from utils.llm_utils import get_llm_capability_analysis, get_llm_risk_analysis, get_application_description
+from utils.llm_utils import (
+    get_llm_capability_analysis,
+    get_llm_risk_analysis,
+    get_application_description,
+    analyze_public_repo,
+)
 from utils.session_utils import initialize_session_state, initialize_control_implementation
 # Import will be done inside the function to avoid relative import issues
 from datetime import datetime
@@ -39,13 +44,62 @@ def application_assessment_page():
     
     # Create two columns for the panels
     col1, col2 = st.columns([1, 1])
-    
-    with col1:
-        # Header with Try Sample button
-        header_col1, header_col2 = st.columns([3, 1])
+
+    # Set up col2 header and placeholder first
+    with col2:
+        # Header with edit button
+        header_col1, header_col2 = st.columns([4, 1])
         with header_col1:
-            st.subheader("📝 Application Details")
+            st.subheader("📋 Generated Application Description")
         with header_col2:
+            # Show edit button if description exists
+            if 'application_description' in st.session_state:
+                if st.session_state.get('edit_mode', False):
+                    if st.button("✅ Done", key="edit_toggle_btn"):
+                        # Save changes and exit edit mode
+                        if 'final_description_display' in st.session_state:
+                            st.session_state.application_description = st.session_state.final_description_display
+                        st.session_state.edit_mode = False
+                        st.rerun()
+                else:
+                    if st.button("✏️ Edit", key="edit_toggle_btn"):
+                        # Enter edit mode
+                        st.session_state.edit_mode = True
+                        st.rerun()
+
+        # Create placeholder for streaming repo analysis
+        description_stream_slot = st.empty()
+
+    with col1:
+        st.subheader("📝 Application Details")
+
+        # Initialize variables
+        repo_submitted = False
+        repo_url_input = ""
+
+        # Show repo analysis section
+        st.markdown("---")
+        st.markdown("**Option 1: Analyze a public GitHub repository**")
+
+        with st.form("repo_analysis_form"):
+            repo_url_input = st.text_input(
+                "Public repo URL (GitHub)",
+                value=st.session_state.get(SessionKeys.REPO_URL, ""),
+                placeholder="https://github.com/org/project",
+                key="repo_url_input",
+            )
+            st.caption("We'll analyze the codebase and generate an application description automatically.")
+
+            repo_submitted = st.form_submit_button("Generate Application Description", type="primary", use_container_width=True, key="analyze_repo_btn")
+
+        # Divider between repo analysis and form
+        st.markdown("---")
+
+        # Option 2 header with Try Sample button
+        option2_col1, option2_col2 = st.columns([3, 1])
+        with option2_col1:
+            st.markdown("**Option 2: Fill in the application details manually**")
+        with option2_col2:
             if st.button("📋 Try Sample", help="Auto-fill form with sample application data", key="try_sample_btn"):
                 try:
                     sample_data = load_sample_data()
@@ -64,75 +118,112 @@ def application_assessment_page():
                         st.warning("Sample data not available. Please check sample_data.yaml file.")
                 except Exception as e:
                     st.error(f"Error loading sample data: {str(e)}")
-        
+
+        # Initialize manual form variables
+        submitted = False
+        description = ""
+        components = ""
+        data_classification = "Public/Open"
+        deployment_type = "SaaS"
+        human_in_loop = ""
+        public_facing = "Yes"
+        criticality = "Medium"
+        pii_data = ""
+
         # Application information form
         with st.form("application_form"):
             # Form field defaults are initialized in initialize_session_state()
-            
+
             description = st.text_area(
                 "What does your application do?",
                 placeholder="Describe the main functionality and purpose of your agentic AI application, as well as how a user interacts with it...",
                 height=140,
                 key="purpose_text"
             )
-            
+
             components = st.text_area(
                 "Describe the components of your application",
                 placeholder="Describe the technical components, architecture, tools, MCP servers, integrations, and data flows...",
                 height=140,
                 key="components_text"
             )
-            
+
             data_classification = st.selectbox(
                 "What data classification is your application?",
                 options=["Public/Open", "Internal", "Confidential", "Restricted"],
                 key="form_data_classification"
             )
-            
+
             deployment_type = st.radio(
                 "What is your application's deployment type?",
                 options=["SaaS", "Custom", "Platform"],
                 key="form_deployment_type"
             )
-            
+
             human_in_loop = st.text_area(
                 "Is there any human in the loop?",
                 placeholder="Describe any human oversight, review, or intervention in your application...",
                 height=100,
                 key="human_in_loop_text"
             )
-            
+
             public_facing = st.selectbox(
                 "Is the application public facing?",
                 options=["Yes", "No"],
                 key="form_public_facing"
             )
-            
+
             criticality = st.selectbox(
                 "How critical is this application to your operations?",
                 options=["Low", "Medium", "High", "Critical"],
                 key="form_criticality"
             )
-            
+
             pii_data = st.text_area(
                 "Is there PII data? If so, how is it used?",
                 placeholder="Describe any personally identifiable information collected, processed, or stored...",
                 height=100,
                 key="pii_text"
             )
-            
+
             submitted = st.form_submit_button("Generate Application Description", type="primary", use_container_width=True, key="generate_desc_btn")
-    
+
+    # Continue with col2 content
     with col2:
-        # Header with edit button
-        header_col1, header_col2 = st.columns([3, 1])
-        with header_col1:
-            st.subheader("📋 Generated Application Description")
-        with header_col2:
-            # Edit button will be shown here after generation
-            pass
-        
+        # Handle repo analysis submission
+        if repo_submitted:
+            if not repo_url_input.strip():
+                st.error("Please enter a public GitHub repository URL.")
+            else:
+                # Create a status placeholder that will be cleared when streaming starts
+                status_placeholder = st.empty()
+                with status_placeholder:
+                    st.info("🔍 Fetching repository files and analyzing repo...")
+                summary, _ = analyze_public_repo(repo_url_input.strip(), stream_target=description_stream_slot, status_placeholder=status_placeholder)
+                if summary:
+                    st.session_state[SessionKeys.REPO_URL] = repo_url_input.strip()
+                    st.session_state[SessionKeys.REPO_ANALYSIS] = summary
+
+                    # Store application info from repo analysis
+                    st.session_state.application_info = {
+                        'description': 'Generated from repository analysis',
+                        'data_classification': 'Not specified',
+                        'deployment_type': 'Not specified',
+                        'human_in_loop': 'Not specified',
+                        'public_facing': 'Unknown',
+                        'criticality': 'Not specified',
+                        'pii_data': 'Not specified',
+                        'components': summary,
+                        'repo_url': repo_url_input.strip(),
+                        'repo_analysis': summary
+                    }
+                    # Store the generated description
+                    st.session_state.application_description = summary
+                    st.success("Repository analyzed! Review the generated description on the right, then continue to the next step.")
+                    st.rerun()
+
         if submitted:
+            # Form submission - only happens when manual form is used
             if not description.strip():
                 st.error("Please provide a description of your application.")
             else:
@@ -145,7 +236,9 @@ def application_assessment_page():
                     'public_facing': public_facing,
                     'criticality': criticality,
                     'pii_data': pii_data,
-                    'components': components
+                    'components': components,
+                    'repo_url': '',
+                    'repo_analysis': ''
                 }
                 
                 # Clear form data after form submission
@@ -162,25 +255,10 @@ def application_assessment_page():
         
         # Display the generated description
         if 'application_description' in st.session_state:
-            # Update edit button in the header
-            with header_col2:
-                if st.session_state.edit_mode:
-                    if st.button("✅ Done", key="edit_toggle_btn"):
-                        # Save changes and exit edit mode
-                        if 'final_description_display' in st.session_state:
-                            st.session_state.application_description = st.session_state.final_description_display
-                        st.session_state.edit_mode = False
-                        st.rerun()
-                else:
-                    if st.button("✏️ Edit", key="edit_toggle_btn"):
-                        # Enter edit mode
-                        st.session_state.edit_mode = True
-                        st.rerun()
-            
             # Display content based on edit mode
             if st.session_state.edit_mode:
                 # Editable text area
-                st.text_area(
+                description_stream_slot.text_area(
                     "",
                     value=st.session_state.application_description,
                     height=700,
@@ -188,8 +266,8 @@ def application_assessment_page():
                     key="final_description_display"
                 )
             else:
-                # Markdown display
-                st.markdown(st.session_state.application_description)
+                # Markdown display (also used as the streaming target)
+                description_stream_slot.markdown(st.session_state.application_description)
             
             # Button to proceed to capability identification
             if st.button("Continue to Capability Identification", type="primary", use_container_width=True, key="continue_capability_btn"):
@@ -230,6 +308,10 @@ def capability_identification_page():
             st.write(f"**PII Data:** {info['pii_data']}")
             st.write(f"**Human in Loop:** {info['human_in_loop']}")
             st.write(f"**Components:** {info['components']}")
+            if info.get('repo_url'):
+                st.write(f"**Repo:** {info['repo_url']}")
+            if info.get('repo_analysis'):
+                st.caption(f"Repo Summary: {info['repo_analysis'][:500]}{'...' if len(info['repo_analysis']) > 500 else ''}")
     
     # Initialize capability analysis if not done
     if SessionKeys.CAPABILITY_ANALYSIS not in st.session_state:
@@ -700,68 +782,58 @@ def controls_page():
         # Show threshold summary
         st.info(f"Showing controls for **{len(st.session_state.high_priority_risks)} high-priority risks** (Likelihood ≥ {st.session_state.get('likelihood_threshold', 4)} AND Impact ≥ {st.session_state.get('impact_threshold', 4)})")
         
-        # Display all high-priority risks in a list
-        st.subheader("📋 High-Priority Risks Requiring Controls")
+        # Display all high-priority risks with controls emphasized
+        st.subheader("📋 High-Priority Controls")
         
         for risk_id in st.session_state.high_priority_risks:
             if risk_id in risks:
                 risk_data = risks[risk_id]
                 
-                # Create expandable section for each risk
-                with st.expander(f"**{risk_id}: {risk_data['name']}**", expanded=False):
-                    st.write(f"**Description:** {risk_data['description']}")
-                    
-                    # Show risk assessment if available
-                    if SessionKeys.RISK_ASSESSMENTS in st.session_state and risk_id in st.session_state[SessionKeys.RISK_ASSESSMENTS]:
-                        assessment = st.session_state[SessionKeys.RISK_ASSESSMENTS][risk_id]
-                        if hasattr(assessment, 'context'):
-                            st.info(f"💡 **For your application:** {assessment.context}")
-                        
-                        # Show current scores
-                        col_likelihood, col_impact = st.columns(2)
-                        with col_likelihood:
-                            likelihood_score = assessment.likelihood.score
-                            st.metric("Current Likelihood", f"{likelihood_score}/5")
-                        with col_impact:
-                            impact_score = assessment.impact.score
-                            st.metric("Current Impact", f"{impact_score}/5")
-                    
-                    # Get and display controls for this risk
-                    risk_controls = get_controls_for_risk(risk_id, risks, controls)
-                    
-                    if risk_controls:
-                        st.write(f"**{len(risk_controls)} Control(s) Available:**")
-                        for i, control in enumerate(risk_controls, 1):
-                            with st.expander(f"Control {i}: {control['name']}"):
-                                # Two-column layout: control info on left, implementation on right
-                                col_control_info, col_implementation = st.columns([1, 1])
+                # Minimal risk header (always visible)
+                st.markdown(f"**{risk_id}: {risk_data['name']}**")
+                st.caption(risk_data.get('description', ''))
+                
+                # Show minimal risk context inline
+                if SessionKeys.RISK_ASSESSMENTS in st.session_state and risk_id in st.session_state[SessionKeys.RISK_ASSESSMENTS]:
+                    assessment = st.session_state[SessionKeys.RISK_ASSESSMENTS][risk_id]
+                    if hasattr(assessment, 'context'):
+                        st.caption(f"Context: {assessment.context}")
+                
+                # Get and display controls for this risk (expanded focus)
+                risk_controls = get_controls_for_risk(risk_id, risks, controls)
+                
+                if risk_controls:
+                    for i, control in enumerate(risk_controls, 1):
+                        with st.expander(f"Control {i}: {control['name']}", expanded=True):
+                            # Two-column layout: control info on left, implementation on right
+                            col_control_info, col_implementation = st.columns([1, 1])
+                            
+                            with col_control_info:
+                                st.write(f"**{control['id']}**")
+                                st.write(control['description'])
+                            
+                            with col_implementation:
+                                # Editable text box for control implementation
+                                control_key = f"control_implementation_{risk_id}_{control['id']}"
+                                default_text = "I did not implement this control. I accept all residual risk."
                                 
-                                with col_control_info:
-                                    st.write(f"**{control['id']}**")
-                                    st.write(control['description'])
+                                # Initialize session state for this control if not exists
+                                initialize_control_implementation(risk_id, control['id'], default_text)
                                 
-                                with col_implementation:
-                                    # Editable text box for control implementation
-                                    control_key = f"control_implementation_{risk_id}_{control['id']}"
-                                    default_text = "I did not implement this control. I accept all residual risk."
-                                    
-                                    # Initialize session state for this control if not exists
-                                    initialize_control_implementation(risk_id, control['id'], default_text)
-                                    
-                                    st.write("**Your Implementation Status:**")
-                                    implementation_text = st.text_area(
-                                        f"Describe how you have implemented this control and remaining residual risks.",
-                                        value=st.session_state[control_key],
-                                        height=150,
-                                        key=f"implementation_text_{risk_id}_{control['id']}",
-                                        help="Describe what you have implemented for this control, or leave the default text if not implemented."
-                                    )
-                                    
-                                    # Update session state when text changes
-                                    if implementation_text != st.session_state[control_key]:
-                                        st.session_state[control_key] = implementation_text
-                    else:
-                        st.warning("No specific controls found for this risk.")
+                                st.write("**Your Implementation Status:**")
+                                implementation_text = st.text_area(
+                                    f"Describe how you have implemented this control and remaining residual risks.",
+                                    value=st.session_state[control_key],
+                                    height=150,
+                                    key=f"implementation_text_{risk_id}_{control['id']}",
+                                    help="Describe what you have implemented for this control, or leave the default text if not implemented."
+                                )
+                                
+                                # Update session state when text changes
+                                if implementation_text != st.session_state[control_key]:
+                                    st.session_state[control_key] = implementation_text
+                else:
+                    st.warning("No specific controls found for this risk.")
         
         # Controls selection interface
         st.markdown("---")
