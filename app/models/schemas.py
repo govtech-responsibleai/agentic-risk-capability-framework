@@ -43,6 +43,13 @@ class RiskAssessment(BaseModel):
         return str(v)
 
 
+class CapabilityEvaluation(BaseModel):
+    """Model for individual capability evaluation."""
+    capability_id: str = Field(description="The capability ID being evaluated")
+    applies: bool = Field(description="Whether this capability applies to the application")
+    reasoning: str = Field(description="Explanation for why this capability does or does not apply")
+
+
 class CapabilityAnalysis(BaseModel):
     """Model for capability analysis results."""
     applicable_capabilities: List[str] = Field(description="List of applicable capability IDs")

@@ -6,7 +6,7 @@ import re
 import requests
 from typing import Dict, List, Any, Tuple
 from litellm import completion
-from models.schemas import CapabilityAnalysis, RiskAnalysis, SessionKeys
+from models.schemas import CapabilityAnalysis, CapabilityEvaluation, RiskAnalysis, SessionKeys
 
 
 def get_llm_capability_analysis(application_info: Dict[str, Any], capabilities: Dict[str, Any]) -> CapabilityAnalysis:
@@ -19,13 +19,18 @@ def get_llm_capability_analysis(application_info: Dict[str, Any], capabilities: 
     Returns:
         CapabilityAnalysis object with applicable capabilities and reasoning
     """
-    # Prepare capabilities list for the prompt
+    # Prepare capabilities list for the prompt with detailed information
     capabilities_text = ""
+    capability_ids = []
     for cap_id, cap_data in capabilities.items():
-        capabilities_text += f"- {cap_id}: {cap_data['name']} ({cap_data['category']})\n"
-    
-    prompt = f"""
-You are an expert in AI system analysis. Based on the following application information, identify which capabilities from the provided list are applicable to this application.
+        capability_ids.append(cap_id)
+        capabilities_text += f"\n{cap_id}:\n"
+        capabilities_text += f"  Name: {cap_data['name']}\n"
+        capabilities_text += f"  Category: {cap_data['category']}\n"
+        if 'description' in cap_data:
+            capabilities_text += f"  Description: {cap_data['description']}\n"
+
+    prompt = f"""You are an expert in AI system analysis. You must systematically evaluate EACH capability listed below to determine if it applies to this application.
 
 Application Information:
 - What does your application do? {application_info.get('description', 'Not provided')}
@@ -36,32 +41,73 @@ Application Information:
 - PII data: {application_info.get('pii_data', 'Not provided')}
 - Components: {application_info.get('components', 'Not provided')}
 
-Available Capabilities:
+INSTRUCTIONS:
+1. Go through EACH of the {len(capability_ids)} capabilities listed below ONE BY ONE
+2. For EACH capability, decide: Does this capability apply to this specific application?
+3. For EACH capability, provide reasoning for your decision
+
+Capabilities to Evaluate ({len(capability_ids)} total):
 {capabilities_text}
 
-Please analyze the application and return your response as a JSON object with the following structure:
+CRITICAL: You MUST evaluate ALL {len(capability_ids)} capabilities listed above. Do not skip any.
+
+Return your response as a JSON object with this EXACT structure:
 {{
-    "applicable_capabilities": ["CAP-001", "CAP-002", ...],
-    "reasoning": "Brief explanation of why these capabilities were selected"
+    "evaluations": [
+        {{
+            "capability_id": "CAP-XXX",
+            "applies": true,
+            "reasoning": "This capability applies because..."
+        }},
+        {{
+            "capability_id": "CAP-YYY",
+            "applies": false,
+            "reasoning": "This does not apply because..."
+        }}
+    ]
 }}
 
-Only include capabilities that are clearly relevant to this application. Be conservative - it's better to miss a capability than to include irrelevant ones.
+The "evaluations" array must contain exactly {len(capability_ids)} objects, one for each capability.
 """
 
     try:
         # Show progress indicator
         message_placeholder = st.empty()
-        
+
         response = completion(
-            model="gpt-4o-mini",
+            model="gpt-4o",  # Use more capable model for systematic evaluation
             messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"}
+            response_format={"type": "json_object"},
+            temperature=0  # Deterministic for consistency
         )
-        
+
         message_placeholder.empty()
         result = json.loads(response.choices[0].message.content)
-        capability_analysis = CapabilityAnalysis(**result)
-        return capability_analysis
+
+        # Parse evaluations
+        evaluations = result.get('evaluations', [])
+
+        # Extract applicable capabilities
+        applicable_capabilities = []
+        evaluation_details = []
+
+        for eval_data in evaluations:
+            try:
+                evaluation = CapabilityEvaluation(**eval_data)
+                evaluation_details.append(evaluation)
+                if evaluation.applies:
+                    applicable_capabilities.append(evaluation.capability_id)
+            except Exception as e:
+                st.warning(f"Could not parse evaluation: {eval_data}. Error: {str(e)}")
+                continue
+
+        # Generate overall reasoning
+        reasoning = f"Evaluated {len(evaluations)} capabilities. {len(applicable_capabilities)} found to be applicable based on the application's characteristics."
+
+        return CapabilityAnalysis(
+            applicable_capabilities=applicable_capabilities,
+            reasoning=reasoning
+        )
     except Exception as e:
         st.error(f"Error calling LLM: {str(e)}")
         return CapabilityAnalysis(applicable_capabilities=[], reasoning="Error occurred during analysis")

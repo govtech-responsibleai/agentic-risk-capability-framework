@@ -26,13 +26,13 @@ CAP-05:
 CAP-06:
   name: "Official Communication"
   category: "Interaction"
-  description: "The capability to compose and directly publish communications that formally represent an organization to external parties (e.g. customers, partners, regulators, courts, media) via approved channels and formats without human oversight."
+  description: "The capability to compose and directly publish communications that formally represent an organization to external parties (e.g. customers, partners, regulators, courts, media) via approved channels and formats without human oversight. This includes responding to customers directly (without a human agent) and replying to external email inquiries automatically."
 
 CAP-07:
   name: "Business Transactions"
   category: "Interaction"
-  description: "The capability to execute transactions that involve exchanging money, services, or commitments with external parties. It can process payments, make reservations, and handle other business transactions within authorized limits."
-
+  description: "The capability to execute transactions that involve goods, services, money, or other commitments with external parties such as customers or other companies. It includes processing payments, making reservations, amending bookings, and handling other business transactions within authorized limits."
+  
 CAP-08:
   name: "Internet and Search Access"
   category: "Interaction"

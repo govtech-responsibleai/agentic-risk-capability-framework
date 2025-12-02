@@ -31,7 +31,7 @@ st.set_page_config(
 
 def application_assessment_page():
     """First page: Application Assessment"""
-    st.title("🤖 Agentic Risk Capability Framework")
+    st.title("🤖 ARCvisor: Agentic Risk & Capability (ARC) Framework Advisor")
     st.markdown("### Step 1: Tell us about your application")
     
     # Load all data for LLM analysis
@@ -242,7 +242,8 @@ def application_assessment_page():
                 # Generate comprehensive application description
                 application_description = get_application_description(st.session_state.application_info)
                 st.session_state.application_description = application_description
-        
+                st.rerun()
+
         # Display the generated description
         if 'application_description' in st.session_state:
             # Display content based on edit mode
@@ -269,7 +270,7 @@ def application_assessment_page():
 
 def capability_identification_page():
     """Second page: Capability Identification"""
-    st.title("🤖 Agentic Risk Capability Framework")
+    st.title("🤖 ARCvisor: Agentic Risk & Capability (ARC) Framework Advisor")
     
     # Add back button
     if st.button("← Back to Application Assessment"):
@@ -392,7 +393,7 @@ def capability_identification_page():
 
 def risk_assessment_page():
     """Third page: Risk Assessment and Controls"""
-    st.title("🤖 Agentic Risk Capability Framework")
+    st.title("🤖 ARCvisor: Agentic Risk & Capability (ARC) Framework Advisor")
     
     # Add back button
     if st.button("← Back to Capability Identification"):
@@ -714,7 +715,7 @@ def risk_assessment_page():
 
 def controls_page():
     """Fourth page: Controls"""
-    st.title("🤖 Agentic Risk Capability Framework")
+    st.title("🤖 ARCvisor: Agentic Risk & Capability (ARC) Framework Advisor")
     
     # Header with back button and export button
     header_col1, header_col2 = st.columns([3, 1])
