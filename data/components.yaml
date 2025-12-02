@@ -1,0 +1,15 @@
+CMP-01:
+  name: "LLM"
+  description: "The LLM is the reasoning engine that processes instructions, interprets user inputs, and generates contextually appropriate responses by leveraging its trained language understanding and generation capabilities."
+
+CMP-02:
+  name: "Instructions"
+  description: "Instructions are the blueprint which defines an agent's role, capabilities, and behavioral constraints, ensuring it operates within intended parameters and maintains its performance across different scenarios."
+
+CMP-03:
+  name: "Tools"
+  description: "Tools enable LLMs to interact with the external environment, be it editing files, querying databases, controlling devices, or accessing APIs. This is facilitated by MCP servers, which provide LLMs a consistent interface to discover and utilize a variety of tools."
+
+CMP-04:
+  name: "Memory"
+  description: "The memory or knowledge base component provides the agent with contextual awareness and information persistence, enabling it to maintain coherent conversations, learn from past interactions, and access relevant facts without requiring constant re-instruction."

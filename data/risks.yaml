@@ -1,7 +1,7 @@
 RISK-001:
   name: "Alignment Failure"
   description: "Poorly aligned LLMs may pursue objectives which technically satisfy instructions but violate safety principles."
-  baseline: ["BASE-01"]
+  components: ["CMP-01"]
   capabilities: []
   controls: ["CTRL-001", "CTRL-002", "CTRL-003"]
   sources: ["https://arxiv.org/abs/2406.10162"]
@@ -9,7 +9,7 @@ RISK-001:
 RISK-002:
   name: "Unpredictable Performance"
   description: "Weaker LLMs have a higher tendency to produce unpredictable outputs which make agent behaviour erratic."
-  baseline: ["BASE-01"]
+  components: ["CMP-01"]
   capabilities: []
   controls: ["CTRL-004", "CTRL-042", "CTRL-043"]
   sources: ["https://arxiv.org/abs/2505.00212"]
@@ -17,7 +17,7 @@ RISK-002:
 RISK-003:
   name: "Poor Safety Tuning"
   description: "LLMs with poor safety tuning are more susceptible to prompt injection attacks and jailbreaking attempts."
-  baseline: ["BASE-01"]
+  components: ["CMP-01"]
   capabilities: []
   controls: ["CTRL-005"]
   sources: ["https://arxiv.org/pdf/2502.08586", "https://arxiv.org/abs/2402.11208"]
@@ -25,7 +25,7 @@ RISK-003:
 RISK-004:
   name: "Data Contamination"
   description: "Using LLMs trained on poisoned or biased data introduces manipulation risk, discriminatory decisions, or misinformation."
-  baseline: ["BASE-01"]
+  components: ["CMP-01"]
   capabilities: []
   controls: ["CTRL-006"]
   sources: ["https://arxiv.org/abs/2408.02946v6"]
@@ -33,7 +33,7 @@ RISK-004:
 RISK-005:
   name: "Overthinking"
   description: "LLMs may be ineffective, inefficient, or unsafe due to overthinking."
-  baseline: ["BASE-01"]
+  components: ["CMP-01"]
   capabilities: []
   controls: ["CTRL-007"]
   sources: ["https://arxiv.org/pdf/2502.08235"]
@@ -41,7 +41,7 @@ RISK-005:
 RISK-006:
   name: "Deceptive Behavior"
   description: "LLMs may engage in deceptive behaviour through pursuing or prioritising other goals."
-  baseline: ["BASE-01"]
+  components: ["CMP-01"]
   capabilities: []
   controls: ["CTRL-008"]
   sources: ["https://www.anthropic.com/research/reasoning-models-dont-say-think"]
@@ -49,7 +49,7 @@ RISK-006:
 RISK-007:
   name: "Authentication Failure"
   description: "Poorly implemented tools may not correctly verify user identity or permissions when executing privileged actions."
-  baseline: ["BASE-03"]
+  components: ["CMP-03"]
   capabilities: []
   controls: ["CTRL-009", "CTRL-010"]
   sources: ["https://arxiv.org/abs/2504.08623", "https://arxiv.org/abs/2505.14590", "https://www.redhat.com/en/blog/model-context-protocol-mcp-understanding-security-risks-and-controls"]
@@ -57,7 +57,7 @@ RISK-007:
 RISK-008:
   name: "Rogue Malicious"
   description: "Rogue tools that mimic legitimate ones can contain hidden malicious code that executes when loaded."
-  baseline: ["BASE-03"]
+  components: ["CMP-03"]
   capabilities: []
   controls: ["CTRL-011", "CTRL-012"]
   sources: ["https://www.mbgsec.com/archive/2025-05-03-mcp-untrusted-servers-and-confused-clients-plus-a-sneaky-exploit-embrace-the-red/"]
@@ -65,7 +65,7 @@ RISK-008:
 RISK-009:
   name: "Input Validation"
   description: "Tools that do not properly sanitise or validate inputs can be exploited through prompt injection attacks."
-  baseline: ["BASE-03"]
+  components: ["CMP-03"]
   capabilities: []
   controls: ["CTRL-013", "CTRL-014"]
   sources: ["https://arxiv.org/abs/2503.12188v1", "https://www.cve.org/CVERecord?id=CVE-2024-7042"]
@@ -73,7 +73,7 @@ RISK-009:
 RISK-010:
   name: "Excessive Privileges"
   description: "Tools that demand broader permissions than necessary create unnecessary attack surfaces for malicious actors."
-  baseline: ["BASE-03"]
+  components: ["CMP-03"]
   capabilities: []
   controls: ["CTRL-015"]
   sources: ["https://embracethered.com/blog/posts/2023/chatgpt-plugin-vulns-chat-with-code/"]
@@ -81,7 +81,7 @@ RISK-010:
 RISK-011:
   name: "Specification Gaming"
   description: "Simplistic instructions with narrow metrics and without broader constraints may result in agents engaging in specification gaming, resulting in poor performance or safety violations."
-  baseline: ["BASE-02"]
+  components: ["CMP-02"]
   capabilities: []
   controls: ["CTRL-005", "CTRL-016", "CTRL-017"]
   sources: ["https://arxiv.org/abs/2502.13295"]
@@ -89,7 +89,7 @@ RISK-011:
 RISK-012:
   name: "Underspecified"
   description: "Vague instructions may compel agents to attempt to fill in missing constraints, resulting in unpredictable actions or incorrect steps taken."
-  baseline: ["BASE-02"]
+  components: ["CMP-02"]
   capabilities: []
   controls: ["CTRL-018", "CTRL-019"]
   sources: ["https://arxiv.org/abs/2505.13360v1"]
@@ -97,7 +97,7 @@ RISK-012:
 RISK-013:
   name: "Hierarchy Confusion"
   description: "Instructions without a clear distinction between system prompts and user requests may confuse agents and result in greater vulnerability to prompt injection attacks."
-  baseline: ["BASE-02"]
+  components: ["CMP-02"]
   capabilities: []
   controls: ["CTRL-020"]
   sources: ["https://arxiv.org/abs/2502.15851v1", "https://aclanthology.org/2025.naacl-long.425.pdf"]
@@ -105,7 +105,7 @@ RISK-013:
 RISK-014:
   name: "Data Poisoning"
   description: "Malicious actors can inject false or misleading facts into the knowledge base, resulting in the agent acting on incorrect data or facts."
-  baseline: ["BASE-04"]
+  components: ["CMP-04"]
   capabilities: []
   controls: ["CTRL-021"]
   sources: ["https://arxiv.org/abs/2505.11548v2", "https://arxiv.org/abs/2402.07867", "https://openreview.net/pdf?id=6SIymOqJlc"]
@@ -113,7 +113,7 @@ RISK-014:
 RISK-015:
   name: "Privacy Leakage"
   description: "Agents may inadvertently store sensitive user or organisational data from prior interactions, resulting in data privacy risks."
-  baseline: ["BASE-04"]
+  components: ["CMP-04"]
   capabilities: []
   controls: ["CTRL-022"]
   sources: ["https://arxiv.org/abs/2506.12699v2"]
@@ -121,7 +121,7 @@ RISK-015:
 RISK-016:
   name: "Hallucination Persistence"
   description: "Agents may mistakenly save momentary glitches and hallucinations into memory, resulting in compounding mistakes when the agent relies on the incorrect information for its decision or actions."
-  baseline: ["BASE-04"]
+  components: ["CMP-04"]
   capabilities: []
   controls: ["CTRL-023"]
   sources: []
@@ -129,7 +129,7 @@ RISK-016:
 RISK-017:
   name: "Error Propagation"
   description: "In linear agentic pipelines where each stage blindly trusts the previous stage, single early mistakes may be propagated and magnified."
-  baseline: ["BASE-05"]
+  design: ["DSN-01"]
   capabilities: []
   controls: ["CTRL-024", "CTRL-025"]
   sources: ["https://arxiv.org/abs/2408.00989v3"]
@@ -137,7 +137,7 @@ RISK-017:
 RISK-018:
   name: "Single Point Failure"
   description: "In hub-and-spoke architectures which route all decisions through one controller agent, any bug or compromise may distributes faulty instructions across the entire system."
-  baseline: ["BASE-05"]
+  design: ["DSN-01"]
   capabilities: []
   controls: ["CTRL-026"]
   sources: ["https://arxiv.org/pdf/2502.19145"]
@@ -145,7 +145,7 @@ RISK-018:
 RISK-019:
   name: "Decision Traceability"
   description: "More complex agentic architectures may make it difficult to fully reconstruct decision processes across multiple agents."
-  baseline: ["BASE-05"]
+  design: ["DSN-01"]
   capabilities: []
   controls: ["CTRL-027", "CTRL-028"]
   sources: []
@@ -153,7 +153,7 @@ RISK-019:
 RISK-020:
   name: "Exfiltration of Sensitive Data"
   description: "Agents may communicate insecurely, resulting in the exfiltration of sensitive data."
-  baseline: ["BASE-05"]
+  design: ["DSN-01"]
   capabilities: []
   controls: ["CTRL-029", "CTRL-030"]
   sources: ["https://securitylab.github.com/advisories/GHSL-2024-294_Azure-cli/"]
@@ -161,7 +161,7 @@ RISK-020:
 RISK-021:
   name: "Man-in-the-Middle Attacks"
   description: "Man-in-the-middle attacks can occur when agents communicate insecurely."
-  baseline: ["BASE-05"]
+  design: ["DSN-01"]
   capabilities: []
   controls: ["CTRL-031"]
   sources: ["https://arxiv.org/pdf/2502.14847"]
@@ -169,7 +169,7 @@ RISK-021:
 RISK-022:
   name: "Misinterpretation of Messages"
   description: "Agents may misinterpret messages due to poor formatting or weak protocols."
-  baseline: ["BASE-05"]
+  design: ["DSN-01"]
   capabilities: []
   controls: ["CTRL-032"]
   sources: ["https://arxiv.org/html/2506.19676"]
@@ -177,7 +177,7 @@ RISK-022:
 RISK-023:
   name: "Prompt Injection Infection"
   description: "Agents may pass on prompt injection attacks to each other."
-  baseline: ["BASE-05"]
+  design: ["DSN-01"]
   capabilities: []
   controls: ["CTRL-033"]
   sources: ["https://arxiv.org/html/2506.23260"]
@@ -185,7 +185,7 @@ RISK-023:
 RISK-024:
   name: "Role Impersonation by Agents"
   description: "Agents may impersonate other agents or services via shared roles or credentials."
-  baseline: ["BASE-05"]
+  design: ["DSN-01"]
   capabilities: []
   controls: ["CTRL-034"]
   sources: ["https://arxiv.org/abs/2505.19301"]
@@ -193,7 +193,7 @@ RISK-024:
 RISK-025:
   name: "Role Impersonation"
   description: "Unauthorised actors can impersonate agents and gain access to restricted resources."
-  baseline: ["BASE-06"]
+  design: ["DSN-02"]
   capabilities: []
   controls: ["CTRL-035"]
   sources: ["https://unit42.paloaltonetworks.com/agentic-ai-threats/"]
@@ -201,7 +201,7 @@ RISK-025:
 RISK-026:
   name: "Misconfigured Roles"
   description: "Agents may gain unauthorized access to restricted resources by exploiting misconfigured or overly permissive roles."
-  baseline: ["BASE-06"]
+  design: ["DSN-02"]
   capabilities: []
   controls: ["CTRL-036", "CTRL-039", "CTRL-040", "CTRL-041"]
   sources: ["https://cyberweapons.medium.com/escaping-reality-privilege-escalation-in-gen-ai-admin-panel-aka-the-chaos-of-a-misconfigured-b6ad73bf1b65"]
@@ -209,7 +209,7 @@ RISK-026:
 RISK-027:
   name: "Monitoring Failure"
   description: "Lack of monitoring results in delayed detection of agent failures."
-  baseline: ["BASE-07"]
+  design: ["DSN-03"]
   capabilities: []
   controls: ["CTRL-042"]
   sources: ["https://arxiv.org/abs/2401.13138"]
@@ -217,7 +217,7 @@ RISK-027:
 RISK-028:
   name: "Audit Failure"
   description: "Lack of traceability inhibit proper audit of decision-making paths in the event of failures."
-  baseline: ["BASE-07"]
+  design: ["DSN-03"]
   capabilities: []
   controls: ["CTRL-043"]
   sources: []
@@ -225,7 +225,8 @@ RISK-028:
 RISK-029:
   name: "Ineffective Plans"
   description: "Devising plans that are not effective in meeting the user's requirements"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-01"]
   controls: ["CTRL-044", "CTRL-045"]
   sources: ["https://arxiv.org/pdf/2402.01622v4", "https://aclanthology.org/2025.naacl-long.93.pdf"]
@@ -233,7 +234,8 @@ RISK-029:
 RISK-030:
   name: "Commonsense Violations"
   description: "Devising plans that do not adhere to common sense or implicit assumptions about the user's instructions"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-01"]
   controls: ["CTRL-046", "CTRL-047"]
   sources: ["https://garymarcus.substack.com/p/ai-still-lacks-common-sense-70-years"]
@@ -241,7 +243,8 @@ RISK-030:
 RISK-031:
   name: "Incorrect Task Assignment"
   description: "Assigning tasks incorrectly to other agents"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-02"]
   controls: ["CTRL-048"]
   sources: ["https://arxiv.org/abs/2503.13657"]
@@ -249,7 +252,8 @@ RISK-031:
 RISK-032:
   name: "Malicious Agent Use"
   description: "Attempting to use other agents maliciously"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-02"]
   controls: ["CTRL-049", "CTRL-050"]
   sources: ["https://arxiv.org/abs/2507.06850"]
@@ -257,7 +261,8 @@ RISK-032:
 RISK-033:
   name: "Wrong Tool Choice"
   description: "Choosing the wrong tool for the given action or task"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-03"]
   controls: ["CTRL-051"]
   sources: ["https://arxiv.org/abs/2411.13547"]
@@ -265,7 +270,8 @@ RISK-033:
 RISK-034:
   name: "Undesirable Content Generation"
   description: "Generating undesirable content (e.g. toxic, hateful, sexual)"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-04"]
   controls: ["CTRL-052"]
   sources: ["https://arxiv.org/abs/2402.04249v2"]
@@ -273,7 +279,8 @@ RISK-034:
 RISK-035:
   name: "Unqualified Advice Generation"
   description: "Generating unqualified advice in specialised domains (e.g. medical, financial, legal)"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-04"]
   controls: ["CTRL-053"]
   sources: ["https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf"]
@@ -281,7 +288,8 @@ RISK-035:
 RISK-036:
   name: "Controversial Content Generation"
   description: "Generating controversial content (e.g. political, competitors)"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-04"]
   controls: ["CTRL-054"]
   sources: ["https://news.stanford.edu/stories/2025/05/ai-models-llms-chatgpt-claude-gemini-partisan-bias-research-study"]
@@ -289,7 +297,8 @@ RISK-036:
 RISK-037:
   name: "PII Regurgitation"
   description: "Regurgitating personally identifiable information"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-04"]
   controls: ["CTRL-055"]
   sources: ["https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf"]
@@ -297,7 +306,8 @@ RISK-037:
 RISK-038:
   name: "Hallucination"
   description: "Generating non-factual or hallucinated content"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-04"]
   controls: ["CTRL-056", "CTRL-057", "CTRL-058"]
   sources: ["https://arxiv.org/abs/2309.01219"]
@@ -305,7 +315,8 @@ RISK-038:
 RISK-039:
   name: "Copyrighted Content Generation"
   description: "Generating copyrighted content"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-04"]
   controls: ["CTRL-059"]
   sources: ["https://arxiv.org/abs/2407.07087"]
@@ -313,7 +324,8 @@ RISK-039:
 RISK-040:
   name: "Multimodal Undesirable Content Generation"
   description: "Generating undesirable content (e.g. toxic, hateful, sexual)"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-05"]
   controls: ["CTRL-060"]
   sources: ["https://arxiv.org/abs/2311.17600"]
@@ -321,7 +333,8 @@ RISK-040:
 RISK-041:
   name: "Multimodal Unqualified Advice Generation"
   description: "Generating unqualified advice in specialised domains (e.g. medical, financial, legal)"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-05"]
   controls: ["CTRL-061"]
   sources: ["https://aclanthology.org/2025.findings-acl.981.pdf"]
@@ -329,7 +342,8 @@ RISK-041:
 RISK-042:
   name: "Multimodal Controversial Content Generation"
   description: "Generating controversial content (e.g. political, competitors)"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-05"]
   controls: ["CTRL-062"]
   sources: ["https://www.sciencedirect.com/science/article/pii/S0167268125000241"]
@@ -337,7 +351,8 @@ RISK-042:
 RISK-043:
   name: "Multimodal PII Regurgitation"
   description: "Regurgitating personally identifiable information"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-05"]
   controls: ["CTRL-063"]
   sources: ["https://arxiv.org/abs/2301.13188"]
@@ -345,7 +360,8 @@ RISK-043:
 RISK-044:
   name: "Multimodal Hallucination"
   description: "Generating non-factual or hallucinated content"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-05"]
   controls: ["CTRL-064"]
   sources: ["https://arxiv.org/abs/2404.18930"]
@@ -353,7 +369,8 @@ RISK-044:
 RISK-045:
   name: "Multimodal Copyrighted Content Generation"
   description: "Generating copyrighted content"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-05"]
   controls: ["CTRL-065"]
   sources: ["https://arxiv.org/abs/2301.13188"]
@@ -361,7 +378,8 @@ RISK-045:
 RISK-046:
   name: "Inaccurate Official Statements"
   description: "Making inaccurate promises or statements to the public"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-06"]
   controls: ["CTRL-066", "CTRL-067", "CTRL-068"]
   sources: ["https://the-decoder.com/people-buy-brand-new-chevrolets-for-1-from-a-chatgpt-chatbot/"]
@@ -369,7 +387,8 @@ RISK-046:
 RISK-047:
   name: "Official Undesirable Content"
   description: "Sending undesirable content to recipients"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-06"]
   controls: ["CTRL-069"]
   sources: ["https://www.washingtonpost.com/technology/2025/07/11/grok-ai-elon-musk-antisemitism/"]
@@ -377,7 +396,8 @@ RISK-047:
 RISK-048:
   name: "Official Malicious Content"
   description: "Sending malicious content to recipients"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-06"]
   controls: ["CTRL-070", "CTRL-071"]
   sources: ["https://www.security.com/threat-intelligence/ai-agent-attacks"]
@@ -385,7 +405,8 @@ RISK-048:
 RISK-049:
   name: "Authorship Deception"
   description: "Misleading recipients about the authorship of the communications"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-06"]
   controls: ["CTRL-072"]
   sources: ["https://fortune.com/article/customer-support-ai-cursor-went-rogue/"]
@@ -393,7 +414,8 @@ RISK-049:
 RISK-050:
   name: "Official Sensitive Data Exposure"
   description: "Sending personally identifiable or sensitive data"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-06"]
   controls: ["CTRL-055"]
   sources: ["https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf"]
@@ -401,7 +423,8 @@ RISK-050:
 RISK-051:
   name: "Unauthorized Transactions"
   description: "Allowing unauthorised transactions"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-07"]
   controls: ["CTRL-073", "CTRL-074", "CTRL-075"]
   sources: ["https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks"]
@@ -409,7 +432,8 @@ RISK-051:
 RISK-052:
   name: "Transaction Credential Vulnerability"
   description: "Increasing the system's vulnerability to attackers exfiltrating credentials for transactions through the agent"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-07"]
   controls: ["CTRL-076", "CTRL-077"]
   sources: ["https://arxiv.org/pdf/2506.01055"]
@@ -417,7 +441,8 @@ RISK-052:
 RISK-053:
   name: "Internet Prompt Injection"
   description: "Opening vulnerabilities to prompt injection attacks via malicious websites"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-08"]
   controls: ["CTRL-078", "CTRL-079", "CTRL-080"]
   sources: ["https://unit42.paloaltonetworks.com/agentic-ai-threats/"]
@@ -425,7 +450,8 @@ RISK-053:
 RISK-054:
   name: "Unreliable Internet Information"
   description: "Returning unreliable information or websites"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-08"]
   controls: ["CTRL-081", "CTRL-082"]
   sources: ["https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them"]
@@ -433,7 +459,8 @@ RISK-054:
 RISK-055:
   name: "Computer Prompt Injection"
   description: "Opening vulnerabilities to prompt injection attacks"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-09"]
   controls: ["CTRL-083", "CTRL-084"]
   sources: ["https://arxiv.org/html/2505.13076v1", "https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/"]
@@ -441,7 +468,8 @@ RISK-055:
 RISK-056:
   name: "Computer Sensitive Data Access"
   description: "Accessing personally identifiable or sensitive data"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-09"]
   controls: ["CTRL-085"]
   sources: ["https://arxiv.org/html/2506.00618v3"]
@@ -449,7 +477,8 @@ RISK-056:
 RISK-057:
   name: "Programmatic Sensitive Data Leakage"
   description: "Leaking personally identifiable or sensitive data"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-10"]
   controls: ["CTRL-041", "CTRL-086"]
   sources: ["https://www.trendmicro.com/vinfo/sg/security/news/threat-landscape/unveiling-ai-agent-vulnerabilities-part-iii-data-exfiltration"]
@@ -457,7 +486,8 @@ RISK-057:
 RISK-058:
   name: "Programmatic Supply Chain Vulnerability"
   description: "Increasing the system's vulnerability to supply chain attacks"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-10"]
   controls: ["CTRL-087"]
   sources: ["https://unit42.paloaltonetworks.com/github-actions-supply-chain-attack/"]
@@ -465,7 +495,8 @@ RISK-058:
 RISK-059:
   name: "Poor Code Execution"
   description: "Executing poor code"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-11"]
   controls: ["CTRL-088", "CTRL-089", "CTRL-090", "CTRL-091"]
   sources: ["https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf", "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/", "https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html"]
@@ -473,7 +504,8 @@ RISK-059:
 RISK-060:
   name: "Malicious Code Execution"
   description: "Executing vulnerable or malicious code"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-11"]
   controls: ["CTRL-036", "CTRL-092", "CTRL-093", "CTRL-094", "CTRL-037", "CTRL-005", "CTRL-095", "CTRL-096", "CTRL-097"]
   sources: ["https://arxiv.org/pdf/2501.08200", "https://arxiv.org/html/2504.21205v1"]
@@ -481,7 +513,8 @@ RISK-060:
 RISK-061:
   name: "File Overwrite or Delete"
   description: "Overwriting or deleting database tables or files"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-12"]
   controls: ["CTRL-098", "CTRL-099", "CTRL-100", "CTRL-108", "CTRL-109", "CTRL-110"]
   sources: ["https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf"]
@@ -489,7 +522,8 @@ RISK-061:
 RISK-062:
   name: "Database Query Overload"
   description: "Overwhelming the database with poor, inefficient, or repeated queries"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-12"]
   controls: ["CTRL-101", "CTRL-102"]
   sources: ["https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql"]
@@ -497,7 +531,8 @@ RISK-062:
 RISK-063:
   name: "File Data Exposure"
   description: "Exposing personally identifiable or sensitive data from databases or files"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-12"]
   controls: ["CTRL-103", "CTRL-104", "CTRL-105"]
   sources: ["https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/"]
@@ -505,7 +540,8 @@ RISK-063:
 RISK-064:
   name: "File Prompt Injection"
   description: "Opening vulnerabilities to prompt injection attacks via malicious data or files"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-12"]
   controls: ["CTRL-078", "CTRL-106", "CTRL-107"]
   sources: ["https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability", "https://www.wired.com/story/here-come-the-ai-worms/"]
@@ -513,7 +549,8 @@ RISK-064:
 RISK-068:
   name: "System Privilege Escalation"
   description: "Escalating the agent's own privileges"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-13"]
   controls: ["CTRL-036", "CTRL-037", "CTRL-038"]
   sources: ["https://arxiv.org/html/2503.15547v1"]
@@ -521,7 +558,8 @@ RISK-068:
 RISK-069:
   name: "System Misconfiguration"
   description: "Misconfiguring system resources, compromising system integrity and availability"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-13"]
   controls: ["CTRL-111", "CTRL-112", "CTRL-042"]
   sources: ["https://neurips.cc/virtual/2024/poster/97835", "https://arxiv.org/html/2507.10584v1"]
@@ -529,7 +567,8 @@ RISK-069:
 RISK-070:
   name: "System Request Overload"
   description: "Overwhelming the system with poor, inefficient, or repeated requests"
-  baseline: []
+  components: []
+  design: []
   capabilities: ["CAP-13"]
   controls: ["CTRL-113", "CTRL-114"]
   sources: ["https://arxiv.org/html/2407.20859v1", "https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/"]
