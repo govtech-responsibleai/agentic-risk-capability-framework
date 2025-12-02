@@ -16,13 +16,10 @@ def initialize_session_state():
     # Form field defaults
     if SessionKeys.FORM_DATA_CLASSIFICATION not in st.session_state:
         st.session_state[SessionKeys.FORM_DATA_CLASSIFICATION] = 'Public/Open'
-    
+
     if SessionKeys.FORM_PUBLIC_FACING not in st.session_state:
         st.session_state[SessionKeys.FORM_PUBLIC_FACING] = 'Yes'
-    
-    if SessionKeys.FORM_DEPLOYMENT_TYPE not in st.session_state:
-        st.session_state[SessionKeys.FORM_DEPLOYMENT_TYPE] = 'SaaS'
-    
+
     if SessionKeys.FORM_CRITICALITY not in st.session_state:
         st.session_state[SessionKeys.FORM_CRITICALITY] = 'Medium'
     

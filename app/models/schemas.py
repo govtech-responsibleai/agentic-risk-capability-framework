@@ -73,7 +73,6 @@ class SessionKeys:
     # Form field keys
     FORM_DATA_CLASSIFICATION = "form_data_classification"
     FORM_PUBLIC_FACING = "form_public_facing"
-    FORM_DEPLOYMENT_TYPE = "form_deployment_type"
     FORM_CRITICALITY = "form_criticality"
     
     # Text area keys

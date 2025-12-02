@@ -35,10 +35,10 @@ def application_assessment_page():
     st.markdown("### Step 1: Tell us about your application")
     
     # Load all data for LLM analysis
-    capabilities, risks, controls, baseline = load_data()
+    capabilities, risks, controls, components, design = load_data()
     
     # Check if data loading failed
-    if not capabilities or not risks or not controls or not baseline:
+    if not capabilities or not risks or not controls or not components or not design:
         st.error("Failed to load required data files. Please check that all YAML files exist and are valid.")
         st.stop()
     
@@ -109,7 +109,6 @@ def application_assessment_page():
                         st.session_state.components_text = sample_data.get('components', '')
                         st.session_state.form_data_classification = sample_data.get('data_classification', 'Public/Open')
                         st.session_state.form_public_facing = sample_data.get('public_facing', 'Yes')
-                        st.session_state.form_deployment_type = sample_data.get('deployment_type', 'SaaS')
                         st.session_state.form_criticality = sample_data.get('criticality', 'Medium')
                         st.session_state.pii_text = sample_data.get('pii_data', '')
                         st.session_state.human_in_loop_text = sample_data.get('human_in_loop', '')
@@ -124,7 +123,6 @@ def application_assessment_page():
         description = ""
         components = ""
         data_classification = "Public/Open"
-        deployment_type = "SaaS"
         human_in_loop = ""
         public_facing = "Yes"
         criticality = "Medium"
@@ -152,12 +150,6 @@ def application_assessment_page():
                 "What data classification is your application?",
                 options=["Public/Open", "Internal", "Confidential", "Restricted"],
                 key="form_data_classification"
-            )
-
-            deployment_type = st.radio(
-                "What is your application's deployment type?",
-                options=["SaaS", "Custom", "Platform"],
-                key="form_deployment_type"
             )
 
             human_in_loop = st.text_area(
@@ -208,7 +200,6 @@ def application_assessment_page():
                     st.session_state.application_info = {
                         'description': 'Generated from repository analysis',
                         'data_classification': 'Not specified',
-                        'deployment_type': 'Not specified',
                         'human_in_loop': 'Not specified',
                         'public_facing': 'Unknown',
                         'criticality': 'Not specified',
@@ -231,7 +222,6 @@ def application_assessment_page():
                 st.session_state.application_info = {
                     'description': description,
                     'data_classification': data_classification,
-                    'deployment_type': deployment_type,
                     'human_in_loop': human_in_loop,
                     'public_facing': public_facing,
                     'criticality': criticality,
@@ -242,9 +232,9 @@ def application_assessment_page():
                 }
                 
                 # Clear form data after form submission
-                for key in [SessionKeys.PURPOSE_TEXT, SessionKeys.COMPONENTS_TEXT, 
+                for key in [SessionKeys.PURPOSE_TEXT, SessionKeys.COMPONENTS_TEXT,
                            SessionKeys.FORM_DATA_CLASSIFICATION, SessionKeys.FORM_PUBLIC_FACING,
-                           SessionKeys.FORM_DEPLOYMENT_TYPE, SessionKeys.FORM_CRITICALITY,
+                           SessionKeys.FORM_CRITICALITY,
                            SessionKeys.PII_TEXT, SessionKeys.HUMAN_IN_LOOP_TEXT]:
                     if key in st.session_state:
                         del st.session_state[key]
@@ -289,10 +279,10 @@ def capability_identification_page():
     st.markdown("### Step 2: Identify Applicable Capabilities")
     
     # Load data
-    capabilities, risks, controls, baseline = load_data()
+    capabilities, risks, controls, components, design = load_data()
     
     # Check if data loading failed
-    if not capabilities or not risks or not controls or not baseline:
+    if not capabilities or not risks or not controls or not components or not design:
         st.error("Failed to load required data files. Please check that all YAML files exist and are valid.")
         st.stop()
     
@@ -302,7 +292,6 @@ def capability_identification_page():
             info = st.session_state.application_info
             st.write(f"**Description:** {info['description']}")
             st.write(f"**Data Classification:** {info['data_classification']}")
-            st.write(f"**Deployment Type:** {info['deployment_type']}")
             st.write(f"**Public Facing:** {info['public_facing']}")
             st.write(f"**Criticality:** {info['criticality']}")
             st.write(f"**PII Data:** {info['pii_data']}")
@@ -364,38 +353,30 @@ def capability_identification_page():
                     if cap_id in st.session_state[SessionKeys.SELECTED_CAPABILITIES]:
                         st.session_state[SessionKeys.SELECTED_CAPABILITIES].remove(cap_id)
     
-    # Baseline risks section
+    # Component and Design categories section
     st.markdown("---")
-    st.markdown("**📋 Baseline Risks (Always Included):**")
-    
-    # Get all baseline risks
-    baseline_risks = []
-    for risk_id, risk_data in risks.items():
-        if risk_data.get('baseline') and not risk_data.get('capabilities'):
-            baseline_risks.append((risk_id, risk_data))
-    
-    if baseline_risks:
-        with st.expander(f"**Baseline Risks** ({len(baseline_risks)} risks) - All selected by default", expanded=False):
-            for risk_id, risk_data in baseline_risks:
-                col1, col2, col3 = st.columns([1, 2, 5])
-                with col1:
-                    # Baseline risks are always selected
-                    st.checkbox(
-                        "",
-                        value=True,
-                        disabled=True,
-                        key=f"baseline_{risk_id}"
-                    )
-                with col2:
-                    st.write(f"**{risk_id}**: {risk_data['name']}")
-                with col3:
-                    description = risk_data.get('description', '')
-                    if description:
-                        st.write(description)
-                    else:
-                        st.write("*No description available*")
-        
-        st.info(f"✅ All {len(baseline_risks)} baseline risks will be included in the risk assessment.")
+    st.markdown("**📋 Components & Design Patterns:**")
+    st.markdown("The following system components and design patterns are included in the assessment. These categories help identify applicable risks based on your system architecture.")
+
+    # Display Components
+    if components:
+        with st.expander(f"**Components** ({len(components)} categories)", expanded=False):
+            for component_id, component_data in components.items():
+                st.markdown(f"**{component_id}**: {component_data.get('name', component_id)}")
+                if 'description' in component_data:
+                    st.caption(component_data['description'])
+                st.markdown("")
+
+    # Display Design patterns
+    if design:
+        with st.expander(f"**Design Patterns** ({len(design)} categories)", expanded=False):
+            for design_id, design_data in design.items():
+                st.markdown(f"**{design_id}**: {design_data.get('name', design_id)}")
+                if 'description' in design_data:
+                    st.caption(design_data['description'])
+                st.markdown("")
+
+    st.info("✅ Risks associated with these components and design patterns will be automatically included in the risk assessment.")
     
     # Show selected capabilities summary
     if st.session_state[SessionKeys.SELECTED_CAPABILITIES]:
@@ -421,21 +402,21 @@ def risk_assessment_page():
     st.markdown("### Step 3: Risk Assessment & Controls")
     
     # Load data
-    capabilities, risks, controls, baseline = load_data()
+    capabilities, risks, controls, components, design = load_data()
     
     # Check if data loading failed
-    if not capabilities or not risks or not controls or not baseline:
+    if not capabilities or not risks or not controls or not components or not design:
         st.error("Failed to load required data files. Please check that all YAML files exist and are valid.")
         st.stop()
     
     # Determine applicable risks based on selected capabilities
     if SessionKeys.APPLICABLE_RISKS not in st.session_state:
-        # Get ALL baseline risks
-        baseline_risk_ids = []
+        # Get ALL component and design risks
+        component_design_risk_ids = []
         for risk_id, risk_data in risks.items():
-            if risk_data.get('baseline') and not risk_data.get('capabilities'):
-                baseline_risk_ids.append(risk_id)
-        
+            if (risk_data.get('components') or risk_data.get('design')) and not risk_data.get('capabilities'):
+                component_design_risk_ids.append(risk_id)
+
         # Get ALL capability-specific risks for selected capabilities
         capability_risk_ids = []
         for risk_id, risk_data in risks.items():
@@ -444,20 +425,21 @@ def risk_assessment_page():
                 risk_capabilities = risk_data.get('capabilities', [])
                 if any(cap_id in st.session_state[SessionKeys.SELECTED_CAPABILITIES] for cap_id in risk_capabilities):
                     capability_risk_ids.append(risk_id)
-        
+
         # Combine all applicable risks
-        all_applicable_risks = baseline_risk_ids + capability_risk_ids
+        all_applicable_risks = component_design_risk_ids + capability_risk_ids
         st.session_state[SessionKeys.APPLICABLE_RISKS] = all_applicable_risks
         
         
         # Now get LLM contextualization for all these risks
         st.info("🔍 Analyzing risks and generating contextualization... This can take up to a couple of minutes.")
         analysis_result = get_llm_risk_analysis(
-            st.session_state.application_info, 
+            st.session_state.application_info,
             st.session_state[SessionKeys.SELECTED_CAPABILITIES],
-            capabilities, 
-            risks, 
-            baseline,
+            capabilities,
+            risks,
+            components,
+            design,
             all_applicable_risks
         )
         st.session_state[SessionKeys.RISK_ASSESSMENTS] = analysis_result.risk_assessments
@@ -466,17 +448,17 @@ def risk_assessment_page():
     
     # Risk Assessment Interface
     if SessionKeys.APPLICABLE_RISKS in st.session_state and st.session_state[SessionKeys.APPLICABLE_RISKS]:
-        # Organize risks by type (baseline vs capability-specific)
-        baseline_risks = []
+        # Organize risks by type (component/design vs capability-specific)
+        component_design_risks = []
         capability_risks = []
-        
+
         for risk_id in st.session_state[SessionKeys.APPLICABLE_RISKS]:
             if risk_id in risks:
                 risk_data = risks[risk_id]
                 # Store both risk_id and risk_data as a tuple
                 risk_info = (risk_id, risk_data)
-                if risk_data.get('baseline') and not risk_data.get('capabilities'):
-                    baseline_risks.append(risk_info)
+                if (risk_data.get('components') or risk_data.get('design')) and not risk_data.get('capabilities'):
+                    component_design_risks.append(risk_info)
                 else:
                     capability_risks.append(risk_info)
         
@@ -588,16 +570,16 @@ def risk_assessment_page():
                                             impact=ScoreAssessment(score=new_impact_score, reasoning=new_impact_reasoning)
                                         )
         
-        # Baseline risks
-        if baseline_risks:
-            with st.expander(f"### Baseline Risks ({len(baseline_risks)} risks)", expanded=True):
-                for risk_id, risk_data in baseline_risks:
+        # Component and Design risks
+        if component_design_risks:
+            with st.expander(f"### Component & Design Risks ({len(component_design_risks)} risks)", expanded=True):
+                for risk_id, risk_data in component_design_risks:
                     with st.container():
                         st.markdown("---")
                         col_risk, col_likelihood, col_impact = st.columns([1, 1, 1])
                     
                         with col_risk:
-                            st.markdown(f"**{risk_data['name']}** (Baseline)")
+                            st.markdown(f"**{risk_data['name']}** (Component/Design)")
                             st.caption(risk_data['description'])
                             if SessionKeys.RISK_ASSESSMENTS in st.session_state and risk_id in st.session_state[SessionKeys.RISK_ASSESSMENTS]:
                                 assessment = st.session_state[SessionKeys.RISK_ASSESSMENTS][risk_id]
@@ -770,10 +752,10 @@ def controls_page():
     st.markdown("### Step 4: Controls & Mitigation")
     
     # Load data
-    capabilities, risks, controls, baseline = load_data()
+    capabilities, risks, controls, components, design = load_data()
     
     # Check if data loading failed
-    if not capabilities or not risks or not controls or not baseline:
+    if not capabilities or not risks or not controls or not components or not design:
         st.error("Failed to load required data files. Please check that all YAML files exist and are valid.")
         st.stop()
     
@@ -781,16 +763,24 @@ def controls_page():
     if 'high_priority_risks' in st.session_state and st.session_state.high_priority_risks:
         # Show threshold summary
         st.info(f"Showing controls for **{len(st.session_state.high_priority_risks)} high-priority risks** (Likelihood ≥ {st.session_state.get('likelihood_threshold', 4)} AND Impact ≥ {st.session_state.get('impact_threshold', 4)})")
-        
-        # Display all high-priority risks with controls emphasized
-        st.subheader("📋 High-Priority Controls")
-        
+
         for risk_id in st.session_state.high_priority_risks:
             if risk_id in risks:
                 risk_data = risks[risk_id]
-                
+
+                # Determine risk category
+                risk_category = ""
+                if risk_data.get('components'):
+                    risk_category = f"Components: {', '.join(risk_data['components'])}"
+                elif risk_data.get('design'):
+                    risk_category = f"Design: {', '.join(risk_data['design'])}"
+                elif risk_data.get('capabilities'):
+                    risk_category = f"Capabilities: {', '.join(risk_data['capabilities'])}"
+
                 # Minimal risk header (always visible)
                 st.markdown(f"**{risk_id}: {risk_data['name']}**")
+                if risk_category:
+                    st.caption(f"📌 {risk_category}")
                 st.caption(risk_data.get('description', ''))
                 
                 # Show minimal risk context inline
@@ -834,57 +824,6 @@ def controls_page():
                                     st.session_state[control_key] = implementation_text
                 else:
                     st.warning("No specific controls found for this risk.")
-        
-        # Controls selection interface
-        st.markdown("---")
-        st.subheader("🔍 Browse All Controls")
-        
-        # Create controls dropdown
-        control_options = {}
-        for control_id, control_data in controls.items():
-            control_options[control_id] = f"{control_id}: {control_data['name']}"
-        
-        selected_control_id = st.selectbox(
-            "Select a control to view its details:",
-            options=list(control_options.keys()),
-            format_func=lambda x: control_options[x],
-            key="control_selector"
-        )
-        
-        if selected_control_id:
-            control_data = controls[selected_control_id]
-            st.subheader(f"Control Details: {control_data['name']}")
-            st.write(f"**Control ID:** {selected_control_id}")
-            st.write(f"**Description:** {control_data['description']}")
-            
-            # Find which risks this control applies to
-            applicable_risks = []
-            for risk_id, risk_data in risks.items():
-                if 'controls' in risk_data and selected_control_id in risk_data['controls']:
-                    applicable_risks.append((risk_id, risk_data))
-            
-            if applicable_risks:
-                st.write(f"**This control applies to {len(applicable_risks)} risk(s):**")
-                for risk_id, risk_data in applicable_risks:
-                    with st.expander(f"Risk: {risk_id} - {risk_data['name']}"):
-                        st.write(f"**Description:** {risk_data['description']}")
-                        
-                        # Show risk assessment if available
-                        if SessionKeys.RISK_ASSESSMENTS in st.session_state and risk_id in st.session_state[SessionKeys.RISK_ASSESSMENTS]:
-                            assessment = st.session_state[SessionKeys.RISK_ASSESSMENTS][risk_id]
-                            if hasattr(assessment, 'context'):
-                                st.info(f"💡 **For your application:** {assessment.context}")
-                            
-                            # Show current scores
-                            col_likelihood, col_impact = st.columns(2)
-                            with col_likelihood:
-                                likelihood_score = assessment.likelihood.score
-                                st.metric("Current Likelihood", f"{likelihood_score}/5")
-                            with col_impact:
-                                impact_score = assessment.impact.score
-                                st.metric("Current Impact", f"{impact_score}/5")
-            else:
-                st.info("This control is not directly associated with any specific risks in the current framework.")
     else:
         if SessionKeys.APPLICABLE_RISKS in st.session_state and st.session_state[SessionKeys.APPLICABLE_RISKS]:
             st.info("No risks meet the current threshold criteria for controls. Adjust the thresholds in the Risk Assessment page to see controls for lower-priority risks.")

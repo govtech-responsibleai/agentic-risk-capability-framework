@@ -40,7 +40,6 @@ def export_assessment_to_word() -> Document:
         app_info = st.session_state.application_info
         doc.add_paragraph(f"Description: {app_info.get('description', 'Not provided')}")
         doc.add_paragraph(f"Data Classification: {app_info.get('data_classification', 'Not provided')}")
-        doc.add_paragraph(f"Deployment Type: {app_info.get('deployment_type', 'Not provided')}")
         doc.add_paragraph(f"Human in the Loop: {app_info.get('human_in_loop', 'Not provided')}")
         doc.add_paragraph(f"Public Facing: {app_info.get('public_facing', 'Not provided')}")
         doc.add_paragraph(f"Criticality: {app_info.get('criticality', 'Not provided')}")
@@ -56,7 +55,7 @@ def export_assessment_to_word() -> Document:
         doc.add_heading('2.1 Selected Applicable Capabilities', level=2)
         # Import here to avoid relative import issues
         from utils.data_loader import load_data
-        capabilities, _, _, _ = load_data()
+        capabilities, _, _, _, _ = load_data()
         for cap_id in analysis.applicable_capabilities:
             if cap_id in capabilities:
                 cap_data = capabilities[cap_id]
@@ -90,14 +89,14 @@ def export_assessment_to_word() -> Document:
                 return []
         
         # Load data
-        _, risks, controls, baseline = load_data()
+        _, risks, controls, components, design = load_data()
         
         # Capability-specific risks
         doc.add_heading('3.1 Capability-Specific Risks', level=2)
         for risk_id in st.session_state.applicable_risks:
             if risk_id in risks:
                 risk_data = risks[risk_id]
-                if risk_data.get('capabilities') and not risk_data.get('baseline'):
+                if risk_data.get('capabilities') and not (risk_data.get('components') or risk_data.get('design')):
                     if risk_id in st.session_state.risk_assessments:
                         assessment = st.session_state.risk_assessments[risk_id]
                         
@@ -114,12 +113,12 @@ def export_assessment_to_word() -> Document:
                         doc.add_paragraph(f"Impact Reasoning: {assessment.impact.reasoning}")
                         doc.add_paragraph("")
         
-        # Baseline risks
-        doc.add_heading('3.2 Baseline Risks', level=2)
+        # Component and Design risks
+        doc.add_heading('3.2 Component and Design Risks', level=2)
         for risk_id in st.session_state.applicable_risks:
             if risk_id in risks:
                 risk_data = risks[risk_id]
-                if risk_data.get('baseline') and not risk_data.get('capabilities'):
+                if (risk_data.get('components') or risk_data.get('design')) and not risk_data.get('capabilities'):
                     if risk_id in st.session_state.risk_assessments:
                         assessment = st.session_state.risk_assessments[risk_id]
                         
