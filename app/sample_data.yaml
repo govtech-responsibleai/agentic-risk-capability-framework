@@ -4,9 +4,7 @@ sample_application:
   components: "Frontend: React web application with chat interface. \nBackend: Node.js API server with Express. \nDatabase: PostgreSQL for storing conversation history and user data. \nAI Agent: OpenAI GPT-4 with tool-calling capabilities. \nMCP Servers: File system server for accessing customer documents, Database server for querying order history. \nTools: Stripe payment processor, Shopify order manager, PDF generator for receipts, Slack notifier for escalations. \nData flows: User input → Frontend → Backend API → AI Agent → MCP Servers/Tools → Tool execution → Response back to user."
   
   data_classification: "Confidential"
-  
-  deployment_type: "Custom"
-  
+
   public_facing: "Yes"
   
   criticality: "High"

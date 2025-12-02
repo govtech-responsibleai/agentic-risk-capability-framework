@@ -30,7 +30,6 @@ You are an expert in AI system analysis. Based on the following application info
 Application Information:
 - What does your application do? {application_info.get('description', 'Not provided')}
 - Data classification: {application_info.get('data_classification', 'Not provided')}
-- Deployment type: {application_info.get('deployment_type', 'Not provided')}
 - Human in the loop: {application_info.get('human_in_loop', 'Not provided')}
 - Public facing: {application_info.get('public_facing', 'Not provided')}
 - Criticality: {application_info.get('criticality', 'Not provided')}
@@ -68,30 +67,33 @@ Only include capabilities that are clearly relevant to this application. Be cons
         return CapabilityAnalysis(applicable_capabilities=[], reasoning="Error occurred during analysis")
 
 
-def get_llm_risk_analysis(application_info: Dict[str, Any], selected_capabilities: List[str], 
-                         capabilities: Dict[str, Any], risks: Dict[str, Any], 
-                         baseline: Dict[str, Any], applicable_risk_ids: List[str] = None) -> RiskAnalysis:
+def get_llm_risk_analysis(application_info: Dict[str, Any], selected_capabilities: List[str],
+                         capabilities: Dict[str, Any], risks: Dict[str, Any],
+                         components: Dict[str, Any], design: Dict[str, Any],
+                         applicable_risk_ids: List[str] = None) -> RiskAnalysis:
     """Use LiteLLM to provide contextualized explanations for specified risks.
-    
+
     Args:
         application_info: Dictionary containing application details
         selected_capabilities: List of selected capability IDs
         capabilities: Dictionary of available capabilities
         risks: Dictionary of available risks
-        baseline: Dictionary of baseline categories
+        components: Dictionary of component categories
+        design: Dictionary of design categories
         applicable_risk_ids: List of risk IDs to assess (if None, will determine from capabilities)
-        
+
     Returns:
         RiskAnalysis object with risk assessments
     """
     # If no risk IDs provided, determine them (fallback to old behavior)
     if applicable_risk_ids is None:
-        # Get ALL baseline risks
-        baseline_risk_ids = []
+        # Get ALL component and design risks
+        component_design_risk_ids = []
         for risk_id, risk_data in risks.items():
-            if risk_data.get('baseline') and not risk_data.get('capabilities'):
-                baseline_risk_ids.append(risk_id)
-        
+            # Risks with 'components' or 'design' fields (but not 'capabilities')
+            if (risk_data.get('components') or risk_data.get('design')) and not risk_data.get('capabilities'):
+                component_design_risk_ids.append(risk_id)
+
         # Get ALL capability-specific risks for selected capabilities
         capability_risk_ids = []
         for risk_id, risk_data in risks.items():
@@ -99,8 +101,8 @@ def get_llm_risk_analysis(application_info: Dict[str, Any], selected_capabilitie
                 risk_capabilities = risk_data.get('capabilities', [])
                 if any(cap_id in selected_capabilities for cap_id in risk_capabilities):
                     capability_risk_ids.append(risk_id)
-        
-        applicable_risk_ids = baseline_risk_ids + capability_risk_ids
+
+        applicable_risk_ids = component_design_risk_ids + capability_risk_ids
     
     # Prepare capabilities text
     capabilities_text = ""
@@ -118,8 +120,10 @@ def get_llm_risk_analysis(application_info: Dict[str, Any], selected_capabilitie
             risks_text += f"  Description: {risk_data['description']}\n"
             if risk_data.get('capabilities'):
                 risks_text += f"  Capabilities: {', '.join(risk_data['capabilities'])}\n"
-            if risk_data.get('baseline'):
-                risks_text += f"  Baseline: {', '.join(risk_data['baseline'])}\n"
+            if risk_data.get('components'):
+                risks_text += f"  Components: {', '.join(risk_data['components'])}\n"
+            if risk_data.get('design'):
+                risks_text += f"  Design: {', '.join(risk_data['design'])}\n"
             risks_text += "\n"
     
     prompt = f"""You are an expert in agentic AI risk assessment. Based on the following application information and selected capabilities, assess the risks and provide detailed likelihood and impact scores.
@@ -127,7 +131,6 @@ def get_llm_risk_analysis(application_info: Dict[str, Any], selected_capabilitie
 Application Information:
 - What does your application do? {application_info.get('description', 'Not provided')}
 - Data classification: {application_info.get('data_classification', 'Not provided')}
-- Deployment type: {application_info.get('deployment_type', 'Not provided')}
 - Human in the loop: {application_info.get('human_in_loop', 'Not provided')}
 - Public facing: {application_info.get('public_facing', 'Not provided')}
 - Criticality: {application_info.get('criticality', 'Not provided')}
@@ -142,7 +145,7 @@ Risks to Assess (you MUST assess ALL {len(applicable_risk_ids)} risks):
 
 CRITICAL INSTRUCTIONS:
 1. You MUST assess ALL {len(applicable_risk_ids)} risks listed above. Do not skip any.
-2. For each risk, provide specific context referencing the application details.
+2. For each risk, provide specific context referencing the application details. Where possible, reference the specific component of the application that is at risk, and how the risk materializes into specific failure modes and hazards.
 3. Scores MUST be integers between 1 and 5 (inclusive).
 4. All text fields (context, reasoning) MUST be non-empty strings.
 
@@ -176,7 +179,7 @@ Remember:
         message_placeholder = st.empty()
 
         response = completion(
-            model="gpt-4o",  # Use more capable model for better structured output reliability
+            model="gpt-5",  # Use more capable model for better structured output reliability
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
         )
@@ -416,19 +419,26 @@ Be specific to the observed files. If something is not evident, state the assump
 
     try:
         response = completion(
-            model="gpt-4o-mini",
+            model="gpt-5.1-codex",
             messages=[{"role": "user", "content": prompt}],
             stream=True,
         )
 
         summary = ""
         placeholder = stream_target or st.empty()
+        first_chunk = True
         for chunk in response:
             if chunk.choices[0].delta.content:
+                # Clear status message on first chunk (when streaming starts)
+                if first_chunk and status_placeholder:
+                    status_placeholder.empty()
+                    first_chunk = False
                 summary += chunk.choices[0].delta.content
                 placeholder.markdown(summary)
         return summary, files
     except Exception as e:
+        if status_placeholder:
+            status_placeholder.empty()
         st.error(f"Error analyzing repository with LLM: {e}")
         return "", []
 
@@ -448,7 +458,6 @@ You are an expert in system architecture and application analysis. Based on the 
 Application Information:
 - What does your application do? {application_info.get('description', 'Not provided')}
 - Data classification: {application_info.get('data_classification', 'Not provided')}
-- Deployment type: {application_info.get('deployment_type', 'Not provided')}
 - Human in the loop: {application_info.get('human_in_loop', 'Not provided')}
 - Public facing: {application_info.get('public_facing', 'Not provided')}
 - Criticality: {application_info.get('criticality', 'Not provided')}
