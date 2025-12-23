@@ -1,0 +1,1802 @@
+{
+  "risks": [
+    {
+      "id": "RISK-001",
+      "statement": "Use of untrusted or compromised LLMs",
+      "description": "This risk arises when LLMs obtained from untrusted or insufficiently vetted sources have been intentionally poisoned or backdoored during training or distribution, causing them to behave maliciously or unpredictably under specific conditions. Such models may leak sensitive information, bypass safeguards, or execute hidden behaviors that undermine system integrity and trust.",
+      "element_id": "CMP-01",
+      "element_name": "LLM",
+      "element_category": "Component - LLM",
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0001",
+          "level": 0,
+          "statement": "Use only LLMs from verified and trusted model developers",
+          "recommendations": "Untrusted or unknown model developers may introduce backdoors, data exfiltration risks, or inconsistent safety guarantees that compromise your agentic system. Establish evaluation criteria to assess model provider trustworthiness before adoption, including verification of published model cards, transparent responsible disclosure policies, evidence of security audits, and documented data handling practices. Evaluate whether the provider has an established track record, active security team, and clear incident response procedures. Regularly reassess providers against these criteria as new information emerges or the threat landscape evolves.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0002",
+          "level": 0,
+          "statement": "Obtain legally binding no-training and no-logging agreements from LLM API service providers",
+          "recommendations": "Without contractual protections, API providers may train models on your proprietary data or retain logs containing sensitive information, creating data leakage and compliance risks. Configure API settings to opt out of data logging and model training where available, and have your legal team review provider terms of service and data processing agreements to verify these protections are legally enforceable. Ensure alignment with your organisation's data governance and privacy requirements (e.g., GDPR, PDPA). Maintain records of these agreements and configurations for audit and compliance purposes.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0003",
+          "level": 1,
+          "statement": "Use only established and verified model loaders in production environments",
+          "recommendations": "Malicious or unvetted model loaders may execute arbitrary code during model deserialisation, potentially introducing backdoors or system vulnerabilities. Use well-maintained, community-vetted model loading libraries with active security support and regular updates. Examples include Hugging Face Transformers, vLLM, or official framework loaders (PyTorch, TensorFlow), whilst avoiding custom or unmaintained deserialisation code. Monitor for security advisories affecting your chosen loaders and apply patches promptly.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0006",
+          "level": 1,
+          "statement": "Require human approval before executing high-impact actions",
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0007",
+          "level": 0,
+          "statement": "Log all LLM inputs and outputs for regular review",
+          "recommendations": "Comprehensive logging enables post-incident analysis, safety monitoring, detection of adversarial inputs, and continuous improvement of LLM behaviour over time. Implement structured logging that captures all LLM inputs, outputs, timestamps, model versions, and relevant metadata (user ID, session ID, tool calls). Use a centralised logging system (e.g., ELK stack, Datadog, CloudWatch) with appropriate retention policies and access controls to protect sensitive data. Establish regular review processes\u2014manual spot-checks or automated anomaly detection\u2014to identify drift, unsafe outputs, or emerging failure patterns.",
+          "references": []
+        }
+      ],
+      "control_count": 5,
+      "sources": [
+        "https://arxiv.org/abs/2408.02946v6"
+      ]
+    },
+    {
+      "id": "RISK-002",
+      "statement": "Insufficient alignment of LLM behaviour",
+      "description": "This risk arises when an LLM's learned objectives and behaviors do not reliably align with intended user goals, system instructions, or organizational policies, leading to inappropriate, unsafe, or undesired outputs. Misalignment may surface as failure to follow constraints, inconsistent reasoning, or behavior that diverges from expected norms in edge cases or complex scenarios.",
+      "element_id": "CMP-01",
+      "element_name": "LLM",
+      "element_category": "Component - LLM",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0004",
+          "level": 2,
+          "statement": "Review the LLM's system card to inform risk assessment and model selection",
+          "recommendations": "System cards provide essential information about model capabilities, limitations, known failure modes, and safety evaluations that directly inform deployment decisions. Obtain and review the model's system card (or model card) before deployment, paying particular attention to documented risks, benchmark performance on safety evaluations, and limitations relevant to your use case. Use this information to identify potential misalignment between model behaviour and your application requirements, and to inform additional safeguards or testing strategies. If a system card is unavailable or incomplete, consider this a red flag when assessing provider trustworthiness.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0005",
+          "level": 0,
+          "statement": "Conduct structured evaluation of multiple LLMs for instruction-following, performance, and safety before deployment",
+          "recommendations": "Deploying an LLM without comparative evaluation risks selecting a model poorly suited to your use case, potentially resulting in safety issues, poor performance, or misaligned behaviour. Define evaluation criteria aligned with your application requirements (e.g., accuracy on domain-specific tasks, refusal of unsafe requests, consistency of outputs) and benchmark multiple candidate models against these criteria using representative test scenarios. Use both automated metrics and human evaluation to assess instruction-following quality, safety boundaries, and failure modes. Document evaluation results to support model selection decisions and establish baseline performance expectations for ongoing monitoring.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0006",
+          "level": 1,
+          "statement": "Require human approval before executing high-impact actions",
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0007",
+          "level": 0,
+          "statement": "Log all LLM inputs and outputs for regular review",
+          "recommendations": "Comprehensive logging enables post-incident analysis, safety monitoring, detection of adversarial inputs, and continuous improvement of LLM behaviour over time. Implement structured logging that captures all LLM inputs, outputs, timestamps, model versions, and relevant metadata (user ID, session ID, tool calls). Use a centralised logging system (e.g., ELK stack, Datadog, CloudWatch) with appropriate retention policies and access controls to protect sensitive data. Establish regular review processes\u2014manual spot-checks or automated anomaly detection\u2014to identify drift, unsafe outputs, or emerging failure patterns.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0008",
+          "level": 1,
+          "statement": "Implement automated alerts when agent behaviour drifts from predefined thresholds",
+          "recommendations": "Behavioural drift may indicate model degradation, adversarial manipulation, or emergent unsafe patterns that require immediate investigation. Define baseline metrics for expected agent behaviour (e.g., tool usage patterns, response times, error rates, decision distributions) and establish acceptable variance thresholds based on your risk tolerance. Implement monitoring systems that continuously track these metrics and trigger alerts when deviations exceed thresholds, enabling rapid response to anomalies. Configure alerts to include sufficient diagnostic context (timestamp, affected sessions, deviation magnitude) and establish clear escalation procedures for investigating and remediating drift incidents.",
+          "references": []
+        }
+      ],
+      "control_count": 5,
+      "sources": [
+        "https://arxiv.org/abs/2406.10162"
+      ]
+    },
+    {
+      "id": "RISK-003",
+      "statement": "Insufficient LLM capability and reliability",
+      "description": "This risk arises when an LLM lacks sufficient capability, robustness, or reasoning performance to correctly interpret instructions, handle edge cases, or detect unsafe situations. As a result, the model may produce incorrect, misleading, or unsafe outputs that create downstream safety or security failures in systems that rely on its judgments.",
+      "element_id": "CMP-01",
+      "element_name": "LLM",
+      "element_category": "Component - LLM",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0004",
+          "level": 2,
+          "statement": "Review the LLM's system card to inform risk assessment and model selection",
+          "recommendations": "System cards provide essential information about model capabilities, limitations, known failure modes, and safety evaluations that directly inform deployment decisions. Obtain and review the model's system card (or model card) before deployment, paying particular attention to documented risks, benchmark performance on safety evaluations, and limitations relevant to your use case. Use this information to identify potential misalignment between model behaviour and your application requirements, and to inform additional safeguards or testing strategies. If a system card is unavailable or incomplete, consider this a red flag when assessing provider trustworthiness.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0005",
+          "level": 0,
+          "statement": "Conduct structured evaluation of multiple LLMs for instruction-following, performance, and safety before deployment",
+          "recommendations": "Deploying an LLM without comparative evaluation risks selecting a model poorly suited to your use case, potentially resulting in safety issues, poor performance, or misaligned behaviour. Define evaluation criteria aligned with your application requirements (e.g., accuracy on domain-specific tasks, refusal of unsafe requests, consistency of outputs) and benchmark multiple candidate models against these criteria using representative test scenarios. Use both automated metrics and human evaluation to assess instruction-following quality, safety boundaries, and failure modes. Document evaluation results to support model selection decisions and establish baseline performance expectations for ongoing monitoring.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0006",
+          "level": 1,
+          "statement": "Require human approval before executing high-impact actions",
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0007",
+          "level": 0,
+          "statement": "Log all LLM inputs and outputs for regular review",
+          "recommendations": "Comprehensive logging enables post-incident analysis, safety monitoring, detection of adversarial inputs, and continuous improvement of LLM behaviour over time. Implement structured logging that captures all LLM inputs, outputs, timestamps, model versions, and relevant metadata (user ID, session ID, tool calls). Use a centralised logging system (e.g., ELK stack, Datadog, CloudWatch) with appropriate retention policies and access controls to protect sensitive data. Establish regular review processes\u2014manual spot-checks or automated anomaly detection\u2014to identify drift, unsafe outputs, or emerging failure patterns.",
+          "references": []
+        }
+      ],
+      "control_count": 4,
+      "sources": [
+        "https://arxiv.org/abs/2505.00212"
+      ]
+    },
+    {
+      "id": "RISK-004",
+      "statement": "Weak tool authentication and authorisation controls",
+      "description": "This risk arises when tools connected to an agent lack robust authentication or fine-grained authorisation mechanisms, allowing unauthorised access or misuse of tool capabilities. As a result, attackers or misbehaving agents may compromise the system by invoking sensitive actions, escalating privileges, or manipulating external resources beyond intended boundaries.",
+      "element_id": "CMP-03",
+      "element_name": "Tools",
+      "element_category": "Component - Tools",
+      "failure_mode": "Tool or Resource Malfunction",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0009",
+          "level": 0,
+          "statement": "Use only MCP servers that implement robust authentication mechanisms in production environments",
+          "recommendations": "Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+          ]
+        },
+        {
+          "id": "CTRL-0010",
+          "level": 1,
+          "statement": "Use only MCP servers that validate credentials on every inbound request",
+          "recommendations": "Relying on session state or connection-based authentication without per-request validation creates vulnerability to session hijacking, token replay attacks, and unauthorised access after initial authentication. Verify that MCP servers implement stateless authentication by validating credentials (e.g., OAuth tokens, API keys) on every single request rather than caching authorisation decisions based on connection or session state. Test this behaviour by monitoring whether the server accepts requests with expired, revoked, or missing credentials after an initial successful authentication. Ensure the server responds with appropriate HTTP 401 errors when credentials are invalid, expired, or absent, forcing re-authentication rather than relying on stale authorisation state.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+          ]
+        },
+        {
+          "id": "CTRL-0032",
+          "level": 0,
+          "statement": "Centralise observability data collection in a unified backend system",
+          "recommendations": "Distributed observability data across disconnected systems prevents effective analysis of multi-agent workflows, obscuring failure patterns, performance bottlenecks, and security incidents that span multiple agents. Centralise collection of logs, metrics, and traces from all agents into a unified observability backend using standards-compliant protocols (e.g., OpenTelemetry) to enable correlation analysis across the entire agentic system. Configure agents to emit structured telemetry with consistent identifiers (agent IDs, session IDs, request IDs) that enable tracing requests across agent boundaries and reconstructing complete workflow execution paths.",
+          "references": []
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://arxiv.org/abs/2504.08623",
+        "https://arxiv.org/abs/2505.14590",
+        "https://www.redhat.com/en/blog/model-context-protocol-mcp-understanding-security-risks-and-controls"
+      ]
+    },
+    {
+      "id": "RISK-005",
+      "statement": "Lack of proper role-based access control for tools",
+      "description": "This risk arises when tools exposed to an agent do not enforce clear, role-based access controls, allowing agents to access capabilities or resources beyond their intended responsibilities. As a result, agents may perform unauthorised actions, misuse sensitive tools, or exceed their permitted scope, increasing the likelihood of security and operational failures.",
+      "element_id": "CMP-03",
+      "element_name": "Tools",
+      "element_category": "Component - Tools",
+      "failure_mode": "Tool or Resource Malfunction",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0011",
+          "level": 0,
+          "statement": "Limit token scopes to the minimum privileges required and avoid broad or wildcard scopes",
+          "recommendations": "Overly broad token scopes enable compromised or malicious actors to access resources beyond what is necessary for legitimate operations, amplifying the impact of security breaches. Define granular, task-specific scopes for each MCP server integration and request only the minimum permissions required for the intended functionality (e.g., \"read:inventory\" rather than \"admin:*\"). Review and document the justification for each requested scope during integration, and reject MCP servers that require unnecessarily broad permissions or fail to support fine-grained scope definitions. Periodically audit active token scopes to identify and revoke excessive permissions that may have accumulated over time.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+          ]
+        },
+        {
+          "id": "CTRL-0012",
+          "level": 2,
+          "statement": "Use only MCP servers that integrate with authorisation servers implementing per-client consent mechanisms",
+          "recommendations": "Without explicit per-client consent, a malicious or compromised client could abuse delegated permissions to access resources the user never intended to authorise for that specific application. Verify that MCP servers integrate with OAuth 2.1 authorisation servers that implement per-client consent flows, where users explicitly approve each client-permission combination rather than granting blanket permissions across all clients. The authorisation server should clearly identify the requesting client and display what data or actions are being requested during the consent flow. Ensure the authorisation server persists consent decisions and provides mechanisms for users to review and revoke previously granted permissions.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization",
+            "https://aaronparecki.com/2025/11/25/1/mcp-authorization-spec-update",
+            "https://stytch.com/blog/mcp-authentication-and-authorization-servers/"
+          ]
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://embracethered.com/blog/posts/2023/chatgpt-plugin-vulns-chat-with-code/"
+      ]
+    },
+    {
+      "id": "RISK-006",
+      "statement": "Tool poisoning by malicious actors",
+      "description": "This risk arises when tools or their interfaces are intentionally modified, compromised, or replaced by malicious actors to introduce harmful or deceptive behaviour when invoked by an agent. As a result, the agent may unknowingly execute malicious actions, leak sensitive information, or produce manipulated outputs that undermine system integrity and trust.",
+      "element_id": "CMP-03",
+      "element_name": "Tools",
+      "element_category": "Component - Tools",
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0013",
+          "level": 0,
+          "statement": "Test all untested MCP servers in a sandboxed environment before deploying to production",
+          "recommendations": "Untested MCP servers may contain vulnerabilities, malicious code, or unexpected behaviours that could compromise your production systems or data. Deploy MCP servers first to an isolated sandbox environment (e.g., containerised test environment, separate network segment, or dedicated development infrastructure) to evaluate their security posture, behaviour, and reliability. Monitor server activity during testing for anomalous network connections, excessive resource consumption, unauthorised file access, or other suspicious behaviours. Only promote MCP servers to production after successful security review, functional testing, and verification that the server behaves as documented.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+          ]
+        },
+        {
+          "id": "CTRL-0014",
+          "level": 0,
+          "statement": "Use only MCP servers from verified and trusted developers",
+          "recommendations": "Untrusted or unknown MCP server developers may introduce malicious functionality, security vulnerabilities, or data exfiltration mechanisms that compromise your agentic system. Establish evaluation criteria to assess MCP server developer trustworthiness before adoption, including verification of public code repositories, community reputation, security disclosure practices, and maintenance history. Evaluate whether the developer has a track record of responding to security issues, maintains active development, and provides transparent documentation of server capabilities. Prioritise MCP servers from the official Model Context Protocol repository, well-established organisations, or developers with verified identities and demonstrated security practices.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+          ]
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://www.mbgsec.com/archive/2025-05-03-mcp-untrusted-servers-and-confused-clients-plus-a-sneaky-exploit-embrace-the-red/"
+      ]
+    },
+    {
+      "id": "RISK-007",
+      "statement": "Lack of input sanitisation",
+      "description": "This risk arises when inputs passed from the agent to tools are not properly validated or sanitised, allowing malformed or malicious data to be processed. As a result, tools may be exploited through injection attacks, unintended command execution, or data corruption.",
+      "element_id": "CMP-03",
+      "element_name": "Tools",
+      "element_category": "Component - Tools",
+      "failure_mode": "Tool or Resource Malfunction",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0015",
+          "level": 1,
+          "statement": "Treat all tool metadata and outputs as untrusted input requiring validation",
+          "recommendations": "Tool metadata (descriptions, parameter names, schema definitions) can contain prompt injection attacks that manipulate agent behaviour even without tool invocation, whilst tool outputs may contain malicious content designed to compromise downstream systems. Validate and sanitise all tool metadata before exposing it to the LLM, treating tool descriptions with the same scrutiny as external user input and implementing content filtering to detect embedded instructions or adversarial prompts. Apply strict schema validation to tool outputs and sanitise responses before using them in prompts, displaying them to users, or passing them to other systems. Implement monitoring and logging of tool metadata and outputs to enable detection of injection attempts and post-incident analysis of compromised tool behaviour.",
+          "references": [
+            "https://embracethered.com/blog/posts/2025/model-context-protocol-security-risks-and-exploits/",
+            "https://simonwillison.net/2025/Apr/9/mcp-prompt-injection/",
+            "https://www.practical-devsecops.com/mcp-security-vulnerabilities/"
+          ]
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://arxiv.org/abs/2503.12188v1",
+        "https://www.cve.org/CVERecord?id=CVE-2024-7042"
+      ]
+    },
+    {
+      "id": "RISK-008",
+      "statement": "Vague or underspecified instructions",
+      "description": "This risk arises when instructions provided to an LLM are ambiguous, incomplete, or poorly scoped, leading the model to make unintended assumptions when interpreting tasks or constraints. As a result, the LLM may behave unpredictably, bypass safeguards, or take actions that introduce safety or security risks.",
+      "element_id": "CMP-02",
+      "element_name": "Instructions",
+      "element_category": "Component - Instructions",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0016",
+          "level": 0,
+          "statement": "Define clearly the agent's role, scope, and non-goals in the system prompt",
+          "recommendations": "Ambiguous or missing role definitions allow agents to interpret requests too broadly, potentially executing actions outside intended boundaries or misunderstanding their authority and constraints. Explicitly define the agent's purpose, permitted actions, and operational boundaries in the system prompt, including clear statements about what the agent should not do or attempt. Document specific examples of in-scope and out-of-scope behaviours to reduce ambiguity and guide the agent's decision-making in edge cases. Regularly review and refine these definitions based on observed agent behaviour, ensuring role boundaries remain aligned with evolving use cases and risk tolerances.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0017",
+          "level": 1,
+          "statement": "Define clear success criteria for the agent's tasks",
+          "recommendations": "Without explicit success criteria, agents may pursue task completion using inappropriate methods, over-optimise for partial objectives, or fail to recognise when they have achieved the intended outcome. Define measurable, verifiable success criteria for each task or category of tasks the agent performs, specifying both what constitutes successful completion and acceptable quality standards. Include criteria that address not just functional outcomes but also safety constraints, resource limits, and acceptable trade-offs. Regularly evaluate whether the agent's interpretation of success criteria aligns with intended outcomes and refine definitions to address observed gaps or misalignments.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0018",
+          "level": 2,
+          "statement": "Define default behaviour when the agent encounters ambiguous situations",
+          "recommendations": "Agents encountering ambiguous instructions without clear fallback behaviour may make incorrect assumptions, proceed with risky actions, or halt unexpectedly, reducing reliability and increasing safety risks. Establish a default policy for handling ambiguity that aligns with your risk tolerance, such as requesting human clarification, selecting the most conservative option, or declining to act until uncertainty is resolved. Document this policy in the system prompt and provide examples of ambiguous scenarios to guide agent decision-making. Monitor how often the agent invokes ambiguity handling mechanisms to identify areas where task definitions or instructions require clarification.",
+          "references": []
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://arxiv.org/abs/2502.13295",
+        "https://arxiv.org/abs/2505.13360v1"
+      ]
+    },
+    {
+      "id": "RISK-009",
+      "statement": "Unsanitised inputs in system instructions",
+      "description": "This risk arises when untrusted or user-controlled inputs are incorporated into system instructions without proper sanitisation or validation. As a result, malicious or malformed content may manipulate the model's behaviour, override intended constraints, or trigger unintended actions.",
+      "element_id": "CMP-02",
+      "element_name": "Instructions",
+      "element_category": "Component - Instructions",
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0019",
+          "level": 0,
+          "statement": "Use delimiters to enclose untrusted inputs and instruct the LLM to treat delimited content as data only",
+          "recommendations": "Prompt injection attacks exploit LLMs' inability to distinguish between instructions and data, allowing malicious users to embed commands within input that override intended behaviour. Implement delimiter-based input segregation by enclosing all untrusted content (user inputs, external data, tool outputs) within clearly marked boundaries (e.g., XML tags, triple quotes, special markers) and explicitly instructing the LLM to treat delimited content as data rather than instructions. Use consistent, distinctive delimiters that are unlikely to appear naturally in user input and reinforce the delimiter policy throughout the system prompt. Whilst delimiters provide some protection, this is not a complete defence and should be combined with other prompt injection mitigations such as input validation and output monitoring.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0020",
+          "level": 2,
+          "statement": "Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions",
+          "recommendations": "Using the same LLM for both input processing and task execution creates vulnerability to prompt injection attacks embedded in user input. Deploy a separate LLM instance configured specifically for input sanitisation, with explicit instructions to extract only designated fields (e.g., name, email, query text) whilst ignoring any other content including embedded commands or meta-instructions. Configure this extraction LLM with a restrictive system prompt focused solely on structured data extraction and validation against expected schemas. Validate extracted fields against expected formats before passing them to the main agent LLM, and monitor extraction outputs for anomalies that might indicate injection attempts.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://arxiv.org/abs/2502.15851v1",
+        "https://aclanthology.org/2025.naacl-long.425.pdf"
+      ]
+    },
+    {
+      "id": "RISK-010",
+      "statement": "Poisoned memory",
+      "description": "This risk arises when the memory component of an agentic system is intentionally or inadvertently populated with malicious, misleading, or corrupted information. As a result, the agent may rely on compromised memory to make decisions, propagate false information, or exhibit persistent unsafe behaviour across interactions.",
+      "element_id": "CMP-04",
+      "element_name": "Memory",
+      "element_category": "Component - Memory",
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0021",
+          "level": 0,
+          "statement": "Implement allowlists and denylists to restrict what categories of information can be written to agent memory",
+          "recommendations": "Unrestricted memory writes enable attackers to poison agent memory with malicious instructions, false information, or sensitive data that could compromise future agent behaviour or leak confidential information. Define explicit allowlists of permitted memory categories (e.g., user preferences, conversation context, task history) and denylists of forbidden content (e.g., credentials, system instructions, security policies, prompt overrides). Enforce these restrictions at the memory write interface, validating all write operations against the defined policies before persisting data.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0022",
+          "level": 1,
+          "statement": "Implement content filtering on memory writes to detect and block known unsafe content patterns",
+          "recommendations": "Malicious actors may attempt to inject adversarial content into agent memory that bypasses category-based restrictions, such as jailbreak prompts, command injection templates, or social engineering content designed to manipulate future agent behaviour. Deploy content filtering mechanisms that scan all memory write operations for known unsafe patterns (e.g., jailbreak strings, tool invocation templates, prompt override attempts, phishing content) before persisting data. Implement filtering using prompt injection detectors (to detect jailbreak strings) or custom classifiers finetuned on specific risks (e.g. attempts to invoke tools maliciously).",
+          "references": []
+        },
+        {
+          "id": "CTRL-0023",
+          "level": 2,
+          "statement": "Log all memory modifications with comprehensive source metadata for audit purposes",
+          "recommendations": "Without detailed audit logs, detecting and investigating memory poisoning attacks becomes extremely difficult, preventing effective incident response and forensic analysis. Implement comprehensive logging for all memory write, update, and delete operations, capturing source metadata including timestamps, user or agent identity, session context, and the specific content being modified. Structure logs to enable correlation analysis, allowing security teams to trace how specific memory entries evolved over time and identify suspicious modification patterns. Store audit logs in a tamper-evident system separate from the agent's operational memory to prevent attackers from covering their tracks by deleting or modifying log entries.",
+          "references": []
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://arxiv.org/abs/2505.11548v2",
+        "https://arxiv.org/abs/2402.07867",
+        "https://openreview.net/pdf?id=6SIymOqJlc"
+      ]
+    },
+    {
+      "id": "RISK-011",
+      "statement": "Sensitive data leakage across memory contexts",
+      "description": "This risk arises when the memory component retains or exposes sensitive information across sessions, tasks, or users with different scopes or authorisations. As a result, data may be inappropriately accessed or reused in unrelated contexts, leading to privacy breaches, confidentiality violations, or unauthorised disclosure.",
+      "element_id": "CMP-04",
+      "element_name": "Memory",
+      "element_category": "Component - Memory",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0021",
+          "level": 0,
+          "statement": "Implement allowlists and denylists to restrict what categories of information can be written to agent memory",
+          "recommendations": "Unrestricted memory writes enable attackers to poison agent memory with malicious instructions, false information, or sensitive data that could compromise future agent behaviour or leak confidential information. Define explicit allowlists of permitted memory categories (e.g., user preferences, conversation context, task history) and denylists of forbidden content (e.g., credentials, system instructions, security policies, prompt overrides). Enforce these restrictions at the memory write interface, validating all write operations against the defined policies before persisting data.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0023",
+          "level": 2,
+          "statement": "Log all memory modifications with comprehensive source metadata for audit purposes",
+          "recommendations": "Without detailed audit logs, detecting and investigating memory poisoning attacks becomes extremely difficult, preventing effective incident response and forensic analysis. Implement comprehensive logging for all memory write, update, and delete operations, capturing source metadata including timestamps, user or agent identity, session context, and the specific content being modified. Structure logs to enable correlation analysis, allowing security teams to trace how specific memory entries evolved over time and identify suspicious modification patterns. Store audit logs in a tamper-evident system separate from the agent's operational memory to prevent attackers from covering their tracks by deleting or modifying log entries.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://arxiv.org/abs/2506.12699v2"
+      ]
+    },
+    {
+      "id": "RISK-012",
+      "statement": "Cascading errors in multi-agent architectures",
+      "description": "This risk arises when errors or misjudgements produced by one agent propagate through interconnected agents within a multi-agent system. As a result, small failures may compound across agent interactions, leading to amplified errors, degraded system performance, or unintended outcomes at the system level.",
+      "element_id": "DES-1",
+      "element_name": "Agentic Architecture",
+      "element_category": "Design - Agentic Architecture",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0024",
+          "level": 0,
+          "statement": "Define formal schemas for inter-agent messages and validate all messages against these schemas before processing",
+          "recommendations": "Unstructured or inadequately validated inter-agent messages create vulnerability to injection attacks, misinterpretation, and parsing errors that could compromise agent behaviour or cascade through multi-agent systems. Define explicit message schemas using formal specification languages (e.g., JSON Schema, Protobuf, OpenAPI) that specify required fields, data types, validation rules, and permitted value ranges for all agent-to-agent communications. Implement strict input validation that verifies all incoming messages conform to expected schemas, checking field presence, data types, value ranges, and structural integrity before processing message content. Reject messages that are incomplete, contain unexpected fields, violate type constraints, or include suspicious patterns, returning explicit error responses to the sending agent and logging validation failures to enable detection of compromised or malfunctioning agents.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0025",
+          "level": 1,
+          "statement": "Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels",
+          "recommendations": "Unencrypted inter-agent communications expose sensitive data, credentials, and operational context to network-based attackers through eavesdropping or man-in-the-middle attacks. Ensure all agent-to-agent network communications use transport-layer encryption (minimum TLS 1.2, preferably TLS 1.3), including internal traffic within trusted network boundaries, as internal networks are increasingly targeted by sophisticated attackers. For protocol-based frameworks (e.g., A2A Protocol), verify that TLS is enabled by default; for application frameworks (e.g., LangGraph, CrewAI), configure deployment infrastructure to enforce HTTPS endpoints for all remote agent APIs. Configure agents to reject plaintext connections and verify certificates to prevent downgrade attacks or rogue agent impersonation, and regularly audit network traffic to detect agents attempting unencrypted communication.",
+          "references": [
+            "https://a2aprotocol.ai/blog/2025-full-guide-a2a-protocol"
+          ]
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://arxiv.org/abs/2408.00989v3",
+        "https://arxiv.org/pdf/2502.19145"
+      ]
+    },
+    {
+      "id": "RISK-013",
+      "statement": "Man-in-the-middle attacks between agents",
+      "description": "This risk arises when communication channels between agents are insufficiently secured, allowing an attacker to intercept, modify, or replay messages exchanged within the agentic system. As a result, agents may act on tampered information, leading to incorrect coordination, unauthorised actions, or compromised system behaviour.",
+      "element_id": "DES-1",
+      "element_name": "Agentic Architecture",
+      "element_category": "Design - Agentic Architecture",
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0026",
+          "level": 1,
+          "statement": "Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests",
+          "recommendations": "Without strong agent authentication, attackers can impersonate legitimate agents to gain unauthorised access, inject malicious commands, or exfiltrate sensitive data from multi-agent systems. Implement cryptographic identity verification using mechanisms such as mutual TLS (mTLS), signed JWTs, or certificate-based authentication to ensure each agent presents verifiable credentials before processing its requests. Configure the authentication system to validate that credentials are properly signed by a trusted authority, have not expired, and belong to the claimed agent identity. Reject unauthenticated requests immediately and log authentication failures to detect potential impersonation attempts or compromised agents attempting to bypass security controls. Both the A2A Protocol and LangGraph provide native support for cryptographic agent authentication through mTLS, OAuth 2.0, and JWT-based identity verification.",
+          "references": [
+            "https://developers.redhat.com/articles/2025/08/19/how-enhance-agent2agent-security",
+            "https://a2a-protocol.org/latest/topics/enterprise-ready/",
+            "https://blog.langchain.com/custom-authentication-and-access-control-in-langgraph/"
+          ]
+        },
+        {
+          "id": "CTRL-0027",
+          "level": 1,
+          "statement": "Implement circuit breakers to prevent cascading failures in multi-agent systems",
+          "recommendations": "Without circuit breakers, failures in one agent can cascade through multi-agent systems, causing widespread outages, resource exhaustion, or degraded performance across interconnected agents. Implement circuit breaker patterns that monitor agent interactions and automatically halt requests to failing agents when error rates, timeouts, or response times exceed predefined thresholds. Configure circuit breakers with appropriate timeout values, retry limits, and failure thresholds based on your system's tolerance for latency and error rates.",
+          "references": [
+            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996"
+          ]
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://arxiv.org/pdf/2502.14847"
+      ]
+    },
+    {
+      "id": "RISK-014",
+      "statement": "Feedback loops and runaway agent behaviour",
+      "description": "This risk arises when agents repeatedly reinforce each other\u2019s decisions, outputs, or errors within an agentic architecture. As a result, feedback loops may form that escalate actions, consume excessive resources, or cause the system to persist in harmful or unintended behaviour without effective human intervention.",
+      "element_id": "DES-1",
+      "element_name": "Agentic Architecture",
+      "element_category": "Design - Agentic Architecture",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0028",
+          "level": 0,
+          "statement": "Continuously monitor multi-agent systems for cascade failure indicators",
+          "recommendations": "Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.",
+          "references": [
+            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996?utm_source=chatgpt.com"
+          ]
+        },
+        {
+          "id": "CTRL-0029",
+          "level": 1,
+          "statement": "Grant agents only the minimum permissions required for their designated tasks",
+          "recommendations": "Excessive permissions enable compromised or malfunctioning agents to access sensitive resources, modify critical data, or perform actions beyond their intended scope, amplifying the impact of security breaches. Apply the principle of least privilege by defining granular permission sets for each agent based on its specific role and required operations, avoiding blanket administrative access or broad permission grants. Review agent permissions regularly to ensure they remain aligned with current responsibilities, revoking unnecessary access as agent roles evolve.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": []
+    },
+    {
+      "id": "RISK-015",
+      "statement": "Overly permissive roles and permissions",
+      "description": "This risk arises when agents are granted roles or permissions that exceed their intended responsibilities or operational needs. As a result, agents may access sensitive resources, invoke high-impact capabilities, or perform unauthorised actions that increase the likelihood of security, privacy, or operational failures.",
+      "element_id": "DES-2",
+      "element_name": "Roles and Access Controls",
+      "element_category": "Design - Roles and Access Controls",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0030",
+          "level": 1,
+          "statement": "Assign each agent a unique, verifiable identity with no shared credentials",
+          "recommendations": "Shared credentials prevent accurate attribution of agent actions, making it impossible to identify which agent performed unauthorised activities or to revoke access for compromised agents without affecting legitimate ones. Assign each agent instance a unique identity (e.g., service account, API key, certificate) that can be independently tracked, audited, and revoked without impacting other agents. Prohibit credential sharing between agents even when they perform similar functions, as unique identities enable granular access control and forensic analysis of agent behaviour. Emerging agentic IAM platforms, such as Amazon Bedrock AgentCore Identity, can help to provide purpose-built identity management for AI agents.",
+          "references": [
+            "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-overview.html"
+          ]
+        },
+        {
+          "id": "CTRL-0031",
+          "level": 1,
+          "statement": "Use only MCP servers that validate token provenance and prohibit unauthorised token passthrough",
+          "recommendations": "Token passthrough is an anti-pattern where MCP servers accept tokens from clients without validating they were properly issued to the server, enabling malicious actors to use the server as a proxy for data exfiltration with stolen tokens. Verify that MCP servers validate the provenance of all tokens they receive, ensuring tokens are intended for that specific server by checking audience claims and preventing tokens from being blindly forwarded to third-party services. Reject MCP servers that implement token passthrough patterns, as they compromise incident investigation, access controls, and auditing capabilities by obscuring the true source of requests.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+          ]
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://cyberweapons.medium.com/escaping-reality-privilege-escalation-in-gen-ai-admin-panel-aka-the-chaos-of-a-misconfigured-b6ad73bf1b65"
+      ]
+    },
+    {
+      "id": "RISK-016",
+      "statement": "Unauthorised privilege escalation",
+      "description": "This risk arises when agents are able to gain elevated roles or permissions beyond those initially granted, whether through misconfiguration, exploitation, or unintended system behaviour. As a result, agents may bypass intended controls, access restricted resources, or execute actions that undermine system security and governance.",
+      "element_id": "DES-2",
+      "element_name": "Roles and Access Controls",
+      "element_category": "Design - Roles and Access Controls",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0030",
+          "level": 1,
+          "statement": "Assign each agent a unique, verifiable identity with no shared credentials",
+          "recommendations": "Shared credentials prevent accurate attribution of agent actions, making it impossible to identify which agent performed unauthorised activities or to revoke access for compromised agents without affecting legitimate ones. Assign each agent instance a unique identity (e.g., service account, API key, certificate) that can be independently tracked, audited, and revoked without impacting other agents. Prohibit credential sharing between agents even when they perform similar functions, as unique identities enable granular access control and forensic analysis of agent behaviour. Emerging agentic IAM platforms, such as Amazon Bedrock AgentCore Identity, can help to provide purpose-built identity management for AI agents.",
+          "references": [
+            "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-overview.html"
+          ]
+        },
+        {
+          "id": "CTRL-0032",
+          "level": 0,
+          "statement": "Centralise observability data collection in a unified backend system",
+          "recommendations": "Distributed observability data across disconnected systems prevents effective analysis of multi-agent workflows, obscuring failure patterns, performance bottlenecks, and security incidents that span multiple agents. Centralise collection of logs, metrics, and traces from all agents into a unified observability backend using standards-compliant protocols (e.g., OpenTelemetry) to enable correlation analysis across the entire agentic system. Configure agents to emit structured telemetry with consistent identifiers (agent IDs, session IDs, request IDs) that enable tracing requests across agent boundaries and reconstructing complete workflow execution paths.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://arxiv.org/abs/2505.19301"
+      ]
+    },
+    {
+      "id": "RISK-017",
+      "statement": "Delayed failure detection due to limited monitoring",
+      "description": "This risk arises when monitoring systems provide insufficient visibility into agent behaviour, system events, or execution outcomes. As a result, failures, anomalies, or unintended actions may go undetected for extended periods, increasing the impact and difficulty of remediation.",
+      "element_id": "DES-3",
+      "element_name": "Monitoring and Traceability",
+      "element_category": "Design - Monitoring and Traceability",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0033",
+          "level": 0,
+          "statement": "Standardise trace attributes for agent operations using consistent semantic conventions",
+          "recommendations": "Inconsistent or ad-hoc telemetry labelling prevents effective correlation of agent activities across multi-agent systems, making it difficult to debug failures, analyse performance, or investigate security incidents. Define and enforce standard semantic conventions for trace attributes across all agents, including mandatory fields such as agent identity, tool name, operation type, session identifiers, and correlation IDs. Adopt existing observability standards where available (e.g., OpenTelemetry semantic conventions) to ensure compatibility with industry-standard analysis tools and reduce implementation effort. Document attribute naming conventions, permitted values, and usage guidelines, and implement validation to ensure agents emit telemetry conforming to the standardised schema.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0035",
+          "level": 2,
+          "statement": "Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding",
+          "recommendations": "Agents that pursue goals without decomposition may execute unnecessary, excessive, or unintended actions that waste resources, violate constraints, or create unintended side effects. Configure planning agents to explicitly break down high-level user goals into discrete, verifiable sub-goals before executing any actions, and to validate that each sub-goal is necessary and sufficient for achieving the overall objective. Implement review mechanisms that require agents to justify the necessity of each sub-goal, either through automated reasoning checks or human approval for high-impact plans.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://arxiv.org/abs/2401.13138"
+      ]
+    },
+    {
+      "id": "RISK-018",
+      "statement": "Inability to audit failures due to missing decision traces",
+      "description": "This risk arises when monitoring systems do not capture sufficient reasoning steps, decision pathways, or execution context for agent actions. As a result, operators may be unable to reconstruct failures, understand why specific outcomes occurred, or conduct effective audits and post-incident reviews.",
+      "element_id": "DES-3",
+      "element_name": "Monitoring and Traceability",
+      "element_category": "Design - Monitoring and Traceability",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0034",
+          "level": 0,
+          "statement": "Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems",
+          "recommendations": "Automated monitoring may miss subtle patterns, novel failure modes, or emergent behaviours that only become apparent through human analysis of observability data. Establish a regular cadence for manual review of logs, traces, and metrics from production agentic systems, focusing on identifying unusual patterns, unexpected agent interactions, or degrading performance trends that automated alerts might not detect. Assign responsibility for these reviews to teams with deep understanding of expected agent behaviour, empowering them to investigate anomalies and propose system improvements. Document findings from reviews and track identified issues to closure, using insights to refine monitoring rules, update agent implementations, or strengthen security controls based on observed real-world behaviour.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0035",
+          "level": 2,
+          "statement": "Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding",
+          "recommendations": "Agents that pursue goals without decomposition may execute unnecessary, excessive, or unintended actions that waste resources, violate constraints, or create unintended side effects. Configure planning agents to explicitly break down high-level user goals into discrete, verifiable sub-goals before executing any actions, and to validate that each sub-goal is necessary and sufficient for achieving the overall objective. Implement review mechanisms that require agents to justify the necessity of each sub-goal, either through automated reasoning checks or human approval for high-impact plans.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": []
+    },
+    {
+      "id": "RISK-019",
+      "statement": "Generating plans that fail to meet the user's requirements",
+      "description": "This risk arises when an agent generates plans or goals that do not accurately reflect the user\u2019s stated objectives, constraints, or preferences. As a result, the system may pursue incorrect or suboptimal actions, waste resources, or deliver outcomes that do not satisfy user expectations.",
+      "element_id": "CAP-01",
+      "element_name": "Planning and Goal Management",
+      "element_category": "Capability - Cognitive",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0006",
+          "level": 1,
+          "statement": "Require human approval before executing high-impact actions",
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0036",
+          "level": 1,
+          "statement": "Regularly evaluate and test planning behaviour under representative workloads and failure scenarios",
+          "recommendations": "Planning failures often emerge only under specific conditions, edge cases, or failure modes that may not be apparent during initial development or testing. Establish systematic testing programmes that evaluate agent planning behaviour across representative workloads, including normal scenarios, edge cases, adversarial inputs, and simulated failure conditions such as unavailable resources or degraded services. Document common planning pitfalls identified during testing (e.g., circular reasoning, goal abandonment, excessive retries) and implement targeted mitigations such as improved prompts, reasoning constraints, or circuit breakers. Continuously expand test scenarios based on observed production failures, ensuring the test suite evolves to cover newly discovered planning vulnerabilities.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0037",
+          "level": 1,
+          "statement": "Require planning agents to include explicit safety constraints in all generated plans before execution",
+          "recommendations": "Plans generated without explicit safety constraints may inadvertently violate security policies, regulatory requirements, or operational boundaries, leading to dangerous or non-compliant agent behaviour. Configure planning agents to incorporate safety constraints and domain-specific restrictions directly into plan representations, making safety requirements explicit and verifiable rather than implicit assumptions. Examples of planning-level safety constraints include limiting plan complexity (maximum number of steps or tools), requiring verification steps before irreversible actions, prohibiting plans that access certain data categories or environments, mandating human review checkpoints for high-risk operations, and including rollback or recovery procedures for plans involving state changes.",
+          "references": []
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://arxiv.org/pdf/2402.01622v4",
+        "https://aclanthology.org/2025.naacl-long.93.pdf"
+      ]
+    },
+    {
+      "id": "RISK-020",
+      "statement": "Generating plans that overlook safety implications",
+      "description": "This risk arises when an agent generates plans or goals without adequately considering basic safety, security, or practical constraints that would be apparent to a human. As a result, the system may propose or pursue actions that are unsafe, insecure, or inappropriate despite being technically feasible.",
+      "element_id": "CAP-01",
+      "element_name": "Planning and Goal Management",
+      "element_category": "Capability - Cognitive",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0006",
+          "level": 1,
+          "statement": "Require human approval before executing high-impact actions",
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0038",
+          "level": 0,
+          "statement": "Conduct pre-deployment safety verification using domain-relevant stress tests and adversarial scenarios",
+          "recommendations": "Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0039",
+          "level": 1,
+          "statement": "Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents",
+          "recommendations": "Without standardised capability descriptors, agents cannot reliably discover what other agents can do, leading to misrouted requests, capability mismatches, or failed inter-agent collaborations. Implement machine-readable capability descriptions for each agent using standardised formats such as A2A Agent Cards that declare available skills, required inputs, output formats, and operational constraints. Publish capability descriptors through discoverable endpoints (e.g., well-known URIs at `https://{domain}/.well-known/agent-card.json`) or centralised agent registries that other agents can query to determine if a target agent can fulfil specific requests. Maintain capability descriptors in sync with actual agent implementations, updating descriptors whenever agent capabilities change to prevent stale metadata from causing integration failures.",
+          "references": [
+            "https://a2a-protocol.org/latest/topics/agent-discovery/"
+          ]
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://garymarcus.substack.com/p/ai-still-lacks-common-sense-70-years"
+      ]
+    },
+    {
+      "id": "RISK-021",
+      "statement": "Incorrect task delegation between agents",
+      "description": "This risk arises when an agent assigns tasks to other agents that do not match their capabilities, roles, or access permissions. As a result, tasks may be executed incorrectly, fail to complete, or introduce security and operational issues due to inappropriate delegation.",
+      "element_id": "CAP-02",
+      "element_name": "Agent Delegation",
+      "element_category": "Capability - Cognitive",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0040",
+          "level": 0,
+          "statement": "Limit the scope of agent actions through predefined thresholds and baselines",
+          "recommendations": "Without action limits, agents may bypass controls by delegating excessive tasks, consuming unlimited resources, or spreading malicious activities across multiple operations to evade detection. Define quantitative thresholds that constrain agent behaviour, such as maximum number of tool calls per session, maximum number of agents that can be delegated to, maximum cost or resource consumption, or maximum data volume accessed. Implement runtime monitoring that tracks agent activity against these thresholds and halts execution when limits are exceeded. Examples include limiting an agent to 50 API calls per task or restricting delegation to no more than 3 sub-agents.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://arxiv.org/abs/2503.13657"
+      ]
+    },
+    {
+      "id": "RISK-022",
+      "statement": "Malicious or manipulative use of delegated agents",
+      "description": "This risk arises when an agent deliberately assigns tasks to other agents in ways intended to bypass controls, obscure responsibility, or achieve malicious objectives. As a result, delegated agents may be coerced into performing unauthorised actions, amplifying harmful behaviour or evading detection within the system.",
+      "element_id": "CAP-02",
+      "element_name": "Agent Delegation",
+      "element_category": "Capability - Cognitive",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0008",
+          "level": 1,
+          "statement": "Implement automated alerts when agent behaviour drifts from predefined thresholds",
+          "recommendations": "Behavioural drift may indicate model degradation, adversarial manipulation, or emergent unsafe patterns that require immediate investigation. Define baseline metrics for expected agent behaviour (e.g., tool usage patterns, response times, error rates, decision distributions) and establish acceptable variance thresholds based on your risk tolerance. Implement monitoring systems that continuously track these metrics and trigger alerts when deviations exceed thresholds, enabling rapid response to anomalies. Configure alerts to include sufficient diagnostic context (timestamp, affected sessions, deviation magnitude) and establish clear escalation procedures for investigating and remediating drift incidents.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0024",
+          "level": 0,
+          "statement": "Define formal schemas for inter-agent messages and validate all messages against these schemas before processing",
+          "recommendations": "Unstructured or inadequately validated inter-agent messages create vulnerability to injection attacks, misinterpretation, and parsing errors that could compromise agent behaviour or cascade through multi-agent systems. Define explicit message schemas using formal specification languages (e.g., JSON Schema, Protobuf, OpenAPI) that specify required fields, data types, validation rules, and permitted value ranges for all agent-to-agent communications. Implement strict input validation that verifies all incoming messages conform to expected schemas, checking field presence, data types, value ranges, and structural integrity before processing message content. Reject messages that are incomplete, contain unexpected fields, violate type constraints, or include suspicious patterns, returning explicit error responses to the sending agent and logging validation failures to enable detection of compromised or malfunctioning agents.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0025",
+          "level": 1,
+          "statement": "Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels",
+          "recommendations": "Unencrypted inter-agent communications expose sensitive data, credentials, and operational context to network-based attackers through eavesdropping or man-in-the-middle attacks. Ensure all agent-to-agent network communications use transport-layer encryption (minimum TLS 1.2, preferably TLS 1.3), including internal traffic within trusted network boundaries, as internal networks are increasingly targeted by sophisticated attackers. For protocol-based frameworks (e.g., A2A Protocol), verify that TLS is enabled by default; for application frameworks (e.g., LangGraph, CrewAI), configure deployment infrastructure to enforce HTTPS endpoints for all remote agent APIs. Configure agents to reject plaintext connections and verify certificates to prevent downgrade attacks or rogue agent impersonation, and regularly audit network traffic to detect agents attempting unencrypted communication.",
+          "references": [
+            "https://a2aprotocol.ai/blog/2025-full-guide-a2a-protocol"
+          ]
+        },
+        {
+          "id": "CTRL-0041",
+          "level": 0,
+          "statement": "Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs",
+          "recommendations": "Incomplete or ambiguous tool descriptions lead agents to misunderstand tool capabilities, misuse tools for unintended purposes, or select inappropriate tools for tasks, resulting in failures or unsafe behaviour. Document each tool with clear, comprehensive descriptions that specify the tool's intended purpose, required input parameters with data types and constraints, expected outputs and formats, and any preconditions or side effects. Include usage examples and common failure scenarios to guide agent decision-making and prevent misuse. Ensure tool descriptions are accurate, up-to-date, and written in language that LLMs can reliably interpret, avoiding ambiguity that might lead to incorrect tool selection or invocation.",
+          "references": []
+        }
+      ],
+      "control_count": 4,
+      "sources": [
+        "https://arxiv.org/abs/2507.06850"
+      ]
+    },
+    {
+      "id": "RISK-023",
+      "statement": "Incorrect tool selection or misuse",
+      "description": "This risk arises when an agent selects an inappropriate tool or applies a tool incorrectly for a given task or action. As a result, the agent may produce erroneous outcomes, fail to complete the task effectively, or trigger unintended side effects due to misuse of tool capabilities.",
+      "element_id": "CAP-03",
+      "element_name": "Tool Use",
+      "element_category": "Capability - Cognitive",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0042",
+          "level": 0,
+          "statement": "Require explicit human confirmation before executing high-impact or irreversible tool actions",
+          "recommendations": "Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0043",
+          "level": 1,
+          "statement": "Log all tool selection decisions and invocations with comprehensive metadata",
+          "recommendations": "Without comprehensive tool invocation logs, diagnosing incorrect tool selection or misuse becomes extremely difficult, preventing effective debugging and post-incident analysis. Implement detailed logging for all tool selection decisions and invocations, capturing the tool name, input arguments, caller identity, authorisation outcome, timestamp, and resulting outputs or side effects. Structure logs to enable correlation between tool selection reasoning and actual outcomes, allowing investigation of why particular tools were chosen and whether they produced expected results.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0044",
+          "level": 1,
+          "statement": "Implement output safety guardrails to detect and prevent generation of undesirable content",
+          "recommendations": "Agents may generate toxic, hateful, sexual, or otherwise inappropriate content that causes harm to users, violates organisational standards, or creates regulatory compliance issues. Deploy output safety guardrails that scan all agent-generated content before delivery to users, detecting categories of undesirable content such as hate speech, sexually explicit material, violent content, or self-harm promotion. Use content moderation APIs, classifiers, or LLM-based safety filters to evaluate outputs against defined safety policies, blocking or flagging content that violates established boundaries. Configure appropriate responses when unsafe content is detected, such as refusing to generate the output, requesting reformulation, or escalating to human review for edge cases.",
+          "references": []
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://arxiv.org/abs/2411.13547"
+      ]
+    },
+    {
+      "id": "RISK-024",
+      "statement": "Generation of undesirable content",
+      "description": "This risk arises when an agent generates text, images, audio, or other media that contain toxic, hateful, sexual, or otherwise inappropriate content. As a result, the system may cause harm to users, violate organisational standards or regulations, or undermine trust in the system\u2019s outputs.",
+      "element_id": "CAP-04",
+      "element_name": "Multimodal Understanding and Generation",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0045",
+          "level": 0,
+          "statement": "Implement input guardrails to detect and decline requests for specialised domain advice",
+          "recommendations": "Agents generating unqualified advice in specialised domains such as medical, financial, or legal matters may cause users to act on incorrect or inappropriate information, leading to serious harm or adverse outcomes. Deploy input guardrails that detect when user requests fall within specialised domains requiring professional expertise, such as medical diagnosis, financial investment advice, or legal counsel. Configure the system to decline these requests with appropriate messaging that explains why the agent cannot provide such advice and suggests consulting qualified professionals.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://arxiv.org/abs/2402.04249v2"
+      ]
+    },
+    {
+      "id": "RISK-025",
+      "statement": "Generation of unqualified advice in specialised domains",
+      "description": "This risk arises when an agent generates advice or guidance in specialised domains such as medical, financial, or legal contexts without appropriate expertise, validation, or safeguards. As a result, users may act on incorrect or inappropriate information, leading to potential harm or adverse outcomes.",
+      "element_id": "CAP-04",
+      "element_name": "Multimodal Understanding and Generation",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0046",
+          "level": 0,
+          "statement": "Implement input guardrails to detect and decline requests for controversial content that violates organisational policies",
+          "recommendations": "Agents generating controversial or sensitive content such as political commentary or statements about competitors may create reputational damage, legal liability, or compliance violations for the organisation. Deploy input guardrails that detect requests for content on topics deemed controversial or sensitive according to organisational policies, such as political positions, religious commentary, competitive disparagement, or other restricted subjects. Define clear content policies that specify which topics or viewpoints the agent should avoid, and configure detection mechanisms to identify requests that would violate these boundaries. When controversial requests are detected, decline with messaging that explains the agent's content limitations whilst maintaining a respectful tone towards the user.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf"
+      ]
+    },
+    {
+      "id": "RISK-026",
+      "statement": "Generation of controversial or sensitive content",
+      "description": "This risk arises when an agent generates content related to sensitive or controversial topics, such as political commentary or denigrating comments about competitors. As a result, the system may create reputational, legal, or compliance issues, or be perceived as biased, inappropriate, or misrepresentative of organisational views.",
+      "element_id": "CAP-04",
+      "element_name": "Multimodal Understanding and Generation",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0047",
+          "level": 0,
+          "statement": "Implement output guardrails to detect and redact personally identifiable information",
+          "recommendations": "Agents may reproduce personally identifiable information from training data, memory, or prior interactions in their outputs, violating privacy obligations, exposing individuals to harm, or breaching data protection requirements such as GDPR or PDPA. Deploy output guardrails that scan all agent-generated content for PII categories including names, email addresses, phone numbers, identification numbers, financial account details, and other sensitive personal data before delivery to users. Use PII detection tools, pattern matching, or named entity recognition models to identify and redact or block outputs containing PII. Configure appropriate handling based on context \u2014 some PII may be acceptable if it belongs to the current user, whilst PII belonging to other individuals should be strictly prevented from disclosure.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://news.stanford.edu/stories/2025/05/ai-models-llms-chatgpt-claude-gemini-partisan-bias-research-study"
+      ]
+    },
+    {
+      "id": "RISK-027",
+      "statement": "Regurgitating personally identifiable information",
+      "description": "This risk arises when an agent reproduces personally identifiable information in its generated outputs, whether drawn from training data, memory, or prior interactions. As a result, the system may violate privacy obligations, expose individuals to harm, or breach data protection requirements.",
+      "element_id": "CAP-04",
+      "element_name": "Multimodal Understanding and Generation",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0048",
+          "level": 2,
+          "statement": "Implement methods to reduce hallucination rates in agent outputs",
+          "recommendations": "Agents may generate inaccurate, fabricated, or unsupported information whilst presenting it as factual, misleading users and causing them to make incorrect decisions or lose trust in the system. Implement hallucination reduction techniques such as retrieval-augmented generation (RAG) that grounds agent responses in verified source documents, or citation requirements that force agents to reference specific sources for factual claims. Configure agents to acknowledge uncertainty when information cannot be verified rather than generating plausible-sounding but false content.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf"
+      ]
+    },
+    {
+      "id": "RISK-028",
+      "statement": "Generation of non-factual or hallucinated content",
+      "description": "This risk arises when an agent generates information that is inaccurate, fabricated, or unsupported by evidence while presenting it as factual. As a result, users may be misled, make incorrect decisions, or lose trust in the system\u2019s outputs.",
+      "element_id": "CAP-04",
+      "element_name": "Multimodal Understanding and Generation",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0049",
+          "level": 0,
+          "statement": "Implement UI/UX cues to communicate the risk of hallucination to users",
+          "recommendations": "Users may treat agent-generated content as completely reliable without recognising that LLMs can produce inaccurate or fabricated information presented as fact. Implement clear UI/UX indicators that remind users of hallucination risks, such as disclaimers on agent responses, visual cues distinguishing generated content from verified information, or warnings when agents make factual claims without citations. Consider contextual warnings that appear when agents discuss topics particularly prone to hallucination, such as recent events beyond the model's training data or highly specialised technical subjects.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0050",
+          "level": 1,
+          "statement": "Implement features enabling users to verify generated answers against source content",
+          "recommendations": "Without verification mechanisms, users cannot easily check whether agent-generated information is accurate or fabricated, increasing reliance on potentially hallucinated content. Provide built-in features that enable users to verify agent responses against original source materials, such as inline citations linking to specific documents or passages, source attribution showing which materials informed the response, or side-by-side views displaying retrieved content alongside generated summaries. Design verification features to minimise friction whilst maintaining effectiveness \u2014 users should be able to check sources with minimal effort rather than requiring extensive navigation or manual searching. For example, automatically highlight passages in source documents that support specific claims made by the agent, enabling rapid verification of factual statements.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0051",
+          "level": 0,
+          "statement": "Implement input guardrails to detect and decline requests to generate copyrighted content",
+          "recommendations": "Agents may generate content that reproduces or closely resembles copyrighted material without authorisation, exposing the organisation to intellectual property infringement claims, legal liability, or licensing violations. Deploy input guardrails that detect requests asking the agent to reproduce copyrighted works such as song lyrics, book passages, proprietary code, or other protected content. Configure the system to decline these requests with appropriate messaging that explains copyright limitations and suggests legal alternatives such as summarisation, licensed access, or original creation. Note that copyright detection at the input stage may not catch all violations, as users might phrase requests in ways that obscure copyrighted content generation \u2014 tools such as Patronus AI's CopyrightCatcher can provide output-level copyright detection to complement input filtering.",
+          "references": [
+            "https://www.patronus.ai/blog/introducing-copyright-catcher"
+          ]
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://arxiv.org/abs/2309.01219"
+      ]
+    },
+    {
+      "id": "RISK-029",
+      "statement": "Generation of copyrighted content",
+      "description": "This risk arises when an agent generates content that reproduces or closely resembles copyrighted material without appropriate rights or attribution. As a result, the system may infringe intellectual property laws, expose the organisation to legal liability, or violate licensing and usage terms.",
+      "element_id": "CAP-04",
+      "element_name": "Multimodal Understanding and Generation",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0052",
+          "level": 2,
+          "statement": "Declare upfront that communications are generated by an AI system",
+          "recommendations": "Recipients misled about whether communications were generated by AI or authored by humans may form incorrect assumptions about accountability, intent, or authority, leading to trust issues or legal complications. Implement clear, prominent disclosures at the beginning of AI-generated communications stating that content was created by an automated system, using unambiguous language such as \"This message was generated by an AI assistant\" rather than vague phrases that might confuse recipients.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://arxiv.org/abs/2407.07087"
+      ]
+    },
+    {
+      "id": "RISK-030",
+      "statement": "Misrepresentation of authorship",
+      "description": "This risk arises when recipients are misled about whether an official communication was authored by a human or generated by an agent on behalf of the organisation. As a result, stakeholders may form incorrect assumptions about accountability, intent, or authority, potentially leading to trust, legal, or reputational issues.",
+      "element_id": "CAP-05",
+      "element_name": "Official Communication",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0053",
+          "level": 0,
+          "statement": "Require human approval for communications on sensitive matters",
+          "recommendations": "Agents making unsupported commitments, inaccurate assurances, or statements that exceed organisational capabilities in official communications may expose the organisation to reputational damage, legal liability, or unmet expectations. Implement mandatory human review and approval workflows for communications on sensitive matters including contractual commitments, financial promises, policy statements, regulatory responses, or public-facing announcements. Define clear criteria for what constitutes \"sensitive matters\" requiring approval, ensuring consistent application across the organisation.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://fortune.com/article/customer-support-ai-cursor-went-rogue/"
+      ]
+    },
+    {
+      "id": "RISK-031",
+      "statement": "Inaccurate promises or statements in official communications",
+      "description": "This risk arises when an agent makes commitments, assurances, or public statements that are incorrect, unsupported, or exceed the organisation\u2019s actual intentions or capabilities. As a result, the organisation may face reputational damage, legal exposure, or loss of public trust due to unmet expectations or misinformation.",
+      "element_id": "CAP-05",
+      "element_name": "Official Communication",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0054",
+          "level": 0,
+          "statement": "Limit agent communications to standard processes with predefined templates",
+          "recommendations": "Agents generating free-form communications may inadvertently make inaccurate promises or statements that exceed organisational authority or capabilities, creating legal and reputational risks. Restrict agent communications to standard, well-defined processes where approved communication templates exist, such as appointment confirmations, order status updates, or routine customer service responses. Design templates to include appropriate disclaimers, limit commitments to verified capabilities, and avoid language that could create unintended obligations. Review and approve all communication templates before deployment, ensuring they accurately reflect organisational policies and cannot be misinterpreted as making unauthorised commitments.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0055",
+          "level": 1,
+          "statement": "Provide alternative channels for users to clarify communications or provide feedback",
+          "recommendations": "When agents make inaccurate statements or commitments in communications, recipients need accessible mechanisms to seek clarification, report concerns, or correct misunderstandings before problems escalate. Establish clear alternative channels for recipients to contact human representatives when they have questions about AI-generated communications, such as dedicated email addresses, phone numbers, or contact forms prominently displayed in agent communications.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0056",
+          "level": 1,
+          "statement": "Require explicit user confirmation before initiating or committing any business transaction",
+          "recommendations": "Agents executing business transactions without explicit user confirmation may create unintended financial obligations, contractual commitments, or operational liabilities that were not properly authorised. Implement mandatory confirmation workflows that pause execution immediately before any transaction is initiated, presenting clear details of the transaction type, amounts, counterparties, and consequences for user review and approval. Design confirmation interfaces to require active consent rather than passive acceptance, using explicit \"confirm\" actions rather than dismissible notifications or opt-out mechanisms. Ensure confirmation cannot be bypassed by agents and maintain audit logs of all transaction approvals including timestamp, user identity, and transaction details.",
+          "references": []
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://the-decoder.com/people-buy-brand-new-chevrolets-for-1-from-a-chatgpt-chatbot/"
+      ]
+    },
+    {
+      "id": "RISK-032",
+      "statement": "Unauthorised execution of business transactions",
+      "description": "This risk arises when an agent initiates, authorises, or executes business transactions outside predefined approval thresholds, roles, or authorisation limits. As a result, the organisation may be exposed to unintended financial losses, binding contractual obligations, or operational commitments that were not properly sanctioned.",
+      "element_id": "CAP-06",
+      "element_name": "Business Transactions",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0057",
+          "level": 2,
+          "statement": "Require out-of-band confirmation when transaction risk signals are elevated",
+          "recommendations": "Transactions exhibiting elevated risk indicators may represent unauthorised or fraudulent activity requiring additional verification beyond standard confirmation. Implement out-of-band confirmation (e.g., SMS codes, email verification, authentication app approvals) when transactions exhibit risk signals such as unusual payees, amounts exceeding typical patterns, rapid transaction sequences, or first-time recipients.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0058",
+          "level": 1,
+          "statement": "Restrict agents to proposing transactions whilst using a separate transaction controller for execution",
+          "recommendations": "Allowing agents direct access to transaction credentials creates risk of credential leakage through prompt injection, logging, or model outputs. Implement architectural separation where agents propose transactions but a dedicated non-LLM transaction controller handles authentication, authorisation, and execution. Ensure agents never receive or handle credentials directly, passing only transaction proposals through secure interfaces.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks"
+      ]
+    },
+    {
+      "id": "RISK-033",
+      "statement": "Leakage of transaction credentials",
+      "description": "This risk arises when credentials, tokens, or sensitive authentication information used to execute business transactions are exposed, mishandled, or improperly stored by an agent or its supporting systems. As a result, malicious parties may gain the ability to initiate unauthorised transactions, manipulate financial operations, or compromise transactional systems.",
+      "element_id": "CAP-06",
+      "element_name": "Business Transactions",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Tool or Resource Malfunction",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0059",
+          "level": 2,
+          "statement": "Apply fraud detection models or heuristics to agent-proposed transactions",
+          "recommendations": "Compromised or manipulated agents may propose fraudulent transactions that bypass standard user confirmation by appearing legitimate to users but serving malicious purposes. Implement fraud detection systems that analyse agent-proposed transactions for suspicious patterns such as unusual amounts, unfamiliar recipients, rapid transaction sequences, or deviations from historical behaviour. Configure fraud detection to operate independently of the agent, using rule-based heuristics or machine learning models trained on legitimate and fraudulent transaction patterns.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0060",
+          "level": 1,
+          "statement": "Implement escape filtering before incorporating web content into prompts",
+          "recommendations": "Malicious websites may embed hidden instructions or manipulative prompts in their content designed to hijack agent behaviour when retrieved and processed. Implement escape filtering that sanitises web content before incorporating it into agent prompts, removing or neutralising potential injection attacks such as hidden instructions, delimiter manipulation attempts, or prompt override commands.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://arxiv.org/pdf/2506.01055"
+      ]
+    },
+    {
+      "id": "RISK-034",
+      "statement": "Prompt injection via malicious websites",
+      "description": "This risk arises when an agent retrieves or processes content from malicious or untrusted websites that are designed to inject instructions or manipulative prompts into the system. As a result, the agent may follow unintended commands, override intended constraints, or take actions that compromise system behaviour or integrity.",
+      "element_id": "CAP-07",
+      "element_name": "Internet and Search Access",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0061",
+          "level": 0,
+          "statement": "Use structured retrieval APIs for web searches rather than web scraping",
+          "recommendations": "Web scraping exposes agents to arbitrary web content including malicious HTML, scripts, and embedded instructions that may be crafted to inject prompts or manipulate agent behaviour. Use structured retrieval APIs such as search engine APIs, knowledge bases, or curated data sources that provide pre-processed, sanitised content rather than raw web pages. Structured APIs typically return controlled formats (JSON, XML) containing extracted information without rendering full web content, reducing exposure to injection vectors embedded in HTML, CSS, or JavaScript.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0062",
+          "level": 0,
+          "statement": "Implement input guardrails to detect prompt injection and adversarial attacks",
+          "recommendations": "Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0063",
+          "level": 1,
+          "statement": "Prioritise search results from verified, high-quality domains",
+          "recommendations": "Agents retrieving information from unreliable or low-quality websites may present inaccurate, outdated, or biased content to users, leading to misinformed decisions. Configure search and retrieval systems to prioritise results from verified, authoritative sources such as government domains (.gov), educational institutions (.edu), established news organisations, and recognised industry authorities.",
+          "references": []
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://unit42.paloaltonetworks.com/agentic-ai-threats/"
+      ]
+    },
+    {
+      "id": "RISK-035",
+      "statement": "Unreliable information or websites",
+      "description": "This risk arises when an agent retrieves and presents information from websites that are inaccurate, outdated, biased, or otherwise unreliable. As a result, users may be misinformed or make incorrect decisions based on content that has not been adequately validated or corroborated.",
+      "element_id": "CAP-07",
+      "element_name": "Internet and Search Access",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Tool or Resource Malfunction",
+      "type": [
+        "Safety"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0064",
+          "level": 1,
+          "statement": "Limit computer use to accessing only safe and trusted resources",
+          "recommendations": "Agents with unrestricted computer access may encounter malicious content on untrusted websites, documents, or applications that embed hidden instructions designed to manipulate agent behaviour. Restrict computer use capabilities to accessing only pre-approved, safe resources such as internal applications, trusted websites on allowlists, or sandboxed environments isolated from sensitive systems. Define clear boundaries for what resources agents may access and enforce these restrictions through technical controls such as network filtering, application allowlisting, or containerisation.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them"
+      ]
+    },
+    {
+      "id": "RISK-036",
+      "statement": "Prompt injection risks through computer use",
+      "description": "This risk arises when an agent interacts with graphical user interfaces that display untrusted or adversarial content - such as web pages, documents, pop-ups, or form fields - crafted to embed hidden instructions or manipulative cues. As a result, the agent may misinterpret on-screen text as authoritative guidance, follow injected instructions, or perform unintended actions while operating the interface.",
+      "element_id": "CAP-08",
+      "element_name": "Computer Use",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0065",
+          "level": 0,
+          "statement": "Ensure computer use capabilities provide immediate interruptability",
+          "recommendations": "Agents operating computer interfaces may encounter prompt injection attacks or begin executing unintended actions that require immediate human intervention to prevent harm. Implement interruptability mechanisms that allow users or operators to immediately halt agent computer use actions at any point, such as emergency stop buttons, kill switches, or session termination controls.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0066",
+          "level": 0,
+          "statement": "Ensure \"take over\" mode is activated when entering sensitive data",
+          "recommendations": "Agents operating computer interfaces may inadvertently view, process, or expose sensitive data such as passwords, API keys, or personally identifiable information displayed on screens or in applications. Implement \"take over\" mode that pauses agent operation and requires direct human control when sensitive data entry is required, preventing agents from observing or handling credentials and other confidential information.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://arxiv.org/html/2505.13076v1",
+        "https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/"
+      ]
+    },
+    {
+      "id": "RISK-037",
+      "statement": "Exposure of sensitive data",
+      "description": "This risk arises when an agent operating a computer interface accesses websites or applications that contain personally identifiable or sensitive information, particularly when authenticated as a user or organisation. As a result, the agent may inadvertently view, process, or disclose confidential data beyond its intended scope or authorisation.",
+      "element_id": "CAP-08",
+      "element_name": "Computer Use",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0067",
+          "level": 0,
+          "statement": "Ensure proper documentation of programmatic interfaces for agent use",
+          "recommendations": "Agents interacting with poorly documented or unfamiliar programmatic interfaces may misinterpret interface semantics, invoke operations incorrectly, or produce unintended effects. Provide comprehensive, LLM-readable documentation for all programmatic interfaces agents may interact with, including clear descriptions of available operations, required parameters with data types and constraints, expected responses, and common error conditions.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://arxiv.org/html/2506.00618v3"
+      ]
+    },
+    {
+      "id": "RISK-038",
+      "statement": "Incorrect use of unfamiliar programmatic interfaces",
+      "description": "This risk arises when an agent interacts with programmatic interfaces it has not been trained or configured to use correctly, particularly bespoke or non-standard interfaces outside established protocols such as MCP servers. As a result, the agent may misinterpret interface semantics, invoke operations incorrectly, or produce unintended effects due to improper integration or usage.",
+      "element_id": "CAP-09",
+      "element_name": "Other Programmatic Interfaces",
+      "element_category": "Capability - Interaction",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0068",
+          "level": 0,
+          "statement": "Use code linters to screen generated code for bad practices and poor syntax",
+          "recommendations": "Agents may generate code containing bad practices, anti-patterns, unused variables, or syntax errors that reduce code quality, introduce bugs, or create maintainability issues. Implement automated code linting that analyses all agent-generated code before execution or deployment, using tools such as Pylint, ESLint, or language-specific linters configured with appropriate rule sets. Configure linters to detect common issues including syntax errors, unused variables, deprecated functions, security anti-patterns, and violations of coding standards. Reject code that fails linting checks or present warnings to users for review before proceeding.",
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": []
+    },
+    {
+      "id": "RISK-039",
+      "statement": "Production or execution of poor or ineffective code",
+      "description": "This risk arises when an agent generates or executes code that is incorrect, inefficient, insecure, or unsuitable for the intended task. As a result, the code may fail to achieve desired outcomes, introduce bugs or vulnerabilities, or cause operational disruptions when deployed or run.",
+      "element_id": "CAP-10",
+      "element_name": "Code Execution",
+      "element_category": "Capability - Operational",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0069",
+          "level": 0,
+          "statement": "Run agent-generated code only in isolated compute environments with network access blocked by default",
+          "recommendations": "Agent-generated code may contain vulnerabilities, bugs, or malicious logic that could compromise systems, leak data, exfiltrate information, or establish unauthorised network connections. Implement virtual isolation for all agent-generated code execution using containerised environments (e.g., Docker), virtual machines, or dedicated sandboxes that limit access to sensitive resources, networks, and data. Configure default-deny network policies that block all inbound and outbound network connections unless explicitly required and authorised for specific use cases. When network access is necessary, enforce allowlists restricting connections to known-safe endpoints such as internal APIs or approved external services.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0070",
+          "level": 0,
+          "statement": "Review all agent-generated code before execution",
+          "recommendations": "Agent-generated code may contain security vulnerabilities, logic errors, or malicious instructions that could compromise systems if executed without review. Implement mandatory human review workflows for all code generated by agents before execution, including source code, scripts, configuration files, and command sequences. Configure review processes to present code with sufficient context for reviewers to assess safety and correctness, including the agent's reasoning for generating the code and its intended purpose.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0071",
+          "level": 0,
+          "statement": "Use static code analysers to detect security vulnerabilities and code quality issues",
+          "recommendations": "Agent-generated code may contain security vulnerabilities, code smells, or quality issues that manual review might miss. Deploy static code analysis tools (e.g., Bandit for Python, SonarQube, Semgrep) that automatically scan agent-generated code for security vulnerabilities, coding standard violations, and quality issues before execution. Configure analysers to detect common vulnerability patterns such as SQL injection, command injection, path traversal, insecure cryptography, and hard-coded credentials. Block or flag code that fails security scans, requiring remediation before proceeding with execution or deployment.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0072",
+          "level": 1,
+          "statement": "Monitor runtime and memory consumption of agent-generated code",
+          "recommendations": "Agent-generated code may contain inefficient implementations, infinite loops, or memory leaks that degrade system performance or exhaust resources. Implement runtime monitoring that tracks execution time, memory consumption, CPU usage, and other resource metrics for all agent-generated code during execution. Configure alerts that trigger when code exceeds predefined resource thresholds, such as maximum execution time, memory limits, or CPU usage, enabling automatic termination of runaway processes.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0073",
+          "level": 0,
+          "statement": "Create a denylist of commands that agents are not permitted to execute",
+          "recommendations": "Agents may generate code that invokes dangerous or destructive commands capable of compromising systems, deleting data, or establishing unauthorised network connections. Implement command denylists that explicitly prohibit execution of dangerous operations such as system shutdown commands, file deletion utilities, network scanning tools, or privileged system calls. Enforce denylists at the execution layer, preventing blocked commands from running even if agents generate code containing them. Regularly review and update denylists based on observed agent behaviour, emerging security threats, and identified misuse patterns.",
+          "references": []
+        }
+      ],
+      "control_count": 5,
+      "sources": [
+        "https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf",
+        "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+        "https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html"
+      ]
+    },
+    {
+      "id": "RISK-040",
+      "statement": "Production or execution of vulnerable or malicious code",
+      "description": "This risk arises when an agent executes code that contains security vulnerabilities or intentionally malicious logic, whether generated by the model or sourced externally. As a result, the system may be compromised through exploitation, unauthorised access, data leakage, or other harmful effects.",
+      "element_id": "CAP-10",
+      "element_name": "Code Execution",
+      "element_category": "Capability - Operational",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0070",
+          "level": 0,
+          "statement": "Review all agent-generated code before execution",
+          "recommendations": "Agent-generated code may contain security vulnerabilities, logic errors, or malicious instructions that could compromise systems if executed without review. Implement mandatory human review workflows for all code generated by agents before execution, including source code, scripts, configuration files, and command sequences. Configure review processes to present code with sufficient context for reviewers to assess safety and correctness, including the agent's reasoning for generating the code and its intended purpose.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0071",
+          "level": 0,
+          "statement": "Use static code analysers to detect security vulnerabilities and code quality issues",
+          "recommendations": "Agent-generated code may contain security vulnerabilities, code smells, or quality issues that manual review might miss. Deploy static code analysis tools (e.g., Bandit for Python, SonarQube, Semgrep) that automatically scan agent-generated code for security vulnerabilities, coding standard violations, and quality issues before execution. Configure analysers to detect common vulnerability patterns such as SQL injection, command injection, path traversal, insecure cryptography, and hard-coded credentials. Block or flag code that fails security scans, requiring remediation before proceeding with execution or deployment.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0072",
+          "level": 1,
+          "statement": "Monitor runtime and memory consumption of agent-generated code",
+          "recommendations": "Agent-generated code may contain inefficient implementations, infinite loops, or memory leaks that degrade system performance or exhaust resources. Implement runtime monitoring that tracks execution time, memory consumption, CPU usage, and other resource metrics for all agent-generated code during execution. Configure alerts that trigger when code exceeds predefined resource thresholds, such as maximum execution time, memory limits, or CPU usage, enabling automatic termination of runaway processes.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0074",
+          "level": 0,
+          "statement": "Conduct CVE scanning and block execution of code with High or Critical vulnerabilities",
+          "recommendations": "Agent-generated code may inadvertently include dependencies or libraries containing known security vulnerabilities that could be exploited to compromise systems. Implement automated CVE scanning that analyses all dependencies, libraries, and packages used by agent-generated code before execution, checking against vulnerability databases such as the National Vulnerability Database. Configure scanning to block execution when High or Critical severity CVEs are detected, requiring remediation such as dependency updates or vulnerability patches before proceeding.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0075",
+          "level": 1,
+          "statement": "Do not grant write access to agents unless strictly necessary",
+          "recommendations": "Agents with unnecessary write access may inadvertently modify, overwrite, or delete critical files or data, leading to data loss, corruption, or operational disruption. Apply the principle of least privilege by granting write access only when explicitly required for the agent's intended functionality, defaulting to read-only access for all other operations. Implement granular access controls that restrict write permissions to specific directories, databases, or resources that the agent legitimately needs to modify. Regularly review agent permissions to ensure write access remains justified and revoke unnecessary permissions as agent responsibilities evolve.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0076",
+          "level": 1,
+          "statement": "Require human approval for any destructive changes to databases, tables, or files",
+          "recommendations": "Destructive operations such as deleting files, dropping database tables, or overwriting critical data can cause irreversible damage if executed without proper authorisation. Implement mandatory human approval workflows for all destructive operations including DELETE queries, DROP statements, file deletions, or data overwrites that modify or remove existing information.",
+          "references": []
+        }
+      ],
+      "control_count": 6,
+      "sources": [
+        "https://arxiv.org/pdf/2501.08200",
+        "https://arxiv.org/html/2504.21205v1"
+      ]
+    },
+    {
+      "id": "RISK-041",
+      "statement": "Unintended overwriting or deletion of files or data",
+      "description": "This risk arises when an agent modifies, overwrites, or deletes files, database tables, or datasets without explicit user instruction or authorisation. As a result, critical information may be lost or corrupted, leading to data integrity issues, operational disruption, or the need for costly recovery efforts.",
+      "element_id": "CAP-11",
+      "element_name": "File and Data Management",
+      "element_category": "Capability - Operational",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0077",
+          "level": 0,
+          "statement": "Enable versioning or soft-delete for managed object stores to allow recovery from accidental modifications",
+          "recommendations": "Even with access controls and approval workflows, agents may occasionally execute unintended destructive operations due to misunderstandings, bugs, or edge cases. Implement versioning or soft-delete mechanisms for file stores, object storage, and databases that preserve previous versions of data when modifications occur, enabling recovery from accidental overwrites or deletions.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0078",
+          "level": 0,
+          "statement": "Enforce throttling or rate limits on agent-initiated database operations",
+          "recommendations": "Agents executing database operations without constraints may issue excessive queries that overwhelm database resources, degrade performance for other users, or cause service outages. Implement throttling mechanisms that limit the frequency and volume of agent-initiated database operations, such as maximum queries per second, maximum concurrent connections, or query timeout limits. Monitor database load patterns to detect agents approaching or exceeding rate limits, using this data to refine throttling policies or investigate agents with excessive query behaviour.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0079",
+          "level": 2,
+          "statement": "Validate agent-generated database queries for efficiency before execution against production databases",
+          "recommendations": "Agents may generate inefficient database queries such as full table scans, missing indexes, or SELECT * operations that consume excessive resources and degrade database performance. Implement automated query validation that analyses agent-generated queries before execution, checking for common efficiency issues including lack of appropriate indexes, overly broad selections, missing WHERE clauses on large tables, or N+1 query patterns.",
+          "references": []
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf"
+      ]
+    },
+    {
+      "id": "RISK-042",
+      "statement": "Database overload due to inefficient data operations",
+      "description": "This risk arises when an agent issues poorly optimised, excessively frequent, or redundant queries against databases or data stores. As a result, system performance may degrade, resources may be exhausted, or critical services may become unavailable due to unnecessary load.",
+      "element_id": "CAP-11",
+      "element_name": "File and Data Management",
+      "element_category": "Capability - Operational",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0080",
+          "level": 0,
+          "statement": "Implement caching mechanisms to reduce repetitive database queries by agents",
+          "recommendations": "Agents repeatedly querying the same or similar data create unnecessary database load, consuming resources that could be avoided through intelligent caching. Implement caching layers (e.g., Redis, Memcached, in-memory caches) that store frequently accessed data, allowing agents to retrieve cached results rather than repeatedly querying databases for identical information.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0081",
+          "level": 1,
+          "statement": "Implement input guardrails to detect personally identifiable information in data accessed by agents",
+          "recommendations": "Agents accessing files or databases containing PII may inadvertently expose sensitive personal information through outputs, logs, or downstream processing without appropriate safeguards. Deploy input guardrails that scan data retrieved from files, databases, or other sources for PII categories including names, email addresses, phone numbers, identification numbers, and financial information before agents process it. When PII is detected, trigger protective measures such as flagging the data as sensitive to the agent, applying stricter output filtering, requiring additional access authorisation, or activating enhanced logging to track how the sensitive data is used.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0082",
+          "level": 2,
+          "statement": "Do not grant agents access to personally identifiable or sensitive data unless strictly required",
+          "recommendations": "Agents with unnecessary access to PII or sensitive data create elevated risk of exposure, leakage, or misuse, particularly if agents are compromised or misuse their permissions. Apply the principle of least privilege by restricting agent access to databases, files, or systems containing PII or sensitive information unless explicitly required for the agent's designated functionality. Implement access controls that enforce these restrictions at the data layer, preventing agents from querying or reading sensitive datasets they should not access.",
+          "references": []
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql"
+      ]
+    },
+    {
+      "id": "RISK-043",
+      "statement": "Exposure of sensitive data through file or database access",
+      "description": "This risk arises when an agent accesses, processes, or outputs personally identifiable or sensitive information stored in files or databases without appropriate safeguards. As a result, confidential data may be disclosed to unauthorised parties, leading to privacy breaches, regulatory non-compliance, or loss of trust.",
+      "element_id": "CAP-11",
+      "element_name": "File and Data Management",
+      "element_category": "Capability - Operational",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0083",
+          "level": 0,
+          "statement": "Disallow unknown or external files unless they have been scanned for threats",
+          "recommendations": "External files may contain maliciously crafted content designed to inject hidden instructions, manipulate agent behaviour, or introduce security threats when processed. Implement mandatory scanning for all unknown or external files before allowing agents to access them, using antivirus software, malware scanners, or specialised tools that detect prompt injection attempts embedded in file content.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0084",
+          "level": 0,
+          "statement": "Set minimum and maximum limits on what agents can modify within system resources",
+          "recommendations": "Agents with unrestricted ability to modify system configurations may make inappropriate changes that degrade performance, compromise security, or cause service disruptions. Define and enforce quantitative boundaries on agent-initiated configuration changes, such as minimum and maximum values for resource allocations (CPU, memory, storage), rate limits, timeout values, or scaling parameters.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/"
+      ]
+    },
+    {
+      "id": "RISK-044",
+      "statement": "Prompt injection via malicious files or data",
+      "description": "This risk arises when an agent ingests or processes maliciously crafted files or data that embed hidden instructions or manipulative content. As a result, the agent may follow unintended prompts, alter its behaviour, or execute actions that compromise system safety or integrity.",
+      "element_id": "CAP-11",
+      "element_name": "File and Data Management",
+      "element_category": "Capability - Operational",
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0063",
+          "level": 1,
+          "statement": "Prioritise search results from verified, high-quality domains",
+          "recommendations": "Agents retrieving information from unreliable or low-quality websites may present inaccurate, outdated, or biased content to users, leading to misinformed decisions. Configure search and retrieval systems to prioritise results from verified, authoritative sources such as government domains (.gov), educational institutions (.edu), established news organisations, and recognised industry authorities.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0085",
+          "level": 0,
+          "statement": "Log system health metrics and implement automated alerts for abnormal conditions",
+          "recommendations": "Misconfigurations by agents may not cause immediate visible failures but instead gradually degrade system health, performance, or stability over time. Implement comprehensive logging of system health metrics including resource utilisation, error rates, response times, and performance indicators that reflect the impact of configuration changes. Configure automated alerting that triggers when metrics deviate from expected baselines or exceed acceptable thresholds.",
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability",
+        "https://www.wired.com/story/here-come-the-ai-worms/"
+      ]
+    },
+    {
+      "id": "RISK-045",
+      "statement": "Misconfiguration of system resources",
+      "description": "This risk arises when an agent incorrectly configures system settings, infrastructure resources, or operational parameters. As a result, system performance, reliability, or security may be degraded, leading to service disruptions or unintended operational behaviour.",
+      "element_id": "CAP-12",
+      "element_name": "System Management",
+      "element_category": "Capability - Operational",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0086",
+          "level": 0,
+          "statement": "Limit the number of concurrent queries to external systems by agents",
+          "recommendations": "Agents making unlimited concurrent queries to external systems may overwhelm those systems, trigger rate limiting or blocking, or exhaust connection pools and network resources. Implement concurrency limits that restrict the maximum number of simultaneous queries an agent can issue to external systems, such as APIs, web services, or remote databases. Configure limits appropriate to external system capacity and rate limit policies, ensuring agents operate within acceptable thresholds whilst maintaining functionality.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0087",
+          "level": 0,
+          "statement": "Ensure logging of system health metrics and automated alerts to the developer team if any metrics are abnormal",
+          "recommendations": null,
+          "references": []
+        }
+      ],
+      "control_count": 2,
+      "sources": [
+        "https://neurips.cc/virtual/2024/poster/97835",
+        "https://arxiv.org/html/2507.10584v1"
+      ]
+    },
+    {
+      "id": "RISK-046",
+      "statement": "System overload due to inefficient or excessive operations",
+      "description": "This risk arises when an agent issues poorly optimised, excessively frequent, or redundant system-level operations or queries. As a result, computing resources may be exhausted, system performance may degrade, or services may become unavailable due to unnecessary load.",
+      "element_id": "CAP-12",
+      "element_name": "System Management",
+      "element_category": "Capability - Operational",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0088",
+          "level": 0,
+          "statement": "Limit the number of concurrent queries to external systems from the agent",
+          "recommendations": null,
+          "references": []
+        }
+      ],
+      "control_count": 1,
+      "sources": [
+        "https://arxiv.org/html/2407.20859v1",
+        "https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/"
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "id": "CMP-01",
+      "name": "LLM",
+      "category": "Component - LLM",
+      "description": "A large language model (LLM) is a neural network trained on massive text data to learn statistical patterns of language, enabling it to understand, generate, and reason over natural language inputs. It is the core reasoning engine that processes instructions, interprets user inputs, and generates contextually appropriate responses by leveraging its trained language understanding and generation capabilities. There are a large variety of LLMs to choose from, with different sizes, capabilities, and architectures, from large closed-source LLMs such as OpenAI's GPT-5.2, Anthropic's Claude 4 Opus, or Gemini 3 Pro, to smaller open-weights models like Llama 3.1 8B, Qwen3 8B, and Mistral Small 3.1."
+    },
+    {
+      "id": "CMP-02",
+      "name": "Instructions",
+      "category": "Component - Instructions",
+      "description": "Instructions are structured inputs provided to an LLM that define the task, constraints, and context, guiding how the model interprets inputs and generates outputs. They guide the LLM's decision process by conditioning prompts and tool use with objectives, policies, and guardrails. Forms include system prompts, policies, schemas, and rubrics, varying by framework and enforcement strictness."
+    },
+    {
+      "id": "CMP-03",
+      "name": "Tools",
+      "category": "Component - Tools",
+      "description": "Tools are external functions, APIs, or resources attached to an LLM that extend its capabilities beyond text generation, enabling it to retrieve information, execute actions, and affect external systems (e.g., search, code execution, database queries, or file manipulation), typically through structured interfaces such as the Model Context Protocol (MCP) that constrain invocation, inputs, permissions, and outputs for agentic control and safety."
+    },
+    {
+      "id": "CMP-04",
+      "name": "Memory",
+      "category": "Component - Memory",
+      "description": "Memory is a persistent or semi-persistent data store attached to an LLM that retains information across interactions\u2014such as conversation history, user preferences, task state, and retrieved knowledge\u2014enabling continuity, long-horizon reasoning, and personalization in agentic workflows. Memory may be implemented through mechanisms such as context windows, vector databases, episodic logs, or external state stores, each offering different trade-offs in latency, fidelity, and persistence."
+    },
+    {
+      "id": "DSN-01",
+      "name": "Agentic Architecture",
+      "category": "Design - Agentic Architecture",
+      "description": "The agentic architecture defines how multiple agents are structured, interconnected, and coordinated to collectively perform tasks that exceed the capabilities of a single agent. This includes orchestration patterns such as hierarchical delegation, parallel agent execution, sequential handoffs between specialised agents, shared or centralized planning components, and the communication protocols that govern information exchange and coordination across the system."
+    },
+    {
+      "id": "DSN-02",
+      "name": "Roles and Access Controls",
+      "category": "Design - Roles and Access Controls",
+      "description": "Roles and access controls define and enforce differentiated roles, permissions, and scopes of authority across agents and system components, specifying what actions each agent is allowed to perform and which resources it may access. This includes assigning functional roles to agents, configuring tool- and data-level permissions, scoping credentials or identities, and enforcing access policies that govern interactions with files, systems, services, or other agents."
+    },
+    {
+      "id": "DSN-03",
+      "name": "Monitoring and Traceability",
+      "category": "Design - Monitoring and Traceability",
+      "description": "Monitoring and traceability provide systematic visibility into agent behaviour, interactions, and decision pathways by recording, observing, and correlating agent actions and system events over time. This includes logging agent inputs and outputs, tracking tool invocations and state changes, capturing decision traces or execution paths, and surfacing telemetry or audit records that support analysis and review of system behaviour."
+    },
+    {
+      "id": "CAP-01",
+      "name": "Planning and Goal Management",
+      "category": "Capability - Cognitive",
+      "description": "The capability to develop detailed, step-by-step, and executable plans with specific tasks in response to broad instructions. This includes prioritizing activities based on importance and dependencies between tasks, monitoring how well its plan is working, and adjusting when circumstances change or obstacles arise."
+    },
+    {
+      "id": "CAP-02",
+      "name": "Agent Delegation",
+      "category": "Capability - Cognitive",
+      "description": "The capability to assign subtasks to other agents and coordinate their activities to achieve broader goals. This includes identifying which components are best suited for specific tasks, issuing clear instructions, managing inter-agent dependencies, and monitoring performance or failures."
+    },
+    {
+      "id": "CAP-03",
+      "name": "Tool Use",
+      "category": "Capability - Cognitive",
+      "description": "The capability to evaluate available options and choose the best tool for specific subtasks, based on the capabilities and limitations of different tools and matching them appropriately to the tasks. This includes selecting between search, computation, code execution, or domain-specific APIs, determining when tool invocation is necessary, and sequencing or combining multiple tools to complete complex tasks effectively."
+    },
+    {
+      "id": "CAP-04",
+      "name": "Multimodal Understanding and Generation",
+      "category": "Capability - Interaction",
+      "description": "The capability to communicate with human users across multiple modalities, including natural language conversation (explaining topics, generating documents, interactive discussions) and multimodal understanding/generation (processing and creating image, audio, or video content such as visual analysis, speech transcription, or multimedia creation)."
+    },
+    {
+      "id": "CAP-05",
+      "name": "Official Communication",
+      "category": "Capability - Interaction",
+      "description": "The capability to autonomously compose, finalize, and dispatch authoritative communications that formally and legally represent an organization to external parties (e.g. customers, partners, regulators, courts, or media) via approved channels and formats, without prior human review or approval, thereby creating potential legal, regulatory, or reputational obligations. This includes sending legally binding correspondence, publishing official statements or press releases, and responding to external inquiries using the organisation's identity."
+    },
+    {
+      "id": "CAP-06",
+      "name": "Business Transactions",
+      "category": "Capability - Interaction",
+      "description": "The capability to autonomously initiate, authorise, and execute binding business transactions with external parties - such as payments, purchases, reservations, or service commitments - within predefined authorisation limits, resulting in real financial, contractual, or operational obligations for the organization. This includes processing payments or refunds, placing orders or subscriptions, booking services or reservations, and accepting or triggering contractual commitments on behalf of the organization."
+    },
+    {
+      "id": "CAP-07",
+      "name": "Internet and Search Access",
+      "category": "Capability - Interaction",
+      "description": "The capability to autonomously access, browse, search, and retrieve information from the Internet to augment the LLM's static training knowledge with external and up-to-date sources in support of task execution and response generation. This includes issuing search queries, following and parsing web pages, extracting relevant facts or documents, and aggregating information from multiple online sources."
+    },
+    {
+      "id": "CAP-08",
+      "name": "Computer Use",
+      "category": "Capability - Interaction",
+      "description": "The capability to directly operate a computer\u2019s graphical user interface on behalf of the user, enabling the agent to navigate applications and execute tasks through mouse, keyboard, and window-based interactions. This includes moving the cursor, clicking buttons, entering text, using keyboard shortcuts, switching between windows and applications, and navigating files and menus within the operating system environment."
+    },
+    {
+      "id": "CAP-09",
+      "name": "Other Programmatic Interfaces",
+      "category": "Capability - Interaction",
+      "description": "The capability to interact with external systems through non-graphical, programmatic interfaces, such as APIs, SDKs, and backend services, to exchange data or trigger actions as part of task execution. This includes calling REST or GraphQL APIs, invoking cloud services, publishing or consuming messages from queues or event streams, and performing operations such as code pushes, data updates, or system integrations across enterprise platforms."
+    },
+    {
+      "id": "CAP-10",
+      "name": "Code Execution",
+      "category": "Capability - Operational",
+      "description": "The capability to write, execute, and debug code in various programming languages to automate tasks or solve computational problems. This includes implementing algorithms, writing scripts, compiling and running code, debugging errors, and integrating with external systems through APIs or backend services."
+    },
+    {
+      "id": "CAP-11",
+      "name": "File and Data Management",
+      "category": "Capability - Operational",
+      "description": "The capability to manage the full lifecycle of files and data by creating, reading, modifying, organizing, converting, querying, and updating information across both unstructured artifacts (e.g. documents, spreadsheets, media files) and structured data stores (e.g. SQL/NoSQL databases, data warehouses, vector or embedding stores) in support of operational tasks. This includes ingesting and transforming datasets, generating or updating files, maintaining directory or schema structures, executing database queries or updates, and storing or retrieving embeddings or derived data products."
+    },
+    {
+      "id": "CAP-12",
+      "name": "System Management",
+      "category": "Capability - Operational",
+      "description": "The capability to directly manage and configure technical systems and infrastructure by adjusting system settings, controlling computing resources, and administering operational environments across on-premise or cloud platforms. This includes monitoring system health and performance, managing authentication credentials and access controls, provisioning or scaling compute and storage resources, configuring operating system or runtime parameters, and applying system-level optimisations to support reliable operation."
+    }
+  ],
+  "metadata": {
+    "total_risks": 46,
+    "total_controls": 88,
+    "total_elements": 19,
+    "categories": [
+      "Component - Tools",
+      "Component - LLM",
+      "Capability - Operational",
+      "Component - Memory",
+      "Design - Agentic Architecture",
+      "Capability - Cognitive",
+      "Capability - Interaction",
+      "Component - Instructions",
+      "Design - Monitoring and Traceability",
+      "Design - Roles and Access Controls"
+    ],
+    "failure_modes": [
+      "Tool or Resource Malfunction",
+      "External Manipulation",
+      "Agent Failure"
+    ],
+    "risk_types": [
+      "Safety",
+      "Security"
+    ]
+  }
+}
