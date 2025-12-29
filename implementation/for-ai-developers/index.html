@@ -1425,18 +1425,18 @@
 <tbody>
 <tr>
 <td>Cognitive</td>
-<td>CAP-01: Reasoning and Problem-Solving</td>
-<td>The Codebase Analyzer debugs issues by analyzing stack traces, code flow, and dependencies; Code Writer applies software engineering patterns.</td>
-</tr>
-<tr>
-<td>Cognitive</td>
-<td>CAP-02: Planning and Goal Management</td>
+<td>CAP-01: Planning and Goal Management</td>
 <td>The Task Planner breaks down complex coding requests into sequential steps (e.g., "add authentication" → analyze existing auth, design schema, implement endpoints, write tests).</td>
 </tr>
 <tr>
 <td>Cognitive</td>
-<td>CAP-03: Tool Use and Delegation</td>
-<td>The Task Planner selects appropriate agents and tools based on task requirements (search vs. read vs. execute).</td>
+<td>CAP-02: Agent Delegation</td>
+<td>The Task Planner assigns subtasks to specialized agents (Codebase Analyzer, Code Writer, Command Executor, File Manager) and coordinates their activities.</td>
+</tr>
+<tr>
+<td>Cognitive</td>
+<td>CAP-03: Tool Use</td>
+<td>The Task Planner selects appropriate tools based on task requirements (search vs. read vs. execute).</td>
 </tr>
 <tr>
 <td>Interaction</td>
@@ -1445,7 +1445,7 @@
 </tr>
 <tr>
 <td>Operational</td>
-<td>CAP-09: Code Execution</td>
+<td>CAP-10: Code Execution</td>
 <td>The Command Executor runs shell commands, executes tests, installs dependencies, and validates code changes.</td>
 </tr>
 <tr>
@@ -1665,18 +1665,13 @@
 <tbody>
 <tr>
 <td>Cognitive</td>
-<td>CAP-01: Reasoning and Problem-Solving</td>
-<td>The Conversation Manager interprets customer intent from natural language queries and resolves ambiguous requests.</td>
-</tr>
-<tr>
-<td>Cognitive</td>
-<td>CAP-02: Planning and Goal Management</td>
+<td>CAP-01: Planning and Goal Management</td>
 <td>The Conversation Manager plans multi-step interactions (e.g., "reschedule appointment" → check existing booking, find availability, confirm new time, update system).</td>
 </tr>
 <tr>
 <td>Cognitive</td>
-<td>CAP-03: Tool Use and Delegation</td>
-<td>The Conversation Manager selects appropriate agents based on query type (information vs. transaction vs. customer data lookup).</td>
+<td>CAP-02: Agent Delegation</td>
+<td>The Conversation Manager assigns tasks to specialized agents (Knowledge Agent, Booking Agent, Profile Agent) based on query type.</td>
 </tr>
 <tr>
 <td>Interaction</td>
