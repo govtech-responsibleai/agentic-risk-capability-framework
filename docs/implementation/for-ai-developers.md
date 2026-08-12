@@ -99,30 +99,30 @@ The ARC framework recommends controls at different levels of priority, and teams
   </thead>
   <tbody>
     <tr>
-      <td><strong>Level 0: Essential Controls</strong></td>
-      <td>High-impact risks, regulatory requirements</td>
-      <td>Implement unless technically infeasible; document exceptions with compensating controls</td>
+      <td><strong>Level 0: Cardinal Controls</strong></td>
+      <td>Fundamental requirements for any system where the associated risk applies</td>
+      <td>Must be adopted as-is; cannot be waived</td>
       <td>Authentication for transaction APIs, audit logging for sensitive operations, input validation for code execution</td>
-      <td>Requires senior stakeholder or security team sign-off if not implemented</td>
+      <td>Implementation verified before deployment; blockers escalated to the governance team</td>
     </tr>
     <tr>
-      <td><strong>Level 1: Recommended Controls</strong></td>
+      <td><strong>Level 1: Standard Controls</strong></td>
       <td>Moderate-impact risks, best practices</td>
-      <td>Implement where practical; exercise engineering judgement on feasibility</td>
+      <td>Adopt or adapt meaningfully; exercise engineering judgement on feasibility</td>
       <td>Rate limiting for API calls, output guardrails for content quality, human review for edge cases</td>
       <td>Team-level decision with documented rationale</td>
     </tr>
     <tr>
-      <td><strong>Level 2: Enhanced Controls</strong></td>
+      <td><strong>Level 2: Best Practice Controls</strong></td>
       <td>Defence-in-depth, low residual risk tolerance</td>
-      <td>Consider based on risk appetite and available resources</td>
+      <td>Consider based on risk appetite and available resources, especially for high-risk systems</td>
       <td>Advanced monitoring dashboards, red team testing, redundant safety layers</td>
       <td>Optional; prioritise based on organisational maturity</td>
     </tr>
   </tbody>
 </table>
 
-Not all controls are mandatory—the framework provides a menu of options. Your governance team may specify which controls are required for your organisation; otherwise, apply controls proportionate to risk severity.
+Level 0 controls are mandatory wherever the associated risk applies to your system. Levels 1 and 2 provide a menu of options—your governance team may specify which are required for your organisation; otherwise, apply them proportionate to risk severity.
 
 !!! tip "Contextualising Controls"
 
