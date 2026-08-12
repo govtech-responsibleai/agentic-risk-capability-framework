@@ -11,7 +11,7 @@
 
 !!! info "Major Update"
 
-    We have significantly updated the ARC Framework since our initial release in August. The main changes include:
+    We have significantly updated the ARC Framework since our initial release in August 2025. The main changes include:
 
     - **Updated theoretical foundations**: Added a comprehensive [introduction](arc_framework/introduction.md) with design rationale, literature review, real-world case studies (Replit, Antigravity incidents), as well as detailed justifications for the capability-based approach
     - **Restructured documentation**: Consolidated Components and Design elements together with the Capabilities element into a unified [Elements](arc_framework/elements.md) reference page with clearer taxonomy and detailed definitions
@@ -45,7 +45,7 @@ On this website, you'll find all the resources you need to get started with unde
 
 The ARC framework has been mentioned in:
 
-* [Cybersecurity Agency of Singapore's draft Addendum on Securing Agentic AI](https://isomer-user-content.by.gov.sg/36/703ff9fe-9db1-4e09-98c2-89e3d7007ef0/Draft%20Addendum%20on%20Securing%20Agentic%20AI%20[For%20Public%20Consultation].pdf)
+* [Cybersecurity Agency of Singapore's Securing Agentic AI — An Addendum to the Guidelines and Companion Guide on Securing AI Systems](https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/) (finalised 17 June 2026)
 * [Opening Address by Minister Josephine Teo at HLP (AI) on 22 Oct 2025](https://www.csa.gov.sg/news-events/speeches/opening-address-by-minister-josephine-teo-at-hlp--ai--on-22-oct-2025/#:~:text=20.%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0%20First%2C%20we,can%20trust%20autonomy.)
 * [AI Agents and Global Governance: Analyzing Foundational Legal, Policy, and Accountability Tools by Talita Dias (Partnership on AI)](https://partnershiponai.org/wp-content/uploads/2025/09/agents-policy-analysis.pdf?vgo_ee=uag8GfRQtHHxKE9ENGhTyS97XYF3rhM%3D%3AZ%2BYB5WRdklLrdWegdiC1Lb9RPOHzTLfW)
 * [Engineering responsible AI: How Singapore builds trust in emerging technologies by GovTech Singapore](https://www.tech.gov.sg/technews/engineering-responsible-ai/)
@@ -63,17 +63,21 @@ To reach out to us, please fill out the Google form <a href="https://forms.gle/K
 To cite this work, please use the following BibTeX citation:
 
 ```
-@article{agentic_risk_capability_framework,
-    title   = {Agentic Risk & Capability Framework},
-    author  = {GovTech Singapore},
+@article{khoo2025arc,
+    title   = {With Great Capabilities Come Great Responsibilities: Introducing the Agentic Risk & Capability Framework for Governing Agentic AI Systems},
+    author  = {Khoo, Shaun and Foo, Jessica and Lee, Roy Ka-Wei},
+    journal = {arXiv preprint arXiv:2512.22211},
     year    = {2025},
-    month   = {December},
-    url     = {https://govtech-responsibleai.github.io/agentic-risk-capability-framework/}
+    url     = {https://arxiv.org/abs/2512.22211}
 }
 ```
 
 Alternatively, you may use the APA-formatted citation below:
 
+> Khoo, S., Foo, J., & Lee, R. K.-W. (2025). With great capabilities come great responsibilities: Introducing the Agentic Risk & Capability Framework for governing agentic AI systems. *arXiv preprint arXiv:2512.22211*. <https://arxiv.org/abs/2512.22211>
+
+To cite the framework website directly (e.g., for the Risk Register rather than the paper):
+
 > GovTech Singapore (2025) Agentic Risk & Capability Framework. URL <https://govtech-responsibleai.github.io/agentic-risk-capability-framework/>
 
-*This page was last updated on 29 Dec 2025*
+*This page was last updated on 12 Aug 2026*

@@ -1,6 +1,6 @@
 # Resources
 
-Beyond the [technical governance framework](arc_framework/introduction.md) and [implementation guide](implementation/index.md), we have also developed additional tools and resources to help organisations understand and get started with using the ARC framework to govern their agentic AI systems. 
+Beyond the [technical governance framework](../arc_framework/introduction.md) and [implementation guide](../implementation/index.md), we have also developed additional tools and resources to help organisations understand and get started with using the ARC framework to govern their agentic AI systems. 
 
 | Resource | Target Audience | Description |
 | --- | --- | --- |
