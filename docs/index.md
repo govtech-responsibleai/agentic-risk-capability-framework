@@ -15,7 +15,7 @@
 
     - **Updated theoretical foundations**: Added a comprehensive [introduction](arc_framework/introduction.md) with design rationale, literature review, real-world case studies (Replit, Antigravity incidents), as well as detailed justifications for the capability-based approach
     - **Restructured documentation**: Consolidated Components and Design elements together with the Capabilities element into a unified [Elements](arc_framework/elements.md) reference page with clearer taxonomy and detailed definitions
-    - **Interactive Risk Register**: Introduced a [filterable, searchable risk register](arc_framework/risk-register.md) consolidating all 46 risks and 88 controls with risk-to-control mappings in a single interactive interface
+    - **Interactive Risk Register**: Introduced a [filterable, searchable risk register](arc_framework/risk-register.md) consolidating all 46 risks and 86 controls with risk-to-control mappings in a single interactive interface
     - **Framework positioning**: Added a [comparison table](arc_framework/comparison.md) benchmarking ARC against NIST AI RMF, EU AI Act, Dimensional Governance, OWASP Agentic AI, Google SAIF 2.0, CSA MAESTRO, and other governance frameworks
     - **Enhanced implementation guidance**: Updated implementation guides with more detailed methodologies for both organizational adoption and per-system assessment
     - **ARCvisor tool**: Launched [ARCvisor](resources/index.md#arcvisor), an AI-powered risk assessment assistant achieving 50%+ time savings with live demo and open-source repository

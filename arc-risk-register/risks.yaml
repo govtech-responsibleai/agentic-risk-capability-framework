@@ -735,7 +735,6 @@ RISK-045:
   controls:
   - CTRL-0084
   - CTRL-0085
-  - CTRL-0087
   sources:
   - https://neurips.cc/virtual/2024/poster/97835
   - https://arxiv.org/html/2507.10584v1
@@ -751,7 +750,6 @@ RISK-046:
   - Security
   controls:
   - CTRL-0086
-  - CTRL-0088
   sources:
   - https://arxiv.org/html/2407.20859v1
   - https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/

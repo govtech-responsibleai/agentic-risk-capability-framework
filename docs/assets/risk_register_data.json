@@ -1615,16 +1615,9 @@
           "statement": "Log system health metrics and implement automated alerts for abnormal conditions",
           "recommendations": "Misconfigurations by agents may not cause immediate visible failures but instead gradually degrade system health, performance, or stability over time. Implement comprehensive logging of system health metrics including resource utilisation, error rates, response times, and performance indicators that reflect the impact of configuration changes. Configure automated alerting that triggers when metrics deviate from expected baselines or exceed acceptable thresholds.",
           "references": []
-        },
-        {
-          "id": "CTRL-0087",
-          "level": 0,
-          "statement": "Ensure logging of system health metrics and automated alerts to the developer team if any metrics are abnormal",
-          "recommendations": null,
-          "references": []
         }
       ],
-      "control_count": 3,
+      "control_count": 2,
       "sources": [
         "https://neurips.cc/virtual/2024/poster/97835",
         "https://arxiv.org/html/2507.10584v1"
@@ -1648,16 +1641,9 @@
           "statement": "Limit the number of concurrent queries to external systems by agents",
           "recommendations": "Agents making unlimited concurrent queries to external systems may overwhelm those systems, trigger rate limiting or blocking, or exhaust connection pools and network resources. Implement concurrency limits that restrict the maximum number of simultaneous queries an agent can issue to external systems, such as APIs, web services, or remote databases. Configure limits appropriate to external system capacity and rate limit policies, ensuring agents operate within acceptable thresholds whilst maintaining functionality.",
           "references": []
-        },
-        {
-          "id": "CTRL-0088",
-          "level": 0,
-          "statement": "Limit the number of concurrent queries to external systems from the agent",
-          "recommendations": null,
-          "references": []
         }
       ],
-      "control_count": 2,
+      "control_count": 1,
       "sources": [
         "https://arxiv.org/html/2407.20859v1",
         "https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/"
@@ -1782,19 +1768,19 @@
   ],
   "metadata": {
     "total_risks": 46,
-    "total_controls": 88,
+    "total_controls": 86,
     "total_elements": 19,
     "categories": [
-      "Component - Instructions",
-      "Component - Memory",
       "Design - Roles and Access Controls",
-      "Component - LLM",
-      "Capability - Cognitive",
-      "Component - Tools",
       "Capability - Operational",
-      "Design - Monitoring and Traceability",
+      "Capability - Interaction",
+      "Component - Memory",
+      "Component - Instructions",
       "Design - Agentic Architecture",
-      "Capability - Interaction"
+      "Capability - Cognitive",
+      "Design - Monitoring and Traceability",
+      "Component - LLM",
+      "Component - Tools"
     ],
     "failure_modes": [
       "Tool or Resource Malfunction",

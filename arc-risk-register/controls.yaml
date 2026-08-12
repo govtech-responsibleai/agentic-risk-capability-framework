@@ -642,17 +642,3 @@ CTRL-0086:
   statement: Limit the number of concurrent queries to external systems by agents
   recommendations: Agents making unlimited concurrent queries to external systems may overwhelm those systems, trigger rate limiting or blocking, or exhaust connection pools and network resources. Implement concurrency limits that restrict the maximum number of simultaneous queries an agent can issue to external systems, such as APIs, web services, or remote databases. Configure limits appropriate to external system capacity and rate limit policies, ensuring agents operate within acceptable thresholds whilst maintaining functionality.
   references: null
-CTRL-0087:
-  level: 0
-  risks:
-  - RISK-045
-  statement: Ensure logging of system health metrics and automated alerts to the developer team if any metrics are abnormal
-  recommendations: null
-  references: null
-CTRL-0088:
-  level: 0
-  risks:
-  - RISK-046
-  statement: Limit the number of concurrent queries to external systems from the agent
-  recommendations: null
-  references: null
