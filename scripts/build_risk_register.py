@@ -117,8 +117,8 @@ def build_risk_register_data():
             'total_risks': len(risks),
             'total_controls': len(controls),
             'total_elements': len(elements),
-            'categories': list(set(e['category'] for e in elements.values())),
-            'failure_modes': list(set(r.get('failure_mode', '') for r in risks.values())),
+            'categories': sorted(set(e['category'] for e in elements.values())),
+            'failure_modes': sorted(set(r.get('failure_mode', '') for r in risks.values())),
             'risk_types': ['Safety', 'Security']
         }
     }
@@ -127,6 +127,16 @@ def build_risk_register_data():
 
 def main():
     """Main execution."""
+    print("Validating risk register...")
+    import validate_risk_register
+    errors, warnings = validate_risk_register.validate()
+    for w in warnings:
+        print(f'  warning: {w}')
+    if errors:
+        for e in errors:
+            print(f'  ERROR: {e}')
+        raise SystemExit(f'✗ Refusing to build: {len(errors)} validation error(s) in the risk register')
+
     print("Building risk register data...")
 
     # Ensure output directory exists

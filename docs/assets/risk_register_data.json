@@ -1780,16 +1780,16 @@
     "total_controls": 86,
     "total_elements": 19,
     "categories": [
-      "Design - Agentic Architecture",
       "Capability - Cognitive",
-      "Component - Instructions",
-      "Capability - Operational",
-      "Component - LLM",
-      "Design - Monitoring and Traceability",
       "Capability - Interaction",
+      "Capability - Operational",
+      "Component - Instructions",
+      "Component - LLM",
       "Component - Memory",
-      "Design - Roles and Access Controls",
-      "Component - Tools"
+      "Component - Tools",
+      "Design - Agentic Architecture",
+      "Design - Monitoring and Traceability",
+      "Design - Roles and Access Controls"
     ],
     "failure_modes": [
       "Agent Failure",
