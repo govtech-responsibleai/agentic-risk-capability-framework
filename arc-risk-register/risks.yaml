@@ -201,7 +201,7 @@ RISK-012:
     propagate through interconnected agents within a multi-agent system. As a result,
     small failures may compound across agent interactions, leading to amplified errors,
     degraded system performance, or unintended outcomes at the system level.
-  element_id: DES-1
+  element_id: DSN-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -219,7 +219,7 @@ RISK-013:
     within the agentic system. As a result, agents may act on tampered information,
     leading to incorrect coordination, unauthorised actions, or compromised system
     behaviour.
-  element_id: DES-1
+  element_id: DSN-01
   failure_mode: External Manipulation
   type:
   - Security
@@ -234,7 +234,7 @@ RISK-014:
     outputs, or errors within an agentic architecture. As a result, feedback loops
     may form that escalate actions, consume excessive resources, or cause the system
     to persist in harmful or unintended behaviour without effective human intervention.
-  element_id: DES-1
+  element_id: DSN-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -242,14 +242,16 @@ RISK-014:
   controls:
   - CTRL-0028
   - CTRL-0029
-  sources: []
+  sources:
+  - https://arxiv.org/abs/2402.06627
+  - https://arxiv.org/abs/2502.14143
 RISK-015:
   statement: Overly permissive roles and permissions
   description: This risk arises when agents are granted roles or permissions that
     exceed their intended responsibilities or operational needs. As a result, agents
     may access sensitive resources, invoke high-impact capabilities, or perform unauthorised
     actions that increase the likelihood of security, privacy, or operational failures.
-  element_id: DES-2
+  element_id: DSN-02
   failure_mode: Agent Failure
   type:
   - Security
@@ -265,7 +267,7 @@ RISK-016:
     or unintended system behaviour. As a result, agents may bypass intended controls,
     access restricted resources, or execute actions that undermine system security
     and governance.
-  element_id: DES-2
+  element_id: DSN-02
   failure_mode: Agent Failure
   type:
   - Security
@@ -280,7 +282,7 @@ RISK-017:
     into agent behaviour, system events, or execution outcomes. As a result, failures,
     anomalies, or unintended actions may go undetected for extended periods, increasing
     the impact and difficulty of remediation.
-  element_id: DES-3
+  element_id: DSN-03
   failure_mode: Agent Failure
   type:
   - Safety
@@ -296,14 +298,16 @@ RISK-018:
     reasoning steps, decision pathways, or execution context for agent actions. As
     a result, operators may be unable to reconstruct failures, understand why specific
     outcomes occurred, or conduct effective audits and post-incident reviews.
-  element_id: DES-3
+  element_id: DSN-03
   failure_mode: Agent Failure
   type:
   - Security
   controls:
   - CTRL-0034
   - CTRL-0035
-  sources: []
+  sources:
+  - https://arxiv.org/abs/2411.05285
+  - https://opentelemetry.io/docs/specs/semconv/gen-ai/
 RISK-019:
   statement: Generating plans that fail to meet the user's requirements
   description: This risk arises when an agent generates plans or goals that do not
@@ -617,7 +621,9 @@ RISK-038:
   - Security
   controls:
   - CTRL-0067
-  sources: []
+  sources:
+  - https://arxiv.org/abs/2305.15334
+  - https://arxiv.org/abs/2309.15817
 RISK-039:
   statement: Production or execution of poor or ineffective code
   description: This risk arises when an agent generates or executes code that is incorrect,

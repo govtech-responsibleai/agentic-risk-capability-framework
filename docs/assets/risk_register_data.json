@@ -460,7 +460,7 @@
       "id": "RISK-012",
       "statement": "Cascading errors in multi-agent architectures",
       "description": "This risk arises when errors or misjudgements produced by one agent propagate through interconnected agents within a multi-agent system. As a result, small failures may compound across agent interactions, leading to amplified errors, degraded system performance, or unintended outcomes at the system level.",
-      "element_id": "DES-1",
+      "element_id": "DSN-01",
       "element_name": "Agentic Architecture",
       "element_category": "Design - Agentic Architecture",
       "failure_mode": "Agent Failure",
@@ -496,7 +496,7 @@
       "id": "RISK-013",
       "statement": "Man-in-the-middle attacks between agents",
       "description": "This risk arises when communication channels between agents are insufficiently secured, allowing an attacker to intercept, modify, or replay messages exchanged within the agentic system. As a result, agents may act on tampered information, leading to incorrect coordination, unauthorised actions, or compromised system behaviour.",
-      "element_id": "DES-1",
+      "element_id": "DSN-01",
       "element_name": "Agentic Architecture",
       "element_category": "Design - Agentic Architecture",
       "failure_mode": "External Manipulation",
@@ -534,7 +534,7 @@
       "id": "RISK-014",
       "statement": "Feedback loops and runaway agent behaviour",
       "description": "This risk arises when agents repeatedly reinforce each other\u2019s decisions, outputs, or errors within an agentic architecture. As a result, feedback loops may form that escalate actions, consume excessive resources, or cause the system to persist in harmful or unintended behaviour without effective human intervention.",
-      "element_id": "DES-1",
+      "element_id": "DSN-01",
       "element_name": "Agentic Architecture",
       "element_category": "Design - Agentic Architecture",
       "failure_mode": "Agent Failure",
@@ -561,13 +561,16 @@
         }
       ],
       "control_count": 2,
-      "sources": []
+      "sources": [
+        "https://arxiv.org/abs/2402.06627",
+        "https://arxiv.org/abs/2502.14143"
+      ]
     },
     {
       "id": "RISK-015",
       "statement": "Overly permissive roles and permissions",
       "description": "This risk arises when agents are granted roles or permissions that exceed their intended responsibilities or operational needs. As a result, agents may access sensitive resources, invoke high-impact capabilities, or perform unauthorised actions that increase the likelihood of security, privacy, or operational failures.",
-      "element_id": "DES-2",
+      "element_id": "DSN-02",
       "element_name": "Roles and Access Controls",
       "element_category": "Design - Roles and Access Controls",
       "failure_mode": "Agent Failure",
@@ -603,7 +606,7 @@
       "id": "RISK-016",
       "statement": "Unauthorised privilege escalation",
       "description": "This risk arises when agents are able to gain elevated roles or permissions beyond those initially granted, whether through misconfiguration, exploitation, or unintended system behaviour. As a result, agents may bypass intended controls, access restricted resources, or execute actions that undermine system security and governance.",
-      "element_id": "DES-2",
+      "element_id": "DSN-02",
       "element_name": "Roles and Access Controls",
       "element_category": "Design - Roles and Access Controls",
       "failure_mode": "Agent Failure",
@@ -637,7 +640,7 @@
       "id": "RISK-017",
       "statement": "Delayed failure detection due to limited monitoring",
       "description": "This risk arises when monitoring systems provide insufficient visibility into agent behaviour, system events, or execution outcomes. As a result, failures, anomalies, or unintended actions may go undetected for extended periods, increasing the impact and difficulty of remediation.",
-      "element_id": "DES-3",
+      "element_id": "DSN-03",
       "element_name": "Monitoring and Traceability",
       "element_category": "Design - Monitoring and Traceability",
       "failure_mode": "Agent Failure",
@@ -670,7 +673,7 @@
       "id": "RISK-018",
       "statement": "Inability to audit failures due to missing decision traces",
       "description": "This risk arises when monitoring systems do not capture sufficient reasoning steps, decision pathways, or execution context for agent actions. As a result, operators may be unable to reconstruct failures, understand why specific outcomes occurred, or conduct effective audits and post-incident reviews.",
-      "element_id": "DES-3",
+      "element_id": "DSN-03",
       "element_name": "Monitoring and Traceability",
       "element_category": "Design - Monitoring and Traceability",
       "failure_mode": "Agent Failure",
@@ -694,7 +697,10 @@
         }
       ],
       "control_count": 2,
-      "sources": []
+      "sources": [
+        "https://arxiv.org/abs/2411.05285",
+        "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+      ]
     },
     {
       "id": "RISK-019",
@@ -1328,7 +1334,10 @@
         }
       ],
       "control_count": 1,
-      "sources": []
+      "sources": [
+        "https://arxiv.org/abs/2305.15334",
+        "https://arxiv.org/abs/2309.15817"
+      ]
     },
     {
       "id": "RISK-039",
@@ -1771,21 +1780,21 @@
     "total_controls": 86,
     "total_elements": 19,
     "categories": [
-      "Design - Roles and Access Controls",
-      "Capability - Operational",
-      "Capability - Interaction",
-      "Component - Memory",
-      "Component - Instructions",
       "Design - Agentic Architecture",
       "Capability - Cognitive",
-      "Design - Monitoring and Traceability",
+      "Component - Instructions",
+      "Capability - Operational",
       "Component - LLM",
+      "Design - Monitoring and Traceability",
+      "Capability - Interaction",
+      "Component - Memory",
+      "Design - Roles and Access Controls",
       "Component - Tools"
     ],
     "failure_modes": [
-      "Tool or Resource Malfunction",
+      "Agent Failure",
       "External Manipulation",
-      "Agent Failure"
+      "Tool or Resource Malfunction"
     ],
     "risk_types": [
       "Safety",
