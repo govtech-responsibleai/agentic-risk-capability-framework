@@ -3,7 +3,7 @@ site_name: Agentic Risk & Capability Framework
 site_author: GovTech AI Practice
 copyright: GovTech Singapore
 docs_dir: docs
-repo_url: https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/gh-pages
+repo_url: https://github.com/govtech-responsibleai/agentic-risk-capability-framework
 
 # Theme Configuration
 theme:
