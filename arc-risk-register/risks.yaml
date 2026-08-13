@@ -201,7 +201,7 @@ RISK-012:
     propagate through interconnected agents within a multi-agent system. As a result,
     small failures may compound across agent interactions, leading to amplified errors,
     degraded system performance, or unintended outcomes at the system level.
-  element_id: DES-1
+  element_id: DSN-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -219,7 +219,7 @@ RISK-013:
     within the agentic system. As a result, agents may act on tampered information,
     leading to incorrect coordination, unauthorised actions, or compromised system
     behaviour.
-  element_id: DES-1
+  element_id: DSN-01
   failure_mode: External Manipulation
   type:
   - Security
@@ -234,7 +234,7 @@ RISK-014:
     outputs, or errors within an agentic architecture. As a result, feedback loops
     may form that escalate actions, consume excessive resources, or cause the system
     to persist in harmful or unintended behaviour without effective human intervention.
-  element_id: DES-1
+  element_id: DSN-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -242,14 +242,16 @@ RISK-014:
   controls:
   - CTRL-0028
   - CTRL-0029
-  sources: []
+  sources:
+  - https://arxiv.org/abs/2402.06627
+  - https://arxiv.org/abs/2502.14143
 RISK-015:
   statement: Overly permissive roles and permissions
   description: This risk arises when agents are granted roles or permissions that
     exceed their intended responsibilities or operational needs. As a result, agents
     may access sensitive resources, invoke high-impact capabilities, or perform unauthorised
     actions that increase the likelihood of security, privacy, or operational failures.
-  element_id: DES-2
+  element_id: DSN-02
   failure_mode: Agent Failure
   type:
   - Security
@@ -265,7 +267,7 @@ RISK-016:
     or unintended system behaviour. As a result, agents may bypass intended controls,
     access restricted resources, or execute actions that undermine system security
     and governance.
-  element_id: DES-2
+  element_id: DSN-02
   failure_mode: Agent Failure
   type:
   - Security
@@ -280,7 +282,7 @@ RISK-017:
     into agent behaviour, system events, or execution outcomes. As a result, failures,
     anomalies, or unintended actions may go undetected for extended periods, increasing
     the impact and difficulty of remediation.
-  element_id: DES-3
+  element_id: DSN-03
   failure_mode: Agent Failure
   type:
   - Safety
@@ -296,14 +298,16 @@ RISK-018:
     reasoning steps, decision pathways, or execution context for agent actions. As
     a result, operators may be unable to reconstruct failures, understand why specific
     outcomes occurred, or conduct effective audits and post-incident reviews.
-  element_id: DES-3
+  element_id: DSN-03
   failure_mode: Agent Failure
   type:
   - Security
   controls:
   - CTRL-0034
   - CTRL-0035
-  sources: []
+  sources:
+  - https://arxiv.org/abs/2411.05285
+  - https://opentelemetry.io/docs/specs/semconv/gen-ai/
 RISK-019:
   statement: Generating plans that fail to meet the user's requirements
   description: This risk arises when an agent generates plans or goals that do not
@@ -386,7 +390,6 @@ RISK-023:
   controls:
   - CTRL-0042
   - CTRL-0043
-  - CTRL-0044
   sources:
   - https://arxiv.org/abs/2411.13547
 RISK-024:
@@ -400,7 +403,7 @@ RISK-024:
   type:
   - Safety
   controls:
-  - CTRL-0045
+  - CTRL-0044
   sources:
   - https://arxiv.org/abs/2402.04249v2
 RISK-025:
@@ -414,7 +417,7 @@ RISK-025:
   type:
   - Safety
   controls:
-  - CTRL-0046
+  - CTRL-0045
   sources:
   - https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf
 RISK-026:
@@ -429,7 +432,7 @@ RISK-026:
   type:
   - Safety
   controls:
-  - CTRL-0047
+  - CTRL-0046
   sources:
   - https://news.stanford.edu/stories/2025/05/ai-models-llms-chatgpt-claude-gemini-partisan-bias-research-study
 RISK-027:
@@ -444,7 +447,7 @@ RISK-027:
   - Safety
   - Security
   controls:
-  - CTRL-0048
+  - CTRL-0047
   sources:
   - https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf
 RISK-028:
@@ -457,9 +460,9 @@ RISK-028:
   type:
   - Safety
   controls:
+  - CTRL-0048
   - CTRL-0049
   - CTRL-0050
-  - CTRL-0051
   sources:
   - https://arxiv.org/abs/2309.01219
 RISK-029:
@@ -473,7 +476,7 @@ RISK-029:
   type:
   - Safety
   controls:
-  - CTRL-0052
+  - CTRL-0051
   sources:
   - https://arxiv.org/abs/2407.07087
 RISK-030:
@@ -487,7 +490,7 @@ RISK-030:
   type:
   - Safety
   controls:
-  - CTRL-0053
+  - CTRL-0052
   sources:
   - https://fortune.com/article/customer-support-ai-cursor-went-rogue/
 RISK-031:
@@ -501,9 +504,9 @@ RISK-031:
   type:
   - Safety
   controls:
+  - CTRL-0053
   - CTRL-0054
   - CTRL-0055
-  - CTRL-0056
   sources:
   - https://the-decoder.com/people-buy-brand-new-chevrolets-for-1-from-a-chatgpt-chatbot/
 RISK-032:
@@ -517,6 +520,7 @@ RISK-032:
   type:
   - Security
   controls:
+  - CTRL-0056
   - CTRL-0057
   - CTRL-0058
   sources:
@@ -534,7 +538,6 @@ RISK-033:
   - Security
   controls:
   - CTRL-0059
-  - CTRL-0060
   sources:
   - https://arxiv.org/pdf/2506.01055
 RISK-034:
@@ -550,9 +553,9 @@ RISK-034:
   - Safety
   - Security
   controls:
+  - CTRL-0060
   - CTRL-0061
   - CTRL-0062
-  - CTRL-0063
   sources:
   - https://unit42.paloaltonetworks.com/agentic-ai-threats/
 RISK-035:
@@ -566,7 +569,7 @@ RISK-035:
   type:
   - Safety
   controls:
-  - CTRL-0064
+  - CTRL-0063
   sources:
   - https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them
 RISK-036:
@@ -583,8 +586,8 @@ RISK-036:
   - Safety
   - Security
   controls:
+  - CTRL-0064
   - CTRL-0065
-  - CTRL-0066
   sources:
   - https://arxiv.org/html/2505.13076v1
   - https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/
@@ -601,7 +604,7 @@ RISK-037:
   - Safety
   - Security
   controls:
-  - CTRL-0067
+  - CTRL-0066
   sources:
   - https://arxiv.org/html/2506.00618v3
 RISK-038:
@@ -617,8 +620,10 @@ RISK-038:
   - Safety
   - Security
   controls:
-  - CTRL-0068
-  sources: []
+  - CTRL-0067
+  sources:
+  - https://arxiv.org/abs/2305.15334
+  - https://arxiv.org/abs/2309.15817
 RISK-039:
   statement: Production or execution of poor or ineffective code
   description: This risk arises when an agent generates or executes code that is incorrect,
@@ -630,11 +635,11 @@ RISK-039:
   type:
   - Security
   controls:
+  - CTRL-0068
   - CTRL-0069
   - CTRL-0070
   - CTRL-0071
   - CTRL-0072
-  - CTRL-0073
   sources:
   - https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf
   - https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
@@ -650,12 +655,12 @@ RISK-040:
   type:
   - Security
   controls:
+  - CTRL-0069
   - CTRL-0070
   - CTRL-0071
   - CTRL-0072
+  - CTRL-0073
   - CTRL-0074
-  - CTRL-0075
-  - CTRL-0076
   sources:
   - https://arxiv.org/pdf/2501.08200
   - https://arxiv.org/html/2504.21205v1
@@ -670,9 +675,9 @@ RISK-041:
   type:
   - Security
   controls:
+  - CTRL-0075
+  - CTRL-0076
   - CTRL-0077
-  - CTRL-0078
-  - CTRL-0079
   sources:
   - https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf
 RISK-042:
@@ -686,9 +691,9 @@ RISK-042:
   type:
   - Security
   controls:
+  - CTRL-0078
+  - CTRL-0079
   - CTRL-0080
-  - CTRL-0081
-  - CTRL-0082
   sources:
   - https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql
 RISK-043:
@@ -702,8 +707,8 @@ RISK-043:
   type:
   - Security
   controls:
-  - CTRL-0083
-  - CTRL-0084
+  - CTRL-0081
+  - CTRL-0082
   sources:
   - https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/
 RISK-044:
@@ -718,8 +723,8 @@ RISK-044:
   - Safety
   - Security
   controls:
-  - CTRL-0063
-  - CTRL-0085
+  - CTRL-0062
+  - CTRL-0083
   sources:
   - https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability
   - https://www.wired.com/story/here-come-the-ai-worms/
@@ -734,8 +739,8 @@ RISK-045:
   type:
   - Security
   controls:
-  - CTRL-0086
-  - CTRL-0087
+  - CTRL-0084
+  - CTRL-0085
   sources:
   - https://neurips.cc/virtual/2024/poster/97835
   - https://arxiv.org/html/2507.10584v1
@@ -750,7 +755,7 @@ RISK-046:
   type:
   - Security
   controls:
-  - CTRL-0088
+  - CTRL-0086
   sources:
   - https://arxiv.org/html/2407.20859v1
   - https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/

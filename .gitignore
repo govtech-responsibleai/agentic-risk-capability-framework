@@ -2,3 +2,6 @@
 .github
 .DS_Store
 site
+Controls.xlsx
+Controls-updated.xlsx
+__pycache__/
