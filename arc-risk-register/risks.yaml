@@ -332,6 +332,7 @@ RISK-014:
   controls:
   - CTRL-0028
   - CTRL-0029
+  - CTRL-0065
   sources:
   - https://arxiv.org/abs/2402.06627
   - https://arxiv.org/abs/2502.14143
@@ -1171,6 +1172,7 @@ RISK-051:
   - CTRL-0026
   - CTRL-0028
   - CTRL-0093
+  - CTRL-0065
   sources:
   - https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing
   - https://arxiv.org/abs/2502.14143
