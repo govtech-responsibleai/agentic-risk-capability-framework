@@ -8,8 +8,8 @@ RUN pip install -r requirements.txt
 # Copy the app folder
 COPY --chown=app:app app/ ./app/
 
-# Copy the data folder
-COPY --chown=app:app data/ ./data/
+# Copy the ARC risk register (single source of truth for the app's data)
+COPY --chown=app:app arc-risk-register/ ./arc-risk-register/
 
 # Copy .deploy.env as .env file
 COPY --chown=app:app .env ./.env

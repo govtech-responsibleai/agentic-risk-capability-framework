@@ -6,7 +6,14 @@ import os
 
 # Import our modules
 from models.schemas import SessionKeys, RiskAssessment, ScoreAssessment
-from utils.data_loader import load_data, load_sample_data, get_controls_for_risk
+from utils.data_loader import (
+    load_data,
+    load_sample_data,
+    get_controls_for_risk,
+    get_applicable_risk_ids,
+    is_baseline_risk,
+    describe_risk_element,
+)
 from utils.llm_utils import (
     get_llm_capability_analysis,
     get_llm_risk_analysis,
@@ -410,25 +417,10 @@ def risk_assessment_page():
         st.error("Failed to load required data files. Please check that all YAML files exist and are valid.")
         st.stop()
     
-    # Determine applicable risks based on selected capabilities
+    # Determine applicable risks: every baseline (component/design) risk plus the
+    # risks arising from the selected capabilities, straight from the register
     if SessionKeys.APPLICABLE_RISKS not in st.session_state:
-        # Get ALL component and design risks
-        component_design_risk_ids = []
-        for risk_id, risk_data in risks.items():
-            if (risk_data.get('components') or risk_data.get('design')) and not risk_data.get('capabilities'):
-                component_design_risk_ids.append(risk_id)
-
-        # Get ALL capability-specific risks for selected capabilities
-        capability_risk_ids = []
-        for risk_id, risk_data in risks.items():
-            if risk_data.get('capabilities'):
-                # Check if any of the risk's capabilities are in the selected capabilities
-                risk_capabilities = risk_data.get('capabilities', [])
-                if any(cap_id in st.session_state[SessionKeys.SELECTED_CAPABILITIES] for cap_id in risk_capabilities):
-                    capability_risk_ids.append(risk_id)
-
-        # Combine all applicable risks
-        all_applicable_risks = component_design_risk_ids + capability_risk_ids
+        all_applicable_risks = get_applicable_risk_ids(risks, st.session_state[SessionKeys.SELECTED_CAPABILITIES])
         st.session_state[SessionKeys.APPLICABLE_RISKS] = all_applicable_risks
         
         
@@ -458,7 +450,7 @@ def risk_assessment_page():
                 risk_data = risks[risk_id]
                 # Store both risk_id and risk_data as a tuple
                 risk_info = (risk_id, risk_data)
-                if (risk_data.get('components') or risk_data.get('design')) and not risk_data.get('capabilities'):
+                if is_baseline_risk(risk_data):
                     component_design_risks.append(risk_info)
                 else:
                     capability_risks.append(risk_info)
@@ -472,19 +464,14 @@ def risk_assessment_page():
         if capability_risks:
             with st.expander(f"### Capability-Specific Risks ({len(capability_risks)} risks)", expanded=True):
                 for risk_id, risk_data in capability_risks:
-                    risk_category_info = "Unknown"
-                    for cap_id in risk_data.get('capabilities', []):
-                        if cap_id in capabilities:
-                            cap_data = capabilities[cap_id]
-                            risk_category_info = f"{cap_data['category']} - {cap_data['name']}"
-                            break
+                    risk_category_info = describe_risk_element(risk_data, capabilities, components, design)
                 
                     with st.container():
                         st.markdown("---")
                         col_risk, col_likelihood, col_impact = st.columns([1, 1, 1])
                         
                         with col_risk:
-                            st.markdown(f"**{risk_data['name']}** ({risk_category_info})")
+                            st.markdown(f"**{risk_data['statement']}** ({risk_category_info})")
                             st.caption(risk_data['description'])
                             if SessionKeys.RISK_ASSESSMENTS in st.session_state and risk_id in st.session_state[SessionKeys.RISK_ASSESSMENTS]:
                                 assessment = st.session_state[SessionKeys.RISK_ASSESSMENTS][risk_id]
@@ -580,7 +567,7 @@ def risk_assessment_page():
                         col_risk, col_likelihood, col_impact = st.columns([1, 1, 1])
                     
                         with col_risk:
-                            st.markdown(f"**{risk_data['name']}** (Component/Design)")
+                            st.markdown(f"**{risk_data['statement']}** ({describe_risk_element(risk_data, capabilities, components, design)})")
                             st.caption(risk_data['description'])
                             if SessionKeys.RISK_ASSESSMENTS in st.session_state and risk_id in st.session_state[SessionKeys.RISK_ASSESSMENTS]:
                                 assessment = st.session_state[SessionKeys.RISK_ASSESSMENTS][risk_id]
@@ -769,17 +756,10 @@ def controls_page():
             if risk_id in risks:
                 risk_data = risks[risk_id]
 
-                # Determine risk category
-                risk_category = ""
-                if risk_data.get('components'):
-                    risk_category = f"Components: {', '.join(risk_data['components'])}"
-                elif risk_data.get('design'):
-                    risk_category = f"Design: {', '.join(risk_data['design'])}"
-                elif risk_data.get('capabilities'):
-                    risk_category = f"Capabilities: {', '.join(risk_data['capabilities'])}"
+                risk_category = describe_risk_element(risk_data, capabilities, components, design)
 
                 # Minimal risk header (always visible)
-                st.markdown(f"**{risk_id}: {risk_data['name']}**")
+                st.markdown(f"**{risk_id}: {risk_data['statement']}**")
                 if risk_category:
                     st.caption(f"📌 {risk_category}")
                 st.caption(risk_data.get('description', ''))
@@ -795,13 +775,15 @@ def controls_page():
                 
                 if risk_controls:
                     for i, control in enumerate(risk_controls, 1):
-                        with st.expander(f"Control {i}: {control['name']}", expanded=True):
+                        with st.expander(f"Control {i}: {control['statement']}", expanded=True):
                             # Two-column layout: control info on left, implementation on right
                             col_control_info, col_implementation = st.columns([1, 1])
                             
                             with col_control_info:
-                                st.write(f"**{control['id']}**")
-                                st.write(control['description'])
+                                st.write(f"**{control['id']}** · {control['level_label']}")
+                                st.write(control['recommendations'] or "*No implementation guidance recorded for this control.*")
+                                if control['references']:
+                                    st.caption("References: " + ", ".join(control['references']))
                             
                             with col_implementation:
                                 # Editable text box for control implementation

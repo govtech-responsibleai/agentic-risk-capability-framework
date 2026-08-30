@@ -7,6 +7,26 @@ import requests
 from typing import Dict, List, Any, Tuple
 from litellm import completion
 from models.schemas import CapabilityAnalysis, CapabilityEvaluation, RiskAnalysis, SessionKeys
+from utils.data_loader import get_applicable_risk_ids, describe_risk_element
+
+
+def format_risks_for_prompt(risk_ids: List[str], risks: Dict[str, Any], capabilities: Dict[str, Any],
+                            components: Dict[str, Any], design: Dict[str, Any]) -> str:
+    """Render register risks as prompt text: statement, description, origin, failure mode, type."""
+    lines = []
+    for risk_id in risk_ids:
+        risk = risks.get(risk_id)
+        if not risk:
+            continue
+        lines.append(f"- {risk_id}: {risk['statement']}")
+        lines.append(f"  Description: {risk['description']}")
+        lines.append(f"  Arises from: {describe_risk_element(risk, capabilities, components, design)}")
+        if risk.get('failure_mode'):
+            lines.append(f"  Failure mode: {risk['failure_mode']}")
+        if risk.get('type'):
+            lines.append(f"  Risk type: {', '.join(risk['type'])}")
+        lines.append("")
+    return "\n".join(lines)
 
 
 def get_llm_capability_analysis(application_info: Dict[str, Any], capabilities: Dict[str, Any]) -> CapabilityAnalysis:
@@ -131,24 +151,9 @@ def get_llm_risk_analysis(application_info: Dict[str, Any], selected_capabilitie
     Returns:
         RiskAnalysis object with risk assessments
     """
-    # If no risk IDs provided, determine them (fallback to old behavior)
+    # If no risk IDs provided, determine them from the register
     if applicable_risk_ids is None:
-        # Get ALL component and design risks
-        component_design_risk_ids = []
-        for risk_id, risk_data in risks.items():
-            # Risks with 'components' or 'design' fields (but not 'capabilities')
-            if (risk_data.get('components') or risk_data.get('design')) and not risk_data.get('capabilities'):
-                component_design_risk_ids.append(risk_id)
-
-        # Get ALL capability-specific risks for selected capabilities
-        capability_risk_ids = []
-        for risk_id, risk_data in risks.items():
-            if risk_data.get('capabilities'):
-                risk_capabilities = risk_data.get('capabilities', [])
-                if any(cap_id in selected_capabilities for cap_id in risk_capabilities):
-                    capability_risk_ids.append(risk_id)
-
-        applicable_risk_ids = component_design_risk_ids + capability_risk_ids
+        applicable_risk_ids = get_applicable_risk_ids(risks, selected_capabilities)
     
     # Prepare capabilities text
     capabilities_text = ""
@@ -158,19 +163,7 @@ def get_llm_risk_analysis(application_info: Dict[str, Any], selected_capabilitie
             capabilities_text += f"- {cap_id}: {cap_data['name']} ({cap_data['category']})\n"
     
     # Prepare risks text for the specific risks we want to assess
-    risks_text = ""
-    for risk_id in applicable_risk_ids:
-        if risk_id in risks:
-            risk_data = risks[risk_id]
-            risks_text += f"- {risk_id}: {risk_data['name']}\n"
-            risks_text += f"  Description: {risk_data['description']}\n"
-            if risk_data.get('capabilities'):
-                risks_text += f"  Capabilities: {', '.join(risk_data['capabilities'])}\n"
-            if risk_data.get('components'):
-                risks_text += f"  Components: {', '.join(risk_data['components'])}\n"
-            if risk_data.get('design'):
-                risks_text += f"  Design: {', '.join(risk_data['design'])}\n"
-            risks_text += "\n"
+    risks_text = format_risks_for_prompt(applicable_risk_ids, risks, capabilities, components, design)
     
     prompt = f"""You are an expert in agentic AI risk assessment. Based on the following application information and selected capabilities, assess the risks and provide detailed likelihood and impact scores.
 
