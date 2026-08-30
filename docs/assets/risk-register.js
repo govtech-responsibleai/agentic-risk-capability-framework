@@ -66,6 +66,25 @@ document.addEventListener('DOMContentLoaded', async function() {
         return `<span class="failure-mode-badge">${mode}</span>`;
     }
 
+    // Crosswalk badges: {framework: [{id, title}]} -> inline badges with the external framework's title on hover
+    const FRAMEWORK_SHORT = {
+        owasp_asi: 'OWASP ASI',
+        owasp_agentic_threats: 'OWASP threat',
+        csa_addendum: 'CSA Addendum',
+        imda_mgf: 'IMDA MGF'
+    };
+    function crosswalkBadges(crosswalks) {
+        if (!crosswalks) return '';
+        const badges = [];
+        Object.entries(crosswalks).forEach(([fw, items]) => {
+            (items || []).forEach(item => {
+                const ref = (data.crosswalk_references || {})[fw] || {};
+                badges.push(`<span class="crosswalk-badge" title="${ref.title || fw}: ${item.title}">${FRAMEWORK_SHORT[fw] || fw} ${item.id}</span>`);
+            });
+        });
+        return badges.length ? badges.join(' ') : '';
+    }
+
     // Row formatter to add expandable details
     function rowFormatter(row) {
         const data = row.getData();
@@ -97,6 +116,16 @@ document.addEventListener('DOMContentLoaded', async function() {
             const refLinks = data.sources.map(src => `<a href="${src}" target="_blank" rel="noopener">${src}</a>`).join('<br>');
             referencesDiv.innerHTML = `<strong>References:</strong><br>${refLinks}`;
             holderEl.appendChild(referencesDiv);
+        }
+
+        // Crosswalks to external frameworks (if any)
+        const riskBadges = crosswalkBadges(data.crosswalks);
+        if (riskBadges) {
+            const crosswalkDiv = document.createElement("div");
+            crosswalkDiv.style.marginBottom = "15px";
+            crosswalkDiv.style.fontSize = "0.9em";
+            crosswalkDiv.innerHTML = `<strong>Crosswalks:</strong> ${riskBadges} <a href="../crosswalks/" style="font-size: 0.9em;">(all crosswalks)</a>`;
+            holderEl.appendChild(crosswalkDiv);
         }
 
         // Controls
@@ -147,6 +176,16 @@ document.addEventListener('DOMContentLoaded', async function() {
                     const ctrlRefLinks = ctrl.references.map(ref => `<a href="${ref}" target="_blank" rel="noopener">${ref}</a>`).join('<br>');
                     ctrlRefDiv.innerHTML = `<strong>References:</strong><br>${ctrlRefLinks}`;
                     controlDetails.appendChild(ctrlRefDiv);
+                }
+
+                // Control crosswalks
+                const ctrlBadges = crosswalkBadges(ctrl.crosswalks);
+                if (ctrlBadges) {
+                    const ctrlCrosswalkDiv = document.createElement("div");
+                    ctrlCrosswalkDiv.style.fontSize = "0.85em";
+                    ctrlCrosswalkDiv.style.marginTop = "6px";
+                    ctrlCrosswalkDiv.innerHTML = `<strong>Crosswalks:</strong> ${ctrlBadges}`;
+                    controlDetails.appendChild(ctrlCrosswalkDiv);
                 }
 
                 controlItem.appendChild(controlDetails);

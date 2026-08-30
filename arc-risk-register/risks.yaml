@@ -19,6 +19,11 @@ RISK-001:
   - CTRL-0007
   sources:
   - https://arxiv.org/abs/2408.02946v6
+  crosswalks:
+    owasp_asi:
+    - ASI04
+    owasp_agentic_threats:
+    - T17
 RISK-002:
   statement: Insufficient alignment of LLM behaviour
   description: This risk arises when an LLM's learned objectives and behaviors do
@@ -40,6 +45,11 @@ RISK-002:
   - CTRL-0008
   sources:
   - https://arxiv.org/abs/2406.10162
+  crosswalks:
+    owasp_asi:
+    - ASI10
+    owasp_agentic_threats:
+    - T7
 RISK-003:
   statement: Insufficient LLM capability and reliability
   description: This risk arises when an LLM lacks sufficient capability, robustness,
@@ -60,6 +70,11 @@ RISK-003:
   - CTRL-0007
   sources:
   - https://arxiv.org/abs/2505.00212
+  crosswalks:
+    owasp_asi:
+    - ASI08
+    owasp_agentic_threats:
+    - T5
 RISK-004:
   statement: Weak tool authentication and authorisation controls
   description: This risk arises when tools connected to an agent lack robust authentication
@@ -80,6 +95,13 @@ RISK-004:
   - https://arxiv.org/abs/2504.08623
   - https://arxiv.org/abs/2505.14590
   - https://www.redhat.com/en/blog/model-context-protocol-mcp-understanding-security-risks-and-controls
+  crosswalks:
+    owasp_asi:
+    - ASI03
+    - ASI02
+    owasp_agentic_threats:
+    - T3
+    - T2
 RISK-005:
   statement: Lack of proper role-based access control for tools
   description: This risk arises when tools exposed to an agent do not enforce clear,
@@ -97,6 +119,11 @@ RISK-005:
   - CTRL-0012
   sources:
   - https://embracethered.com/blog/posts/2023/chatgpt-plugin-vulns-chat-with-code/
+  crosswalks:
+    owasp_asi:
+    - ASI03
+    owasp_agentic_threats:
+    - T3
 RISK-006:
   statement: Tool poisoning by malicious actors
   description: This risk arises when tools or their interfaces are intentionally modified,
@@ -115,6 +142,13 @@ RISK-006:
   - CTRL-0014
   sources:
   - https://www.mbgsec.com/archive/2025-05-03-mcp-untrusted-servers-and-confused-clients-plus-a-sneaky-exploit-embrace-the-red/
+  crosswalks:
+    owasp_asi:
+    - ASI04
+    - ASI02
+    owasp_agentic_threats:
+    - T17
+    - T2
 RISK-007:
   statement: Lack of input sanitisation
   description: This risk arises when inputs passed from the agent to tools are not
@@ -132,6 +166,13 @@ RISK-007:
   sources:
   - https://arxiv.org/abs/2503.12188v1
   - https://www.cve.org/CVERecord?id=CVE-2024-7042
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    - ASI05
+    owasp_agentic_threats:
+    - T2
+    - T11
 RISK-008:
   statement: Vague or underspecified instructions
   description: This risk arises when instructions provided to an LLM are ambiguous,
@@ -151,6 +192,11 @@ RISK-008:
   sources:
   - https://arxiv.org/abs/2502.13295
   - https://arxiv.org/abs/2505.13360v1
+  crosswalks:
+    owasp_asi:
+    - ASI01
+    owasp_agentic_threats:
+    - T6
 RISK-009:
   statement: Unsanitised inputs in system instructions
   description: This risk arises when untrusted or user-controlled inputs are incorporated
@@ -169,6 +215,11 @@ RISK-009:
   sources:
   - https://arxiv.org/abs/2502.15851v1
   - https://aclanthology.org/2025.naacl-long.425.pdf
+  crosswalks:
+    owasp_asi:
+    - ASI01
+    owasp_agentic_threats:
+    - T6
 RISK-010:
   statement: Poisoned memory
   description: This risk arises when the memory component of an agentic system is
@@ -189,6 +240,11 @@ RISK-010:
   - https://arxiv.org/abs/2505.11548v2
   - https://arxiv.org/abs/2402.07867
   - https://openreview.net/pdf?id=6SIymOqJlc
+  crosswalks:
+    owasp_asi:
+    - ASI06
+    owasp_agentic_threats:
+    - T1
 RISK-011:
   statement: Sensitive data leakage across memory contexts
   description: This risk arises when the memory component retains or exposes sensitive
@@ -206,6 +262,13 @@ RISK-011:
   - CTRL-0023
   sources:
   - https://arxiv.org/abs/2506.12699v2
+  crosswalks:
+    owasp_asi:
+    - ASI06
+    - ASI03
+    owasp_agentic_threats:
+    - T1
+    - T3
 RISK-012:
   statement: Cascading errors in multi-agent architectures
   description: This risk arises when errors or misjudgements produced by one agent
@@ -224,6 +287,11 @@ RISK-012:
   sources:
   - https://arxiv.org/abs/2408.00989v3
   - https://arxiv.org/pdf/2502.19145
+  crosswalks:
+    owasp_asi:
+    - ASI08
+    owasp_agentic_threats:
+    - T5
 RISK-013:
   statement: Man-in-the-middle attacks between agents
   description: This risk arises when communication channels between agents are insufficiently
@@ -241,6 +309,12 @@ RISK-013:
   - CTRL-0027
   sources:
   - https://arxiv.org/pdf/2502.14847
+  crosswalks:
+    owasp_asi:
+    - ASI07
+    owasp_agentic_threats:
+    - T12
+    - T9
 RISK-014:
   statement: Feedback loops and runaway agent behaviour
   description: This risk arises when agents repeatedly reinforce each other’s decisions,
@@ -259,6 +333,13 @@ RISK-014:
   sources:
   - https://arxiv.org/abs/2402.06627
   - https://arxiv.org/abs/2502.14143
+  crosswalks:
+    owasp_asi:
+    - ASI08
+    - ASI10
+    owasp_agentic_threats:
+    - T5
+    - T4
 RISK-015:
   statement: Overly permissive roles and permissions
   description: This risk arises when agents are granted roles or permissions that
@@ -275,6 +356,11 @@ RISK-015:
   - CTRL-0031
   sources:
   - https://cyberweapons.medium.com/escaping-reality-privilege-escalation-in-gen-ai-admin-panel-aka-the-chaos-of-a-misconfigured-b6ad73bf1b65
+  crosswalks:
+    owasp_asi:
+    - ASI03
+    owasp_agentic_threats:
+    - T3
 RISK-016:
   statement: Unauthorised privilege escalation
   description: This risk arises when agents are able to gain elevated roles or permissions
@@ -292,6 +378,11 @@ RISK-016:
   - CTRL-0032
   sources:
   - https://arxiv.org/abs/2505.19301
+  crosswalks:
+    owasp_asi:
+    - ASI03
+    owasp_agentic_threats:
+    - T3
 RISK-017:
   statement: Delayed failure detection due to limited monitoring
   description: This risk arises when monitoring systems provide insufficient visibility
@@ -309,6 +400,11 @@ RISK-017:
   - CTRL-0035
   sources:
   - https://arxiv.org/abs/2401.13138
+  crosswalks:
+    owasp_asi:
+    - ASI08
+    owasp_agentic_threats:
+    - T8
 RISK-018:
   statement: Inability to audit failures due to missing decision traces
   description: This risk arises when monitoring systems do not capture sufficient
@@ -326,6 +422,12 @@ RISK-018:
   sources:
   - https://arxiv.org/abs/2411.05285
   - https://opentelemetry.io/docs/specs/semconv/gen-ai/
+  crosswalks:
+    owasp_asi:
+    - ASI08
+    - ASI10
+    owasp_agentic_threats:
+    - T8
 RISK-019:
   statement: Generating plans that fail to meet the user's requirements
   description: This risk arises when an agent generates plans or goals that do not
@@ -345,6 +447,11 @@ RISK-019:
   sources:
   - https://arxiv.org/pdf/2402.01622v4
   - https://aclanthology.org/2025.naacl-long.93.pdf
+  crosswalks:
+    owasp_asi:
+    - ASI01
+    owasp_agentic_threats:
+    - T6
 RISK-020:
   statement: Generating plans that overlook safety implications
   description: This risk arises when an agent generates plans or goals without adequately
@@ -362,6 +469,12 @@ RISK-020:
   - CTRL-0039
   sources:
   - https://garymarcus.substack.com/p/ai-still-lacks-common-sense-70-years
+  crosswalks:
+    owasp_asi:
+    - ASI10
+    - ASI01
+    owasp_agentic_threats:
+    - T7
 RISK-021:
   statement: Incorrect task delegation between agents
   description: This risk arises when an agent assigns tasks to other agents that do
@@ -378,6 +491,12 @@ RISK-021:
   - CTRL-0040
   sources:
   - https://arxiv.org/abs/2503.13657
+  crosswalks:
+    owasp_asi:
+    - ASI03
+    - ASI08
+    owasp_agentic_threats:
+    - T3
 RISK-022:
   statement: Malicious or manipulative use of delegated agents
   description: This risk arises when an agent deliberately assigns tasks to other
@@ -398,6 +517,13 @@ RISK-022:
   - CTRL-0041
   sources:
   - https://arxiv.org/abs/2507.06850
+  crosswalks:
+    owasp_asi:
+    - ASI10
+    - ASI03
+    owasp_agentic_threats:
+    - T13
+    - T14
 RISK-023:
   statement: Incorrect tool selection or misuse
   description: This risk arises when an agent selects an inappropriate tool or applies
@@ -415,6 +541,11 @@ RISK-023:
   - CTRL-0043
   sources:
   - https://arxiv.org/abs/2411.13547
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    owasp_agentic_threats:
+    - T2
 RISK-024:
   statement: Generation of undesirable content
   description: This risk arises when an agent generates text, images, audio, or other
@@ -430,6 +561,9 @@ RISK-024:
   - CTRL-0044
   sources:
   - https://arxiv.org/abs/2402.04249v2
+  crosswalks:
+    owasp_asi: []
+    owasp_agentic_threats: []
 RISK-025:
   statement: Generation of unqualified advice in specialised domains
   description: This risk arises when an agent generates advice or guidance in specialised
@@ -445,6 +579,9 @@ RISK-025:
   - CTRL-0045
   sources:
   - https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf
+  crosswalks:
+    owasp_asi: []
+    owasp_agentic_threats: []
 RISK-026:
   statement: Generation of controversial or sensitive content
   description: This risk arises when an agent generates content related to sensitive
@@ -461,6 +598,9 @@ RISK-026:
   - CTRL-0046
   sources:
   - https://news.stanford.edu/stories/2025/05/ai-models-llms-chatgpt-claude-gemini-partisan-bias-research-study
+  crosswalks:
+    owasp_asi: []
+    owasp_agentic_threats: []
 RISK-027:
   statement: Regurgitating personally identifiable information
   description: This risk arises when an agent reproduces personally identifiable information
@@ -477,6 +617,11 @@ RISK-027:
   - CTRL-0047
   sources:
   - https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf
+  crosswalks:
+    owasp_asi:
+    - ASI06
+    owasp_agentic_threats:
+    - T1
 RISK-028:
   statement: Generation of non-factual or hallucinated content
   description: This risk arises when an agent generates information that is inaccurate,
@@ -493,6 +638,11 @@ RISK-028:
   - CTRL-0050
   sources:
   - https://arxiv.org/abs/2309.01219
+  crosswalks:
+    owasp_asi:
+    - ASI08
+    owasp_agentic_threats:
+    - T5
 RISK-029:
   statement: Generation of copyrighted content
   description: This risk arises when an agent generates content that reproduces or
@@ -508,6 +658,9 @@ RISK-029:
   - CTRL-0051
   sources:
   - https://arxiv.org/abs/2407.07087
+  crosswalks:
+    owasp_asi: []
+    owasp_agentic_threats: []
 RISK-030:
   statement: Misrepresentation of authorship
   description: This risk arises when recipients are misled about whether an official
@@ -523,6 +676,11 @@ RISK-030:
   - CTRL-0052
   sources:
   - https://fortune.com/article/customer-support-ai-cursor-went-rogue/
+  crosswalks:
+    owasp_asi:
+    - ASI09
+    owasp_agentic_threats:
+    - T15
 RISK-031:
   statement: Inaccurate promises or statements in official communications
   description: This risk arises when an agent makes commitments, assurances, or public
@@ -540,6 +698,11 @@ RISK-031:
   - CTRL-0055
   sources:
   - https://the-decoder.com/people-buy-brand-new-chevrolets-for-1-from-a-chatgpt-chatbot/
+  crosswalks:
+    owasp_asi:
+    - ASI09
+    owasp_agentic_threats:
+    - T15
 RISK-032:
   statement: Unauthorised execution of business transactions
   description: This risk arises when an agent initiates, authorises, or executes business
@@ -557,6 +720,13 @@ RISK-032:
   - CTRL-0058
   sources:
   - https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    - ASI01
+    owasp_agentic_threats:
+    - T2
+    - T6
 RISK-033:
   statement: Leakage of transaction credentials
   description: This risk arises when credentials, tokens, or sensitive authentication
@@ -573,6 +743,11 @@ RISK-033:
   - CTRL-0059
   sources:
   - https://arxiv.org/pdf/2506.01055
+  crosswalks:
+    owasp_asi:
+    - ASI03
+    owasp_agentic_threats:
+    - T3
 RISK-034:
   statement: Prompt injection via malicious websites
   description: This risk arises when an agent retrieves or processes content from
@@ -592,6 +767,11 @@ RISK-034:
   - CTRL-0062
   sources:
   - https://unit42.paloaltonetworks.com/agentic-ai-threats/
+  crosswalks:
+    owasp_asi:
+    - ASI01
+    owasp_agentic_threats:
+    - T6
 RISK-035:
   statement: Unreliable information or websites
   description: This risk arises when an agent retrieves and presents information from
@@ -607,6 +787,11 @@ RISK-035:
   - CTRL-0063
   sources:
   - https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them
+  crosswalks:
+    owasp_asi:
+    - ASI06
+    owasp_agentic_threats:
+    - T5
 RISK-036:
   statement: Prompt injection risks through computer use
   description: This risk arises when an agent interacts with graphical user interfaces
@@ -627,6 +812,11 @@ RISK-036:
   sources:
   - https://arxiv.org/html/2505.13076v1
   - https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/
+  crosswalks:
+    owasp_asi:
+    - ASI01
+    owasp_agentic_threats:
+    - T6
 RISK-037:
   statement: Exposure of sensitive data
   description: This risk arises when an agent operating a computer interface accesses
@@ -644,6 +834,11 @@ RISK-037:
   - CTRL-0066
   sources:
   - https://arxiv.org/html/2506.00618v3
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    owasp_agentic_threats:
+    - T2
 RISK-038:
   statement: Incorrect use of unfamiliar programmatic interfaces
   description: This risk arises when an agent interacts with programmatic interfaces
@@ -662,6 +857,11 @@ RISK-038:
   sources:
   - https://arxiv.org/abs/2305.15334
   - https://arxiv.org/abs/2309.15817
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    owasp_agentic_threats:
+    - T2
 RISK-039:
   statement: Production or execution of poor or ineffective code
   description: This risk arises when an agent generates or executes code that is incorrect,
@@ -683,6 +883,11 @@ RISK-039:
   - https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf
   - https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
   - https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html
+  crosswalks:
+    owasp_asi:
+    - ASI05
+    owasp_agentic_threats:
+    - T11
 RISK-040:
   statement: Production or execution of vulnerable or malicious code
   description: This risk arises when an agent executes code that contains security
@@ -704,6 +909,11 @@ RISK-040:
   sources:
   - https://arxiv.org/pdf/2501.08200
   - https://arxiv.org/html/2504.21205v1
+  crosswalks:
+    owasp_asi:
+    - ASI05
+    owasp_agentic_threats:
+    - T11
 RISK-041:
   statement: Unintended overwriting or deletion of files or data
   description: This risk arises when an agent modifies, overwrites, or deletes files,
@@ -721,6 +931,11 @@ RISK-041:
   - CTRL-0077
   sources:
   - https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    owasp_agentic_threats:
+    - T2
 RISK-042:
   statement: Database overload due to inefficient data operations
   description: This risk arises when an agent issues poorly optimised, excessively
@@ -738,6 +953,11 @@ RISK-042:
   - CTRL-0080
   sources:
   - https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    owasp_agentic_threats:
+    - T4
 RISK-043:
   statement: Exposure of sensitive data through file or database access
   description: This risk arises when an agent accesses, processes, or outputs personally
@@ -754,6 +974,13 @@ RISK-043:
   - CTRL-0082
   sources:
   - https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    - ASI03
+    owasp_agentic_threats:
+    - T2
+    - T3
 RISK-044:
   statement: Prompt injection via malicious files or data
   description: This risk arises when an agent ingests or processes maliciously crafted
@@ -772,6 +999,13 @@ RISK-044:
   sources:
   - https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability
   - https://www.wired.com/story/here-come-the-ai-worms/
+  crosswalks:
+    owasp_asi:
+    - ASI01
+    - ASI06
+    owasp_agentic_threats:
+    - T6
+    - T1
 RISK-045:
   statement: Misconfiguration of system resources
   description: This risk arises when an agent incorrectly configures system settings,
@@ -789,6 +1023,12 @@ RISK-045:
   sources:
   - https://neurips.cc/virtual/2024/poster/97835
   - https://arxiv.org/html/2507.10584v1
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    - ASI08
+    owasp_agentic_threats:
+    - T2
 RISK-046:
   statement: System overload due to inefficient or excessive operations
   description: This risk arises when an agent issues poorly optimised, excessively
@@ -805,3 +1045,8 @@ RISK-046:
   sources:
   - https://arxiv.org/html/2407.20859v1
   - https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/
+  crosswalks:
+    owasp_asi:
+    - ASI02
+    owasp_agentic_threats:
+    - T4
