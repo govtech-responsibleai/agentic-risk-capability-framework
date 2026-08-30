@@ -11,6 +11,10 @@ RISK-001:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0001
   - CTRL-0002
@@ -37,12 +41,17 @@ RISK-002:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-07
+  - HZ-08
   controls:
   - CTRL-0004
   - CTRL-0005
   - CTRL-0006
   - CTRL-0007
   - CTRL-0008
+  - CTRL-0038
   sources:
   - https://arxiv.org/abs/2406.10162
   crosswalks:
@@ -63,11 +72,16 @@ RISK-003:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-08
+  - HZ-09
   controls:
   - CTRL-0004
   - CTRL-0005
   - CTRL-0006
   - CTRL-0007
+  - CTRL-0038
   sources:
   - https://arxiv.org/abs/2505.00212
   crosswalks:
@@ -87,6 +101,9 @@ RISK-004:
   failure_mode: Tool or Resource Malfunction
   type:
   - Security
+  hazards:
+  - HZ-02
+  - HZ-04
   controls:
   - CTRL-0009
   - CTRL-0010
@@ -114,6 +131,8 @@ RISK-005:
   failure_mode: Tool or Resource Malfunction
   type:
   - Security
+  hazards:
+  - HZ-04
   controls:
   - CTRL-0011
   - CTRL-0012
@@ -137,9 +156,14 @@ RISK-006:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0013
   - CTRL-0014
+  - CTRL-0015
   - CTRL-0091
   sources:
   - https://www.mbgsec.com/archive/2025-05-03-mcp-untrusted-servers-and-confused-clients-plus-a-sneaky-exploit-embrace-the-red/
@@ -162,6 +186,10 @@ RISK-007:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0015
   sources:
@@ -186,6 +214,9 @@ RISK-008:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0016
   - CTRL-0017
@@ -210,6 +241,9 @@ RISK-009:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0019
   - CTRL-0020
@@ -234,6 +268,10 @@ RISK-010:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-08
+  - HZ-09
   controls:
   - CTRL-0021
   - CTRL-0022
@@ -259,9 +297,13 @@ RISK-011:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-08
   controls:
   - CTRL-0021
   - CTRL-0023
+  - CTRL-0047
   sources:
   - https://arxiv.org/abs/2506.12699v2
   crosswalks:
@@ -283,9 +325,14 @@ RISK-012:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0024
   - CTRL-0025
+  - CTRL-0027
+  - CTRL-0028
   sources:
   - https://arxiv.org/abs/2408.00989v3
   - https://arxiv.org/pdf/2502.19145
@@ -306,6 +353,9 @@ RISK-013:
   failure_mode: External Manipulation
   type:
   - Security
+  hazards:
+  - HZ-01
+  - HZ-03
   controls:
   - CTRL-0026
   - CTRL-0027
@@ -329,7 +379,11 @@ RISK-014:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-03
+  - HZ-08
   controls:
+  - CTRL-0027
   - CTRL-0028
   - CTRL-0029
   - CTRL-0065
@@ -354,7 +408,10 @@ RISK-015:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-04
   controls:
+  - CTRL-0029
   - CTRL-0030
   - CTRL-0031
   sources:
@@ -376,7 +433,10 @@ RISK-016:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-04
   controls:
+  - CTRL-0029
   - CTRL-0030
   - CTRL-0032
   sources:
@@ -398,9 +458,12 @@ RISK-017:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-08
   controls:
+  - CTRL-0032
   - CTRL-0033
-  - CTRL-0035
   sources:
   - https://arxiv.org/abs/2401.13138
   crosswalks:
@@ -419,9 +482,11 @@ RISK-018:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-02
   controls:
+  - CTRL-0032
   - CTRL-0034
-  - CTRL-0035
   sources:
   - https://arxiv.org/abs/2411.05285
   - https://opentelemetry.io/docs/specs/semconv/gen-ai/
@@ -443,10 +508,13 @@ RISK-019:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0006
+  - CTRL-0035
   - CTRL-0036
-  - CTRL-0037
   sources:
   - https://arxiv.org/pdf/2402.01622v4
   - https://aclanthology.org/2025.naacl-long.93.pdf
@@ -466,8 +534,12 @@ RISK-020:
   failure_mode: Agent Failure
   type:
   - Safety
+  hazards:
+  - HZ-08
   controls:
   - CTRL-0006
+  - CTRL-0035
+  - CTRL-0037
   - CTRL-0038
   - CTRL-0039
   sources:
@@ -490,6 +562,10 @@ RISK-021:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-04
+  - HZ-08
   controls:
   - CTRL-0040
   sources:
@@ -513,6 +589,10 @@ RISK-022:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-04
+  - HZ-08
   controls:
   - CTRL-0008
   - CTRL-0024
@@ -540,7 +620,11 @@ RISK-023:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-08
   controls:
+  - CTRL-0041
   - CTRL-0042
   - CTRL-0043
   sources:
@@ -561,6 +645,9 @@ RISK-024:
   failure_mode: Agent Failure
   type:
   - Safety
+  hazards:
+  - HZ-06
+  - HZ-07
   controls:
   - CTRL-0044
   sources:
@@ -579,6 +666,8 @@ RISK-025:
   failure_mode: Agent Failure
   type:
   - Safety
+  hazards:
+  - HZ-08
   controls:
   - CTRL-0045
   sources:
@@ -598,6 +687,9 @@ RISK-026:
   failure_mode: Agent Failure
   type:
   - Safety
+  hazards:
+  - HZ-07
+  - HZ-09
   controls:
   - CTRL-0046
   sources:
@@ -617,6 +709,9 @@ RISK-027:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-08
   controls:
   - CTRL-0047
   sources:
@@ -636,6 +731,9 @@ RISK-028:
   failure_mode: Agent Failure
   type:
   - Safety
+  hazards:
+  - HZ-08
+  - HZ-09
   controls:
   - CTRL-0048
   - CTRL-0049
@@ -658,6 +756,8 @@ RISK-029:
   failure_mode: Agent Failure
   type:
   - Safety
+  hazards:
+  - HZ-05
   controls:
   - CTRL-0051
   sources:
@@ -676,6 +776,8 @@ RISK-030:
   failure_mode: Agent Failure
   type:
   - Safety
+  hazards:
+  - HZ-09
   controls:
   - CTRL-0052
   sources:
@@ -696,6 +798,8 @@ RISK-031:
   failure_mode: Agent Failure
   type:
   - Safety
+  hazards:
+  - HZ-09
   controls:
   - CTRL-0053
   - CTRL-0054
@@ -718,10 +822,14 @@ RISK-032:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-02
+  - HZ-04
   controls:
   - CTRL-0056
   - CTRL-0057
   - CTRL-0058
+  - CTRL-0059
   sources:
   - https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks
   crosswalks:
@@ -743,8 +851,11 @@ RISK-033:
   failure_mode: Tool or Resource Malfunction
   type:
   - Security
+  hazards:
+  - HZ-01
+  - HZ-04
   controls:
-  - CTRL-0059
+  - CTRL-0058
   sources:
   - https://arxiv.org/pdf/2506.01055
   crosswalks:
@@ -765,6 +876,10 @@ RISK-034:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0060
   - CTRL-0061
@@ -788,6 +903,9 @@ RISK-035:
   failure_mode: Tool or Resource Malfunction
   type:
   - Safety
+  hazards:
+  - HZ-08
+  - HZ-09
   controls:
   - CTRL-0063
   sources:
@@ -811,9 +929,15 @@ RISK-036:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-02
+  - HZ-08
   controls:
+  - CTRL-0062
   - CTRL-0064
   - CTRL-0065
+  - CTRL-0090
   sources:
   - https://arxiv.org/html/2505.13076v1
   - https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/
@@ -835,7 +959,11 @@ RISK-037:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-08
   controls:
+  - CTRL-0047
   - CTRL-0066
   sources:
   - https://arxiv.org/html/2506.00618v3
@@ -857,7 +985,11 @@ RISK-038:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-08
   controls:
+  - CTRL-0041
   - CTRL-0067
   sources:
   - https://arxiv.org/abs/2305.15334
@@ -878,6 +1010,8 @@ RISK-039:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-02
   controls:
   - CTRL-0068
   - CTRL-0069
@@ -904,6 +1038,9 @@ RISK-040:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-01
+  - HZ-02
   controls:
   - CTRL-0069
   - CTRL-0070
@@ -930,6 +1067,8 @@ RISK-041:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-01
   controls:
   - CTRL-0075
   - CTRL-0076
@@ -952,6 +1091,8 @@ RISK-042:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-03
   controls:
   - CTRL-0078
   - CTRL-0079
@@ -974,7 +1115,10 @@ RISK-043:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-01
   controls:
+  - CTRL-0047
   - CTRL-0081
   - CTRL-0082
   sources:
@@ -998,6 +1142,10 @@ RISK-044:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0062
   - CTRL-0083
@@ -1023,6 +1171,9 @@ RISK-045:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-02
+  - HZ-03
   controls:
   - CTRL-0084
   - CTRL-0085
@@ -1046,6 +1197,8 @@ RISK-046:
   failure_mode: Agent Failure
   type:
   - Security
+  hazards:
+  - HZ-03
   controls:
   - CTRL-0086
   sources:
@@ -1065,6 +1218,8 @@ RISK-047:
   failure_mode: External Manipulation
   type:
   - Security
+  hazards:
+  - HZ-01
   controls:
   - CTRL-0020
   - CTRL-0060
@@ -1093,9 +1248,13 @@ RISK-048:
   failure_mode: External Manipulation
   type:
   - Security
+  hazards:
+  - HZ-01
+  - HZ-02
   controls:
   - CTRL-0013
   - CTRL-0014
+  - CTRL-0015
   - CTRL-0074
   - CTRL-0091
   sources:
@@ -1116,6 +1275,10 @@ RISK-049:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-03
+  - HZ-04
+  - HZ-08
   controls:
   - CTRL-0029
   - CTRL-0040
@@ -1143,6 +1306,9 @@ RISK-050:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-04
+  - HZ-09
   controls:
   - CTRL-0007
   - CTRL-0034
@@ -1167,6 +1333,9 @@ RISK-051:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-04
+  - HZ-08
   controls:
   - CTRL-0024
   - CTRL-0026
@@ -1193,6 +1362,9 @@ RISK-052:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-02
+  - HZ-08
   controls:
   - CTRL-0006
   - CTRL-0042
@@ -1216,6 +1388,9 @@ RISK-053:
   type:
   - Safety
   - Security
+  hazards:
+  - HZ-01
+  - HZ-08
   controls:
   - CTRL-0024
   - CTRL-0025
@@ -1241,6 +1416,9 @@ RISK-054:
   failure_mode: Tool or Resource Malfunction
   type:
   - Security
+  hazards:
+  - HZ-03
+  - HZ-04
   controls:
   - CTRL-0009
   - CTRL-0074

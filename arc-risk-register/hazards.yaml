@@ -1,0 +1,39 @@
+# Hazards: the resulting impact of a risk. Security hazards concern the confidentiality,
+# integrity, and availability of systems, data, and infrastructure; safety hazards concern
+# human well-being, social harm, and the responsible use of AI. See docs/arc_framework/risks.md.
+HZ-01:
+  name: "Data"
+  type: "Security"
+  description: "Data breaches, integrity attacks, PII exposure, or ransomware, where sensitive information in files or databases is exfiltrated, corrupted, or held hostage."
+HZ-02:
+  name: "Application"
+  type: "Security"
+  description: "System failures, service disruptions, unintended use of applications, backdoor access, or resource exploitation that compromise functionality or security."
+HZ-03:
+  name: "Infrastructure and network"
+  type: "Security"
+  description: "Denial of service, man-in-the-middle attacks, network eavesdropping, or lateral access that compromise the underlying infrastructure."
+HZ-04:
+  name: "Identity and access management"
+  type: "Security"
+  description: "Unauthorised control, impersonation of credible roles, or privilege escalation allowing elevated access or control over systems."
+HZ-05:
+  name: "Illegal and CBRNE activities"
+  type: "Safety"
+  description: "Facilitating or engaging in CBRNE-related activities or other offences such as fraud, scams, smuggling, or intellectual property infringement."
+HZ-06:
+  name: "Discriminatory or hateful content"
+  type: "Safety"
+  description: "Unsafe or discriminatory content, including hate speech, slurs, and biased decisions."
+HZ-07:
+  name: "Inappropriate content"
+  type: "Safety"
+  description: "Generation of vulgar, violent, sexual, or self-harm-promoting content that causes reputational harm and erodes trust."
+HZ-08:
+  name: "Compromised user safety"
+  type: "Safety"
+  description: "Direct endangerment of users or third parties through misinformation, unsafe advice, or harmful autonomous actions."
+HZ-09:
+  name: "Misrepresentation"
+  type: "Safety"
+  description: "Dissemination of wrong or inaccurate information, misleading claims about authorship or authority, or cascading failures from uncorrected errors, leading to loss of trust."
