@@ -15,7 +15,9 @@ Checks:
   - failure_mode and type values come from the allowed sets
   - every control has a statement, a valid level (0/1/2), and at least one risk
   - risk->control and control->risk mappings are exactly inverse-consistent
-  - warnings (non-fatal) for empty sources or missing recommendations
+  - crosswalks (if present) reference frameworks and IDs defined in
+    crosswalk_references.yaml, and only frameworks that apply to that entry type
+  - warnings (non-fatal) for empty sources, missing recommendations, or missing crosswalks
 """
 
 import re
@@ -38,6 +40,30 @@ def load(filename):
         return yaml.safe_load(f)
 
 
+def _check_crosswalks(entry_id, entry, entry_type, references, errors, warnings):
+    """Crosswalk IDs must exist in crosswalk_references.yaml for a framework that applies here."""
+    crosswalks = entry.get('crosswalks')
+    if crosswalks is None:
+        warnings.append(f'{entry_id}: no crosswalks')
+        return
+    if not isinstance(crosswalks, dict):
+        errors.append(f'{entry_id}: crosswalks must be a mapping of framework -> list of IDs')
+        return
+    for framework, ids in crosswalks.items():
+        ref = references.get(framework)
+        if ref is None:
+            errors.append(f'{entry_id}: unknown crosswalk framework "{framework}"')
+            continue
+        if entry_type not in (ref.get('applies_to') or []):
+            errors.append(f'{entry_id}: framework "{framework}" does not apply to {entry_type}')
+        if not isinstance(ids, list):
+            errors.append(f'{entry_id}: crosswalks.{framework} must be a list')
+            continue
+        for ext_id in ids:
+            if str(ext_id) not in {str(k) for k in ref['ids']}:
+                errors.append(f'{entry_id}: unknown {framework} ID "{ext_id}"')
+
+
 def validate():
     """Return (errors, warnings) as lists of strings."""
     errors, warnings = [], []
@@ -45,6 +71,7 @@ def validate():
     risks = load('risks.yaml')
     controls = load('controls.yaml')
     elements = {**load('components.yaml'), **load('design.yaml'), **load('capabilities.yaml')}
+    references = load('crosswalk_references.yaml')
 
     for element_id in elements:
         if not ELEMENT_ID.match(element_id):
@@ -75,6 +102,7 @@ def validate():
                 errors.append(f'{risk_id}: references undefined control {ctrl_id}')
         if not risk.get('sources'):
             warnings.append(f'{risk_id}: no sources listed')
+        _check_crosswalks(risk_id, risk, 'risks', references, errors, warnings)
 
     for ctrl_id, ctrl in controls.items():
         if not CTRL_ID.match(ctrl_id):
@@ -90,6 +118,7 @@ def validate():
                 errors.append(f'{ctrl_id}: references undefined risk {risk_id}')
         if not ctrl.get('recommendations'):
             warnings.append(f'{ctrl_id}: no recommendations text')
+        _check_crosswalks(ctrl_id, ctrl, 'controls', references, errors, warnings)
 
     forward = {(r, c) for r, risk in risks.items() for c in (risk.get('controls') or [])}
     backward = {(r, c) for c, ctrl in controls.items() for r in (ctrl.get('risks') or [])}

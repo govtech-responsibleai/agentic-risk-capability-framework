@@ -81,6 +81,7 @@ nav:
     - Controls for agentic systems: arc_framework/controls.md
     - Interactive Risk Register: arc_framework/risk-register.md
     - Comparison to other frameworks: arc_framework/comparison.md
+    - Crosswalks to other frameworks: arc_framework/crosswalks.md
   - Implementation:
     - Implementing ARC: implementation/index.md
     - For Governance Teams: implementation/for-governance-teams.md

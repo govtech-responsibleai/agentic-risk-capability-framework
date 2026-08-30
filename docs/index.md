@@ -31,6 +31,7 @@ On this website, you'll find all the resources you need to get started with unde
 - **[Capability Taxonomy](arc_framework/elements.md#capabilities)** — Cognitive, interaction, and operational capability categories with definitions
 - **[Risk Register](arc_framework/risk-register.md)** — Component, design, and capability-specific risks with impact/likelihood assessment
 - **[Comparison Table](arc_framework/comparison.md)** — Comparison to NIST AI RMF, EU AI Act, Dimensional Governance, OWASP Agentic AI, Google SAIF 2.0, and CSA MAESTRO
+- **[Crosswalks](arc_framework/crosswalks.md)** — Entry-level mappings to the OWASP Top 10 for Agentic Applications, CSA's Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
 
 ### 🛠️ Implementation Guides
 - **[Implementation Overview](implementation/index.md)** — Macro and micro implementation levels, timelines, and resources

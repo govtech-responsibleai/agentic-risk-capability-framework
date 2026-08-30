@@ -229,6 +229,19 @@ Here is our baseline **Risk Register** which we developed for the ARC Framework.
     }
 }
 
+.crosswalk-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    font-weight: 600;
+    background: #ede9fe;
+    color: #5b21b6;
+    margin: 2px 3px 2px 0;
+    white-space: nowrap;
+    cursor: help;
+}
+
 .control-level {
     display: inline-block;
     padding: 2px 6px;

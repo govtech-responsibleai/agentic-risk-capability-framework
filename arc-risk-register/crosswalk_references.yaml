@@ -1,0 +1,87 @@
+# External frameworks the ARC register cross-references. The validator checks every
+# crosswalk ID in risks.yaml and controls.yaml against the ids listed here.
+
+owasp_asi:
+  title: OWASP Top 10 for Agentic Applications 2026
+  url: https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
+  version: "2026 (December 2025)"
+  applies_to: [risks, controls]
+  ids:
+    ASI01: Agent Goal Hijack
+    ASI02: Tool Misuse and Exploitation
+    ASI03: Identity and Privilege Abuse
+    ASI04: Agentic Supply Chain Vulnerabilities
+    ASI05: Unexpected Code Execution (RCE)
+    ASI06: Memory and Context Poisoning
+    ASI07: Insecure Inter-Agent Communication
+    ASI08: Cascading Failures
+    ASI09: Human-Agent Trust Exploitation
+    ASI10: Rogue Agents
+
+owasp_agentic_threats:
+  title: OWASP Agentic AI – Threats and Mitigations (threat taxonomy, as reproduced in CSA Addendum Annex A)
+  url: https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/
+  version: "T1–T15 per CSA Addendum Annex A; T16–T17 per OWASP Top 10 Appendix A"
+  applies_to: [risks]
+  ids:
+    T1: Memory poisoning
+    T2: Tool misuse
+    T3: Privilege compromise
+    T4: Resource overload
+    T5: Cascading hallucination attacks
+    T6: Intent breaking and goal manipulation
+    T7: Misaligned and deceptive behaviours
+    T8: Repudiation and untraceability
+    T9: Identity spoofing and impersonation
+    T10: Overwhelming human in the loop
+    T11: Unexpected RCE and code attacks
+    T12: Agent communication poisoning
+    T13: Rogue agents in multi-agent systems
+    T14: Human attacks on multi-agent systems
+    T15: Human manipulation
+    T16: Insecure inter-agent protocol abuse
+    T17: Supply chain compromise
+
+csa_addendum:
+  title: CSA Singapore – Securing Agentic AI, an Addendum to the Guidelines and Companion Guide on Securing AI Systems
+  url: https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/
+  version: "1.0 (17 June 2026)"
+  applies_to: [controls]
+  ids:
+    "1.1": Conduct a risk assessment in accordance with relevant standards and best practices
+    "2.1": Supply chain security – ensure components are from trusted sources
+    "2.2": Consider model hardening
+    "2.3": Harden the system beyond the model itself
+    "2.4": Identify, track and protect AI system assets
+    "2.5": Have regular backups in the event of compromise
+    "2.6": Implement authentication, authorisation and access controls
+    "2.7": Implement controls to limit what models or agents can access and generate
+    "2.8": Apply least privilege; secure-by-default configurations
+    "2.9": Segregate environments and segment networks
+    "2.10": Implement model self-reflection before decisions
+    "2.11": Implement controls to reduce the likelihood of hallucination
+    "3.1": Ensure availability controls against disruption or failure
+    "3.2": Conduct security testing
+    "3.3": Secure the invocation of external tools (e.g. MCP servers)
+    "3.4": Implement security controls between agents
+    "4.1": Validate inputs to models and agents
+    "4.2": Validate outputs from models and agents
+    "4.3": Continuous monitoring and logging
+    "4.4": Ensure adequate human oversight
+    "4.5": Establish a vulnerability disclosure process
+
+imda_mgf:
+  title: IMDA – Model AI Governance Framework for Agentic AI
+  url: https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf
+  version: "1.5 (May 2026)"
+  applies_to: [controls]
+  ids:
+    "2.1.1": Determine suitable use cases
+    "2.1.2": Bound risks through design (agent limits, agent identity)
+    "2.2.1": Clear allocation of responsibilities
+    "2.2.2": Design for meaningful human oversight
+    "2.3.1": Technical controls during design and development
+    "2.3.2": Test agents before deploying
+    "2.3.3": Continuously monitor and test when deploying
+    "2.4.2": Users who interact with agents (transparency, disclosure, escalation)
+    "2.4.3": Users who integrate agents
