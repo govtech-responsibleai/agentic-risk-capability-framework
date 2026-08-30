@@ -43,11 +43,15 @@ app/
    Then edit `.env` and add your OpenAI API key.
 
 3. **Data Files**:
-   Ensure the following YAML files exist in the `../data/` directory:
-   - `capabilities.yaml` - Defines capabilities and their categories
-   - `risks.yaml` - Contains all risks with descriptions and associated controls
-   - `controls.yaml` - Defines all available controls
-   - `baseline.yaml` - Lists baseline categories that apply to all applications
+   The app reads the ARC risk register directly from `../arc-risk-register/` (the same YAML
+   files that build the framework website), so ARCvisor can never drift from the published
+   framework:
+   - `capabilities.yaml` - Capabilities and their categories
+   - `risks.yaml` - Risks with descriptions, originating element, failure mode, and recommended controls
+   - `controls.yaml` - Controls with level (0 Cardinal / 1 Standard / 2 Best Practice), recommendations, and references
+   - `components.yaml`, `design.yaml` - Baseline elements whose risks apply to every agentic system
+
+   Set `ARC_REGISTER_DIR` to point elsewhere if the register lives outside the repository.
 
 ## Running the Application
 
@@ -57,9 +61,17 @@ streamlit run app.py
 
 Open your browser and navigate to the URL shown in the terminal (typically `http://localhost:8501`).
 
+## Testing
+
+A headless smoke test drives all four pages against the real register with the LLM calls patched out (no API key needed):
+
+```bash
+python app/tests/test_smoke.py   # from the repository root
+```
+
 ## Deploying to Airbase 
 
-Because the application requires the data files, the following commands must be run from the root directory. 
+Because the application requires the risk register (`arc-risk-register/`), the following commands must be run from the root directory. 
 
 ```
 airbase link
