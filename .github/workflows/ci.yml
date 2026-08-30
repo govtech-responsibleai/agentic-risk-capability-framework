@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  pull_request:
+  pull_request:          # every PR: validate, build, smoke test
   push:
-    branches: [main]
+    branches: [main, dev]   # dev: verify the merged state; main: verify then deploy
 
 permissions:
   contents: write   # deploy job pushes the built site to gh-pages
