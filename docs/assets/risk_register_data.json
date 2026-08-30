@@ -19,6 +19,23 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0001",
@@ -199,6 +216,23 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-07",
+          "name": "Inappropriate content",
+          "type": "Safety"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0004",
@@ -344,9 +378,44 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0038",
+          "level": 0,
+          "statement": "Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards",
+          "recommendations": "Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review. Repeat the exercise on a fixed cadence and whenever the model, tools, or capabilities change - attacks evolve faster than deployments. Use established agent security and safety benchmarks (for example AgentDojo, Agent Security Bench, and AgentHarm) as a baseline and add scenarios drawn from your own incidents and from published ones.",
+          "references": [
+            "https://arxiv.org/abs/2406.13352",
+            "https://arxiv.org/abs/2410.02644",
+            "https://arxiv.org/abs/2410.09024"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "3.2",
+                "title": "Conduct security testing"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.2",
+                "title": "Test agents before deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              },
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 5,
+      "control_count": 6,
       "sources": [
         "https://arxiv.org/abs/2406.10162"
       ],
@@ -383,6 +452,23 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        },
+        {
+          "id": "HZ-09",
+          "name": "Misrepresentation",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -502,9 +588,44 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0038",
+          "level": 0,
+          "statement": "Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards",
+          "recommendations": "Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review. Repeat the exercise on a fixed cadence and whenever the model, tools, or capabilities change - attacks evolve faster than deployments. Use established agent security and safety benchmarks (for example AgentDojo, Agent Security Bench, and AgentHarm) as a baseline and add scenarios drawn from your own incidents and from published ones.",
+          "references": [
+            "https://arxiv.org/abs/2406.13352",
+            "https://arxiv.org/abs/2410.02644",
+            "https://arxiv.org/abs/2410.09024"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "3.2",
+                "title": "Conduct security testing"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.2",
+                "title": "Test agents before deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              },
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 4,
+      "control_count": 5,
       "sources": [
         "https://arxiv.org/abs/2505.00212"
       ],
@@ -540,6 +661,18 @@
       "failure_mode": "Tool or Resource Malfunction",
       "type": [
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        }
       ],
       "controls": [
         {
@@ -685,6 +818,13 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0011",
@@ -790,6 +930,23 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0013",
@@ -854,6 +1011,45 @@
           }
         },
         {
+          "id": "CTRL-0015",
+          "level": 1,
+          "statement": "Treat all tool metadata and outputs as untrusted input requiring validation",
+          "recommendations": "Tool metadata (descriptions, parameter names, schema definitions) can contain prompt injection attacks that manipulate agent behaviour even without tool invocation, whilst tool outputs may contain malicious content designed to compromise downstream systems. Validate and sanitise all tool metadata before exposing it to the LLM, treating tool descriptions with the same scrutiny as external user input and implementing content filtering to detect embedded instructions or adversarial prompts. Apply strict schema validation to tool outputs and sanitise responses before using them in prompts, displaying them to users, or passing them to other systems. Implement monitoring and logging of tool metadata and outputs to enable detection of injection attempts and post-incident analysis of compromised tool behaviour.",
+          "references": [
+            "https://embracethered.com/blog/posts/2025/model-context-protocol-security-risks-and-exploits/",
+            "https://simonwillison.net/2025/Apr/9/mcp-prompt-injection/",
+            "https://www.practical-devsecops.com/mcp-security-vulnerabilities/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              },
+              {
+                "id": "3.3",
+                "title": "Secure the invocation of external tools (e.g. MCP servers)"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              },
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              }
+            ]
+          }
+        },
+        {
           "id": "CTRL-0091",
           "level": 0,
           "statement": "Require verified provenance for tools, skills, and dependencies, and re-verify them on every update",
@@ -888,7 +1084,7 @@
           }
         }
       ],
-      "control_count": 3,
+      "control_count": 4,
       "sources": [
         "https://www.mbgsec.com/archive/2025-05-03-mcp-untrusted-servers-and-confused-clients-plus-a-sneaky-exploit-embrace-the-red/"
       ],
@@ -933,6 +1129,23 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -1022,6 +1235,18 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0016",
@@ -1090,8 +1315,8 @@
           "crosswalks": {
             "csa_addendum": [
               {
-                "id": "2.1",
-                "title": "Supply chain security \u2013 ensure components are from trusted sources"
+                "id": "2.10",
+                "title": "Implement model self-reflection before decisions"
               }
             ],
             "imda_mgf": [
@@ -1147,6 +1372,18 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -1282,6 +1519,23 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        },
+        {
+          "id": "HZ-09",
+          "name": "Misrepresentation",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0021",
@@ -1413,6 +1667,18 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0021",
@@ -1475,9 +1741,31 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0047",
+          "level": 0,
+          "statement": "Implement output guardrails to detect and redact personally identifiable information",
+          "recommendations": "Agents may reproduce personally identifiable information from training data, memory, or prior interactions in their outputs, violating privacy obligations, exposing individuals to harm, or breaching data protection requirements such as GDPR or PDPA. Deploy output guardrails that scan all agent-generated content for PII categories including names, email addresses, phone numbers, identification numbers, financial account details, and other sensitive personal data before delivery to users. Use PII detection tools, pattern matching, or named entity recognition models to identify and redact or block outputs containing PII. Configure appropriate handling based on context \u2014 some PII may be acceptable if it belongs to the current user, whilst PII belonging to other individuals should be strictly prevented from disclosure.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.2",
+                "title": "Validate outputs from models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": []
+          }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://arxiv.org/abs/2506.12699v2"
       ],
@@ -1522,6 +1810,18 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -1587,9 +1887,67 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0027",
+          "level": 1,
+          "statement": "Implement circuit breakers to prevent cascading failures in multi-agent systems",
+          "recommendations": "Without circuit breakers, failures in one agent can cascade through multi-agent systems, causing widespread outages, resource exhaustion, or degraded performance across interconnected agents. Implement circuit breaker patterns that monitor agent interactions and automatically halt requests to failing agents when error rates, timeouts, or response times exceed predefined thresholds. Configure circuit breakers with appropriate timeout values, retry limits, and failure thresholds based on your system's tolerance for latency and error rates.",
+          "references": [
+            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI08",
+                "title": "Cascading Failures"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0028",
+          "level": 0,
+          "statement": "Continuously monitor multi-agent systems for cascade failure indicators",
+          "recommendations": "Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.",
+          "references": [
+            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI08",
+                "title": "Cascading Failures"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 2,
+      "control_count": 4,
       "sources": [
         "https://arxiv.org/abs/2408.00989v3",
         "https://arxiv.org/pdf/2502.19145"
@@ -1626,6 +1984,18 @@
       "failure_mode": "External Manipulation",
       "type": [
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-03",
+          "name": "Infrastructure and network",
+          "type": "Security"
+        }
       ],
       "controls": [
         {
@@ -1739,14 +2109,55 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-03",
+          "name": "Infrastructure and network",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
+        {
+          "id": "CTRL-0027",
+          "level": 1,
+          "statement": "Implement circuit breakers to prevent cascading failures in multi-agent systems",
+          "recommendations": "Without circuit breakers, failures in one agent can cascade through multi-agent systems, causing widespread outages, resource exhaustion, or degraded performance across interconnected agents. Implement circuit breaker patterns that monitor agent interactions and automatically halt requests to failing agents when error rates, timeouts, or response times exceed predefined thresholds. Configure circuit breakers with appropriate timeout values, retry limits, and failure thresholds based on your system's tolerance for latency and error rates.",
+          "references": [
+            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI08",
+                "title": "Cascading Failures"
+              }
+            ]
+          }
+        },
         {
           "id": "CTRL-0028",
           "level": 0,
           "statement": "Continuously monitor multi-agent systems for cascade failure indicators",
           "recommendations": "Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.",
           "references": [
-            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996?utm_source=chatgpt.com"
+            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996"
           ],
           "crosswalks": {
             "csa_addendum": [
@@ -1824,7 +2235,7 @@
           }
         }
       ],
-      "control_count": 3,
+      "control_count": 4,
       "sources": [
         "https://arxiv.org/abs/2402.06627",
         "https://arxiv.org/abs/2502.14143"
@@ -1870,7 +2281,41 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        }
+      ],
       "controls": [
+        {
+          "id": "CTRL-0029",
+          "level": 1,
+          "statement": "Grant agents only the minimum permissions required for their designated tasks",
+          "recommendations": "Excessive permissions enable compromised or malfunctioning agents to access sensitive resources, modify critical data, or perform actions beyond their intended scope, amplifying the impact of security breaches. Apply the principle of least privilege by defining granular permission sets for each agent based on its specific role and required operations, avoiding blanket administrative access or broad permission grants. Review agent permissions regularly to ensure they remain aligned with current responsibilities, revoking unnecessary access as agent roles evolve.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.8",
+                "title": "Apply least privilege; secure-by-default configurations"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI03",
+                "title": "Identity and Privilege Abuse"
+              }
+            ]
+          }
+        },
         {
           "id": "CTRL-0030",
           "level": 1,
@@ -1938,7 +2383,7 @@
           }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://cyberweapons.medium.com/escaping-reality-privilege-escalation-in-gen-ai-admin-panel-aka-the-chaos-of-a-misconfigured-b6ad73bf1b65"
       ],
@@ -1975,7 +2420,41 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        }
+      ],
       "controls": [
+        {
+          "id": "CTRL-0029",
+          "level": 1,
+          "statement": "Grant agents only the minimum permissions required for their designated tasks",
+          "recommendations": "Excessive permissions enable compromised or malfunctioning agents to access sensitive resources, modify critical data, or perform actions beyond their intended scope, amplifying the impact of security breaches. Apply the principle of least privilege by defining granular permission sets for each agent based on its specific role and required operations, avoiding blanket administrative access or broad permission grants. Review agent permissions regularly to ensure they remain aligned with current responsibilities, revoking unnecessary access as agent roles evolve.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.8",
+                "title": "Apply least privilege; secure-by-default configurations"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI03",
+                "title": "Identity and Privilege Abuse"
+              }
+            ]
+          }
+        },
         {
           "id": "CTRL-0030",
           "level": 1,
@@ -2036,7 +2515,7 @@
           }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://arxiv.org/abs/2505.19301"
       ],
@@ -2074,12 +2553,24 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
-          "id": "CTRL-0033",
-          "level": 1,
-          "statement": "Standardise trace attributes for agent operations using consistent semantic conventions",
-          "recommendations": "Inconsistent or ad-hoc telemetry labelling prevents effective correlation of agent activities across multi-agent systems, making it difficult to debug failures, analyse performance, or investigate security incidents. Define and enforce standard semantic conventions for trace attributes across all agents, including mandatory fields such as agent identity, tool name, operation type, session identifiers, and correlation IDs. Adopt existing observability standards where available (e.g., OpenTelemetry semantic conventions) to ensure compatibility with industry-standard analysis tools and reduce implementation effort. Document attribute naming conventions, permitted values, and usage guidelines, and implement validation to ensure agents emit telemetry conforming to the standardised schema.",
+          "id": "CTRL-0032",
+          "level": 0,
+          "statement": "Centralise observability data collection in a unified backend system",
+          "recommendations": "Distributed observability data across disconnected systems prevents effective analysis of multi-agent workflows, obscuring failure patterns, performance bottlenecks, and security incidents that span multiple agents. Centralise collection of logs, metrics, and traces from all agents into a unified observability backend using standards-compliant protocols (e.g., OpenTelemetry) to enable correlation analysis across the entire agentic system. Configure agents to emit structured telemetry with consistent identifiers (agent IDs, session IDs, request IDs) that enable tracing requests across agent boundaries and reconstructing complete workflow execution paths.",
           "references": [],
           "crosswalks": {
             "csa_addendum": [
@@ -2103,28 +2594,28 @@
           }
         },
         {
-          "id": "CTRL-0035",
-          "level": 2,
-          "statement": "Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding",
-          "recommendations": "Agents that pursue goals without decomposition may execute unnecessary, excessive, or unintended actions that waste resources, violate constraints, or create unintended side effects. Configure planning agents to explicitly break down high-level user goals into discrete, verifiable sub-goals before executing any actions, and to validate that each sub-goal is necessary and sufficient for achieving the overall objective. Implement review mechanisms that require agents to justify the necessity of each sub-goal, either through automated reasoning checks or human approval for high-impact plans.",
+          "id": "CTRL-0033",
+          "level": 1,
+          "statement": "Standardise trace attributes for agent operations using consistent semantic conventions",
+          "recommendations": "Inconsistent or ad-hoc telemetry labelling prevents effective correlation of agent activities across multi-agent systems, making it difficult to debug failures, analyse performance, or investigate security incidents. Define and enforce standard semantic conventions for trace attributes across all agents, including mandatory fields such as agent identity, tool name, operation type, session identifiers, and correlation IDs. Adopt existing observability standards where available (e.g., OpenTelemetry semantic conventions) to ensure compatibility with industry-standard analysis tools and reduce implementation effort. Document attribute naming conventions, permitted values, and usage guidelines, and implement validation to ensure agents emit telemetry conforming to the standardised schema.",
           "references": [],
           "crosswalks": {
             "csa_addendum": [
               {
-                "id": "2.1",
-                "title": "Supply chain security \u2013 ensure components are from trusted sources"
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
               }
             ],
             "imda_mgf": [
               {
-                "id": "2.3.1",
-                "title": "Technical controls during design and development"
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
               }
             ],
             "owasp_asi": [
               {
-                "id": "ASI01",
-                "title": "Agent Goal Hijack"
+                "id": "ASI08",
+                "title": "Cascading Failures"
               }
             ]
           }
@@ -2167,12 +2658,19 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        }
+      ],
       "controls": [
         {
-          "id": "CTRL-0034",
+          "id": "CTRL-0032",
           "level": 0,
-          "statement": "Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems",
-          "recommendations": "Automated monitoring may miss subtle patterns, novel failure modes, or emergent behaviours that only become apparent through human analysis of observability data. Establish a regular cadence for manual review of logs, traces, and metrics from production agentic systems, focusing on identifying unusual patterns, unexpected agent interactions, or degrading performance trends that automated alerts might not detect. Assign responsibility for these reviews to teams with deep understanding of expected agent behaviour, empowering them to investigate anomalies and propose system improvements. Document findings from reviews and track identified issues to closure, using insights to refine monitoring rules, update agent implementations, or strengthen security controls based on observed real-world behaviour.",
+          "statement": "Centralise observability data collection in a unified backend system",
+          "recommendations": "Distributed observability data across disconnected systems prevents effective analysis of multi-agent workflows, obscuring failure patterns, performance bottlenecks, and security incidents that span multiple agents. Centralise collection of logs, metrics, and traces from all agents into a unified observability backend using standards-compliant protocols (e.g., OpenTelemetry) to enable correlation analysis across the entire agentic system. Configure agents to emit structured telemetry with consistent identifiers (agent IDs, session IDs, request IDs) that enable tracing requests across agent boundaries and reconstructing complete workflow execution paths.",
           "references": [],
           "crosswalks": {
             "csa_addendum": [
@@ -2196,28 +2694,28 @@
           }
         },
         {
-          "id": "CTRL-0035",
-          "level": 2,
-          "statement": "Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding",
-          "recommendations": "Agents that pursue goals without decomposition may execute unnecessary, excessive, or unintended actions that waste resources, violate constraints, or create unintended side effects. Configure planning agents to explicitly break down high-level user goals into discrete, verifiable sub-goals before executing any actions, and to validate that each sub-goal is necessary and sufficient for achieving the overall objective. Implement review mechanisms that require agents to justify the necessity of each sub-goal, either through automated reasoning checks or human approval for high-impact plans.",
+          "id": "CTRL-0034",
+          "level": 0,
+          "statement": "Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems",
+          "recommendations": "Automated monitoring may miss subtle patterns, novel failure modes, or emergent behaviours that only become apparent through human analysis of observability data. Establish a regular cadence for manual review of logs, traces, and metrics from production agentic systems, focusing on identifying unusual patterns, unexpected agent interactions, or degrading performance trends that automated alerts might not detect. Assign responsibility for these reviews to teams with deep understanding of expected agent behaviour, empowering them to investigate anomalies and propose system improvements. Document findings from reviews and track identified issues to closure, using insights to refine monitoring rules, update agent implementations, or strengthen security controls based on observed real-world behaviour.",
           "references": [],
           "crosswalks": {
             "csa_addendum": [
               {
-                "id": "2.1",
-                "title": "Supply chain security \u2013 ensure components are from trusted sources"
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
               }
             ],
             "imda_mgf": [
               {
-                "id": "2.3.1",
-                "title": "Technical controls during design and development"
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
               }
             ],
             "owasp_asi": [
               {
-                "id": "ASI01",
-                "title": "Agent Goal Hijack"
+                "id": "ASI08",
+                "title": "Cascading Failures"
               }
             ]
           }
@@ -2266,6 +2764,18 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0006",
@@ -2301,6 +2811,33 @@
           }
         },
         {
+          "id": "CTRL-0035",
+          "level": 2,
+          "statement": "Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding",
+          "recommendations": "Agents that pursue goals without decomposition may execute unnecessary, excessive, or unintended actions that waste resources, violate constraints, or create unintended side effects. Configure planning agents to explicitly break down high-level user goals into discrete, verifiable sub-goals before executing any actions, and to validate that each sub-goal is necessary and sufficient for achieving the overall objective. Implement review mechanisms that require agents to justify the necessity of each sub-goal, either through automated reasoning checks or human approval for high-impact plans.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.10",
+                "title": "Implement model self-reflection before decisions"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
+        },
+        {
           "id": "CTRL-0036",
           "level": 1,
           "statement": "Regularly evaluate and test planning behaviour under representative workloads and failure scenarios",
@@ -2323,41 +2860,6 @@
               {
                 "id": "ASI01",
                 "title": "Agent Goal Hijack"
-              }
-            ]
-          }
-        },
-        {
-          "id": "CTRL-0037",
-          "level": 1,
-          "statement": "Require planning agents to include explicit safety constraints in all generated plans before execution",
-          "recommendations": "Plans generated without explicit safety constraints may inadvertently violate security policies, regulatory requirements, or operational boundaries, leading to dangerous or non-compliant agent behaviour. Configure planning agents to incorporate safety constraints and domain-specific restrictions directly into plan representations, making safety requirements explicit and verifiable rather than implicit assumptions. Examples of planning-level safety constraints include limiting plan complexity (maximum number of steps or tools), requiring verification steps before irreversible actions, prohibiting plans that access certain data categories or environments, mandating human review checkpoints for high-risk operations, and including rollback or recovery procedures for plans involving state changes.",
-          "references": [],
-          "crosswalks": {
-            "csa_addendum": [
-              {
-                "id": "2.7",
-                "title": "Implement controls to limit what models or agents can access and generate"
-              },
-              {
-                "id": "2.1",
-                "title": "Supply chain security \u2013 ensure components are from trusted sources"
-              }
-            ],
-            "imda_mgf": [
-              {
-                "id": "2.1.2",
-                "title": "Bound risks through design (agent limits, agent identity)"
-              }
-            ],
-            "owasp_asi": [
-              {
-                "id": "ASI01",
-                "title": "Agent Goal Hijack"
-              },
-              {
-                "id": "ASI10",
-                "title": "Rogue Agents"
               }
             ]
           }
@@ -2401,6 +2903,13 @@
       "type": [
         "Safety"
       ],
+      "hazards": [
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0006",
@@ -2431,6 +2940,68 @@
               {
                 "id": "ASI09",
                 "title": "Human-Agent Trust Exploitation"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0035",
+          "level": 2,
+          "statement": "Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding",
+          "recommendations": "Agents that pursue goals without decomposition may execute unnecessary, excessive, or unintended actions that waste resources, violate constraints, or create unintended side effects. Configure planning agents to explicitly break down high-level user goals into discrete, verifiable sub-goals before executing any actions, and to validate that each sub-goal is necessary and sufficient for achieving the overall objective. Implement review mechanisms that require agents to justify the necessity of each sub-goal, either through automated reasoning checks or human approval for high-impact plans.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.10",
+                "title": "Implement model self-reflection before decisions"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0037",
+          "level": 1,
+          "statement": "Require planning agents to include explicit safety constraints in all generated plans before execution",
+          "recommendations": "Plans generated without explicit safety constraints may inadvertently violate security policies, regulatory requirements, or operational boundaries, leading to dangerous or non-compliant agent behaviour. Configure planning agents to incorporate safety constraints and domain-specific restrictions directly into plan representations, making safety requirements explicit and verifiable rather than implicit assumptions. Examples of planning-level safety constraints include limiting plan complexity (maximum number of steps or tools), requiring verification steps before irreversible actions, prohibiting plans that access certain data categories or environments, mandating human review checkpoints for high-risk operations, and including rollback or recovery procedures for plans involving state changes.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.7",
+                "title": "Implement controls to limit what models or agents can access and generate"
+              },
+              {
+                "id": "2.10",
+                "title": "Implement model self-reflection before decisions"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              },
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
               }
             ]
           }
@@ -2504,7 +3075,7 @@
           }
         }
       ],
-      "control_count": 3,
+      "control_count": 5,
       "sources": [
         "https://garymarcus.substack.com/p/ai-still-lacks-common-sense-70-years"
       ],
@@ -2545,6 +3116,23 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -2624,6 +3212,23 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -2825,7 +3430,46 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
+        {
+          "id": "CTRL-0041",
+          "level": 0,
+          "statement": "Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs",
+          "recommendations": "Incomplete or ambiguous tool descriptions lead agents to misunderstand tool capabilities, misuse tools for unintended purposes, or select inappropriate tools for tasks, resulting in failures or unsafe behaviour. Document each tool with clear, comprehensive descriptions that specify the tool's intended purpose, required input parameters with data types and constraints, expected outputs and formats, and any preconditions or side effects. Include usage examples and common failure scenarios to guide agent decision-making and prevent misuse. Ensure tool descriptions are accurate, up-to-date, and written in language that LLMs can reliably interpret, avoiding ambiguity that might lead to incorrect tool selection or invocation.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.4",
+                "title": "Identify, track and protect AI system assets"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              }
+            ]
+          }
+        },
         {
           "id": "CTRL-0042",
           "level": 1,
@@ -2887,7 +3531,7 @@
           }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://arxiv.org/abs/2411.13547"
       ],
@@ -2923,6 +3567,18 @@
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-06",
+          "name": "Discriminatory or hateful content",
+          "type": "Safety"
+        },
+        {
+          "id": "HZ-07",
+          "name": "Inappropriate content",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -2975,6 +3631,13 @@
       "type": [
         "Safety"
       ],
+      "hazards": [
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0045",
@@ -3025,6 +3688,18 @@
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-07",
+          "name": "Inappropriate content",
+          "type": "Safety"
+        },
+        {
+          "id": "HZ-09",
+          "name": "Misrepresentation",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -3077,6 +3752,18 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -3138,6 +3825,18 @@
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        },
+        {
+          "id": "HZ-09",
+          "name": "Misrepresentation",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -3259,6 +3958,13 @@
       "type": [
         "Safety"
       ],
+      "hazards": [
+        {
+          "id": "HZ-05",
+          "name": "Illegal and CBRNE activities",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0051",
@@ -3311,6 +4017,13 @@
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-09",
+          "name": "Misrepresentation",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -3372,6 +4085,13 @@
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-09",
+          "name": "Misrepresentation",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -3493,6 +4213,18 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0056",
@@ -3578,9 +4310,36 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0059",
+          "level": 2,
+          "statement": "Apply fraud detection models or heuristics to agent-proposed transactions",
+          "recommendations": "Compromised or manipulated agents may propose fraudulent transactions that bypass standard user confirmation by appearing legitimate to users but serving malicious purposes. Implement fraud detection systems that analyse agent-proposed transactions for suspicious patterns such as unusual amounts, unfamiliar recipients, rapid transaction sequences, or deviations from historical behaviour. Configure fraud detection to operate independently of the agent, using rule-based heuristics or machine learning models trained on legitimate and fraudulent transaction patterns.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.2",
+                "title": "Validate outputs from models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 3,
+      "control_count": 4,
       "sources": [
         "https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks"
       ],
@@ -3625,30 +4384,42 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        }
+      ],
       "controls": [
         {
-          "id": "CTRL-0059",
-          "level": 2,
-          "statement": "Apply fraud detection models or heuristics to agent-proposed transactions",
-          "recommendations": "Compromised or manipulated agents may propose fraudulent transactions that bypass standard user confirmation by appearing legitimate to users but serving malicious purposes. Implement fraud detection systems that analyse agent-proposed transactions for suspicious patterns such as unusual amounts, unfamiliar recipients, rapid transaction sequences, or deviations from historical behaviour. Configure fraud detection to operate independently of the agent, using rule-based heuristics or machine learning models trained on legitimate and fraudulent transaction patterns.",
+          "id": "CTRL-0058",
+          "level": 1,
+          "statement": "Restrict agents to proposing transactions whilst using a separate transaction controller for execution",
+          "recommendations": "Allowing agents direct access to transaction credentials creates risk of credential leakage through prompt injection, logging, or model outputs. Implement architectural separation where agents propose transactions but a dedicated non-LLM transaction controller handles authentication, authorisation, and execution. Ensure agents never receive or handle credentials directly, passing only transaction proposals through secure interfaces.",
           "references": [],
           "crosswalks": {
             "csa_addendum": [
               {
-                "id": "4.2",
-                "title": "Validate outputs from models and agents"
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
               }
             ],
             "imda_mgf": [
               {
-                "id": "2.3.3",
-                "title": "Continuously monitor and test when deploying"
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
               }
             ],
             "owasp_asi": [
               {
-                "id": "ASI02",
-                "title": "Tool Misuse and Exploitation"
+                "id": "ASI03",
+                "title": "Identity and Privilege Abuse"
               }
             ]
           }
@@ -3691,6 +4462,23 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -3847,6 +4635,18 @@
       "type": [
         "Safety"
       ],
+      "hazards": [
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        },
+        {
+          "id": "HZ-09",
+          "name": "Misrepresentation",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0063",
@@ -3914,7 +4714,51 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
+        {
+          "id": "CTRL-0062",
+          "level": 0,
+          "statement": "Implement input guardrails to detect prompt injection and adversarial attacks",
+          "recommendations": "Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
+        },
         {
           "id": "CTRL-0064",
           "level": 1,
@@ -3968,9 +4812,44 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0090",
+          "level": 1,
+          "statement": "Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions",
+          "recommendations": "Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.",
+          "references": [
+            "https://arxiv.org/abs/2503.18813",
+            "https://arxiv.org/abs/2504.11703",
+            "https://arxiv.org/abs/2503.18666"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              },
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 2,
+      "control_count": 4,
       "sources": [
         "https://arxiv.org/html/2505.13076v1",
         "https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/"
@@ -4009,7 +4888,41 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
+        {
+          "id": "CTRL-0047",
+          "level": 0,
+          "statement": "Implement output guardrails to detect and redact personally identifiable information",
+          "recommendations": "Agents may reproduce personally identifiable information from training data, memory, or prior interactions in their outputs, violating privacy obligations, exposing individuals to harm, or breaching data protection requirements such as GDPR or PDPA. Deploy output guardrails that scan all agent-generated content for PII categories including names, email addresses, phone numbers, identification numbers, financial account details, and other sensitive personal data before delivery to users. Use PII detection tools, pattern matching, or named entity recognition models to identify and redact or block outputs containing PII. Configure appropriate handling based on context \u2014 some PII may be acceptable if it belongs to the current user, whilst PII belonging to other individuals should be strictly prevented from disclosure.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.2",
+                "title": "Validate outputs from models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": []
+          }
+        },
         {
           "id": "CTRL-0066",
           "level": 0,
@@ -4033,7 +4946,7 @@
           }
         }
       ],
-      "control_count": 1,
+      "control_count": 2,
       "sources": [
         "https://arxiv.org/html/2506.00618v3"
       ],
@@ -4071,7 +4984,46 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
+        {
+          "id": "CTRL-0041",
+          "level": 0,
+          "statement": "Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs",
+          "recommendations": "Incomplete or ambiguous tool descriptions lead agents to misunderstand tool capabilities, misuse tools for unintended purposes, or select inappropriate tools for tasks, resulting in failures or unsafe behaviour. Document each tool with clear, comprehensive descriptions that specify the tool's intended purpose, required input parameters with data types and constraints, expected outputs and formats, and any preconditions or side effects. Include usage examples and common failure scenarios to guide agent decision-making and prevent misuse. Ensure tool descriptions are accurate, up-to-date, and written in language that LLMs can reliably interpret, avoiding ambiguity that might lead to incorrect tool selection or invocation.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.4",
+                "title": "Identify, track and protect AI system assets"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              }
+            ]
+          }
+        },
         {
           "id": "CTRL-0067",
           "level": 0,
@@ -4100,7 +5052,7 @@
           }
         }
       ],
-      "control_count": 1,
+      "control_count": 2,
       "sources": [
         "https://arxiv.org/abs/2305.15334",
         "https://arxiv.org/abs/2309.15817"
@@ -4137,6 +5089,13 @@
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        }
       ],
       "controls": [
         {
@@ -4321,6 +5280,18 @@
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        }
       ],
       "controls": [
         {
@@ -4536,6 +5507,13 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0075",
@@ -4660,6 +5638,13 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-03",
+          "name": "Infrastructure and network",
+          "type": "Security"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0078",
@@ -4775,7 +5760,36 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        }
+      ],
       "controls": [
+        {
+          "id": "CTRL-0047",
+          "level": 0,
+          "statement": "Implement output guardrails to detect and redact personally identifiable information",
+          "recommendations": "Agents may reproduce personally identifiable information from training data, memory, or prior interactions in their outputs, violating privacy obligations, exposing individuals to harm, or breaching data protection requirements such as GDPR or PDPA. Deploy output guardrails that scan all agent-generated content for PII categories including names, email addresses, phone numbers, identification numbers, financial account details, and other sensitive personal data before delivery to users. Use PII detection tools, pattern matching, or named entity recognition models to identify and redact or block outputs containing PII. Configure appropriate handling based on context \u2014 some PII may be acceptable if it belongs to the current user, whilst PII belonging to other individuals should be strictly prevented from disclosure.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.2",
+                "title": "Validate outputs from models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": []
+          }
+        },
         {
           "id": "CTRL-0081",
           "level": 1,
@@ -4830,7 +5844,7 @@
           }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/"
       ],
@@ -4875,6 +5889,23 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -5021,6 +6052,18 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-03",
+          "name": "Infrastructure and network",
+          "type": "Security"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0084",
@@ -5119,6 +6162,13 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-03",
+          "name": "Infrastructure and network",
+          "type": "Security"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0086",
@@ -5188,6 +6238,13 @@
       "failure_mode": "External Manipulation",
       "type": [
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        }
       ],
       "controls": [
         {
@@ -5459,6 +6516,18 @@
       "type": [
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0013",
@@ -5515,6 +6584,45 @@
               }
             ],
             "owasp_asi": [
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0015",
+          "level": 1,
+          "statement": "Treat all tool metadata and outputs as untrusted input requiring validation",
+          "recommendations": "Tool metadata (descriptions, parameter names, schema definitions) can contain prompt injection attacks that manipulate agent behaviour even without tool invocation, whilst tool outputs may contain malicious content designed to compromise downstream systems. Validate and sanitise all tool metadata before exposing it to the LLM, treating tool descriptions with the same scrutiny as external user input and implementing content filtering to detect embedded instructions or adversarial prompts. Apply strict schema validation to tool outputs and sanitise responses before using them in prompts, displaying them to users, or passing them to other systems. Implement monitoring and logging of tool metadata and outputs to enable detection of injection attempts and post-incident analysis of compromised tool behaviour.",
+          "references": [
+            "https://embracethered.com/blog/posts/2025/model-context-protocol-security-risks-and-exploits/",
+            "https://simonwillison.net/2025/Apr/9/mcp-prompt-injection/",
+            "https://www.practical-devsecops.com/mcp-security-vulnerabilities/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              },
+              {
+                "id": "3.3",
+                "title": "Secure the invocation of external tools (e.g. MCP servers)"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              },
               {
                 "id": "ASI04",
                 "title": "Agentic Supply Chain Vulnerabilities"
@@ -5588,7 +6696,7 @@
           }
         }
       ],
-      "control_count": 4,
+      "control_count": 5,
       "sources": [
         "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
         "https://morphisec.com/mcp-attack-chain/",
@@ -5627,6 +6735,23 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-03",
+          "name": "Infrastructure and network",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -5866,6 +6991,18 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-09",
+          "name": "Misrepresentation",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0007",
@@ -6035,6 +7172,18 @@
         "Safety",
         "Security"
       ],
+      "hazards": [
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
+      ],
       "controls": [
         {
           "id": "CTRL-0024",
@@ -6112,7 +7261,7 @@
           "statement": "Continuously monitor multi-agent systems for cascade failure indicators",
           "recommendations": "Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.",
           "references": [
-            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996?utm_source=chatgpt.com"
+            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996"
           ],
           "crosswalks": {
             "csa_addendum": [
@@ -6244,6 +7393,18 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-02",
+          "name": "Application",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -6409,6 +7570,18 @@
       "type": [
         "Safety",
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-01",
+          "name": "Data",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-08",
+          "name": "Compromised user safety",
+          "type": "Safety"
+        }
       ],
       "controls": [
         {
@@ -6659,6 +7832,18 @@
       "failure_mode": "Tool or Resource Malfunction",
       "type": [
         "Security"
+      ],
+      "hazards": [
+        {
+          "id": "HZ-03",
+          "name": "Infrastructure and network",
+          "type": "Security"
+        },
+        {
+          "id": "HZ-04",
+          "name": "Identity and access management",
+          "type": "Security"
+        }
       ],
       "controls": [
         {
@@ -6957,6 +8142,53 @@
       "Agent Failure",
       "External Manipulation",
       "Tool or Resource Malfunction"
+    ],
+    "hazards": [
+      {
+        "id": "HZ-01",
+        "name": "Data",
+        "type": "Security"
+      },
+      {
+        "id": "HZ-02",
+        "name": "Application",
+        "type": "Security"
+      },
+      {
+        "id": "HZ-03",
+        "name": "Infrastructure and network",
+        "type": "Security"
+      },
+      {
+        "id": "HZ-04",
+        "name": "Identity and access management",
+        "type": "Security"
+      },
+      {
+        "id": "HZ-05",
+        "name": "Illegal and CBRNE activities",
+        "type": "Safety"
+      },
+      {
+        "id": "HZ-06",
+        "name": "Discriminatory or hateful content",
+        "type": "Safety"
+      },
+      {
+        "id": "HZ-07",
+        "name": "Inappropriate content",
+        "type": "Safety"
+      },
+      {
+        "id": "HZ-08",
+        "name": "Compromised user safety",
+        "type": "Safety"
+      },
+      {
+        "id": "HZ-09",
+        "name": "Misrepresentation",
+        "type": "Safety"
+      }
     ],
     "risk_types": [
       "Safety",
