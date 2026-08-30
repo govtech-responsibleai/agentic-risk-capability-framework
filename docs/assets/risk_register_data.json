@@ -460,7 +460,7 @@
       "id": "RISK-012",
       "statement": "Cascading errors in multi-agent architectures",
       "description": "This risk arises when errors or misjudgements produced by one agent propagate through interconnected agents within a multi-agent system. As a result, small failures may compound across agent interactions, leading to amplified errors, degraded system performance, or unintended outcomes at the system level.",
-      "element_id": "DES-1",
+      "element_id": "DSN-01",
       "element_name": "Agentic Architecture",
       "element_category": "Design - Agentic Architecture",
       "failure_mode": "Agent Failure",
@@ -496,7 +496,7 @@
       "id": "RISK-013",
       "statement": "Man-in-the-middle attacks between agents",
       "description": "This risk arises when communication channels between agents are insufficiently secured, allowing an attacker to intercept, modify, or replay messages exchanged within the agentic system. As a result, agents may act on tampered information, leading to incorrect coordination, unauthorised actions, or compromised system behaviour.",
-      "element_id": "DES-1",
+      "element_id": "DSN-01",
       "element_name": "Agentic Architecture",
       "element_category": "Design - Agentic Architecture",
       "failure_mode": "External Manipulation",
@@ -534,7 +534,7 @@
       "id": "RISK-014",
       "statement": "Feedback loops and runaway agent behaviour",
       "description": "This risk arises when agents repeatedly reinforce each other\u2019s decisions, outputs, or errors within an agentic architecture. As a result, feedback loops may form that escalate actions, consume excessive resources, or cause the system to persist in harmful or unintended behaviour without effective human intervention.",
-      "element_id": "DES-1",
+      "element_id": "DSN-01",
       "element_name": "Agentic Architecture",
       "element_category": "Design - Agentic Architecture",
       "failure_mode": "Agent Failure",
@@ -561,13 +561,16 @@
         }
       ],
       "control_count": 2,
-      "sources": []
+      "sources": [
+        "https://arxiv.org/abs/2402.06627",
+        "https://arxiv.org/abs/2502.14143"
+      ]
     },
     {
       "id": "RISK-015",
       "statement": "Overly permissive roles and permissions",
       "description": "This risk arises when agents are granted roles or permissions that exceed their intended responsibilities or operational needs. As a result, agents may access sensitive resources, invoke high-impact capabilities, or perform unauthorised actions that increase the likelihood of security, privacy, or operational failures.",
-      "element_id": "DES-2",
+      "element_id": "DSN-02",
       "element_name": "Roles and Access Controls",
       "element_category": "Design - Roles and Access Controls",
       "failure_mode": "Agent Failure",
@@ -603,7 +606,7 @@
       "id": "RISK-016",
       "statement": "Unauthorised privilege escalation",
       "description": "This risk arises when agents are able to gain elevated roles or permissions beyond those initially granted, whether through misconfiguration, exploitation, or unintended system behaviour. As a result, agents may bypass intended controls, access restricted resources, or execute actions that undermine system security and governance.",
-      "element_id": "DES-2",
+      "element_id": "DSN-02",
       "element_name": "Roles and Access Controls",
       "element_category": "Design - Roles and Access Controls",
       "failure_mode": "Agent Failure",
@@ -637,7 +640,7 @@
       "id": "RISK-017",
       "statement": "Delayed failure detection due to limited monitoring",
       "description": "This risk arises when monitoring systems provide insufficient visibility into agent behaviour, system events, or execution outcomes. As a result, failures, anomalies, or unintended actions may go undetected for extended periods, increasing the impact and difficulty of remediation.",
-      "element_id": "DES-3",
+      "element_id": "DSN-03",
       "element_name": "Monitoring and Traceability",
       "element_category": "Design - Monitoring and Traceability",
       "failure_mode": "Agent Failure",
@@ -670,7 +673,7 @@
       "id": "RISK-018",
       "statement": "Inability to audit failures due to missing decision traces",
       "description": "This risk arises when monitoring systems do not capture sufficient reasoning steps, decision pathways, or execution context for agent actions. As a result, operators may be unable to reconstruct failures, understand why specific outcomes occurred, or conduct effective audits and post-incident reviews.",
-      "element_id": "DES-3",
+      "element_id": "DSN-03",
       "element_name": "Monitoring and Traceability",
       "element_category": "Design - Monitoring and Traceability",
       "failure_mode": "Agent Failure",
@@ -694,7 +697,10 @@
         }
       ],
       "control_count": 2,
-      "sources": []
+      "sources": [
+        "https://arxiv.org/abs/2411.05285",
+        "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+      ]
     },
     {
       "id": "RISK-019",
@@ -879,16 +885,9 @@
           "statement": "Log all tool selection decisions and invocations with comprehensive metadata",
           "recommendations": "Without comprehensive tool invocation logs, diagnosing incorrect tool selection or misuse becomes extremely difficult, preventing effective debugging and post-incident analysis. Implement detailed logging for all tool selection decisions and invocations, capturing the tool name, input arguments, caller identity, authorisation outcome, timestamp, and resulting outputs or side effects. Structure logs to enable correlation between tool selection reasoning and actual outcomes, allowing investigation of why particular tools were chosen and whether they produced expected results.",
           "references": []
-        },
-        {
-          "id": "CTRL-0044",
-          "level": 1,
-          "statement": "Implement output safety guardrails to detect and prevent generation of undesirable content",
-          "recommendations": "Agents may generate toxic, hateful, sexual, or otherwise inappropriate content that causes harm to users, violates organisational standards, or creates regulatory compliance issues. Deploy output safety guardrails that scan all agent-generated content before delivery to users, detecting categories of undesirable content such as hate speech, sexually explicit material, violent content, or self-harm promotion. Use content moderation APIs, classifiers, or LLM-based safety filters to evaluate outputs against defined safety policies, blocking or flagging content that violates established boundaries. Configure appropriate responses when unsafe content is detected, such as refusing to generate the output, requesting reformulation, or escalating to human review for edge cases.",
-          "references": []
         }
       ],
-      "control_count": 3,
+      "control_count": 2,
       "sources": [
         "https://arxiv.org/abs/2411.13547"
       ]
@@ -906,10 +905,10 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0045",
-          "level": 0,
-          "statement": "Implement input guardrails to detect and decline requests for specialised domain advice",
-          "recommendations": "Agents generating unqualified advice in specialised domains such as medical, financial, or legal matters may cause users to act on incorrect or inappropriate information, leading to serious harm or adverse outcomes. Deploy input guardrails that detect when user requests fall within specialised domains requiring professional expertise, such as medical diagnosis, financial investment advice, or legal counsel. Configure the system to decline these requests with appropriate messaging that explains why the agent cannot provide such advice and suggests consulting qualified professionals.",
+          "id": "CTRL-0044",
+          "level": 1,
+          "statement": "Implement output safety guardrails to detect and prevent generation of undesirable content",
+          "recommendations": "Agents may generate toxic, hateful, sexual, or otherwise inappropriate content that causes harm to users, violates organisational standards, or creates regulatory compliance issues. Deploy output safety guardrails that scan all agent-generated content before delivery to users, detecting categories of undesirable content such as hate speech, sexually explicit material, violent content, or self-harm promotion. Use content moderation APIs, classifiers, or LLM-based safety filters to evaluate outputs against defined safety policies, blocking or flagging content that violates established boundaries. Configure appropriate responses when unsafe content is detected, such as refusing to generate the output, requesting reformulation, or escalating to human review for edge cases.",
           "references": []
         }
       ],
@@ -931,10 +930,10 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0046",
+          "id": "CTRL-0045",
           "level": 0,
-          "statement": "Implement input guardrails to detect and decline requests for controversial content that violates organisational policies",
-          "recommendations": "Agents generating controversial or sensitive content such as political commentary or statements about competitors may create reputational damage, legal liability, or compliance violations for the organisation. Deploy input guardrails that detect requests for content on topics deemed controversial or sensitive according to organisational policies, such as political positions, religious commentary, competitive disparagement, or other restricted subjects. Define clear content policies that specify which topics or viewpoints the agent should avoid, and configure detection mechanisms to identify requests that would violate these boundaries. When controversial requests are detected, decline with messaging that explains the agent's content limitations whilst maintaining a respectful tone towards the user.",
+          "statement": "Implement input guardrails to detect and decline requests for specialised domain advice",
+          "recommendations": "Agents generating unqualified advice in specialised domains such as medical, financial, or legal matters may cause users to act on incorrect or inappropriate information, leading to serious harm or adverse outcomes. Deploy input guardrails that detect when user requests fall within specialised domains requiring professional expertise, such as medical diagnosis, financial investment advice, or legal counsel. Configure the system to decline these requests with appropriate messaging that explains why the agent cannot provide such advice and suggests consulting qualified professionals.",
           "references": []
         }
       ],
@@ -956,10 +955,10 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0047",
+          "id": "CTRL-0046",
           "level": 0,
-          "statement": "Implement output guardrails to detect and redact personally identifiable information",
-          "recommendations": "Agents may reproduce personally identifiable information from training data, memory, or prior interactions in their outputs, violating privacy obligations, exposing individuals to harm, or breaching data protection requirements such as GDPR or PDPA. Deploy output guardrails that scan all agent-generated content for PII categories including names, email addresses, phone numbers, identification numbers, financial account details, and other sensitive personal data before delivery to users. Use PII detection tools, pattern matching, or named entity recognition models to identify and redact or block outputs containing PII. Configure appropriate handling based on context \u2014 some PII may be acceptable if it belongs to the current user, whilst PII belonging to other individuals should be strictly prevented from disclosure.",
+          "statement": "Implement input guardrails to detect and decline requests for controversial content that violates organisational policies",
+          "recommendations": "Agents generating controversial or sensitive content such as political commentary or statements about competitors may create reputational damage, legal liability, or compliance violations for the organisation. Deploy input guardrails that detect requests for content on topics deemed controversial or sensitive according to organisational policies, such as political positions, religious commentary, competitive disparagement, or other restricted subjects. Define clear content policies that specify which topics or viewpoints the agent should avoid, and configure detection mechanisms to identify requests that would violate these boundaries. When controversial requests are detected, decline with messaging that explains the agent's content limitations whilst maintaining a respectful tone towards the user.",
           "references": []
         }
       ],
@@ -982,10 +981,10 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0048",
-          "level": 2,
-          "statement": "Implement methods to reduce hallucination rates in agent outputs",
-          "recommendations": "Agents may generate inaccurate, fabricated, or unsupported information whilst presenting it as factual, misleading users and causing them to make incorrect decisions or lose trust in the system. Implement hallucination reduction techniques such as retrieval-augmented generation (RAG) that grounds agent responses in verified source documents, or citation requirements that force agents to reference specific sources for factual claims. Configure agents to acknowledge uncertainty when information cannot be verified rather than generating plausible-sounding but false content.",
+          "id": "CTRL-0047",
+          "level": 0,
+          "statement": "Implement output guardrails to detect and redact personally identifiable information",
+          "recommendations": "Agents may reproduce personally identifiable information from training data, memory, or prior interactions in their outputs, violating privacy obligations, exposing individuals to harm, or breaching data protection requirements such as GDPR or PDPA. Deploy output guardrails that scan all agent-generated content for PII categories including names, email addresses, phone numbers, identification numbers, financial account details, and other sensitive personal data before delivery to users. Use PII detection tools, pattern matching, or named entity recognition models to identify and redact or block outputs containing PII. Configure appropriate handling based on context \u2014 some PII may be acceptable if it belongs to the current user, whilst PII belonging to other individuals should be strictly prevented from disclosure.",
           "references": []
         }
       ],
@@ -1007,6 +1006,13 @@
       ],
       "controls": [
         {
+          "id": "CTRL-0048",
+          "level": 2,
+          "statement": "Implement methods to reduce hallucination rates in agent outputs",
+          "recommendations": "Agents may generate inaccurate, fabricated, or unsupported information whilst presenting it as factual, misleading users and causing them to make incorrect decisions or lose trust in the system. Implement hallucination reduction techniques such as retrieval-augmented generation (RAG) that grounds agent responses in verified source documents, or citation requirements that force agents to reference specific sources for factual claims. Configure agents to acknowledge uncertainty when information cannot be verified rather than generating plausible-sounding but false content.",
+          "references": []
+        },
+        {
           "id": "CTRL-0049",
           "level": 0,
           "statement": "Implement UI/UX cues to communicate the risk of hallucination to users",
@@ -1019,15 +1025,6 @@
           "statement": "Implement features enabling users to verify generated answers against source content",
           "recommendations": "Without verification mechanisms, users cannot easily check whether agent-generated information is accurate or fabricated, increasing reliance on potentially hallucinated content. Provide built-in features that enable users to verify agent responses against original source materials, such as inline citations linking to specific documents or passages, source attribution showing which materials informed the response, or side-by-side views displaying retrieved content alongside generated summaries. Design verification features to minimise friction whilst maintaining effectiveness \u2014 users should be able to check sources with minimal effort rather than requiring extensive navigation or manual searching. For example, automatically highlight passages in source documents that support specific claims made by the agent, enabling rapid verification of factual statements.",
           "references": []
-        },
-        {
-          "id": "CTRL-0051",
-          "level": 0,
-          "statement": "Implement input guardrails to detect and decline requests to generate copyrighted content",
-          "recommendations": "Agents may generate content that reproduces or closely resembles copyrighted material without authorisation, exposing the organisation to intellectual property infringement claims, legal liability, or licensing violations. Deploy input guardrails that detect requests asking the agent to reproduce copyrighted works such as song lyrics, book passages, proprietary code, or other protected content. Configure the system to decline these requests with appropriate messaging that explains copyright limitations and suggests legal alternatives such as summarisation, licensed access, or original creation. Note that copyright detection at the input stage may not catch all violations, as users might phrase requests in ways that obscure copyrighted content generation \u2014 tools such as Patronus AI's CopyrightCatcher can provide output-level copyright detection to complement input filtering.",
-          "references": [
-            "https://www.patronus.ai/blog/introducing-copyright-catcher"
-          ]
         }
       ],
       "control_count": 3,
@@ -1048,11 +1045,13 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0052",
-          "level": 2,
-          "statement": "Declare upfront that communications are generated by an AI system",
-          "recommendations": "Recipients misled about whether communications were generated by AI or authored by humans may form incorrect assumptions about accountability, intent, or authority, leading to trust issues or legal complications. Implement clear, prominent disclosures at the beginning of AI-generated communications stating that content was created by an automated system, using unambiguous language such as \"This message was generated by an AI assistant\" rather than vague phrases that might confuse recipients.",
-          "references": []
+          "id": "CTRL-0051",
+          "level": 0,
+          "statement": "Implement input guardrails to detect and decline requests to generate copyrighted content",
+          "recommendations": "Agents may generate content that reproduces or closely resembles copyrighted material without authorisation, exposing the organisation to intellectual property infringement claims, legal liability, or licensing violations. Deploy input guardrails that detect requests asking the agent to reproduce copyrighted works such as song lyrics, book passages, proprietary code, or other protected content. Configure the system to decline these requests with appropriate messaging that explains copyright limitations and suggests legal alternatives such as summarisation, licensed access, or original creation. Note that copyright detection at the input stage may not catch all violations, as users might phrase requests in ways that obscure copyrighted content generation \u2014 tools such as Patronus AI's CopyrightCatcher can provide output-level copyright detection to complement input filtering.",
+          "references": [
+            "https://www.patronus.ai/blog/introducing-copyright-catcher"
+          ]
         }
       ],
       "control_count": 1,
@@ -1073,10 +1072,10 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0053",
-          "level": 0,
-          "statement": "Require human approval for communications on sensitive matters",
-          "recommendations": "Agents making unsupported commitments, inaccurate assurances, or statements that exceed organisational capabilities in official communications may expose the organisation to reputational damage, legal liability, or unmet expectations. Implement mandatory human review and approval workflows for communications on sensitive matters including contractual commitments, financial promises, policy statements, regulatory responses, or public-facing announcements. Define clear criteria for what constitutes \"sensitive matters\" requiring approval, ensuring consistent application across the organisation.",
+          "id": "CTRL-0052",
+          "level": 2,
+          "statement": "Declare upfront that communications are generated by an AI system",
+          "recommendations": "Recipients misled about whether communications were generated by AI or authored by humans may form incorrect assumptions about accountability, intent, or authority, leading to trust issues or legal complications. Implement clear, prominent disclosures at the beginning of AI-generated communications stating that content was created by an automated system, using unambiguous language such as \"This message was generated by an AI assistant\" rather than vague phrases that might confuse recipients.",
           "references": []
         }
       ],
@@ -1098,6 +1097,13 @@
       ],
       "controls": [
         {
+          "id": "CTRL-0053",
+          "level": 0,
+          "statement": "Require human approval for communications on sensitive matters",
+          "recommendations": "Agents making unsupported commitments, inaccurate assurances, or statements that exceed organisational capabilities in official communications may expose the organisation to reputational damage, legal liability, or unmet expectations. Implement mandatory human review and approval workflows for communications on sensitive matters including contractual commitments, financial promises, policy statements, regulatory responses, or public-facing announcements. Define clear criteria for what constitutes \"sensitive matters\" requiring approval, ensuring consistent application across the organisation.",
+          "references": []
+        },
+        {
           "id": "CTRL-0054",
           "level": 0,
           "statement": "Limit agent communications to standard processes with predefined templates",
@@ -1109,13 +1115,6 @@
           "level": 1,
           "statement": "Provide alternative channels for users to clarify communications or provide feedback",
           "recommendations": "When agents make inaccurate statements or commitments in communications, recipients need accessible mechanisms to seek clarification, report concerns, or correct misunderstandings before problems escalate. Establish clear alternative channels for recipients to contact human representatives when they have questions about AI-generated communications, such as dedicated email addresses, phone numbers, or contact forms prominently displayed in agent communications.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0056",
-          "level": 1,
-          "statement": "Require explicit user confirmation before initiating or committing any business transaction",
-          "recommendations": "Agents executing business transactions without explicit user confirmation may create unintended financial obligations, contractual commitments, or operational liabilities that were not properly authorised. Implement mandatory confirmation workflows that pause execution immediately before any transaction is initiated, presenting clear details of the transaction type, amounts, counterparties, and consequences for user review and approval. Design confirmation interfaces to require active consent rather than passive acceptance, using explicit \"confirm\" actions rather than dismissible notifications or opt-out mechanisms. Ensure confirmation cannot be bypassed by agents and maintain audit logs of all transaction approvals including timestamp, user identity, and transaction details.",
           "references": []
         }
       ],
@@ -1137,6 +1136,13 @@
       ],
       "controls": [
         {
+          "id": "CTRL-0056",
+          "level": 1,
+          "statement": "Require explicit user confirmation before initiating or committing any business transaction",
+          "recommendations": "Agents executing business transactions without explicit user confirmation may create unintended financial obligations, contractual commitments, or operational liabilities that were not properly authorised. Implement mandatory confirmation workflows that pause execution immediately before any transaction is initiated, presenting clear details of the transaction type, amounts, counterparties, and consequences for user review and approval. Design confirmation interfaces to require active consent rather than passive acceptance, using explicit \"confirm\" actions rather than dismissible notifications or opt-out mechanisms. Ensure confirmation cannot be bypassed by agents and maintain audit logs of all transaction approvals including timestamp, user identity, and transaction details.",
+          "references": []
+        },
+        {
           "id": "CTRL-0057",
           "level": 2,
           "statement": "Require out-of-band confirmation when transaction risk signals are elevated",
@@ -1151,7 +1157,7 @@
           "references": []
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks"
       ]
@@ -1174,16 +1180,9 @@
           "statement": "Apply fraud detection models or heuristics to agent-proposed transactions",
           "recommendations": "Compromised or manipulated agents may propose fraudulent transactions that bypass standard user confirmation by appearing legitimate to users but serving malicious purposes. Implement fraud detection systems that analyse agent-proposed transactions for suspicious patterns such as unusual amounts, unfamiliar recipients, rapid transaction sequences, or deviations from historical behaviour. Configure fraud detection to operate independently of the agent, using rule-based heuristics or machine learning models trained on legitimate and fraudulent transaction patterns.",
           "references": []
-        },
-        {
-          "id": "CTRL-0060",
-          "level": 1,
-          "statement": "Implement escape filtering before incorporating web content into prompts",
-          "recommendations": "Malicious websites may embed hidden instructions or manipulative prompts in their content designed to hijack agent behaviour when retrieved and processed. Implement escape filtering that sanitises web content before incorporating it into agent prompts, removing or neutralising potential injection attacks such as hidden instructions, delimiter manipulation attempts, or prompt override commands.",
-          "references": []
         }
       ],
-      "control_count": 2,
+      "control_count": 1,
       "sources": [
         "https://arxiv.org/pdf/2506.01055"
       ]
@@ -1202,6 +1201,13 @@
       ],
       "controls": [
         {
+          "id": "CTRL-0060",
+          "level": 1,
+          "statement": "Implement escape filtering before incorporating web content into prompts",
+          "recommendations": "Malicious websites may embed hidden instructions or manipulative prompts in their content designed to hijack agent behaviour when retrieved and processed. Implement escape filtering that sanitises web content before incorporating it into agent prompts, removing or neutralising potential injection attacks such as hidden instructions, delimiter manipulation attempts, or prompt override commands.",
+          "references": []
+        },
+        {
           "id": "CTRL-0061",
           "level": 0,
           "statement": "Use structured retrieval APIs for web searches rather than web scraping",
@@ -1213,13 +1219,6 @@
           "level": 0,
           "statement": "Implement input guardrails to detect prompt injection and adversarial attacks",
           "recommendations": "Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0063",
-          "level": 1,
-          "statement": "Prioritise search results from verified, high-quality domains",
-          "recommendations": "Agents retrieving information from unreliable or low-quality websites may present inaccurate, outdated, or biased content to users, leading to misinformed decisions. Configure search and retrieval systems to prioritise results from verified, authoritative sources such as government domains (.gov), educational institutions (.edu), established news organisations, and recognised industry authorities.",
           "references": []
         }
       ],
@@ -1241,10 +1240,10 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0064",
+          "id": "CTRL-0063",
           "level": 1,
-          "statement": "Limit computer use to accessing only safe and trusted resources",
-          "recommendations": "Agents with unrestricted computer access may encounter malicious content on untrusted websites, documents, or applications that embed hidden instructions designed to manipulate agent behaviour. Restrict computer use capabilities to accessing only pre-approved, safe resources such as internal applications, trusted websites on allowlists, or sandboxed environments isolated from sensitive systems. Define clear boundaries for what resources agents may access and enforce these restrictions through technical controls such as network filtering, application allowlisting, or containerisation.",
+          "statement": "Prioritise search results from verified, high-quality domains",
+          "recommendations": "Agents retrieving information from unreliable or low-quality websites may present inaccurate, outdated, or biased content to users, leading to misinformed decisions. Configure search and retrieval systems to prioritise results from verified, authoritative sources such as government domains (.gov), educational institutions (.edu), established news organisations, and recognised industry authorities.",
           "references": []
         }
       ],
@@ -1267,17 +1266,17 @@
       ],
       "controls": [
         {
+          "id": "CTRL-0064",
+          "level": 1,
+          "statement": "Limit computer use to accessing only safe and trusted resources",
+          "recommendations": "Agents with unrestricted computer access may encounter malicious content on untrusted websites, documents, or applications that embed hidden instructions designed to manipulate agent behaviour. Restrict computer use capabilities to accessing only pre-approved, safe resources such as internal applications, trusted websites on allowlists, or sandboxed environments isolated from sensitive systems. Define clear boundaries for what resources agents may access and enforce these restrictions through technical controls such as network filtering, application allowlisting, or containerisation.",
+          "references": []
+        },
+        {
           "id": "CTRL-0065",
           "level": 0,
           "statement": "Ensure computer use capabilities provide immediate interruptability",
           "recommendations": "Agents operating computer interfaces may encounter prompt injection attacks or begin executing unintended actions that require immediate human intervention to prevent harm. Implement interruptability mechanisms that allow users or operators to immediately halt agent computer use actions at any point, such as emergency stop buttons, kill switches, or session termination controls.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0066",
-          "level": 0,
-          "statement": "Ensure \"take over\" mode is activated when entering sensitive data",
-          "recommendations": "Agents operating computer interfaces may inadvertently view, process, or expose sensitive data such as passwords, API keys, or personally identifiable information displayed on screens or in applications. Implement \"take over\" mode that pauses agent operation and requires direct human control when sensitive data entry is required, preventing agents from observing or handling credentials and other confidential information.",
           "references": []
         }
       ],
@@ -1301,10 +1300,10 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0067",
+          "id": "CTRL-0066",
           "level": 0,
-          "statement": "Ensure proper documentation of programmatic interfaces for agent use",
-          "recommendations": "Agents interacting with poorly documented or unfamiliar programmatic interfaces may misinterpret interface semantics, invoke operations incorrectly, or produce unintended effects. Provide comprehensive, LLM-readable documentation for all programmatic interfaces agents may interact with, including clear descriptions of available operations, required parameters with data types and constraints, expected responses, and common error conditions.",
+          "statement": "Ensure \"take over\" mode is activated when entering sensitive data",
+          "recommendations": "Agents operating computer interfaces may inadvertently view, process, or expose sensitive data such as passwords, API keys, or personally identifiable information displayed on screens or in applications. Implement \"take over\" mode that pauses agent operation and requires direct human control when sensitive data entry is required, preventing agents from observing or handling credentials and other confidential information.",
           "references": []
         }
       ],
@@ -1327,20 +1326,78 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0068",
+          "id": "CTRL-0067",
           "level": 0,
-          "statement": "Use code linters to screen generated code for bad practices and poor syntax",
-          "recommendations": "Agents may generate code containing bad practices, anti-patterns, unused variables, or syntax errors that reduce code quality, introduce bugs, or create maintainability issues. Implement automated code linting that analyses all agent-generated code before execution or deployment, using tools such as Pylint, ESLint, or language-specific linters configured with appropriate rule sets. Configure linters to detect common issues including syntax errors, unused variables, deprecated functions, security anti-patterns, and violations of coding standards. Reject code that fails linting checks or present warnings to users for review before proceeding.",
+          "statement": "Ensure proper documentation of programmatic interfaces for agent use",
+          "recommendations": "Agents interacting with poorly documented or unfamiliar programmatic interfaces may misinterpret interface semantics, invoke operations incorrectly, or produce unintended effects. Provide comprehensive, LLM-readable documentation for all programmatic interfaces agents may interact with, including clear descriptions of available operations, required parameters with data types and constraints, expected responses, and common error conditions.",
           "references": []
         }
       ],
       "control_count": 1,
-      "sources": []
+      "sources": [
+        "https://arxiv.org/abs/2305.15334",
+        "https://arxiv.org/abs/2309.15817"
+      ]
     },
     {
       "id": "RISK-039",
       "statement": "Production or execution of poor or ineffective code",
       "description": "This risk arises when an agent generates or executes code that is incorrect, inefficient, insecure, or unsuitable for the intended task. As a result, the code may fail to achieve desired outcomes, introduce bugs or vulnerabilities, or cause operational disruptions when deployed or run.",
+      "element_id": "CAP-10",
+      "element_name": "Code Execution",
+      "element_category": "Capability - Operational",
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0068",
+          "level": 0,
+          "statement": "Use code linters to screen generated code for bad practices and poor syntax",
+          "recommendations": "Agents may generate code containing bad practices, anti-patterns, unused variables, or syntax errors that reduce code quality, introduce bugs, or create maintainability issues. Implement automated code linting that analyses all agent-generated code before execution or deployment, using tools such as Pylint, ESLint, or language-specific linters configured with appropriate rule sets. Configure linters to detect common issues including syntax errors, unused variables, deprecated functions, security anti-patterns, and violations of coding standards. Reject code that fails linting checks or present warnings to users for review before proceeding.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0069",
+          "level": 0,
+          "statement": "Run agent-generated code only in isolated compute environments with network access blocked by default",
+          "recommendations": "Agent-generated code may contain vulnerabilities, bugs, or malicious logic that could compromise systems, leak data, exfiltrate information, or establish unauthorised network connections. Implement virtual isolation for all agent-generated code execution using containerised environments (e.g., Docker), virtual machines, or dedicated sandboxes that limit access to sensitive resources, networks, and data. Configure default-deny network policies that block all inbound and outbound network connections unless explicitly required and authorised for specific use cases. When network access is necessary, enforce allowlists restricting connections to known-safe endpoints such as internal APIs or approved external services.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0070",
+          "level": 0,
+          "statement": "Review all agent-generated code before execution",
+          "recommendations": "Agent-generated code may contain security vulnerabilities, logic errors, or malicious instructions that could compromise systems if executed without review. Implement mandatory human review workflows for all code generated by agents before execution, including source code, scripts, configuration files, and command sequences. Configure review processes to present code with sufficient context for reviewers to assess safety and correctness, including the agent's reasoning for generating the code and its intended purpose.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0071",
+          "level": 0,
+          "statement": "Use static code analysers to detect security vulnerabilities and code quality issues",
+          "recommendations": "Agent-generated code may contain security vulnerabilities, code smells, or quality issues that manual review might miss. Deploy static code analysis tools (e.g., Bandit for Python, SonarQube, Semgrep) that automatically scan agent-generated code for security vulnerabilities, coding standard violations, and quality issues before execution. Configure analysers to detect common vulnerability patterns such as SQL injection, command injection, path traversal, insecure cryptography, and hard-coded credentials. Block or flag code that fails security scans, requiring remediation before proceeding with execution or deployment.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0072",
+          "level": 1,
+          "statement": "Monitor runtime and memory consumption of agent-generated code",
+          "recommendations": "Agent-generated code may contain inefficient implementations, infinite loops, or memory leaks that degrade system performance or exhaust resources. Implement runtime monitoring that tracks execution time, memory consumption, CPU usage, and other resource metrics for all agent-generated code during execution. Configure alerts that trigger when code exceeds predefined resource thresholds, such as maximum execution time, memory limits, or CPU usage, enabling automatic termination of runaway processes.",
+          "references": []
+        }
+      ],
+      "control_count": 5,
+      "sources": [
+        "https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf",
+        "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+        "https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html"
+      ]
+    },
+    {
+      "id": "RISK-040",
+      "statement": "Production or execution of vulnerable or malicious code",
+      "description": "This risk arises when an agent executes code that contains security vulnerabilities or intentionally malicious logic, whether generated by the model or sourced externally. As a result, the system may be compromised through exploitation, unauthorised access, data leakage, or other harmful effects.",
       "element_id": "CAP-10",
       "element_name": "Code Execution",
       "element_category": "Capability - Operational",
@@ -1383,67 +1440,12 @@
           "statement": "Create a denylist of commands that agents are not permitted to execute",
           "recommendations": "Agents may generate code that invokes dangerous or destructive commands capable of compromising systems, deleting data, or establishing unauthorised network connections. Implement command denylists that explicitly prohibit execution of dangerous operations such as system shutdown commands, file deletion utilities, network scanning tools, or privileged system calls. Enforce denylists at the execution layer, preventing blocked commands from running even if agents generate code containing them. Regularly review and update denylists based on observed agent behaviour, emerging security threats, and identified misuse patterns.",
           "references": []
-        }
-      ],
-      "control_count": 5,
-      "sources": [
-        "https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-742-spracklen.pdf",
-        "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
-        "https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html"
-      ]
-    },
-    {
-      "id": "RISK-040",
-      "statement": "Production or execution of vulnerable or malicious code",
-      "description": "This risk arises when an agent executes code that contains security vulnerabilities or intentionally malicious logic, whether generated by the model or sourced externally. As a result, the system may be compromised through exploitation, unauthorised access, data leakage, or other harmful effects.",
-      "element_id": "CAP-10",
-      "element_name": "Code Execution",
-      "element_category": "Capability - Operational",
-      "failure_mode": "Agent Failure",
-      "type": [
-        "Security"
-      ],
-      "controls": [
-        {
-          "id": "CTRL-0070",
-          "level": 0,
-          "statement": "Review all agent-generated code before execution",
-          "recommendations": "Agent-generated code may contain security vulnerabilities, logic errors, or malicious instructions that could compromise systems if executed without review. Implement mandatory human review workflows for all code generated by agents before execution, including source code, scripts, configuration files, and command sequences. Configure review processes to present code with sufficient context for reviewers to assess safety and correctness, including the agent's reasoning for generating the code and its intended purpose.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0071",
-          "level": 0,
-          "statement": "Use static code analysers to detect security vulnerabilities and code quality issues",
-          "recommendations": "Agent-generated code may contain security vulnerabilities, code smells, or quality issues that manual review might miss. Deploy static code analysis tools (e.g., Bandit for Python, SonarQube, Semgrep) that automatically scan agent-generated code for security vulnerabilities, coding standard violations, and quality issues before execution. Configure analysers to detect common vulnerability patterns such as SQL injection, command injection, path traversal, insecure cryptography, and hard-coded credentials. Block or flag code that fails security scans, requiring remediation before proceeding with execution or deployment.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0072",
-          "level": 1,
-          "statement": "Monitor runtime and memory consumption of agent-generated code",
-          "recommendations": "Agent-generated code may contain inefficient implementations, infinite loops, or memory leaks that degrade system performance or exhaust resources. Implement runtime monitoring that tracks execution time, memory consumption, CPU usage, and other resource metrics for all agent-generated code during execution. Configure alerts that trigger when code exceeds predefined resource thresholds, such as maximum execution time, memory limits, or CPU usage, enabling automatic termination of runaway processes.",
-          "references": []
         },
         {
           "id": "CTRL-0074",
           "level": 0,
           "statement": "Conduct CVE scanning and block execution of code with High or Critical vulnerabilities",
           "recommendations": "Agent-generated code may inadvertently include dependencies or libraries containing known security vulnerabilities that could be exploited to compromise systems. Implement automated CVE scanning that analyses all dependencies, libraries, and packages used by agent-generated code before execution, checking against vulnerability databases such as the National Vulnerability Database. Configure scanning to block execution when High or Critical severity CVEs are detected, requiring remediation such as dependency updates or vulnerability patches before proceeding.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0075",
-          "level": 1,
-          "statement": "Do not grant write access to agents unless strictly necessary",
-          "recommendations": "Agents with unnecessary write access may inadvertently modify, overwrite, or delete critical files or data, leading to data loss, corruption, or operational disruption. Apply the principle of least privilege by granting write access only when explicitly required for the agent's intended functionality, defaulting to read-only access for all other operations. Implement granular access controls that restrict write permissions to specific directories, databases, or resources that the agent legitimately needs to modify. Regularly review agent permissions to ensure write access remains justified and revoke unnecessary permissions as agent responsibilities evolve.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0076",
-          "level": 1,
-          "statement": "Require human approval for any destructive changes to databases, tables, or files",
-          "recommendations": "Destructive operations such as deleting files, dropping database tables, or overwriting critical data can cause irreversible damage if executed without proper authorisation. Implement mandatory human approval workflows for all destructive operations including DELETE queries, DROP statements, file deletions, or data overwrites that modify or remove existing information.",
           "references": []
         }
       ],
@@ -1466,24 +1468,24 @@
       ],
       "controls": [
         {
+          "id": "CTRL-0075",
+          "level": 1,
+          "statement": "Do not grant write access to agents unless strictly necessary",
+          "recommendations": "Agents with unnecessary write access may inadvertently modify, overwrite, or delete critical files or data, leading to data loss, corruption, or operational disruption. Apply the principle of least privilege by granting write access only when explicitly required for the agent's intended functionality, defaulting to read-only access for all other operations. Implement granular access controls that restrict write permissions to specific directories, databases, or resources that the agent legitimately needs to modify. Regularly review agent permissions to ensure write access remains justified and revoke unnecessary permissions as agent responsibilities evolve.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0076",
+          "level": 1,
+          "statement": "Require human approval for any destructive changes to databases, tables, or files",
+          "recommendations": "Destructive operations such as deleting files, dropping database tables, or overwriting critical data can cause irreversible damage if executed without proper authorisation. Implement mandatory human approval workflows for all destructive operations including DELETE queries, DROP statements, file deletions, or data overwrites that modify or remove existing information.",
+          "references": []
+        },
+        {
           "id": "CTRL-0077",
           "level": 0,
           "statement": "Enable versioning or soft-delete for managed object stores to allow recovery from accidental modifications",
           "recommendations": "Even with access controls and approval workflows, agents may occasionally execute unintended destructive operations due to misunderstandings, bugs, or edge cases. Implement versioning or soft-delete mechanisms for file stores, object storage, and databases that preserve previous versions of data when modifications occur, enabling recovery from accidental overwrites or deletions.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0078",
-          "level": 0,
-          "statement": "Enforce throttling or rate limits on agent-initiated database operations",
-          "recommendations": "Agents executing database operations without constraints may issue excessive queries that overwhelm database resources, degrade performance for other users, or cause service outages. Implement throttling mechanisms that limit the frequency and volume of agent-initiated database operations, such as maximum queries per second, maximum concurrent connections, or query timeout limits. Monitor database load patterns to detect agents approaching or exceeding rate limits, using this data to refine throttling policies or investigate agents with excessive query behaviour.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0079",
-          "level": 2,
-          "statement": "Validate agent-generated database queries for efficiency before execution against production databases",
-          "recommendations": "Agents may generate inefficient database queries such as full table scans, missing indexes, or SELECT * operations that consume excessive resources and degrade database performance. Implement automated query validation that analyses agent-generated queries before execution, checking for common efficiency issues including lack of appropriate indexes, overly broad selections, missing WHERE clauses on large tables, or N+1 query patterns.",
           "references": []
         }
       ],
@@ -1505,24 +1507,24 @@
       ],
       "controls": [
         {
+          "id": "CTRL-0078",
+          "level": 0,
+          "statement": "Enforce throttling or rate limits on agent-initiated database operations",
+          "recommendations": "Agents executing database operations without constraints may issue excessive queries that overwhelm database resources, degrade performance for other users, or cause service outages. Implement throttling mechanisms that limit the frequency and volume of agent-initiated database operations, such as maximum queries per second, maximum concurrent connections, or query timeout limits. Monitor database load patterns to detect agents approaching or exceeding rate limits, using this data to refine throttling policies or investigate agents with excessive query behaviour.",
+          "references": []
+        },
+        {
+          "id": "CTRL-0079",
+          "level": 2,
+          "statement": "Validate agent-generated database queries for efficiency before execution against production databases",
+          "recommendations": "Agents may generate inefficient database queries such as full table scans, missing indexes, or SELECT * operations that consume excessive resources and degrade database performance. Implement automated query validation that analyses agent-generated queries before execution, checking for common efficiency issues including lack of appropriate indexes, overly broad selections, missing WHERE clauses on large tables, or N+1 query patterns.",
+          "references": []
+        },
+        {
           "id": "CTRL-0080",
           "level": 0,
           "statement": "Implement caching mechanisms to reduce repetitive database queries by agents",
           "recommendations": "Agents repeatedly querying the same or similar data create unnecessary database load, consuming resources that could be avoided through intelligent caching. Implement caching layers (e.g., Redis, Memcached, in-memory caches) that store frequently accessed data, allowing agents to retrieve cached results rather than repeatedly querying databases for identical information.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0081",
-          "level": 1,
-          "statement": "Implement input guardrails to detect personally identifiable information in data accessed by agents",
-          "recommendations": "Agents accessing files or databases containing PII may inadvertently expose sensitive personal information through outputs, logs, or downstream processing without appropriate safeguards. Deploy input guardrails that scan data retrieved from files, databases, or other sources for PII categories including names, email addresses, phone numbers, identification numbers, and financial information before agents process it. When PII is detected, trigger protective measures such as flagging the data as sensitive to the agent, applying stricter output filtering, requiring additional access authorisation, or activating enhanced logging to track how the sensitive data is used.",
-          "references": []
-        },
-        {
-          "id": "CTRL-0082",
-          "level": 2,
-          "statement": "Do not grant agents access to personally identifiable or sensitive data unless strictly required",
-          "recommendations": "Agents with unnecessary access to PII or sensitive data create elevated risk of exposure, leakage, or misuse, particularly if agents are compromised or misuse their permissions. Apply the principle of least privilege by restricting agent access to databases, files, or systems containing PII or sensitive information unless explicitly required for the agent's designated functionality. Implement access controls that enforce these restrictions at the data layer, preventing agents from querying or reading sensitive datasets they should not access.",
           "references": []
         }
       ],
@@ -1544,17 +1546,17 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0083",
-          "level": 0,
-          "statement": "Disallow unknown or external files unless they have been scanned for threats",
-          "recommendations": "External files may contain maliciously crafted content designed to inject hidden instructions, manipulate agent behaviour, or introduce security threats when processed. Implement mandatory scanning for all unknown or external files before allowing agents to access them, using antivirus software, malware scanners, or specialised tools that detect prompt injection attempts embedded in file content.",
+          "id": "CTRL-0081",
+          "level": 1,
+          "statement": "Implement input guardrails to detect personally identifiable information in data accessed by agents",
+          "recommendations": "Agents accessing files or databases containing PII may inadvertently expose sensitive personal information through outputs, logs, or downstream processing without appropriate safeguards. Deploy input guardrails that scan data retrieved from files, databases, or other sources for PII categories including names, email addresses, phone numbers, identification numbers, and financial information before agents process it. When PII is detected, trigger protective measures such as flagging the data as sensitive to the agent, applying stricter output filtering, requiring additional access authorisation, or activating enhanced logging to track how the sensitive data is used.",
           "references": []
         },
         {
-          "id": "CTRL-0084",
-          "level": 0,
-          "statement": "Set minimum and maximum limits on what agents can modify within system resources",
-          "recommendations": "Agents with unrestricted ability to modify system configurations may make inappropriate changes that degrade performance, compromise security, or cause service disruptions. Define and enforce quantitative boundaries on agent-initiated configuration changes, such as minimum and maximum values for resource allocations (CPU, memory, storage), rate limits, timeout values, or scaling parameters.",
+          "id": "CTRL-0082",
+          "level": 2,
+          "statement": "Do not grant agents access to personally identifiable or sensitive data unless strictly required",
+          "recommendations": "Agents with unnecessary access to PII or sensitive data create elevated risk of exposure, leakage, or misuse, particularly if agents are compromised or misuse their permissions. Apply the principle of least privilege by restricting agent access to databases, files, or systems containing PII or sensitive information unless explicitly required for the agent's designated functionality. Implement access controls that enforce these restrictions at the data layer, preventing agents from querying or reading sensitive datasets they should not access.",
           "references": []
         }
       ],
@@ -1577,17 +1579,17 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0063",
-          "level": 1,
-          "statement": "Prioritise search results from verified, high-quality domains",
-          "recommendations": "Agents retrieving information from unreliable or low-quality websites may present inaccurate, outdated, or biased content to users, leading to misinformed decisions. Configure search and retrieval systems to prioritise results from verified, authoritative sources such as government domains (.gov), educational institutions (.edu), established news organisations, and recognised industry authorities.",
+          "id": "CTRL-0062",
+          "level": 0,
+          "statement": "Implement input guardrails to detect prompt injection and adversarial attacks",
+          "recommendations": "Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.",
           "references": []
         },
         {
-          "id": "CTRL-0085",
+          "id": "CTRL-0083",
           "level": 0,
-          "statement": "Log system health metrics and implement automated alerts for abnormal conditions",
-          "recommendations": "Misconfigurations by agents may not cause immediate visible failures but instead gradually degrade system health, performance, or stability over time. Implement comprehensive logging of system health metrics including resource utilisation, error rates, response times, and performance indicators that reflect the impact of configuration changes. Configure automated alerting that triggers when metrics deviate from expected baselines or exceed acceptable thresholds.",
+          "statement": "Disallow unknown or external files unless they have been scanned for threats",
+          "recommendations": "External files may contain maliciously crafted content designed to inject hidden instructions, manipulate agent behaviour, or introduce security threats when processed. Implement mandatory scanning for all unknown or external files before allowing agents to access them, using antivirus software, malware scanners, or specialised tools that detect prompt injection attempts embedded in file content.",
           "references": []
         }
       ],
@@ -1610,17 +1612,17 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0086",
+          "id": "CTRL-0084",
           "level": 0,
-          "statement": "Limit the number of concurrent queries to external systems by agents",
-          "recommendations": "Agents making unlimited concurrent queries to external systems may overwhelm those systems, trigger rate limiting or blocking, or exhaust connection pools and network resources. Implement concurrency limits that restrict the maximum number of simultaneous queries an agent can issue to external systems, such as APIs, web services, or remote databases. Configure limits appropriate to external system capacity and rate limit policies, ensuring agents operate within acceptable thresholds whilst maintaining functionality.",
+          "statement": "Set minimum and maximum limits on what agents can modify within system resources",
+          "recommendations": "Agents with unrestricted ability to modify system configurations may make inappropriate changes that degrade performance, compromise security, or cause service disruptions. Define and enforce quantitative boundaries on agent-initiated configuration changes, such as minimum and maximum values for resource allocations (CPU, memory, storage), rate limits, timeout values, or scaling parameters.",
           "references": []
         },
         {
-          "id": "CTRL-0087",
+          "id": "CTRL-0085",
           "level": 0,
-          "statement": "Ensure logging of system health metrics and automated alerts to the developer team if any metrics are abnormal",
-          "recommendations": null,
+          "statement": "Log system health metrics and implement automated alerts for abnormal conditions",
+          "recommendations": "Misconfigurations by agents may not cause immediate visible failures but instead gradually degrade system health, performance, or stability over time. Implement comprehensive logging of system health metrics including resource utilisation, error rates, response times, and performance indicators that reflect the impact of configuration changes. Configure automated alerting that triggers when metrics deviate from expected baselines or exceed acceptable thresholds.",
           "references": []
         }
       ],
@@ -1643,10 +1645,10 @@
       ],
       "controls": [
         {
-          "id": "CTRL-0088",
+          "id": "CTRL-0086",
           "level": 0,
-          "statement": "Limit the number of concurrent queries to external systems from the agent",
-          "recommendations": null,
+          "statement": "Limit the number of concurrent queries to external systems by agents",
+          "recommendations": "Agents making unlimited concurrent queries to external systems may overwhelm those systems, trigger rate limiting or blocking, or exhaust connection pools and network resources. Implement concurrency limits that restrict the maximum number of simultaneous queries an agent can issue to external systems, such as APIs, web services, or remote databases. Configure limits appropriate to external system capacity and rate limit policies, ensuring agents operate within acceptable thresholds whilst maintaining functionality.",
           "references": []
         }
       ],
@@ -1775,24 +1777,24 @@
   ],
   "metadata": {
     "total_risks": 46,
-    "total_controls": 88,
+    "total_controls": 86,
     "total_elements": 19,
     "categories": [
-      "Component - Tools",
-      "Component - LLM",
-      "Capability - Operational",
-      "Component - Memory",
-      "Design - Agentic Architecture",
       "Capability - Cognitive",
       "Capability - Interaction",
+      "Capability - Operational",
       "Component - Instructions",
+      "Component - LLM",
+      "Component - Memory",
+      "Component - Tools",
+      "Design - Agentic Architecture",
       "Design - Monitoring and Traceability",
       "Design - Roles and Access Controls"
     ],
     "failure_modes": [
-      "Tool or Resource Malfunction",
+      "Agent Failure",
       "External Manipulation",
-      "Agent Failure"
+      "Tool or Resource Malfunction"
     ],
     "risk_types": [
       "Safety",

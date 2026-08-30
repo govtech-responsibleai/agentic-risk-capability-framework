@@ -4,10 +4,11 @@ This page compares the ARC Framework with six major AI governance frameworks and
 
 !!! note "How to use the Comparison Table"
 
-    - **Click anywhere on the row** (with ► arrows) to expand all frameworks for that criterion (multiple rows can be expanded
+    - **Click anywhere on the row** (with ► arrows) to expand all frameworks for that criterion (multiple rows can be expanded)
     - **Scroll horizontally** to view all frameworks - look for the animated arrow indicator (→) on the right
     - **Colour coding**: 🟢 Green (strong/desirable) | 🟡 Yellow (moderate/conceptual) | 🔴 Red (limited/general) | ⚪ Grey (not addressed)
     - **Click anywhere on the row again** to collapse expanded rows
+    - **Mobile users**: Table is optimized for horizontal scrolling on smaller screens
 
 <style>
 .comparison-table {
@@ -907,6 +908,99 @@ This page compares the ARC Framework with six major AI governance frameworks and
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .comparison-table {
+        font-size: 0.6rem;
+    }
+
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+        min-width: 100px;
+        font-size: 0.65rem;
+    }
+
+    .comparison-table th {
+        min-width: 140px;
+        padding: 0.625rem 0.375rem;
+    }
+
+    .comparison-table td {
+        min-width: 140px;
+        padding: 0.5rem 0.375rem;
+    }
+
+    .comparison-table tbody td:not(:first-child) {
+        max-width: 200px;
+    }
+
+    .criterion-description {
+        display: none;
+    }
+
+    .framework-description {
+        font-size: 0.55rem;
+    }
+
+    .header-expand-icon {
+        font-size: 0.65rem;
+    }
+
+    .cell-details {
+        font-size: 0.55rem;
+    }
+
+    .scroll-indicator-right,
+    .scroll-indicator-left {
+        font-size: 1.5rem;
+    }
+
+    .export-button {
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .comparison-table {
+        font-size: 0.55rem;
+    }
+
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+        min-width: 80px;
+        font-size: 0.6rem;
+    }
+
+    .comparison-table th {
+        min-width: 120px;
+        padding: 0.5rem 0.25rem;
+    }
+
+    .comparison-table td {
+        min-width: 120px;
+        padding: 0.375rem 0.25rem;
+    }
+
+    .comparison-table tbody td:not(:first-child) {
+        max-width: 160px;
+    }
+
+    .framework-description {
+        display: none;
+    }
+
+    .export-button {
+        padding: 8px 16px;
+        font-size: 11px;
+    }
+
+    .export-button svg {
+        width: 12px;
+        height: 12px;
+    }
 }
 </style>
 

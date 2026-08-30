@@ -3,6 +3,8 @@
 .DS_Store
 site
 .airbase
+Controls.xlsx
+Controls-updated.xlsx
 
 # Environment files
 .env

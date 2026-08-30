@@ -111,7 +111,7 @@ Not all risks are equally relevant across systems and use cases. Relevance crite
 
     Calibrating the threshold can be a tricky affair - we provide some illustrative examples of a conservative, moderate, and aggressive stance below to highlight how different levels of risk appetite may affect the threshold. 
 
-    **Conservative ** (Healthcare, Finance, Legal, Government):
+    **Conservative** (Healthcare, Finance, Legal, Government):
     - **Threshold:** Impact ≥ 3 AND Likelihood ≥ 3 OR Impact ≥ 4 (regardless of likelihood)
     - **Rationale:** Patient safety, financial integrity, regulatory compliance require low risk tolerance
 

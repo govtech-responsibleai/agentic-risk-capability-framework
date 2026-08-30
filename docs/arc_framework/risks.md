@@ -9,10 +9,6 @@ In this section, we explain how risks materialise from the [elements of an agent
 1. **Failure modes**, which outline *how* the system fails.
 2. **Hazards**, which describe the *resulting impact*.
 
-<figure style="text-align: center;">
-  <img src="../../assets/elements.jpeg" alt="Elements of Agentic Systems" style="width: min(900px, 80%); display: block; margin: 0 auto;">
-</figure>
-
 We then describe the **Risk Register**, which serves as the organisation's central repository of risks relating to agentic systems.
 
 ---
@@ -89,7 +85,7 @@ Safety hazards involve risks to **human well-being, social harm, and the respons
 
 ## The Risk Register
 
-The **Risk Register** consolidates all risks identified through the ARC Framework and **serves as the organization's reference list of safety and security risks for agentic systems**. 
+The **Risk Register** consolidates all risks identified through the ARC Framework and **serves as the organisation's reference list of safety and security risks for agentic systems**. 
 
 Each risk in the register should:
 

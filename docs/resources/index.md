@@ -1,12 +1,12 @@
 # Resources
 
-We provide a range of resources to help organisations understand and get started with using the ARC framework to govern their agentic AI systems. 
+Beyond the [technical governance framework](../arc_framework/introduction.md) and [implementation guide](../implementation/index.md), we have also developed additional tools and resources to help organisations understand and get started with using the ARC framework to govern their agentic AI systems. 
 
 | Resource | Target Audience | Description |
 | --- | --- | --- |
 | [ARCvisor Tool](#arcvisor) | AI governance teams, developers | Web-based risk assessment workflow with 50%+ time savings |
 | [Technical Paper](../assets/ARC_Framework-Paper-IASEAI_2026.pdf) | AI governance teams, academia | In-depth technical details and research foundations |
-| [Baseline Risk Register](../arc_framework/risk-register/) | AI governance teams, developers | Interactive exploration of 46 risks and 88 controls ([YAML sources](../../arc-risk-register/)) |
+| [Baseline Risk Register](../arc_framework/risk-register.md) | AI governance teams, developers | Interactive exploration of 46 risks and 86 controls ([YAML sources](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/arc-risk-register)) |
 | Presentation slides (pending) | General AI-literate audience | High-level overview of the ARC framework |
 
 ## ARCvisor 🤖✨

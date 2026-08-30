@@ -8,7 +8,7 @@
 
     **Detailed Guides**:
     [Complete Governance Guide](for-governance-teams.md) •
-    [Complete Developer Guide](for-ai-developers.md) •
+    [Complete Developer Guide](for-ai-developers.md)
 
     **Resources**:
     [Framework Elements](../arc_framework/elements.md) •
@@ -22,7 +22,7 @@
 
 ## From General Framework to Organisational Practice
 
-**The ARC framework is designed as a general-purpose tool that organizations should adapt to their specific context before applying it to individual systems.** This process is typically led by the organization's central AI governance team or Chief AI Officer. Their role is to translate the baseline ARC framework into an organisation-specific version that reflects local laws, sector regulations, internal policies, and the technical infrastructure and capabilities available within the company. 
+**The ARC framework is designed as a general-purpose tool that organisations should adapt to their specific context before applying it to individual systems.** This process is typically led by the organisation's central AI governance team or Chief AI Officer. Their role is to translate the baseline ARC framework into an organisation-specific version that reflects local laws, sector regulations, internal policies, and the technical infrastructure and capabilities available within the company. 
     
 Once the governance team has created this contextualised framework, the organisation enters **a trial phase where the adapted framework is applied to a small number of diverse agentic systems**. These pilot applications test whether the relevance thresholds, control recommendations, and documentation requirements are appropriately calibrated, whether the framework is genuinely usable by AI developers in their day-to-day work, and where additional training or support tools may be needed—allowing the governance team to refine both the framework content and change management approach before wider rollout.
 

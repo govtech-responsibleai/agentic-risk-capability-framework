@@ -99,30 +99,30 @@ The ARC framework recommends controls at different levels of priority, and teams
   </thead>
   <tbody>
     <tr>
-      <td><strong>Level 0: Essential Controls</strong></td>
-      <td>High-impact risks, regulatory requirements</td>
-      <td>Implement unless technically infeasible; document exceptions with compensating controls</td>
+      <td><strong>Level 0: Cardinal Controls</strong></td>
+      <td>Fundamental requirements for any system where the associated risk applies</td>
+      <td>Must be adopted as-is; cannot be waived</td>
       <td>Authentication for transaction APIs, audit logging for sensitive operations, input validation for code execution</td>
-      <td>Requires senior stakeholder or security team sign-off if not implemented</td>
+      <td>Implementation verified before deployment; blockers escalated to the governance team</td>
     </tr>
     <tr>
-      <td><strong>Level 1: Recommended Controls</strong></td>
+      <td><strong>Level 1: Standard Controls</strong></td>
       <td>Moderate-impact risks, best practices</td>
-      <td>Implement where practical; exercise engineering judgement on feasibility</td>
+      <td>Adopt or adapt meaningfully; exercise engineering judgement on feasibility</td>
       <td>Rate limiting for API calls, output guardrails for content quality, human review for edge cases</td>
       <td>Team-level decision with documented rationale</td>
     </tr>
     <tr>
-      <td><strong>Level 2: Enhanced Controls</strong></td>
+      <td><strong>Level 2: Best Practice Controls</strong></td>
       <td>Defence-in-depth, low residual risk tolerance</td>
-      <td>Consider based on risk appetite and available resources</td>
+      <td>Consider based on risk appetite and available resources, especially for high-risk systems</td>
       <td>Advanced monitoring dashboards, red team testing, redundant safety layers</td>
       <td>Optional; prioritise based on organisational maturity</td>
     </tr>
   </tbody>
 </table>
 
-Not all controls are mandatory—the framework provides a menu of options. Your governance team may specify which controls are required for your organisation; otherwise, apply controls proportionate to risk severity.
+Level 0 controls are mandatory wherever the associated risk applies to your system. Levels 1 and 2 provide a menu of options—your governance team may specify which are required for your organisation; otherwise, apply them proportionate to risk severity.
 
 !!! tip "Contextualising Controls"
 
@@ -228,9 +228,9 @@ For priority risks (Impact ≥3, Likelihood ≥3), we implement the following Le
 | RISK-002 | **CTRL-0005** (Level 0): Conduct structured evaluation of multiple LLMs<br>**CTRL-0006** (Level 1): Require human approval before executing high-impact actions | • Evaluated Claude Sonnet 4.5, GPT-4, and Gemini Pro on fact-checking benchmarks<br>• Selected Claude Sonnet 4.5 for superior instruction-following and refusal capabilities<br>• Require human review before publishing final verification verdicts |
 | RISK-007 | **CTRL-0015** (Level 1): Treat all tool metadata and outputs as untrusted input | • Validate all web search results against strict JSON schemas<br>• Sanitize tool outputs before incorporating into agent prompts<br>• Filter tool descriptions for embedded instructions |
 | RISK-028 | **CTRL-0048** (Level 2): Implement methods to reduce hallucination rates<br>**CTRL-0049** (Level 0): Implement UI/UX cues for hallucination risk<br>**CTRL-0050** (Level 1): Enable users to verify answers against sources | • Implement RAG using verified knowledge bases to ground responses<br>• Display disclaimers highlighting potential for inaccuracies<br>• Provide inline citations linking to source passages for verification |
-| RISK-034 | **CTRL-0061** (Level 1): Implement escape filtering before incorporating web content<br>**CTRL-0062** (Level 0): Use structured retrieval APIs rather than web scraping<br>**CTRL-0063** (Level 0): Implement input guardrails to detect prompt injection | • Sanitize all retrieved web content before adding to prompts<br>• Use Google Search API for structured results rather than raw HTML scraping<br>• Deploy prompt injection detector to scan web content |
-| RISK-035 | **CTRL-0064** (Level 1): Prioritise search results from verified, high-quality domains | • Configure search API to prioritise .gov, .edu, and established news sources<br>• Require cross-source validation for claims from unknown domains |
-| RISK-044 | **CTRL-0063** (Level 0): Implement input guardrails to detect prompt injection<br>**CTRL-0084** (Level 0): Disallow unknown or external files unless scanned | • Validate all new data contributions to knowledge base before ingestion<br>• Scan uploaded files for embedded prompt injection attempts<br>• Maintain allowlist of approved data sources |
+| RISK-034 | **CTRL-0060** (Level 1): Implement escape filtering before incorporating web content<br>**CTRL-0061** (Level 0): Use structured retrieval APIs rather than web scraping<br>**CTRL-0062** (Level 0): Implement input guardrails to detect prompt injection | • Sanitize all retrieved web content before adding to prompts<br>• Use Google Search API for structured results rather than raw HTML scraping<br>• Deploy prompt injection detector to scan web content |
+| RISK-035 | **CTRL-0063** (Level 1): Prioritise search results from verified, high-quality domains | • Configure search API to prioritise .gov, .edu, and established news sources<br>• Require cross-source validation for claims from unknown domains |
+| RISK-044 | **CTRL-0062** (Level 0): Implement input guardrails to detect prompt injection<br>**CTRL-0083** (Level 0): Disallow unknown or external files unless scanned | • Validate all new data contributions to knowledge base before ingestion<br>• Scan uploaded files for embedded prompt injection attempts<br>• Maintain allowlist of approved data sources |
 
 #### Step 4: Assess Residual Risks
 
@@ -266,11 +266,11 @@ Based on the capability taxonomy, this system demonstrates:
 
 | Category | Capability | Explanation |
 |----------|-----------|-------------|
-| Cognitive | CAP-01: Reasoning and Problem-Solving | The Codebase Analyzer debugs issues by analyzing stack traces, code flow, and dependencies; Code Writer applies software engineering patterns. |
-| Cognitive | CAP-02: Planning and Goal Management | The Task Planner breaks down complex coding requests into sequential steps (e.g., "add authentication" → analyze existing auth, design schema, implement endpoints, write tests). |
-| Cognitive | CAP-03: Tool Use and Delegation | The Task Planner selects appropriate agents and tools based on task requirements (search vs. read vs. execute). |
+| Cognitive | CAP-01: Planning and Goal Management | The Task Planner breaks down complex coding requests into sequential steps (e.g., "add authentication" → analyze existing auth, design schema, implement endpoints, write tests). |
+| Cognitive | CAP-02: Agent Delegation | The Task Planner assigns subtasks to specialized agents (Codebase Analyzer, Code Writer, Command Executor, File Manager) and coordinates their activities. |
+| Cognitive | CAP-03: Tool Use | The Task Planner selects appropriate tools based on task requirements (search vs. read vs. execute). |
 | Interaction | CAP-04: Multimodal Understanding and Generation | All agents process code, markdown documentation, and configuration files; Code Writer generates syntactically correct code in multiple languages. |
-| Operational | CAP-09: Code Execution | The Command Executor runs shell commands, executes tests, installs dependencies, and validates code changes. |
+| Operational | CAP-10: Code Execution | The Command Executor runs shell commands, executes tests, installs dependencies, and validates code changes. |
 | Operational | CAP-11: File and Data Management | The File Manager reads source files, writes modifications, creates new files, and manages version control operations. |
 
 #### Step 2: Evaluate Risks
@@ -288,8 +288,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 | RISK-039 | CAP-10 (Code Execution) | Production or execution of poor or ineffective code | **[Impact: 5, Likelihood: 3]** Generated code may be incorrect, inefficient, or contain bugs that cause operational disruptions when deployed or run. |
 | RISK-040 | CAP-10 (Code Execution) | Production or execution of vulnerable or malicious code | **[Impact: 5, Likelihood: 4]** Critical risk—generated code may contain SQL injection, XSS, insecure deserialization, or other OWASP Top 10 vulnerabilities that reach production. |
 | RISK-041 | CAP-11 (File & Data Management) | Destructive modifications to files or databases | **[Impact: 5, Likelihood: 3]** Assistant may accidentally delete critical files, overwrite production configs, or drop database tables when misinterpreting user intent. |
-| RISK-042 | CAP-11 (File & Data Management) | Exposing PII from accessed files | **[Impact: 4, Likelihood: 3]** Code suggestions may inadvertently reproduce API keys, credentials, or sensitive data found in configuration files or comments. |
-| RISK-043 | CAP-11 (File & Data Management) | Prompt injection via malicious files | **[Impact: 4, Likelihood: 3]** Malicious code repositories may contain hidden instructions in comments, README files, or docstrings designed to manipulate assistant behaviour. |
+| RISK-043 | CAP-11 (File & Data Management) | Exposure of sensitive data through file or database access | **[Impact: 4, Likelihood: 3]** Code suggestions may inadvertently reproduce API keys, credentials, or sensitive data found in configuration files or comments. |
+| RISK-044 | CAP-11 (File & Data Management) | Prompt injection via malicious files or data | **[Impact: 4, Likelihood: 3]** Malicious code repositories may contain hidden instructions in comments, README files, or docstrings designed to manipulate assistant behaviour. |
 
 *(Lower-priority risks documented but not shown here for brevity)*
 
@@ -302,12 +302,12 @@ For priority risks (Impact ≥3, Likelihood ≥3), we implement the following Le
 | RISK-002 | **CTRL-0005** (Level 0): Conduct structured evaluation of multiple LLMs<br>**CTRL-0007** (Level 0): Log all LLM inputs and outputs | • Evaluated Claude Sonnet 4.5, GPT-4o, and Gemini Pro on code generation benchmarks (HumanEval, MBPP)<br>• Selected Claude Sonnet 4.5 for superior instruction-following and code safety<br>• Log all prompts and generated code to CloudWatch with 90-day retention |
 | RISK-007 | **CTRL-0015** (Level 1): Treat all tool metadata and outputs as untrusted input | • Validate all tool outputs (file contents, command results, search results) against expected schemas<br>• Sanitize tool outputs before incorporating into agent prompts or displaying to users<br>• Escape special characters in file paths and command arguments to prevent injection<br>• Filter tool descriptions and error messages for embedded instructions |
 | RISK-028 | **CTRL-0048** (Level 2): Implement methods to reduce hallucination rates<br>**CTRL-0050** (Level 1): Enable users to verify answers against sources | • Implement RAG using codebase context to ground code suggestions in actual project patterns<br>• Display inline citations showing which files informed code suggestions<br>• Add "Verify this code before using" disclaimer on all generated code blocks |
-| RISK-038 | **CTRL-0068** (Level 0): Use code linters to screen generated code | • Integrate ESLint for JavaScript/TypeScript with strict ruleset<br>• Integrate Pylint for Python with security-focused configuration<br>• Display linter warnings to user before applying code changes<br>• Block code application if critical errors detected |
-| RISK-039 | **CTRL-0069** (Level 0): Run code only in isolated environments<br>**CTRL-0070** (Level 0): Review all agent-generated code before execution<br>**CTRL-0073** (Level 0): Create denylist of dangerous commands | • Execute all code in Docker containers with no network access by default<br>• Require explicit user approval before running any shell commands<br>• Denylist: rm -rf, dd, mkfs, iptables, sudo commands without user confirmation |
-| RISK-040 | **CTRL-0071** (Level 0): Use static code analyzers to detect vulnerabilities<br>**CTRL-0070** (Level 0): Review all agent-generated code before execution | • Integrate Semgrep with OWASP ruleset for vulnerability scanning<br>• Integrate Bandit for Python security analysis<br>• Flag HIGH/CRITICAL vulnerabilities and require user acknowledgment<br>• Provide security-focused system prompts emphasizing input validation |
+| RISK-038 | **CTRL-0067** (Level 0): Ensure proper documentation of programmatic interfaces for agent use | • Provide LLM-readable documentation for all internal APIs and bespoke tools the assistant integrates with<br>• Include parameter types, constraints, and error conditions in tool descriptions<br>• Validate assistant-generated API calls against interface schemas before execution |
+| RISK-039 | **CTRL-0068** (Level 0): Use code linters to screen generated code<br>**CTRL-0069** (Level 0): Run code only in isolated environments<br>**CTRL-0070** (Level 0): Review all agent-generated code before execution | • Integrate ESLint for JavaScript/TypeScript and Pylint for Python, blocking code application if critical errors detected<br>• Execute all code in Docker containers with no network access by default<br>• Require explicit user approval before running any shell commands |
+| RISK-040 | **CTRL-0071** (Level 0): Use static code analyzers to detect vulnerabilities<br>**CTRL-0070** (Level 0): Review all agent-generated code before execution<br>**CTRL-0073** (Level 0): Create denylist of dangerous commands | • Integrate Semgrep with OWASP ruleset for vulnerability scanning<br>• Integrate Bandit for Python security analysis<br>• Flag HIGH/CRITICAL vulnerabilities and require user acknowledgment<br>• Denylist: rm -rf, dd, mkfs, iptables, sudo commands without user confirmation |
 | RISK-041 | **CTRL-0075** (Level 1): Do not grant write access unless necessary<br>**CTRL-0076** (Level 1): Require human approval for destructive changes<br>**CTRL-0077** (Level 0): Enable versioning or soft-delete | • Restrict write access to workspace directory only (no system files)<br>• Require explicit confirmation before deleting files or modifying package.json/requirements.txt<br>• Integrate with Git to ensure all changes are tracked and reversible |
-| RISK-042 | **CTRL-0047** (Level 0): Implement output guardrails to detect and redact PII<br>**CTRL-0081** (Level 1): Implement input guardrails to detect PII in accessed data | • Scan all generated code for API keys, tokens, passwords using regex patterns<br>• Flag and redact detected secrets before displaying to user<br>• Warn user when reading config files containing credentials |
-| RISK-043 | **CTRL-0062** (Level 0): Implement input guardrails to detect prompt injection<br>**CTRL-0083** (Level 0): Disallow unknown external files unless scanned | • Scan all file contents for prompt injection patterns before processing<br>• Warn user when opening repositories from untrusted sources<br>• Sanitize code comments and docstrings before including in prompts |
+| RISK-043 | **CTRL-0047** (Level 0): Implement output guardrails to detect and redact PII<br>**CTRL-0081** (Level 1): Implement input guardrails to detect PII in accessed data | • Scan all generated code for API keys, tokens, passwords using regex patterns<br>• Flag and redact detected secrets before displaying to user<br>• Warn user when reading config files containing credentials |
+| RISK-044 | **CTRL-0062** (Level 0): Implement input guardrails to detect prompt injection<br>**CTRL-0083** (Level 0): Disallow unknown external files unless scanned | • Scan all file contents for prompt injection patterns before processing<br>• Warn user when opening repositories from untrusted sources<br>• Sanitize code comments and docstrings before including in prompts |
 
 #### Step 4: Assess Residual Risks
 
@@ -316,7 +316,7 @@ After implementing controls, key residual risks remain:
 | Risk ID | Residual Risk Description | Mitigation Strategy |
 |---------|---------------------------|---------------------|
 | RISK-040 | **Subtle Security Vulnerabilities**: Static analyzers may miss logic flaws, race conditions, or business logic vulnerabilities that require deeper semantic understanding. | • Require security-focused code review for authentication, authorization, and payment logic<br>• Integrate periodic penetration testing of generated features<br>• Maintain security checklist for high-risk code categories |
-| RISK-039 | **Sophisticated Prompt Injection**: Advanced attacks embedded in dependency documentation or third-party code may bypass current detection and manipulate assistant behaviour. | • Monitor command execution patterns for anomalies (e.g., unexpected network calls)<br>• Regularly update injection detection patterns based on emerging attacks<br>• Implement rate limiting on destructive operations |
+| RISK-044 | **Sophisticated Prompt Injection**: Advanced attacks embedded in dependency documentation or third-party code may bypass current detection and manipulate assistant behaviour. | • Monitor command execution patterns for anomalies (e.g., unexpected network calls)<br>• Regularly update injection detection patterns based on emerging attacks<br>• Implement rate limiting on destructive operations |
 | RISK-041 | **Misinterpreted User Intent**: User requests like "clean up the code" may be interpreted too broadly, leading to unintended file deletions or modifications despite approval workflows. | • Require assistant to explicitly list files to be modified before execution<br>• Implement dry-run mode showing proposed changes before applying<br>• Maintain undo history for last 10 operations |
 | RISK-028 | **Framework/Library Hallucination**: Assistant may hallucinate non-existent APIs, deprecated methods, or incorrect framework usage in less common libraries. | • Prioritize official documentation retrieval for library-specific questions<br>• Display confidence scores for code suggestions involving external dependencies<br>• Encourage developers to verify against official docs for critical integrations |
 
@@ -343,11 +343,11 @@ Based on the capability taxonomy, this system demonstrates:
 
 | Category | Capability | Explanation |
 |----------|-----------|-------------|
-| Cognitive | CAP-01: Reasoning and Problem-Solving | The Conversation Manager interprets customer intent from natural language queries and resolves ambiguous requests. |
-| Cognitive | CAP-02: Planning and Goal Management | The Conversation Manager plans multi-step interactions (e.g., "reschedule appointment" → check existing booking, find availability, confirm new time, update system). |
-| Cognitive | CAP-03: Tool Use and Delegation | The Conversation Manager selects appropriate agents based on query type (information vs. transaction vs. customer data lookup). |
+| Cognitive | CAP-01: Planning and Goal Management | The Conversation Manager plans multi-step interactions (e.g., "reschedule appointment" → check existing booking, find availability, confirm new time, update system). |
+| Cognitive | CAP-02: Agent Delegation | The Conversation Manager assigns tasks to specialized agents (Knowledge Agent, Booking Agent, Profile Agent) based on query type. |
 | Interaction | CAP-04: Multimodal Understanding and Generation | All agents process natural language queries and generate conversational responses; system handles phone audio transcription. |
-| Operational | CAP-09: Other Programmatic Interfaces | The Booking Agent integrates with appointment scheduling APIs; Profile Agent queries CRM systems. |
+| Interaction | CAP-06: Business Transactions | The Booking Agent autonomously creates, modifies, and cancels appointments — binding service commitments made on the organisation's behalf. |
+| Interaction | CAP-09: Other Programmatic Interfaces | The Booking Agent integrates with appointment scheduling APIs; Profile Agent queries CRM systems. |
 | Operational | CAP-11: File and Data Management | The Knowledge Agent retrieves from product documentation and policy databases; Profile Agent accesses customer records. |
 
 #### Step 2: Evaluate Risks
@@ -359,8 +359,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 | Risk ID | Element | Risk Statement | Assessment |
 |---------|---------|----------------|------------|
 | RISK-028 | CAP-04 (Multimodal Understanding) | Generation of non-factual or hallucinated content | **[Impact: 4, Likelihood: 4]** Hallucinating incorrect product information, pricing, or policies could mislead customers into incorrect decisions or create contractual disputes. |
-| RISK-032 | CAP-09 (Other Programmatic Interfaces) | Executing unauthorised business transactions | **[Impact: 5, Likelihood: 3]** Agent may create, modify, or cancel appointments without proper customer authorisation if it misinterprets conversational intent. |
-| RISK-042 | CAP-11 (File & Data Management) | Exposing PII from accessed files | **[Impact: 4, Likelihood: 3]** Agent may inadvertently disclose another customer's personal information (contact details, booking history) if customer identification fails or database queries retrieve wrong records. |
+| RISK-032 | CAP-06 (Business Transactions) | Unauthorised execution of business transactions | **[Impact: 5, Likelihood: 3]** Agent may create, modify, or cancel appointments without proper customer authorisation if it misinterprets conversational intent. |
+| RISK-043 | CAP-11 (File & Data Management) | Exposure of sensitive data through file or database access | **[Impact: 4, Likelihood: 3]** Agent may inadvertently disclose another customer's personal information (contact details, booking history) if customer identification fails or database queries retrieve wrong records. |
 
 **Risks Below Threshold (Impact <4 or Likelihood <3):**
 
@@ -368,8 +368,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 |---------|---------|----------------|------------|------------------|
 | RISK-002 | CMP-01 (LLM) | Insufficient alignment of LLM behaviour | **[Impact: 4, Likelihood: 2]** Modern LLMs with strong safety training are unlikely to catastrophically misalign in customer service contexts. | Likelihood too low |
 | RISK-007 | CMP-03 (Tools) | Lack of input sanitisation | **[Impact: 3, Likelihood: 3]** Tool injection could manipulate responses but unlikely to cause severe customer harm in this context. | Impact too low |
-| RISK-030 | CAP-04 (Multimodal Understanding) | Making inaccurate commitments in communications | **[Impact: 4, Likelihood: 2]** Agent may overcommit but conversational nature provides clarification opportunities before commitments finalise. | Likelihood too low |
-| RISK-041 | CAP-11 (File & Data Management) | Destructive modifications to files or databases | **[Impact: 3, Likelihood: 2]** Booking modifications are reversible; permanent data loss unlikely with modern systems. | Both too low |
+| RISK-031 | CAP-05 (Official Communication) | Inaccurate promises or statements in official communications | **[Impact: 4, Likelihood: 2]** Agent may overcommit but conversational nature provides clarification opportunities before commitments finalise. | Likelihood too low |
+| RISK-041 | CAP-11 (File & Data Management) | Unintended overwriting or deletion of files or data | **[Impact: 3, Likelihood: 2]** Booking modifications are reversible; permanent data loss unlikely with modern systems. | Both too low |
 
 *(Additional risks documented but not shown here for brevity)*
 
@@ -381,7 +381,7 @@ For priority risks (Impact ≥4, Likelihood ≥3), we implement primarily Level 
 |---------|-------------------|----------------|
 | RISK-028 | **CTRL-0048** (Level 2): Implement methods to reduce hallucination rates<br>**CTRL-0049** (Level 0): Implement UI/UX cues for hallucination risk | • Implement RAG using verified product catalogue and policy database (updated daily)<br>• Add audio disclaimer at call start: "Information provided is for reference only; verify critical details with documentation"<br>• Include citations in call transcripts showing which knowledge base articles informed responses |
 | RISK-032 | **CTRL-0056** (Level 1): Require explicit user confirmation before initiating transactions<br>**CTRL-0058** (Level 1): Restrict agents to proposing transactions using separate controller | • Require verbal confirmation before any booking changes: "I'll change your appointment to [date/time]. Please confirm by saying 'yes' or 'confirm'"<br>• Record confirmation audio for audit trail<br>• Use dedicated transaction controller API that validates all booking operations independently<br>• Booking Agent cannot directly modify databases; only submits requests to controller |
-| RISK-042 | **CTRL-0047** (Level 0): Implement output guardrails to detect and redact PII<br>**CTRL-0082** (Level 2): Do not grant access to PII unless required | • Implement output guardrails that redact phone numbers, email addresses, and full addresses before agent responds<br>• Restrict Profile Agent access to current caller's records only (enforce via customer ID verification)<br>• Log all customer data access attempts with caller ID matching validation<br>• Block queries requesting data for different customer IDs |
+| RISK-043 | **CTRL-0047** (Level 0): Implement output guardrails to detect and redact PII<br>**CTRL-0082** (Level 2): Do not grant access to PII unless required | • Implement output guardrails that redact phone numbers, email addresses, and full addresses before agent responds<br>• Restrict Profile Agent access to current caller's records only (enforce via customer ID verification)<br>• Log all customer data access attempts with caller ID matching validation<br>• Block queries requesting data for different customer IDs |
 
 #### Step 4: Assess Residual Risks
 
@@ -391,7 +391,7 @@ After implementing controls, key residual risks remain:
 |---------|---------------------------|---------------------|
 | RISK-028 | **Product Information Drift**: Knowledge base may contain outdated information if not regularly updated, leading to incorrect customer guidance despite RAG grounding. | • Establish weekly knowledge base update process with product team sign-off<br>• Monitor customer complaints about inaccurate information<br>• Maintain version tracking for knowledge base updates<br>• Accept: Some lag between product changes and knowledge base updates is acceptable |
 | RISK-032 | **Ambiguous Verbal Confirmation**: Customer may say "yes" to general conversation rather than specific booking confirmation, leading to unintended changes. | • Require agent to state exact action before confirmation request<br>• Monitor for unusual booking modification patterns (e.g., high cancellation rates)<br>• Accept: Clear verbal confirmation protocol is sufficient given low-stakes nature of appointment changes |
-| RISK-042 | **Customer Identification Errors**: Phone number-based identification may fail if caller uses different number, potentially exposing previous customer's data. | • Implement secondary verification (date of birth, booking reference) for sensitive requests<br>• Log all identification failures and review monthly<br>• Accept: Rare misidentification events acceptable given low sensitivity of booking data |
+| RISK-043 | **Customer Identification Errors**: Phone number-based identification may fail if caller uses different number, potentially exposing previous customer's data. | • Implement secondary verification (date of birth, booking reference) for sensitive requests<br>• Log all identification failures and review monthly<br>• Accept: Rare misidentification events acceptable given low sensitivity of booking data |
 | RISK-007 | **Tool Output Manipulation**: Booking system responses could theoretically contain injected instructions if compromised. | • Monitor booking API responses for anomalies<br>• Accept: Internal booking system is trusted; risk of compromise considered low<br>• No additional controls warranted given risk appetite |
 
 These residual risks and mitigation strategies will be reviewed quarterly, with accelerated review if customer complaint rates exceed 2% of total calls or booking error rates exceed 0.5%.
