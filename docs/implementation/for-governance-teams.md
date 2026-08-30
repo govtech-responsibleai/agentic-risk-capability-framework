@@ -51,7 +51,7 @@ Risks can vary significantly across organisations. For example, hallucination ri
     **Financial Services (US):** "Processing unauthorised securities trades violating SEC Rule 15c3-3 (Customer Protection Rule); potential market manipulation under Securities Exchange Act; immediate FINRA reporting required; exposure to class action lawsuits"
 
 !!! tip "Contextualising Risks for your Organisation"
-    **Geographic context** matters significantly when contextualising risks. **US organisations** should map risks to state and federal regulations such as HIPAA, CCPA, and sector-specific requirements. **Singapore-based organisations** should align risks with the PDPA, Cybersecurity Act, and sectoral guidelines from regulators like MAS, MOH, and IMDA. **Organisations with a presence in the EU** must contextualise risks for GDPR compliance and emerging AI Act requirements.
+    **Geographic context** matters significantly when contextualising risks. **US organisations** should map risks to state and federal regulations such as HIPAA, CCPA, and sector-specific requirements. **Singapore-based organisations** should align risks with the PDPA, Cybersecurity Act, and sectoral guidelines from regulators like MAS, MOH, and IMDA. **Organisations with a presence in the EU** must contextualise risks for GDPR compliance and the EU AI Act's obligations as they phase in.
 
     **Industry context** shapes risk prioritisation and impact assessment. **Healthcare organisations** should elevate all risks involving patient safety and medical information due to regulatory scrutiny and potential harm. **Financial services firms** must emphasize transaction integrity, market manipulation risks, and financial crime prevention. **Legal firms** should highlight risks to attorney-client privilege and professional liability. **Manufacturing companies** need to focus on safety-critical operations and operational continuity risks.
 
@@ -79,7 +79,7 @@ Technical controls require adaptation to the organisation's existing technical s
         **Baseline Control (CTRL-0044):** "Implement output safety guardrails to detect and prevent generation of undesirable content"
         
         - **Adapted for Organisation with Azure Infrastructure:** "Use Azure AI Content Safety API with toxicity threshold >0.7, sexual content threshold >0.6; block flagged outputs and log violations to Application Insights; review flagged content weekly"
-        - **Adapted for Organisation Without Commercial Safety APIs:** "Implement keyword-based filtering for high-priority harmful content categories (profanity, violence, hate speech); use open-source detectors (e.g., Detoxify) for toxicity scoring; plan migration to commercial API in Q3 when budget available"
+        - **Adapted for Organisation Without Commercial Safety APIs:** "Implement keyword-based filtering for high-priority harmful content categories (profanity, violence, hate speech); use open-source detectors (e.g., Detoxify) for toxicity scoring; plan migration to a commercial API when budget allows"
 
 
 ### Step 4: Define Relevance Criteria
