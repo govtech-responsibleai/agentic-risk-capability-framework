@@ -1313,7 +1313,7 @@
 <tbody>
 <tr>
 <td>RISK-002</td>
-<td><strong>CTRL-0005</strong> (Level 0): Conduct structured evaluation of multiple LLMs<br><strong>CTRL-0006</strong> (Level 1): Require human approval before executing high-impact actions</td>
+<td><strong>CTRL-0005</strong> (Level 1): Conduct structured evaluation of multiple LLMs<br><strong>CTRL-0006</strong> (Level 1): Require human approval before executing high-impact actions</td>
 <td>• Evaluated Claude Sonnet 4.5, GPT-4, and Gemini Pro on fact-checking benchmarks<br>• Selected Claude Sonnet 4.5 for superior instruction-following and refusal capabilities<br>• Require human review before publishing final verification verdicts</td>
 </tr>
 <tr>
@@ -1328,7 +1328,7 @@
 </tr>
 <tr>
 <td>RISK-034</td>
-<td><strong>CTRL-0060</strong> (Level 1): Implement escape filtering before incorporating web content<br><strong>CTRL-0061</strong> (Level 0): Use structured retrieval APIs rather than web scraping<br><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection</td>
+<td><strong>CTRL-0060</strong> (Level 1): Implement escape filtering before incorporating web content<br><strong>CTRL-0061</strong> (Level 1): Use structured retrieval APIs rather than web scraping<br><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection</td>
 <td>• Sanitize all retrieved web content before adding to prompts<br>• Use Google Search API for structured results rather than raw HTML scraping<br>• Deploy prompt injection detector to scan web content</td>
 </tr>
 <tr>
@@ -1538,7 +1538,7 @@
 <tbody>
 <tr>
 <td>RISK-002</td>
-<td><strong>CTRL-0005</strong> (Level 0): Conduct structured evaluation of multiple LLMs<br><strong>CTRL-0007</strong> (Level 0): Log all LLM inputs and outputs</td>
+<td><strong>CTRL-0005</strong> (Level 1): Conduct structured evaluation of multiple LLMs<br><strong>CTRL-0007</strong> (Level 0): Log all LLM inputs and outputs</td>
 <td>• Evaluated Claude Sonnet 4.5, GPT-4o, and Gemini Pro on code generation benchmarks (HumanEval, MBPP)<br>• Selected Claude Sonnet 4.5 for superior instruction-following and code safety<br>• Log all prompts and generated code to CloudWatch with 90-day retention</td>
 </tr>
 <tr>
@@ -1558,12 +1558,12 @@
 </tr>
 <tr>
 <td>RISK-039</td>
-<td><strong>CTRL-0068</strong> (Level 0): Use code linters to screen generated code<br><strong>CTRL-0069</strong> (Level 0): Run code only in isolated environments<br><strong>CTRL-0070</strong> (Level 0): Review all agent-generated code before execution</td>
+<td><strong>CTRL-0068</strong> (Level 0): Use code linters to screen generated code<br><strong>CTRL-0069</strong> (Level 0): Run code only in isolated environments<br><strong>CTRL-0070</strong> (Level 1): Review all agent-generated code before execution</td>
 <td>• Integrate ESLint for JavaScript/TypeScript and Pylint for Python, blocking code application if critical errors detected<br>• Execute all code in Docker containers with no network access by default<br>• Require explicit user approval before running any shell commands</td>
 </tr>
 <tr>
 <td>RISK-040</td>
-<td><strong>CTRL-0071</strong> (Level 0): Use static code analyzers to detect vulnerabilities<br><strong>CTRL-0070</strong> (Level 0): Review all agent-generated code before execution<br><strong>CTRL-0073</strong> (Level 0): Create denylist of dangerous commands</td>
+<td><strong>CTRL-0071</strong> (Level 0): Use static code analyzers to detect vulnerabilities<br><strong>CTRL-0070</strong> (Level 1): Review all agent-generated code before execution<br><strong>CTRL-0073</strong> (Level 0): Create denylist of dangerous commands</td>
 <td>• Integrate Semgrep with OWASP ruleset for vulnerability scanning<br>• Integrate Bandit for Python security analysis<br>• Flag HIGH/CRITICAL vulnerabilities and require user acknowledgment<br>• Denylist: rm -rf, dd, mkfs, iptables, sudo commands without user confirmation</td>
 </tr>
 <tr>
