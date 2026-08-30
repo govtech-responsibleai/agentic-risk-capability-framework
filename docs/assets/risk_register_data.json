@@ -76,7 +76,7 @@
         },
         {
           "id": "CTRL-0005",
-          "level": 0,
+          "level": 1,
           "statement": "Conduct structured evaluation of multiple LLMs for instruction-following, performance, and safety before deployment",
           "recommendations": "Deploying an LLM without comparative evaluation risks selecting a model poorly suited to your use case, potentially resulting in safety issues, poor performance, or misaligned behaviour. Define evaluation criteria aligned with your application requirements (e.g., accuracy on domain-specific tasks, refusal of unsafe requests, consistency of outputs) and benchmark multiple candidate models against these criteria using representative test scenarios. Use both automated metrics and human evaluation to assess instruction-following quality, safety boundaries, and failure modes. Document evaluation results to support model selection decisions and establish baseline performance expectations for ongoing monitoring.",
           "references": []
@@ -130,7 +130,7 @@
         },
         {
           "id": "CTRL-0005",
-          "level": 0,
+          "level": 1,
           "statement": "Conduct structured evaluation of multiple LLMs for instruction-following, performance, and safety before deployment",
           "recommendations": "Deploying an LLM without comparative evaluation risks selecting a model poorly suited to your use case, potentially resulting in safety issues, poor performance, or misaligned behaviour. Define evaluation criteria aligned with your application requirements (e.g., accuracy on domain-specific tasks, refusal of unsafe requests, consistency of outputs) and benchmark multiple candidate models against these criteria using representative test scenarios. Use both automated metrics and human evaluation to assess instruction-following quality, safety boundaries, and failure modes. Document evaluation results to support model selection decisions and establish baseline performance expectations for ongoing monitoring.",
           "references": []
@@ -651,7 +651,7 @@
       "controls": [
         {
           "id": "CTRL-0033",
-          "level": 0,
+          "level": 1,
           "statement": "Standardise trace attributes for agent operations using consistent semantic conventions",
           "recommendations": "Inconsistent or ad-hoc telemetry labelling prevents effective correlation of agent activities across multi-agent systems, making it difficult to debug failures, analyse performance, or investigate security incidents. Define and enforce standard semantic conventions for trace attributes across all agents, including mandatory fields such as agent identity, tool name, operation type, session identifiers, and correlation IDs. Adopt existing observability standards where available (e.g., OpenTelemetry semantic conventions) to ensure compatibility with industry-standard analysis tools and reduce implementation effort. Document attribute naming conventions, permitted values, and usage guidelines, and implement validation to ensure agents emit telemetry conforming to the standardised schema.",
           "references": []
@@ -874,7 +874,7 @@
       "controls": [
         {
           "id": "CTRL-0042",
-          "level": 0,
+          "level": 1,
           "statement": "Require explicit human confirmation before executing high-impact or irreversible tool actions",
           "recommendations": "Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when.",
           "references": []
@@ -931,7 +931,7 @@
       "controls": [
         {
           "id": "CTRL-0045",
-          "level": 0,
+          "level": 1,
           "statement": "Implement input guardrails to detect and decline requests for specialised domain advice",
           "recommendations": "Agents generating unqualified advice in specialised domains such as medical, financial, or legal matters may cause users to act on incorrect or inappropriate information, leading to serious harm or adverse outcomes. Deploy input guardrails that detect when user requests fall within specialised domains requiring professional expertise, such as medical diagnosis, financial investment advice, or legal counsel. Configure the system to decline these requests with appropriate messaging that explains why the agent cannot provide such advice and suggests consulting qualified professionals.",
           "references": []
@@ -956,7 +956,7 @@
       "controls": [
         {
           "id": "CTRL-0046",
-          "level": 0,
+          "level": 1,
           "statement": "Implement input guardrails to detect and decline requests for controversial content that violates organisational policies",
           "recommendations": "Agents generating controversial or sensitive content such as political commentary or statements about competitors may create reputational damage, legal liability, or compliance violations for the organisation. Deploy input guardrails that detect requests for content on topics deemed controversial or sensitive according to organisational policies, such as political positions, religious commentary, competitive disparagement, or other restricted subjects. Define clear content policies that specify which topics or viewpoints the agent should avoid, and configure detection mechanisms to identify requests that would violate these boundaries. When controversial requests are detected, decline with messaging that explains the agent's content limitations whilst maintaining a respectful tone towards the user.",
           "references": []
@@ -1098,14 +1098,14 @@
       "controls": [
         {
           "id": "CTRL-0053",
-          "level": 0,
+          "level": 1,
           "statement": "Require human approval for communications on sensitive matters",
           "recommendations": "Agents making unsupported commitments, inaccurate assurances, or statements that exceed organisational capabilities in official communications may expose the organisation to reputational damage, legal liability, or unmet expectations. Implement mandatory human review and approval workflows for communications on sensitive matters including contractual commitments, financial promises, policy statements, regulatory responses, or public-facing announcements. Define clear criteria for what constitutes \"sensitive matters\" requiring approval, ensuring consistent application across the organisation.",
           "references": []
         },
         {
           "id": "CTRL-0054",
-          "level": 0,
+          "level": 1,
           "statement": "Limit agent communications to standard processes with predefined templates",
           "recommendations": "Agents generating free-form communications may inadvertently make inaccurate promises or statements that exceed organisational authority or capabilities, creating legal and reputational risks. Restrict agent communications to standard, well-defined processes where approved communication templates exist, such as appointment confirmations, order status updates, or routine customer service responses. Design templates to include appropriate disclaimers, limit commitments to verified capabilities, and avoid language that could create unintended obligations. Review and approve all communication templates before deployment, ensuring they accurately reflect organisational policies and cannot be misinterpreted as making unauthorised commitments.",
           "references": []
@@ -1209,7 +1209,7 @@
         },
         {
           "id": "CTRL-0061",
-          "level": 0,
+          "level": 1,
           "statement": "Use structured retrieval APIs for web searches rather than web scraping",
           "recommendations": "Web scraping exposes agents to arbitrary web content including malicious HTML, scripts, and embedded instructions that may be crafted to inject prompts or manipulate agent behaviour. Use structured retrieval APIs such as search engine APIs, knowledge bases, or curated data sources that provide pre-processed, sanitised content rather than raw web pages. Structured APIs typically return controlled formats (JSON, XML) containing extracted information without rendering full web content, reducing exposure to injection vectors embedded in HTML, CSS, or JavaScript.",
           "references": []
@@ -1367,7 +1367,7 @@
         },
         {
           "id": "CTRL-0070",
-          "level": 0,
+          "level": 1,
           "statement": "Review all agent-generated code before execution",
           "recommendations": "Agent-generated code may contain security vulnerabilities, logic errors, or malicious instructions that could compromise systems if executed without review. Implement mandatory human review workflows for all code generated by agents before execution, including source code, scripts, configuration files, and command sequences. Configure review processes to present code with sufficient context for reviewers to assess safety and correctness, including the agent's reasoning for generating the code and its intended purpose.",
           "references": []
@@ -1415,7 +1415,7 @@
         },
         {
           "id": "CTRL-0070",
-          "level": 0,
+          "level": 1,
           "statement": "Review all agent-generated code before execution",
           "recommendations": "Agent-generated code may contain security vulnerabilities, logic errors, or malicious instructions that could compromise systems if executed without review. Implement mandatory human review workflows for all code generated by agents before execution, including source code, scripts, configuration files, and command sequences. Configure review processes to present code with sufficient context for reviewers to assess safety and correctness, including the agent's reasoning for generating the code and its intended purpose.",
           "references": []
@@ -1522,7 +1522,7 @@
         },
         {
           "id": "CTRL-0080",
-          "level": 0,
+          "level": 2,
           "statement": "Implement caching mechanisms to reduce repetitive database queries by agents",
           "recommendations": "Agents repeatedly querying the same or similar data create unnecessary database load, consuming resources that could be avoided through intelligent caching. Implement caching layers (e.g., Redis, Memcached, in-memory caches) that store frequently accessed data, allowing agents to retrieve cached results rather than repeatedly querying databases for identical information.",
           "references": []
