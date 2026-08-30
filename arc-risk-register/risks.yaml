@@ -5,7 +5,8 @@ RISK-001:
     or distribution, causing them to behave maliciously or unpredictably under specific
     conditions. Such models may leak sensitive information, bypass safeguards, or
     execute hidden behaviors that undermine system integrity and trust.
-  element_id: CMP-01
+  element_ids:
+  - CMP-01
   failure_mode: External Manipulation
   type:
   - Safety
@@ -25,7 +26,8 @@ RISK-002:
     policies, leading to inappropriate, unsafe, or undesired outputs. Misalignment
     may surface as failure to follow constraints, inconsistent reasoning, or behavior
     that diverges from expected norms in edge cases or complex scenarios.
-  element_id: CMP-01
+  element_ids:
+  - CMP-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -45,7 +47,8 @@ RISK-003:
     or detect unsafe situations. As a result, the model may produce incorrect, misleading,
     or unsafe outputs that create downstream safety or security failures in systems
     that rely on its judgments.
-  element_id: CMP-01
+  element_ids:
+  - CMP-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -64,7 +67,8 @@ RISK-004:
     of tool capabilities. As a result, attackers or misbehaving agents may compromise
     the system by invoking sensitive actions, escalating privileges, or manipulating
     external resources beyond intended boundaries.
-  element_id: CMP-03
+  element_ids:
+  - CMP-03
   failure_mode: Tool or Resource Malfunction
   type:
   - Security
@@ -83,7 +87,8 @@ RISK-005:
     beyond their intended responsibilities. As a result, agents may perform unauthorised
     actions, misuse sensitive tools, or exceed their permitted scope, increasing the
     likelihood of security and operational failures.
-  element_id: CMP-03
+  element_ids:
+  - CMP-03
   failure_mode: Tool or Resource Malfunction
   type:
   - Security
@@ -99,7 +104,8 @@ RISK-006:
     behaviour when invoked by an agent. As a result, the agent may unknowingly execute
     malicious actions, leak sensitive information, or produce manipulated outputs
     that undermine system integrity and trust.
-  element_id: CMP-03
+  element_ids:
+  - CMP-03
   failure_mode: External Manipulation
   type:
   - Safety
@@ -115,7 +121,8 @@ RISK-007:
     properly validated or sanitised, allowing malformed or malicious data to be processed.
     As a result, tools may be exploited through injection attacks, unintended command
     execution, or data corruption.
-  element_id: CMP-03
+  element_ids:
+  - CMP-03
   failure_mode: Tool or Resource Malfunction
   type:
   - Safety
@@ -131,7 +138,8 @@ RISK-008:
     incomplete, or poorly scoped, leading the model to make unintended assumptions
     when interpreting tasks or constraints. As a result, the LLM may behave unpredictably,
     bypass safeguards, or take actions that introduce safety or security risks.
-  element_id: CMP-02
+  element_ids:
+  - CMP-02
   failure_mode: Agent Failure
   type:
   - Safety
@@ -149,7 +157,8 @@ RISK-009:
     into system instructions without proper sanitisation or validation. As a result,
     malicious or malformed content may manipulate the model's behaviour, override
     intended constraints, or trigger unintended actions.
-  element_id: CMP-02
+  element_ids:
+  - CMP-02
   failure_mode: External Manipulation
   type:
   - Safety
@@ -166,7 +175,8 @@ RISK-010:
     intentionally or inadvertently populated with malicious, misleading, or corrupted
     information. As a result, the agent may rely on compromised memory to make decisions,
     propagate false information, or exhibit persistent unsafe behaviour across interactions.
-  element_id: CMP-04
+  element_ids:
+  - CMP-04
   failure_mode: External Manipulation
   type:
   - Safety
@@ -185,7 +195,8 @@ RISK-011:
     information across sessions, tasks, or users with different scopes or authorisations.
     As a result, data may be inappropriately accessed or reused in unrelated contexts,
     leading to privacy breaches, confidentiality violations, or unauthorised disclosure.
-  element_id: CMP-04
+  element_ids:
+  - CMP-04
   failure_mode: Agent Failure
   type:
   - Safety
@@ -201,7 +212,8 @@ RISK-012:
     propagate through interconnected agents within a multi-agent system. As a result,
     small failures may compound across agent interactions, leading to amplified errors,
     degraded system performance, or unintended outcomes at the system level.
-  element_id: DSN-01
+  element_ids:
+  - DSN-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -219,7 +231,8 @@ RISK-013:
     within the agentic system. As a result, agents may act on tampered information,
     leading to incorrect coordination, unauthorised actions, or compromised system
     behaviour.
-  element_id: DSN-01
+  element_ids:
+  - DSN-01
   failure_mode: External Manipulation
   type:
   - Security
@@ -234,7 +247,8 @@ RISK-014:
     outputs, or errors within an agentic architecture. As a result, feedback loops
     may form that escalate actions, consume excessive resources, or cause the system
     to persist in harmful or unintended behaviour without effective human intervention.
-  element_id: DSN-01
+  element_ids:
+  - DSN-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -251,7 +265,8 @@ RISK-015:
     exceed their intended responsibilities or operational needs. As a result, agents
     may access sensitive resources, invoke high-impact capabilities, or perform unauthorised
     actions that increase the likelihood of security, privacy, or operational failures.
-  element_id: DSN-02
+  element_ids:
+  - DSN-02
   failure_mode: Agent Failure
   type:
   - Security
@@ -267,7 +282,8 @@ RISK-016:
     or unintended system behaviour. As a result, agents may bypass intended controls,
     access restricted resources, or execute actions that undermine system security
     and governance.
-  element_id: DSN-02
+  element_ids:
+  - DSN-02
   failure_mode: Agent Failure
   type:
   - Security
@@ -282,7 +298,8 @@ RISK-017:
     into agent behaviour, system events, or execution outcomes. As a result, failures,
     anomalies, or unintended actions may go undetected for extended periods, increasing
     the impact and difficulty of remediation.
-  element_id: DSN-03
+  element_ids:
+  - DSN-03
   failure_mode: Agent Failure
   type:
   - Safety
@@ -298,7 +315,8 @@ RISK-018:
     reasoning steps, decision pathways, or execution context for agent actions. As
     a result, operators may be unable to reconstruct failures, understand why specific
     outcomes occurred, or conduct effective audits and post-incident reviews.
-  element_id: DSN-03
+  element_ids:
+  - DSN-03
   failure_mode: Agent Failure
   type:
   - Security
@@ -314,7 +332,8 @@ RISK-019:
     accurately reflect the user’s stated objectives, constraints, or preferences.
     As a result, the system may pursue incorrect or suboptimal actions, waste resources,
     or deliver outcomes that do not satisfy user expectations.
-  element_id: CAP-01
+  element_ids:
+  - CAP-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -332,7 +351,8 @@ RISK-020:
     considering basic safety, security, or practical constraints that would be apparent
     to a human. As a result, the system may propose or pursue actions that are unsafe,
     insecure, or inappropriate despite being technically feasible.
-  element_id: CAP-01
+  element_ids:
+  - CAP-01
   failure_mode: Agent Failure
   type:
   - Safety
@@ -348,7 +368,8 @@ RISK-021:
     not match their capabilities, roles, or access permissions. As a result, tasks
     may be executed incorrectly, fail to complete, or introduce security and operational
     issues due to inappropriate delegation.
-  element_id: CAP-02
+  element_ids:
+  - CAP-02
   failure_mode: Agent Failure
   type:
   - Safety
@@ -364,7 +385,8 @@ RISK-022:
     malicious objectives. As a result, delegated agents may be coerced into performing
     unauthorised actions, amplifying harmful behaviour or evading detection within
     the system.
-  element_id: CAP-02
+  element_ids:
+  - CAP-02
   failure_mode: Agent Failure
   type:
   - Safety
@@ -382,7 +404,8 @@ RISK-023:
     a tool incorrectly for a given task or action. As a result, the agent may produce
     erroneous outcomes, fail to complete the task effectively, or trigger unintended
     side effects due to misuse of tool capabilities.
-  element_id: CAP-03
+  element_ids:
+  - CAP-03
   failure_mode: Agent Failure
   type:
   - Safety
@@ -398,7 +421,8 @@ RISK-024:
     media that contain toxic, hateful, sexual, or otherwise inappropriate content.
     As a result, the system may cause harm to users, violate organisational standards
     or regulations, or undermine trust in the system’s outputs.
-  element_id: CAP-04
+  element_ids:
+  - CAP-04
   failure_mode: Agent Failure
   type:
   - Safety
@@ -412,7 +436,8 @@ RISK-025:
     domains such as medical, financial, or legal contexts without appropriate expertise,
     validation, or safeguards. As a result, users may act on incorrect or inappropriate
     information, leading to potential harm or adverse outcomes.
-  element_id: CAP-04
+  element_ids:
+  - CAP-04
   failure_mode: Agent Failure
   type:
   - Safety
@@ -427,7 +452,8 @@ RISK-026:
     about competitors. As a result, the system may create reputational, legal, or
     compliance issues, or be perceived as biased, inappropriate, or misrepresentative
     of organisational views.
-  element_id: CAP-04
+  element_ids:
+  - CAP-04
   failure_mode: Agent Failure
   type:
   - Safety
@@ -441,7 +467,8 @@ RISK-027:
     in its generated outputs, whether drawn from training data, memory, or prior interactions.
     As a result, the system may violate privacy obligations, expose individuals to
     harm, or breach data protection requirements.
-  element_id: CAP-04
+  element_ids:
+  - CAP-04
   failure_mode: Agent Failure
   type:
   - Safety
@@ -455,7 +482,8 @@ RISK-028:
   description: This risk arises when an agent generates information that is inaccurate,
     fabricated, or unsupported by evidence while presenting it as factual. As a result,
     users may be misled, make incorrect decisions, or lose trust in the system’s outputs.
-  element_id: CAP-04
+  element_ids:
+  - CAP-04
   failure_mode: Agent Failure
   type:
   - Safety
@@ -471,7 +499,8 @@ RISK-029:
     closely resembles copyrighted material without appropriate rights or attribution.
     As a result, the system may infringe intellectual property laws, expose the organisation
     to legal liability, or violate licensing and usage terms.
-  element_id: CAP-04
+  element_ids:
+  - CAP-04
   failure_mode: Agent Failure
   type:
   - Safety
@@ -485,7 +514,8 @@ RISK-030:
     communication was authored by a human or generated by an agent on behalf of the
     organisation. As a result, stakeholders may form incorrect assumptions about accountability,
     intent, or authority, potentially leading to trust, legal, or reputational issues.
-  element_id: CAP-05
+  element_ids:
+  - CAP-05
   failure_mode: Agent Failure
   type:
   - Safety
@@ -499,7 +529,8 @@ RISK-031:
     statements that are incorrect, unsupported, or exceed the organisation’s actual
     intentions or capabilities. As a result, the organisation may face reputational
     damage, legal exposure, or loss of public trust due to unmet expectations or misinformation.
-  element_id: CAP-05
+  element_ids:
+  - CAP-05
   failure_mode: Agent Failure
   type:
   - Safety
@@ -515,7 +546,8 @@ RISK-032:
     transactions outside predefined approval thresholds, roles, or authorisation limits.
     As a result, the organisation may be exposed to unintended financial losses, binding
     contractual obligations, or operational commitments that were not properly sanctioned.
-  element_id: CAP-06
+  element_ids:
+  - CAP-06
   failure_mode: Agent Failure
   type:
   - Security
@@ -532,7 +564,8 @@ RISK-033:
     improperly stored by an agent or its supporting systems. As a result, malicious
     parties may gain the ability to initiate unauthorised transactions, manipulate
     financial operations, or compromise transactional systems.
-  element_id: CAP-06
+  element_ids:
+  - CAP-06
   failure_mode: Tool or Resource Malfunction
   type:
   - Security
@@ -547,7 +580,8 @@ RISK-034:
     prompts into the system. As a result, the agent may follow unintended commands,
     override intended constraints, or take actions that compromise system behaviour
     or integrity.
-  element_id: CAP-07
+  element_ids:
+  - CAP-07
   failure_mode: External Manipulation
   type:
   - Safety
@@ -564,7 +598,8 @@ RISK-035:
     websites that are inaccurate, outdated, biased, or otherwise unreliable. As a
     result, users may be misinformed or make incorrect decisions based on content
     that has not been adequately validated or corroborated.
-  element_id: CAP-07
+  element_ids:
+  - CAP-07
   failure_mode: Tool or Resource Malfunction
   type:
   - Safety
@@ -580,7 +615,8 @@ RISK-036:
     cues. As a result, the agent may misinterpret on-screen text as authoritative
     guidance, follow injected instructions, or perform unintended actions while operating
     the interface.
-  element_id: CAP-08
+  element_ids:
+  - CAP-08
   failure_mode: External Manipulation
   type:
   - Safety
@@ -598,7 +634,8 @@ RISK-037:
     particularly when authenticated as a user or organisation. As a result, the agent
     may inadvertently view, process, or disclose confidential data beyond its intended
     scope or authorisation.
-  element_id: CAP-08
+  element_ids:
+  - CAP-08
   failure_mode: Agent Failure
   type:
   - Safety
@@ -614,7 +651,8 @@ RISK-038:
     non-standard interfaces outside established protocols such as MCP servers. As
     a result, the agent may misinterpret interface semantics, invoke operations incorrectly,
     or produce unintended effects due to improper integration or usage.
-  element_id: CAP-09
+  element_ids:
+  - CAP-09
   failure_mode: Agent Failure
   type:
   - Safety
@@ -630,7 +668,8 @@ RISK-039:
     inefficient, insecure, or unsuitable for the intended task. As a result, the code
     may fail to achieve desired outcomes, introduce bugs or vulnerabilities, or cause
     operational disruptions when deployed or run.
-  element_id: CAP-10
+  element_ids:
+  - CAP-10
   failure_mode: Agent Failure
   type:
   - Security
@@ -650,7 +689,8 @@ RISK-040:
     vulnerabilities or intentionally malicious logic, whether generated by the model
     or sourced externally. As a result, the system may be compromised through exploitation,
     unauthorised access, data leakage, or other harmful effects.
-  element_id: CAP-10
+  element_ids:
+  - CAP-10
   failure_mode: Agent Failure
   type:
   - Security
@@ -670,7 +710,8 @@ RISK-041:
     database tables, or datasets without explicit user instruction or authorisation.
     As a result, critical information may be lost or corrupted, leading to data integrity
     issues, operational disruption, or the need for costly recovery efforts.
-  element_id: CAP-11
+  element_ids:
+  - CAP-11
   failure_mode: Agent Failure
   type:
   - Security
@@ -686,7 +727,8 @@ RISK-042:
     frequent, or redundant queries against databases or data stores. As a result,
     system performance may degrade, resources may be exhausted, or critical services
     may become unavailable due to unnecessary load.
-  element_id: CAP-11
+  element_ids:
+  - CAP-11
   failure_mode: Agent Failure
   type:
   - Security
@@ -702,7 +744,8 @@ RISK-043:
     identifiable or sensitive information stored in files or databases without appropriate
     safeguards. As a result, confidential data may be disclosed to unauthorised parties,
     leading to privacy breaches, regulatory non-compliance, or loss of trust.
-  element_id: CAP-11
+  element_ids:
+  - CAP-11
   failure_mode: Agent Failure
   type:
   - Security
@@ -717,7 +760,8 @@ RISK-044:
     files or data that embed hidden instructions or manipulative content. As a result,
     the agent may follow unintended prompts, alter its behaviour, or execute actions
     that compromise system safety or integrity.
-  element_id: CAP-11
+  element_ids:
+  - CAP-11
   failure_mode: External Manipulation
   type:
   - Safety
@@ -734,7 +778,8 @@ RISK-045:
     infrastructure resources, or operational parameters. As a result, system performance,
     reliability, or security may be degraded, leading to service disruptions or unintended
     operational behaviour.
-  element_id: CAP-12
+  element_ids:
+  - CAP-12
   failure_mode: Agent Failure
   type:
   - Security
@@ -750,7 +795,8 @@ RISK-046:
     frequent, or redundant system-level operations or queries. As a result, computing
     resources may be exhausted, system performance may degrade, or services may become
     unavailable due to unnecessary load.
-  element_id: CAP-12
+  element_ids:
+  - CAP-12
   failure_mode: Agent Failure
   type:
   - Security

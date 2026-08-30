@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const failureFilter = document.getElementById('failure-filter');
 
     // Populate element categories
-    const categories = [...new Set(data.risks.map(r => r.element_category))].sort();
+    const categories = [...new Set(data.risks.flatMap(r => r.element_categories))].sort();
     categories.forEach(cat => {
         const option = document.createElement('option');
         option.value = cat;
@@ -250,11 +250,17 @@ document.addEventListener('DOMContentLoaded', async function() {
             },
             {
                 title: "Element",
-                field: "element_category",
+                field: "element_categories",
                 minWidth: 180,
                 widthGrow: 2,
                 responsive: 1,
                 headerFilter: false,
+                formatter: function(cell) {
+                    // A composite risk arises from the combination of several elements
+                    const cats = cell.getValue() || [];
+                    const label = cats.join(' + ');
+                    return cats.length > 1 ? `<span title="Composite risk: arises from the combination of these elements">${label}</span>` : label;
+                },
                 vertAlign: "middle"
             },
             {
@@ -297,7 +303,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const visibleData = table.getData("active"); // Get filtered data
         
         // Count unique elements and unique controls from visible risks
-        const uniqueElements = [...new Set(visibleData.map(r => r.element_category))].length;
+        const uniqueElements = [...new Set(visibleData.flatMap(r => r.element_categories))].length;
         
         // Count unique control IDs (not sum of control_count, since controls can be shared)
         const allControlIds = new Set();
@@ -341,7 +347,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Use a single custom filter function for all filters
         table.setFilter(function(data) {
             // Element category filter
-            if (elementCategory && data.element_category !== elementCategory) {
+            if (elementCategory && !(data.element_categories || []).includes(elementCategory)) {
                 return false;
             }
             

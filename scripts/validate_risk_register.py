@@ -9,8 +9,9 @@ built or deployed silently.
 
 Checks:
   - IDs are well-formed (RISK-###, CTRL-####, CMP/DSN/CAP-##)
-  - every risk has statement, description, element_id, failure_mode, type, controls
-  - element_id refers to a defined component, design element, or capability
+  - every risk has statement, description, element_ids, failure_mode, type, controls
+  - element_ids is a non-empty list of distinct, defined components, design elements,
+    or capabilities (a risk with several elements arises from their combination)
   - failure_mode and type values come from the allowed sets
   - every control has a statement, a valid level (0/1/2), and at least one risk
   - risk->control and control->risk mappings are exactly inverse-consistent
@@ -52,11 +53,18 @@ def validate():
     for risk_id, risk in risks.items():
         if not RISK_ID.match(risk_id):
             errors.append(f'{risk_id}: malformed risk ID')
-        for field in ('statement', 'description', 'element_id', 'failure_mode', 'type', 'controls'):
+        for field in ('statement', 'description', 'element_ids', 'failure_mode', 'type', 'controls'):
             if not risk.get(field):
                 errors.append(f'{risk_id}: missing or empty field "{field}"')
-        if risk.get('element_id') and risk['element_id'] not in elements:
-            errors.append(f'{risk_id}: unknown element_id "{risk["element_id"]}"')
+        element_ids = risk.get('element_ids') or []
+        if not isinstance(element_ids, list):
+            errors.append(f'{risk_id}: element_ids must be a list')
+            element_ids = []
+        if len(set(element_ids)) != len(element_ids):
+            errors.append(f'{risk_id}: duplicate entries in element_ids')
+        for element_id in element_ids:
+            if element_id not in elements:
+                errors.append(f'{risk_id}: unknown element "{element_id}" in element_ids')
         if risk.get('failure_mode') and risk['failure_mode'] not in FAILURE_MODES:
             errors.append(f'{risk_id}: unknown failure_mode "{risk["failure_mode"]}"')
         for t in risk.get('type') or []:

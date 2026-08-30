@@ -102,9 +102,17 @@ def element_kind(element_id: str) -> str:
     return KIND_BY_PREFIX.get(prefix, "unknown")
 
 
+def risk_element_ids(risk: Dict[str, Any]) -> List[str]:
+    """Elements a risk arises from (several IDs mean the risk arises from their combination)."""
+    return list(risk.get("element_ids") or [])
+
+
 def is_baseline_risk(risk: Dict[str, Any]) -> bool:
-    """Component and design risks apply to every agentic system."""
-    return element_kind(risk.get("element_id", "")) in ("component", "design")
+    """Component and design risks apply to every agentic system.
+
+    A risk is baseline when none of its elements is a capability.
+    """
+    return not any(element_kind(eid) == "capability" for eid in risk_element_ids(risk))
 
 
 def get_element(element_id: str, capabilities: Dict[str, Any],
@@ -115,10 +123,8 @@ def get_element(element_id: str, capabilities: Dict[str, Any],
     return source.get(element_id)
 
 
-def describe_risk_element(risk: Dict[str, Any], capabilities: Dict[str, Any],
-                          components: Dict[str, Any], design: Dict[str, Any]) -> str:
-    """Human-readable origin of a risk, e.g. 'Capability: Tool Use (Cognitive)'."""
-    element_id = risk.get("element_id", "")
+def _describe_element(element_id: str, capabilities: Dict[str, Any],
+                      components: Dict[str, Any], design: Dict[str, Any]) -> str:
     kind = element_kind(element_id)
     element = get_element(element_id, capabilities, components, design)
     if not element:
@@ -129,17 +135,32 @@ def describe_risk_element(risk: Dict[str, Any], capabilities: Dict[str, Any],
     return label
 
 
+def describe_risk_element(risk: Dict[str, Any], capabilities: Dict[str, Any],
+                          components: Dict[str, Any], design: Dict[str, Any]) -> str:
+    """Human-readable origin of a risk, e.g. 'Capability: Tool Use (Cognitive)'.
+
+    A composite risk lists all its elements joined with ' + '.
+    """
+    labels = [_describe_element(eid, capabilities, components, design) for eid in risk_element_ids(risk)]
+    return " + ".join(labels) if labels else "Unknown element"
+
+
 def get_applicable_risk_ids(risks: Dict[str, Any], selected_capabilities: List[str]) -> List[str]:
     """All baseline (component/design) risks plus the risks of the selected capabilities.
 
-    Order follows the register: baseline risks first, then capability risks.
+    A risk that arises from several capabilities applies only when all of them are
+    selected. Order follows the register: baseline risks first, then capability risks.
     """
+    selected = set(selected_capabilities)
     baseline = [rid for rid, r in risks.items() if is_baseline_risk(r)]
-    capability = [
-        rid for rid, r in risks.items()
-        if element_kind(r.get("element_id", "")) == "capability"
-        and r.get("element_id") in selected_capabilities
-    ]
+    capability = []
+    for rid, r in risks.items():
+        if is_baseline_risk(r):
+            continue
+        needed = {eid for eid in risk_element_ids(r) if element_kind(eid) == "capability"}
+        # A composite risk arises from the combination of its capabilities, so all must be present
+        if needed and needed <= selected:
+            capability.append(rid)
     return baseline + capability
 
 

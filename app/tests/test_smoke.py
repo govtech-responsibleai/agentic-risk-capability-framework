@@ -23,13 +23,13 @@ SELECTED = ["CAP-07", "CAP-11"]  # Internet & Search Access, File & Data Managem
 def test_loader_helpers():
     caps, risks, controls, comps, design = dl.load_data()
     assert caps and risks and controls and comps and design, "register failed to load"
-    assert all(dl.element_kind(r["element_id"]) != "unknown" for r in risks.values())
+    assert all(dl.element_kind(eid) != "unknown" for r in risks.values() for eid in r["element_ids"])
 
     baseline = [rid for rid in risks if dl.is_baseline_risk(risks[rid])]
     assert baseline, "no baseline risks found"
     ids = dl.get_applicable_risk_ids(risks, SELECTED)
     assert ids[:len(baseline)] == baseline
-    assert all(risks[r]["element_id"] in SELECTED for r in ids[len(baseline):])
+    assert all(set(risks[r]["element_ids"]) <= set(SELECTED) for r in ids[len(baseline):])
 
     assert dl.describe_risk_element(risks["RISK-034"], caps, comps, design) == \
         "Capability: Internet and Search Access (Interaction)"
