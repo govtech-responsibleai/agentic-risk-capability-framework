@@ -4,9 +4,16 @@
       "id": "RISK-001",
       "statement": "Use of untrusted or compromised LLMs",
       "description": "This risk arises when LLMs obtained from untrusted or insufficiently vetted sources have been intentionally poisoned or backdoored during training or distribution, causing them to behave maliciously or unpredictably under specific conditions. Such models may leak sensitive information, bypass safeguards, or execute hidden behaviors that undermine system integrity and trust.",
-      "element_id": "CMP-01",
-      "element_name": "LLM",
-      "element_category": "Component - LLM",
+      "element_ids": [
+        "CMP-01"
+      ],
+      "element_names": [
+        "LLM"
+      ],
+      "element_categories": [
+        "Component - LLM"
+      ],
+      "composite": false,
       "failure_mode": "External Manipulation",
       "type": [
         "Safety",
@@ -58,9 +65,16 @@
       "id": "RISK-002",
       "statement": "Insufficient alignment of LLM behaviour",
       "description": "This risk arises when an LLM's learned objectives and behaviors do not reliably align with intended user goals, system instructions, or organizational policies, leading to inappropriate, unsafe, or undesired outputs. Misalignment may surface as failure to follow constraints, inconsistent reasoning, or behavior that diverges from expected norms in edge cases or complex scenarios.",
-      "element_id": "CMP-01",
-      "element_name": "LLM",
-      "element_category": "Component - LLM",
+      "element_ids": [
+        "CMP-01"
+      ],
+      "element_names": [
+        "LLM"
+      ],
+      "element_categories": [
+        "Component - LLM"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -112,9 +126,16 @@
       "id": "RISK-003",
       "statement": "Insufficient LLM capability and reliability",
       "description": "This risk arises when an LLM lacks sufficient capability, robustness, or reasoning performance to correctly interpret instructions, handle edge cases, or detect unsafe situations. As a result, the model may produce incorrect, misleading, or unsafe outputs that create downstream safety or security failures in systems that rely on its judgments.",
-      "element_id": "CMP-01",
-      "element_name": "LLM",
-      "element_category": "Component - LLM",
+      "element_ids": [
+        "CMP-01"
+      ],
+      "element_names": [
+        "LLM"
+      ],
+      "element_categories": [
+        "Component - LLM"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -159,9 +180,16 @@
       "id": "RISK-004",
       "statement": "Weak tool authentication and authorisation controls",
       "description": "This risk arises when tools connected to an agent lack robust authentication or fine-grained authorisation mechanisms, allowing unauthorised access or misuse of tool capabilities. As a result, attackers or misbehaving agents may compromise the system by invoking sensitive actions, escalating privileges, or manipulating external resources beyond intended boundaries.",
-      "element_id": "CMP-03",
-      "element_name": "Tools",
-      "element_category": "Component - Tools",
+      "element_ids": [
+        "CMP-03"
+      ],
+      "element_names": [
+        "Tools"
+      ],
+      "element_categories": [
+        "Component - Tools"
+      ],
+      "composite": false,
       "failure_mode": "Tool or Resource Malfunction",
       "type": [
         "Security"
@@ -204,9 +232,16 @@
       "id": "RISK-005",
       "statement": "Lack of proper role-based access control for tools",
       "description": "This risk arises when tools exposed to an agent do not enforce clear, role-based access controls, allowing agents to access capabilities or resources beyond their intended responsibilities. As a result, agents may perform unauthorised actions, misuse sensitive tools, or exceed their permitted scope, increasing the likelihood of security and operational failures.",
-      "element_id": "CMP-03",
-      "element_name": "Tools",
-      "element_category": "Component - Tools",
+      "element_ids": [
+        "CMP-03"
+      ],
+      "element_names": [
+        "Tools"
+      ],
+      "element_categories": [
+        "Component - Tools"
+      ],
+      "composite": false,
       "failure_mode": "Tool or Resource Malfunction",
       "type": [
         "Security"
@@ -242,9 +277,16 @@
       "id": "RISK-006",
       "statement": "Tool poisoning by malicious actors",
       "description": "This risk arises when tools or their interfaces are intentionally modified, compromised, or replaced by malicious actors to introduce harmful or deceptive behaviour when invoked by an agent. As a result, the agent may unknowingly execute malicious actions, leak sensitive information, or produce manipulated outputs that undermine system integrity and trust.",
-      "element_id": "CMP-03",
-      "element_name": "Tools",
-      "element_category": "Component - Tools",
+      "element_ids": [
+        "CMP-03"
+      ],
+      "element_names": [
+        "Tools"
+      ],
+      "element_categories": [
+        "Component - Tools"
+      ],
+      "composite": false,
       "failure_mode": "External Manipulation",
       "type": [
         "Safety",
@@ -279,9 +321,16 @@
       "id": "RISK-007",
       "statement": "Lack of input sanitisation",
       "description": "This risk arises when inputs passed from the agent to tools are not properly validated or sanitised, allowing malformed or malicious data to be processed. As a result, tools may be exploited through injection attacks, unintended command execution, or data corruption.",
-      "element_id": "CMP-03",
-      "element_name": "Tools",
-      "element_category": "Component - Tools",
+      "element_ids": [
+        "CMP-03"
+      ],
+      "element_names": [
+        "Tools"
+      ],
+      "element_categories": [
+        "Component - Tools"
+      ],
+      "composite": false,
       "failure_mode": "Tool or Resource Malfunction",
       "type": [
         "Safety",
@@ -310,9 +359,16 @@
       "id": "RISK-008",
       "statement": "Vague or underspecified instructions",
       "description": "This risk arises when instructions provided to an LLM are ambiguous, incomplete, or poorly scoped, leading the model to make unintended assumptions when interpreting tasks or constraints. As a result, the LLM may behave unpredictably, bypass safeguards, or take actions that introduce safety or security risks.",
-      "element_id": "CMP-02",
-      "element_name": "Instructions",
-      "element_category": "Component - Instructions",
+      "element_ids": [
+        "CMP-02"
+      ],
+      "element_names": [
+        "Instructions"
+      ],
+      "element_categories": [
+        "Component - Instructions"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -351,9 +407,16 @@
       "id": "RISK-009",
       "statement": "Unsanitised inputs in system instructions",
       "description": "This risk arises when untrusted or user-controlled inputs are incorporated into system instructions without proper sanitisation or validation. As a result, malicious or malformed content may manipulate the model's behaviour, override intended constraints, or trigger unintended actions.",
-      "element_id": "CMP-02",
-      "element_name": "Instructions",
-      "element_category": "Component - Instructions",
+      "element_ids": [
+        "CMP-02"
+      ],
+      "element_names": [
+        "Instructions"
+      ],
+      "element_categories": [
+        "Component - Instructions"
+      ],
+      "composite": false,
       "failure_mode": "External Manipulation",
       "type": [
         "Safety",
@@ -385,9 +448,16 @@
       "id": "RISK-010",
       "statement": "Poisoned memory",
       "description": "This risk arises when the memory component of an agentic system is intentionally or inadvertently populated with malicious, misleading, or corrupted information. As a result, the agent may rely on compromised memory to make decisions, propagate false information, or exhibit persistent unsafe behaviour across interactions.",
-      "element_id": "CMP-04",
-      "element_name": "Memory",
-      "element_category": "Component - Memory",
+      "element_ids": [
+        "CMP-04"
+      ],
+      "element_names": [
+        "Memory"
+      ],
+      "element_categories": [
+        "Component - Memory"
+      ],
+      "composite": false,
       "failure_mode": "External Manipulation",
       "type": [
         "Safety",
@@ -427,9 +497,16 @@
       "id": "RISK-011",
       "statement": "Sensitive data leakage across memory contexts",
       "description": "This risk arises when the memory component retains or exposes sensitive information across sessions, tasks, or users with different scopes or authorisations. As a result, data may be inappropriately accessed or reused in unrelated contexts, leading to privacy breaches, confidentiality violations, or unauthorised disclosure.",
-      "element_id": "CMP-04",
-      "element_name": "Memory",
-      "element_category": "Component - Memory",
+      "element_ids": [
+        "CMP-04"
+      ],
+      "element_names": [
+        "Memory"
+      ],
+      "element_categories": [
+        "Component - Memory"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -460,9 +537,16 @@
       "id": "RISK-012",
       "statement": "Cascading errors in multi-agent architectures",
       "description": "This risk arises when errors or misjudgements produced by one agent propagate through interconnected agents within a multi-agent system. As a result, small failures may compound across agent interactions, leading to amplified errors, degraded system performance, or unintended outcomes at the system level.",
-      "element_id": "DSN-01",
-      "element_name": "Agentic Architecture",
-      "element_category": "Design - Agentic Architecture",
+      "element_ids": [
+        "DSN-01"
+      ],
+      "element_names": [
+        "Agentic Architecture"
+      ],
+      "element_categories": [
+        "Design - Agentic Architecture"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -496,9 +580,16 @@
       "id": "RISK-013",
       "statement": "Man-in-the-middle attacks between agents",
       "description": "This risk arises when communication channels between agents are insufficiently secured, allowing an attacker to intercept, modify, or replay messages exchanged within the agentic system. As a result, agents may act on tampered information, leading to incorrect coordination, unauthorised actions, or compromised system behaviour.",
-      "element_id": "DSN-01",
-      "element_name": "Agentic Architecture",
-      "element_category": "Design - Agentic Architecture",
+      "element_ids": [
+        "DSN-01"
+      ],
+      "element_names": [
+        "Agentic Architecture"
+      ],
+      "element_categories": [
+        "Design - Agentic Architecture"
+      ],
+      "composite": false,
       "failure_mode": "External Manipulation",
       "type": [
         "Security"
@@ -534,9 +625,16 @@
       "id": "RISK-014",
       "statement": "Feedback loops and runaway agent behaviour",
       "description": "This risk arises when agents repeatedly reinforce each other\u2019s decisions, outputs, or errors within an agentic architecture. As a result, feedback loops may form that escalate actions, consume excessive resources, or cause the system to persist in harmful or unintended behaviour without effective human intervention.",
-      "element_id": "DSN-01",
-      "element_name": "Agentic Architecture",
-      "element_category": "Design - Agentic Architecture",
+      "element_ids": [
+        "DSN-01"
+      ],
+      "element_names": [
+        "Agentic Architecture"
+      ],
+      "element_categories": [
+        "Design - Agentic Architecture"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -570,9 +668,16 @@
       "id": "RISK-015",
       "statement": "Overly permissive roles and permissions",
       "description": "This risk arises when agents are granted roles or permissions that exceed their intended responsibilities or operational needs. As a result, agents may access sensitive resources, invoke high-impact capabilities, or perform unauthorised actions that increase the likelihood of security, privacy, or operational failures.",
-      "element_id": "DSN-02",
-      "element_name": "Roles and Access Controls",
-      "element_category": "Design - Roles and Access Controls",
+      "element_ids": [
+        "DSN-02"
+      ],
+      "element_names": [
+        "Roles and Access Controls"
+      ],
+      "element_categories": [
+        "Design - Roles and Access Controls"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -606,9 +711,16 @@
       "id": "RISK-016",
       "statement": "Unauthorised privilege escalation",
       "description": "This risk arises when agents are able to gain elevated roles or permissions beyond those initially granted, whether through misconfiguration, exploitation, or unintended system behaviour. As a result, agents may bypass intended controls, access restricted resources, or execute actions that undermine system security and governance.",
-      "element_id": "DSN-02",
-      "element_name": "Roles and Access Controls",
-      "element_category": "Design - Roles and Access Controls",
+      "element_ids": [
+        "DSN-02"
+      ],
+      "element_names": [
+        "Roles and Access Controls"
+      ],
+      "element_categories": [
+        "Design - Roles and Access Controls"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -640,9 +752,16 @@
       "id": "RISK-017",
       "statement": "Delayed failure detection due to limited monitoring",
       "description": "This risk arises when monitoring systems provide insufficient visibility into agent behaviour, system events, or execution outcomes. As a result, failures, anomalies, or unintended actions may go undetected for extended periods, increasing the impact and difficulty of remediation.",
-      "element_id": "DSN-03",
-      "element_name": "Monitoring and Traceability",
-      "element_category": "Design - Monitoring and Traceability",
+      "element_ids": [
+        "DSN-03"
+      ],
+      "element_names": [
+        "Monitoring and Traceability"
+      ],
+      "element_categories": [
+        "Design - Monitoring and Traceability"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -673,9 +792,16 @@
       "id": "RISK-018",
       "statement": "Inability to audit failures due to missing decision traces",
       "description": "This risk arises when monitoring systems do not capture sufficient reasoning steps, decision pathways, or execution context for agent actions. As a result, operators may be unable to reconstruct failures, understand why specific outcomes occurred, or conduct effective audits and post-incident reviews.",
-      "element_id": "DSN-03",
-      "element_name": "Monitoring and Traceability",
-      "element_category": "Design - Monitoring and Traceability",
+      "element_ids": [
+        "DSN-03"
+      ],
+      "element_names": [
+        "Monitoring and Traceability"
+      ],
+      "element_categories": [
+        "Design - Monitoring and Traceability"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -706,9 +832,16 @@
       "id": "RISK-019",
       "statement": "Generating plans that fail to meet the user's requirements",
       "description": "This risk arises when an agent generates plans or goals that do not accurately reflect the user\u2019s stated objectives, constraints, or preferences. As a result, the system may pursue incorrect or suboptimal actions, waste resources, or deliver outcomes that do not satisfy user expectations.",
-      "element_id": "CAP-01",
-      "element_name": "Planning and Goal Management",
-      "element_category": "Capability - Cognitive",
+      "element_ids": [
+        "CAP-01"
+      ],
+      "element_names": [
+        "Planning and Goal Management"
+      ],
+      "element_categories": [
+        "Capability - Cognitive"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -747,9 +880,16 @@
       "id": "RISK-020",
       "statement": "Generating plans that overlook safety implications",
       "description": "This risk arises when an agent generates plans or goals without adequately considering basic safety, security, or practical constraints that would be apparent to a human. As a result, the system may propose or pursue actions that are unsafe, insecure, or inappropriate despite being technically feasible.",
-      "element_id": "CAP-01",
-      "element_name": "Planning and Goal Management",
-      "element_category": "Capability - Cognitive",
+      "element_ids": [
+        "CAP-01"
+      ],
+      "element_names": [
+        "Planning and Goal Management"
+      ],
+      "element_categories": [
+        "Capability - Cognitive"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
@@ -788,9 +928,16 @@
       "id": "RISK-021",
       "statement": "Incorrect task delegation between agents",
       "description": "This risk arises when an agent assigns tasks to other agents that do not match their capabilities, roles, or access permissions. As a result, tasks may be executed incorrectly, fail to complete, or introduce security and operational issues due to inappropriate delegation.",
-      "element_id": "CAP-02",
-      "element_name": "Agent Delegation",
-      "element_category": "Capability - Cognitive",
+      "element_ids": [
+        "CAP-02"
+      ],
+      "element_names": [
+        "Agent Delegation"
+      ],
+      "element_categories": [
+        "Capability - Cognitive"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -814,9 +961,16 @@
       "id": "RISK-022",
       "statement": "Malicious or manipulative use of delegated agents",
       "description": "This risk arises when an agent deliberately assigns tasks to other agents in ways intended to bypass controls, obscure responsibility, or achieve malicious objectives. As a result, delegated agents may be coerced into performing unauthorised actions, amplifying harmful behaviour or evading detection within the system.",
-      "element_id": "CAP-02",
-      "element_name": "Agent Delegation",
-      "element_category": "Capability - Cognitive",
+      "element_ids": [
+        "CAP-02"
+      ],
+      "element_names": [
+        "Agent Delegation"
+      ],
+      "element_categories": [
+        "Capability - Cognitive"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -863,9 +1017,16 @@
       "id": "RISK-023",
       "statement": "Incorrect tool selection or misuse",
       "description": "This risk arises when an agent selects an inappropriate tool or applies a tool incorrectly for a given task or action. As a result, the agent may produce erroneous outcomes, fail to complete the task effectively, or trigger unintended side effects due to misuse of tool capabilities.",
-      "element_id": "CAP-03",
-      "element_name": "Tool Use",
-      "element_category": "Capability - Cognitive",
+      "element_ids": [
+        "CAP-03"
+      ],
+      "element_names": [
+        "Tool Use"
+      ],
+      "element_categories": [
+        "Capability - Cognitive"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -896,9 +1057,16 @@
       "id": "RISK-024",
       "statement": "Generation of undesirable content",
       "description": "This risk arises when an agent generates text, images, audio, or other media that contain toxic, hateful, sexual, or otherwise inappropriate content. As a result, the system may cause harm to users, violate organisational standards or regulations, or undermine trust in the system\u2019s outputs.",
-      "element_id": "CAP-04",
-      "element_name": "Multimodal Understanding and Generation",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-04"
+      ],
+      "element_names": [
+        "Multimodal Understanding and Generation"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
@@ -921,9 +1089,16 @@
       "id": "RISK-025",
       "statement": "Generation of unqualified advice in specialised domains",
       "description": "This risk arises when an agent generates advice or guidance in specialised domains such as medical, financial, or legal contexts without appropriate expertise, validation, or safeguards. As a result, users may act on incorrect or inappropriate information, leading to potential harm or adverse outcomes.",
-      "element_id": "CAP-04",
-      "element_name": "Multimodal Understanding and Generation",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-04"
+      ],
+      "element_names": [
+        "Multimodal Understanding and Generation"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
@@ -946,9 +1121,16 @@
       "id": "RISK-026",
       "statement": "Generation of controversial or sensitive content",
       "description": "This risk arises when an agent generates content related to sensitive or controversial topics, such as political commentary or denigrating comments about competitors. As a result, the system may create reputational, legal, or compliance issues, or be perceived as biased, inappropriate, or misrepresentative of organisational views.",
-      "element_id": "CAP-04",
-      "element_name": "Multimodal Understanding and Generation",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-04"
+      ],
+      "element_names": [
+        "Multimodal Understanding and Generation"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
@@ -971,9 +1153,16 @@
       "id": "RISK-027",
       "statement": "Regurgitating personally identifiable information",
       "description": "This risk arises when an agent reproduces personally identifiable information in its generated outputs, whether drawn from training data, memory, or prior interactions. As a result, the system may violate privacy obligations, expose individuals to harm, or breach data protection requirements.",
-      "element_id": "CAP-04",
-      "element_name": "Multimodal Understanding and Generation",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-04"
+      ],
+      "element_names": [
+        "Multimodal Understanding and Generation"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -997,9 +1186,16 @@
       "id": "RISK-028",
       "statement": "Generation of non-factual or hallucinated content",
       "description": "This risk arises when an agent generates information that is inaccurate, fabricated, or unsupported by evidence while presenting it as factual. As a result, users may be misled, make incorrect decisions, or lose trust in the system\u2019s outputs.",
-      "element_id": "CAP-04",
-      "element_name": "Multimodal Understanding and Generation",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-04"
+      ],
+      "element_names": [
+        "Multimodal Understanding and Generation"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
@@ -1036,9 +1232,16 @@
       "id": "RISK-029",
       "statement": "Generation of copyrighted content",
       "description": "This risk arises when an agent generates content that reproduces or closely resembles copyrighted material without appropriate rights or attribution. As a result, the system may infringe intellectual property laws, expose the organisation to legal liability, or violate licensing and usage terms.",
-      "element_id": "CAP-04",
-      "element_name": "Multimodal Understanding and Generation",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-04"
+      ],
+      "element_names": [
+        "Multimodal Understanding and Generation"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
@@ -1063,9 +1266,16 @@
       "id": "RISK-030",
       "statement": "Misrepresentation of authorship",
       "description": "This risk arises when recipients are misled about whether an official communication was authored by a human or generated by an agent on behalf of the organisation. As a result, stakeholders may form incorrect assumptions about accountability, intent, or authority, potentially leading to trust, legal, or reputational issues.",
-      "element_id": "CAP-05",
-      "element_name": "Official Communication",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-05"
+      ],
+      "element_names": [
+        "Official Communication"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
@@ -1088,9 +1298,16 @@
       "id": "RISK-031",
       "statement": "Inaccurate promises or statements in official communications",
       "description": "This risk arises when an agent makes commitments, assurances, or public statements that are incorrect, unsupported, or exceed the organisation\u2019s actual intentions or capabilities. As a result, the organisation may face reputational damage, legal exposure, or loss of public trust due to unmet expectations or misinformation.",
-      "element_id": "CAP-05",
-      "element_name": "Official Communication",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-05"
+      ],
+      "element_names": [
+        "Official Communication"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety"
@@ -1127,9 +1344,16 @@
       "id": "RISK-032",
       "statement": "Unauthorised execution of business transactions",
       "description": "This risk arises when an agent initiates, authorises, or executes business transactions outside predefined approval thresholds, roles, or authorisation limits. As a result, the organisation may be exposed to unintended financial losses, binding contractual obligations, or operational commitments that were not properly sanctioned.",
-      "element_id": "CAP-06",
-      "element_name": "Business Transactions",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-06"
+      ],
+      "element_names": [
+        "Business Transactions"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -1166,9 +1390,16 @@
       "id": "RISK-033",
       "statement": "Leakage of transaction credentials",
       "description": "This risk arises when credentials, tokens, or sensitive authentication information used to execute business transactions are exposed, mishandled, or improperly stored by an agent or its supporting systems. As a result, malicious parties may gain the ability to initiate unauthorised transactions, manipulate financial operations, or compromise transactional systems.",
-      "element_id": "CAP-06",
-      "element_name": "Business Transactions",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-06"
+      ],
+      "element_names": [
+        "Business Transactions"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Tool or Resource Malfunction",
       "type": [
         "Security"
@@ -1191,9 +1422,16 @@
       "id": "RISK-034",
       "statement": "Prompt injection via malicious websites",
       "description": "This risk arises when an agent retrieves or processes content from malicious or untrusted websites that are designed to inject instructions or manipulative prompts into the system. As a result, the agent may follow unintended commands, override intended constraints, or take actions that compromise system behaviour or integrity.",
-      "element_id": "CAP-07",
-      "element_name": "Internet and Search Access",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-07"
+      ],
+      "element_names": [
+        "Internet and Search Access"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "External Manipulation",
       "type": [
         "Safety",
@@ -1231,9 +1469,16 @@
       "id": "RISK-035",
       "statement": "Unreliable information or websites",
       "description": "This risk arises when an agent retrieves and presents information from websites that are inaccurate, outdated, biased, or otherwise unreliable. As a result, users may be misinformed or make incorrect decisions based on content that has not been adequately validated or corroborated.",
-      "element_id": "CAP-07",
-      "element_name": "Internet and Search Access",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-07"
+      ],
+      "element_names": [
+        "Internet and Search Access"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Tool or Resource Malfunction",
       "type": [
         "Safety"
@@ -1256,9 +1501,16 @@
       "id": "RISK-036",
       "statement": "Prompt injection risks through computer use",
       "description": "This risk arises when an agent interacts with graphical user interfaces that display untrusted or adversarial content - such as web pages, documents, pop-ups, or form fields - crafted to embed hidden instructions or manipulative cues. As a result, the agent may misinterpret on-screen text as authoritative guidance, follow injected instructions, or perform unintended actions while operating the interface.",
-      "element_id": "CAP-08",
-      "element_name": "Computer Use",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-08"
+      ],
+      "element_names": [
+        "Computer Use"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "External Manipulation",
       "type": [
         "Safety",
@@ -1290,9 +1542,16 @@
       "id": "RISK-037",
       "statement": "Exposure of sensitive data",
       "description": "This risk arises when an agent operating a computer interface accesses websites or applications that contain personally identifiable or sensitive information, particularly when authenticated as a user or organisation. As a result, the agent may inadvertently view, process, or disclose confidential data beyond its intended scope or authorisation.",
-      "element_id": "CAP-08",
-      "element_name": "Computer Use",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-08"
+      ],
+      "element_names": [
+        "Computer Use"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -1316,9 +1575,16 @@
       "id": "RISK-038",
       "statement": "Incorrect use of unfamiliar programmatic interfaces",
       "description": "This risk arises when an agent interacts with programmatic interfaces it has not been trained or configured to use correctly, particularly bespoke or non-standard interfaces outside established protocols such as MCP servers. As a result, the agent may misinterpret interface semantics, invoke operations incorrectly, or produce unintended effects due to improper integration or usage.",
-      "element_id": "CAP-09",
-      "element_name": "Other Programmatic Interfaces",
-      "element_category": "Capability - Interaction",
+      "element_ids": [
+        "CAP-09"
+      ],
+      "element_names": [
+        "Other Programmatic Interfaces"
+      ],
+      "element_categories": [
+        "Capability - Interaction"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -1343,9 +1609,16 @@
       "id": "RISK-039",
       "statement": "Production or execution of poor or ineffective code",
       "description": "This risk arises when an agent generates or executes code that is incorrect, inefficient, insecure, or unsuitable for the intended task. As a result, the code may fail to achieve desired outcomes, introduce bugs or vulnerabilities, or cause operational disruptions when deployed or run.",
-      "element_id": "CAP-10",
-      "element_name": "Code Execution",
-      "element_category": "Capability - Operational",
+      "element_ids": [
+        "CAP-10"
+      ],
+      "element_names": [
+        "Code Execution"
+      ],
+      "element_categories": [
+        "Capability - Operational"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -1398,9 +1671,16 @@
       "id": "RISK-040",
       "statement": "Production or execution of vulnerable or malicious code",
       "description": "This risk arises when an agent executes code that contains security vulnerabilities or intentionally malicious logic, whether generated by the model or sourced externally. As a result, the system may be compromised through exploitation, unauthorised access, data leakage, or other harmful effects.",
-      "element_id": "CAP-10",
-      "element_name": "Code Execution",
-      "element_category": "Capability - Operational",
+      "element_ids": [
+        "CAP-10"
+      ],
+      "element_names": [
+        "Code Execution"
+      ],
+      "element_categories": [
+        "Capability - Operational"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -1459,9 +1739,16 @@
       "id": "RISK-041",
       "statement": "Unintended overwriting or deletion of files or data",
       "description": "This risk arises when an agent modifies, overwrites, or deletes files, database tables, or datasets without explicit user instruction or authorisation. As a result, critical information may be lost or corrupted, leading to data integrity issues, operational disruption, or the need for costly recovery efforts.",
-      "element_id": "CAP-11",
-      "element_name": "File and Data Management",
-      "element_category": "Capability - Operational",
+      "element_ids": [
+        "CAP-11"
+      ],
+      "element_names": [
+        "File and Data Management"
+      ],
+      "element_categories": [
+        "Capability - Operational"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -1498,9 +1785,16 @@
       "id": "RISK-042",
       "statement": "Database overload due to inefficient data operations",
       "description": "This risk arises when an agent issues poorly optimised, excessively frequent, or redundant queries against databases or data stores. As a result, system performance may degrade, resources may be exhausted, or critical services may become unavailable due to unnecessary load.",
-      "element_id": "CAP-11",
-      "element_name": "File and Data Management",
-      "element_category": "Capability - Operational",
+      "element_ids": [
+        "CAP-11"
+      ],
+      "element_names": [
+        "File and Data Management"
+      ],
+      "element_categories": [
+        "Capability - Operational"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -1537,9 +1831,16 @@
       "id": "RISK-043",
       "statement": "Exposure of sensitive data through file or database access",
       "description": "This risk arises when an agent accesses, processes, or outputs personally identifiable or sensitive information stored in files or databases without appropriate safeguards. As a result, confidential data may be disclosed to unauthorised parties, leading to privacy breaches, regulatory non-compliance, or loss of trust.",
-      "element_id": "CAP-11",
-      "element_name": "File and Data Management",
-      "element_category": "Capability - Operational",
+      "element_ids": [
+        "CAP-11"
+      ],
+      "element_names": [
+        "File and Data Management"
+      ],
+      "element_categories": [
+        "Capability - Operational"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -1569,9 +1870,16 @@
       "id": "RISK-044",
       "statement": "Prompt injection via malicious files or data",
       "description": "This risk arises when an agent ingests or processes maliciously crafted files or data that embed hidden instructions or manipulative content. As a result, the agent may follow unintended prompts, alter its behaviour, or execute actions that compromise system safety or integrity.",
-      "element_id": "CAP-11",
-      "element_name": "File and Data Management",
-      "element_category": "Capability - Operational",
+      "element_ids": [
+        "CAP-11"
+      ],
+      "element_names": [
+        "File and Data Management"
+      ],
+      "element_categories": [
+        "Capability - Operational"
+      ],
+      "composite": false,
       "failure_mode": "External Manipulation",
       "type": [
         "Safety",
@@ -1603,9 +1911,16 @@
       "id": "RISK-045",
       "statement": "Misconfiguration of system resources",
       "description": "This risk arises when an agent incorrectly configures system settings, infrastructure resources, or operational parameters. As a result, system performance, reliability, or security may be degraded, leading to service disruptions or unintended operational behaviour.",
-      "element_id": "CAP-12",
-      "element_name": "System Management",
-      "element_category": "Capability - Operational",
+      "element_ids": [
+        "CAP-12"
+      ],
+      "element_names": [
+        "System Management"
+      ],
+      "element_categories": [
+        "Capability - Operational"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
@@ -1636,9 +1951,16 @@
       "id": "RISK-046",
       "statement": "System overload due to inefficient or excessive operations",
       "description": "This risk arises when an agent issues poorly optimised, excessively frequent, or redundant system-level operations or queries. As a result, computing resources may be exhausted, system performance may degrade, or services may become unavailable due to unnecessary load.",
-      "element_id": "CAP-12",
-      "element_name": "System Management",
-      "element_category": "Capability - Operational",
+      "element_ids": [
+        "CAP-12"
+      ],
+      "element_names": [
+        "System Management"
+      ],
+      "element_categories": [
+        "Capability - Operational"
+      ],
+      "composite": false,
       "failure_mode": "Agent Failure",
       "type": [
         "Security"
