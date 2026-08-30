@@ -174,7 +174,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/gh-pages" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
@@ -295,7 +295,7 @@
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/gh-pages" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
@@ -1100,30 +1100,30 @@
   </thead>
   <tbody>
     <tr>
-      <td><strong>Level 0: Essential Controls</strong></td>
-      <td>High-impact risks, regulatory requirements</td>
-      <td>Implement unless technically infeasible; document exceptions with compensating controls</td>
+      <td><strong>Level 0: Cardinal Controls</strong></td>
+      <td>Fundamental requirements for any system where the associated risk applies</td>
+      <td>Must be adopted as-is; cannot be waived</td>
       <td>Authentication for transaction APIs, audit logging for sensitive operations, input validation for code execution</td>
-      <td>Requires senior stakeholder or security team sign-off if not implemented</td>
+      <td>Implementation verified before deployment; blockers escalated to the governance team</td>
     </tr>
     <tr>
-      <td><strong>Level 1: Recommended Controls</strong></td>
+      <td><strong>Level 1: Standard Controls</strong></td>
       <td>Moderate-impact risks, best practices</td>
-      <td>Implement where practical; exercise engineering judgement on feasibility</td>
+      <td>Adopt or adapt meaningfully; exercise engineering judgement on feasibility</td>
       <td>Rate limiting for API calls, output guardrails for content quality, human review for edge cases</td>
       <td>Team-level decision with documented rationale</td>
     </tr>
     <tr>
-      <td><strong>Level 2: Enhanced Controls</strong></td>
+      <td><strong>Level 2: Best Practice Controls</strong></td>
       <td>Defence-in-depth, low residual risk tolerance</td>
-      <td>Consider based on risk appetite and available resources</td>
+      <td>Consider based on risk appetite and available resources, especially for high-risk systems</td>
       <td>Advanced monitoring dashboards, red team testing, redundant safety layers</td>
       <td>Optional; prioritise based on organisational maturity</td>
     </tr>
   </tbody>
 </table>
 
-<p>Not all controls are mandatory—the framework provides a menu of options. Your governance team may specify which controls are required for your organisation; otherwise, apply controls proportionate to risk severity.</p>
+<p>Level 0 controls are mandatory wherever the associated risk applies to your system. Levels 1 and 2 provide a menu of options—your governance team may specify which are required for your organisation; otherwise, apply them proportionate to risk severity.</p>
 <div class="admonition tip">
 <p class="admonition-title">Contextualising Controls</p>
 <p>Although the controls in the organisation's risk register would have been contextualised by the governance teams, they may need additional adaptation to your specific use case or implementation. Below are examples showing the full progression from framework baseline to organisation context to system-specific adaptation:</p>
@@ -1328,17 +1328,17 @@
 </tr>
 <tr>
 <td>RISK-034</td>
-<td><strong>CTRL-0061</strong> (Level 1): Implement escape filtering before incorporating web content<br><strong>CTRL-0062</strong> (Level 0): Use structured retrieval APIs rather than web scraping<br><strong>CTRL-0063</strong> (Level 0): Implement input guardrails to detect prompt injection</td>
+<td><strong>CTRL-0060</strong> (Level 1): Implement escape filtering before incorporating web content<br><strong>CTRL-0061</strong> (Level 0): Use structured retrieval APIs rather than web scraping<br><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection</td>
 <td>• Sanitize all retrieved web content before adding to prompts<br>• Use Google Search API for structured results rather than raw HTML scraping<br>• Deploy prompt injection detector to scan web content</td>
 </tr>
 <tr>
 <td>RISK-035</td>
-<td><strong>CTRL-0064</strong> (Level 1): Prioritise search results from verified, high-quality domains</td>
+<td><strong>CTRL-0063</strong> (Level 1): Prioritise search results from verified, high-quality domains</td>
 <td>• Configure search API to prioritise .gov, .edu, and established news sources<br>• Require cross-source validation for claims from unknown domains</td>
 </tr>
 <tr>
 <td>RISK-044</td>
-<td><strong>CTRL-0063</strong> (Level 0): Implement input guardrails to detect prompt injection<br><strong>CTRL-0084</strong> (Level 0): Disallow unknown or external files unless scanned</td>
+<td><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection<br><strong>CTRL-0083</strong> (Level 0): Disallow unknown or external files unless scanned</td>
 <td>• Validate all new data contributions to knowledge base before ingestion<br>• Scan uploaded files for embedded prompt injection attempts<br>• Maintain allowlist of approved data sources</td>
 </tr>
 </tbody>
@@ -1511,15 +1511,15 @@
 <td><strong>[Impact: 5, Likelihood: 3]</strong> Assistant may accidentally delete critical files, overwrite production configs, or drop database tables when misinterpreting user intent.</td>
 </tr>
 <tr>
-<td>RISK-042</td>
+<td>RISK-043</td>
 <td>CAP-11 (File &amp; Data Management)</td>
-<td>Exposing PII from accessed files</td>
+<td>Exposure of sensitive data through file or database access</td>
 <td><strong>[Impact: 4, Likelihood: 3]</strong> Code suggestions may inadvertently reproduce API keys, credentials, or sensitive data found in configuration files or comments.</td>
 </tr>
 <tr>
-<td>RISK-043</td>
+<td>RISK-044</td>
 <td>CAP-11 (File &amp; Data Management)</td>
-<td>Prompt injection via malicious files</td>
+<td>Prompt injection via malicious files or data</td>
 <td><strong>[Impact: 4, Likelihood: 3]</strong> Malicious code repositories may contain hidden instructions in comments, README files, or docstrings designed to manipulate assistant behaviour.</td>
 </tr>
 </tbody>
@@ -1553,18 +1553,18 @@
 </tr>
 <tr>
 <td>RISK-038</td>
-<td><strong>CTRL-0068</strong> (Level 0): Use code linters to screen generated code</td>
-<td>• Integrate ESLint for JavaScript/TypeScript with strict ruleset<br>• Integrate Pylint for Python with security-focused configuration<br>• Display linter warnings to user before applying code changes<br>• Block code application if critical errors detected</td>
+<td><strong>CTRL-0067</strong> (Level 0): Ensure proper documentation of programmatic interfaces for agent use</td>
+<td>• Provide LLM-readable documentation for all internal APIs and bespoke tools the assistant integrates with<br>• Include parameter types, constraints, and error conditions in tool descriptions<br>• Validate assistant-generated API calls against interface schemas before execution</td>
 </tr>
 <tr>
 <td>RISK-039</td>
-<td><strong>CTRL-0069</strong> (Level 0): Run code only in isolated environments<br><strong>CTRL-0070</strong> (Level 0): Review all agent-generated code before execution<br><strong>CTRL-0073</strong> (Level 0): Create denylist of dangerous commands</td>
-<td>• Execute all code in Docker containers with no network access by default<br>• Require explicit user approval before running any shell commands<br>• Denylist: rm -rf, dd, mkfs, iptables, sudo commands without user confirmation</td>
+<td><strong>CTRL-0068</strong> (Level 0): Use code linters to screen generated code<br><strong>CTRL-0069</strong> (Level 0): Run code only in isolated environments<br><strong>CTRL-0070</strong> (Level 0): Review all agent-generated code before execution</td>
+<td>• Integrate ESLint for JavaScript/TypeScript and Pylint for Python, blocking code application if critical errors detected<br>• Execute all code in Docker containers with no network access by default<br>• Require explicit user approval before running any shell commands</td>
 </tr>
 <tr>
 <td>RISK-040</td>
-<td><strong>CTRL-0071</strong> (Level 0): Use static code analyzers to detect vulnerabilities<br><strong>CTRL-0070</strong> (Level 0): Review all agent-generated code before execution</td>
-<td>• Integrate Semgrep with OWASP ruleset for vulnerability scanning<br>• Integrate Bandit for Python security analysis<br>• Flag HIGH/CRITICAL vulnerabilities and require user acknowledgment<br>• Provide security-focused system prompts emphasizing input validation</td>
+<td><strong>CTRL-0071</strong> (Level 0): Use static code analyzers to detect vulnerabilities<br><strong>CTRL-0070</strong> (Level 0): Review all agent-generated code before execution<br><strong>CTRL-0073</strong> (Level 0): Create denylist of dangerous commands</td>
+<td>• Integrate Semgrep with OWASP ruleset for vulnerability scanning<br>• Integrate Bandit for Python security analysis<br>• Flag HIGH/CRITICAL vulnerabilities and require user acknowledgment<br>• Denylist: rm -rf, dd, mkfs, iptables, sudo commands without user confirmation</td>
 </tr>
 <tr>
 <td>RISK-041</td>
@@ -1572,12 +1572,12 @@
 <td>• Restrict write access to workspace directory only (no system files)<br>• Require explicit confirmation before deleting files or modifying package.json/requirements.txt<br>• Integrate with Git to ensure all changes are tracked and reversible</td>
 </tr>
 <tr>
-<td>RISK-042</td>
+<td>RISK-043</td>
 <td><strong>CTRL-0047</strong> (Level 0): Implement output guardrails to detect and redact PII<br><strong>CTRL-0081</strong> (Level 1): Implement input guardrails to detect PII in accessed data</td>
 <td>• Scan all generated code for API keys, tokens, passwords using regex patterns<br>• Flag and redact detected secrets before displaying to user<br>• Warn user when reading config files containing credentials</td>
 </tr>
 <tr>
-<td>RISK-043</td>
+<td>RISK-044</td>
 <td><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection<br><strong>CTRL-0083</strong> (Level 0): Disallow unknown external files unless scanned</td>
 <td>• Scan all file contents for prompt injection patterns before processing<br>• Warn user when opening repositories from untrusted sources<br>• Sanitize code comments and docstrings before including in prompts</td>
 </tr>
@@ -1600,7 +1600,7 @@
 <td>• Require security-focused code review for authentication, authorization, and payment logic<br>• Integrate periodic penetration testing of generated features<br>• Maintain security checklist for high-risk code categories</td>
 </tr>
 <tr>
-<td>RISK-039</td>
+<td>RISK-044</td>
 <td><strong>Sophisticated Prompt Injection</strong>: Advanced attacks embedded in dependency documentation or third-party code may bypass current detection and manipulate assistant behaviour.</td>
 <td>• Monitor command execution patterns for anomalies (e.g., unexpected network calls)<br>• Regularly update injection detection patterns based on emerging attacks<br>• Implement rate limiting on destructive operations</td>
 </tr>
@@ -1679,7 +1679,12 @@
 <td>All agents process natural language queries and generate conversational responses; system handles phone audio transcription.</td>
 </tr>
 <tr>
-<td>Operational</td>
+<td>Interaction</td>
+<td>CAP-06: Business Transactions</td>
+<td>The Booking Agent autonomously creates, modifies, and cancels appointments — binding service commitments made on the organisation's behalf.</td>
+</tr>
+<tr>
+<td>Interaction</td>
 <td>CAP-09: Other Programmatic Interfaces</td>
 <td>The Booking Agent integrates with appointment scheduling APIs; Profile Agent queries CRM systems.</td>
 </tr>
@@ -1711,14 +1716,14 @@
 </tr>
 <tr>
 <td>RISK-032</td>
-<td>CAP-09 (Other Programmatic Interfaces)</td>
-<td>Executing unauthorised business transactions</td>
+<td>CAP-06 (Business Transactions)</td>
+<td>Unauthorised execution of business transactions</td>
 <td><strong>[Impact: 5, Likelihood: 3]</strong> Agent may create, modify, or cancel appointments without proper customer authorisation if it misinterprets conversational intent.</td>
 </tr>
 <tr>
-<td>RISK-042</td>
+<td>RISK-043</td>
 <td>CAP-11 (File &amp; Data Management)</td>
-<td>Exposing PII from accessed files</td>
+<td>Exposure of sensitive data through file or database access</td>
 <td><strong>[Impact: 4, Likelihood: 3]</strong> Agent may inadvertently disclose another customer's personal information (contact details, booking history) if customer identification fails or database queries retrieve wrong records.</td>
 </tr>
 </tbody>
@@ -1750,16 +1755,16 @@
 <td>Impact too low</td>
 </tr>
 <tr>
-<td>RISK-030</td>
-<td>CAP-04 (Multimodal Understanding)</td>
-<td>Making inaccurate commitments in communications</td>
+<td>RISK-031</td>
+<td>CAP-05 (Official Communication)</td>
+<td>Inaccurate promises or statements in official communications</td>
 <td><strong>[Impact: 4, Likelihood: 2]</strong> Agent may overcommit but conversational nature provides clarification opportunities before commitments finalise.</td>
 <td>Likelihood too low</td>
 </tr>
 <tr>
 <td>RISK-041</td>
 <td>CAP-11 (File &amp; Data Management)</td>
-<td>Destructive modifications to files or databases</td>
+<td>Unintended overwriting or deletion of files or data</td>
 <td><strong>[Impact: 3, Likelihood: 2]</strong> Booking modifications are reversible; permanent data loss unlikely with modern systems.</td>
 <td>Both too low</td>
 </tr>
@@ -1788,7 +1793,7 @@
 <td>• Require verbal confirmation before any booking changes: "I'll change your appointment to [date/time]. Please confirm by saying 'yes' or 'confirm'"<br>• Record confirmation audio for audit trail<br>• Use dedicated transaction controller API that validates all booking operations independently<br>• Booking Agent cannot directly modify databases; only submits requests to controller</td>
 </tr>
 <tr>
-<td>RISK-042</td>
+<td>RISK-043</td>
 <td><strong>CTRL-0047</strong> (Level 0): Implement output guardrails to detect and redact PII<br><strong>CTRL-0082</strong> (Level 2): Do not grant access to PII unless required</td>
 <td>• Implement output guardrails that redact phone numbers, email addresses, and full addresses before agent responds<br>• Restrict Profile Agent access to current caller's records only (enforce via customer ID verification)<br>• Log all customer data access attempts with caller ID matching validation<br>• Block queries requesting data for different customer IDs</td>
 </tr>
@@ -1816,7 +1821,7 @@
 <td>• Require agent to state exact action before confirmation request<br>• Monitor for unusual booking modification patterns (e.g., high cancellation rates)<br>• Accept: Clear verbal confirmation protocol is sufficient given low-stakes nature of appointment changes</td>
 </tr>
 <tr>
-<td>RISK-042</td>
+<td>RISK-043</td>
 <td><strong>Customer Identification Errors</strong>: Phone number-based identification may fail if caller uses different number, potentially exposing previous customer's data.</td>
 <td>• Implement secondary verification (date of birth, booking reference) for sensitive requests<br>• Log all identification failures and review monthly<br>• Accept: Rare misidentification events acceptable given low sensitivity of booking data</td>
 </tr>
