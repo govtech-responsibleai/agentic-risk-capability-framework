@@ -147,7 +147,7 @@ With your pilots complete and the framework refined based on real-world feedback
     
     **1. Create a developer self-service toolkit** including pre-filled templates, decision trees for risk scoring, and concrete examples from your pilot projects. This enables developers to complete assessments without constant governance support.
     
-    **2. Develop standardised assessment templates** that auto-populate with your organisation's contextualised risks, controls, and relevance thresholds. Developers should be able to select from dropdowns rather than writing from scratch.
+    **2. Develop standardised assessment templates** that auto-populate with your organisation's contextualised risks, controls, and relevance thresholds. Developers should be able to select from dropdowns rather than writing from scratch. Start from the framework's [Assessment Template](assessment-template.md), which fixes the fields every assessment should capture, including the evidence for each control and who accepts residual risk.
     
     **3. Implement automated tooling where possible** such as risk scoring calculators, control recommendation engines, or integration with [ARCvisor](../resources/index.md#arcvisor) for guided workflows. Automation reduces assessment time and ensures consistency.
     

@@ -1,0 +1,5 @@
+# Register-level metadata. Bump `version` with every change to the register content
+# (see docs/arc_framework/changelog.md for the versioning policy) and tag main with v<version>
+# when a release is merged.
+version: "1.3.0"
+released: "2026-08-30"
