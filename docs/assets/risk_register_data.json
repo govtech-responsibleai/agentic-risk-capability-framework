@@ -8123,6 +8123,8 @@
     }
   },
   "metadata": {
+    "version": "1.3.0",
+    "released": "2026-08-30",
     "total_risks": 54,
     "total_controls": 94,
     "total_elements": 19,

@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     const response = await fetch('../../assets/risk_register_data.json');
     const data = await response.json();
 
+    // Register version (from register.yaml via the build)
+    const versionEl = document.getElementById('register-version');
+    if (versionEl && data.metadata.version) {
+        versionEl.textContent = `Register version ${data.metadata.version} (${data.metadata.released})`;
+    }
+
     // Populate filter options
     const elementFilter = document.getElementById('element-filter');
     const failureFilter = document.getElementById('failure-filter');
