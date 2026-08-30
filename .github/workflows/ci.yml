@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write   # deploy job pushes the built site to gh-pages
+
+jobs:
+  validate:
+    name: Validate register and build site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Validate risk register
+        run: python scripts/validate_risk_register.py
+
+      - name: Check generated register JSON is up to date
+        run: |
+          python scripts/build_risk_register.py
+          git diff --exit-code docs/assets/risk_register_data.json \
+            || { echo "::error::docs/assets/risk_register_data.json is stale — run scripts/build_risk_register.py and commit the result"; exit 1; }
+
+      - name: Build site (warnings are errors)
+        run: mkdocs build --strict
+
+  app-smoke-test:
+    name: ARCvisor smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - run: pip install -r app/requirements.txt
+      - name: Run headless app test (LLM calls patched out)
+        run: python app/tests/test_smoke.py
+
+  deploy:
+    name: Deploy site to GitHub Pages
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [validate, app-smoke-test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # gh-deploy needs the gh-pages branch history
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Deploy with mkdocs gh-deploy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdocs gh-deploy --force
