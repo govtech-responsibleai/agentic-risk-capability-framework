@@ -65,19 +65,8 @@ def build_risk_register_data():
     enriched_risks = []
 
     for risk_id, risk_data in risks.items():
-        element_id = risk_data.get('element_id', '')
-
-        # Try to find element with exact match first, then try normalized versions
-        element_info = elements.get(element_id, {})
-        if not element_info and element_id:
-            # Try zero-padded version (CMP-1 -> CMP-01)
-            if '-' in element_id:
-                prefix, number = element_id.split('-')
-                # Also handle DES -> DSN mapping
-                if prefix == 'DES':
-                    prefix = 'DSN'
-                normalized_id = f"{prefix}-{number.zfill(2)}"
-                element_info = elements.get(normalized_id, {})
+        # A risk arises from one element, or from the combination of several
+        risk_elements = [elements[eid] for eid in risk_data.get('element_ids', []) if eid in elements]
 
         # Get control details
         control_ids = risk_data.get('controls', [])
@@ -97,9 +86,10 @@ def build_risk_register_data():
             'id': risk_id,
             'statement': risk_data.get('statement', ''),
             'description': risk_data.get('description', ''),
-            'element_id': element_id,
-            'element_name': element_info.get('name', ''),
-            'element_category': element_info.get('category', ''),
+            'element_ids': [e['id'] for e in risk_elements],
+            'element_names': [e['name'] for e in risk_elements],
+            'element_categories': [e['category'] for e in risk_elements],
+            'composite': len(risk_elements) > 1,
             'failure_mode': risk_data.get('failure_mode', ''),
             'type': risk_data.get('type', []),
             'controls': control_details,

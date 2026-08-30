@@ -89,7 +89,7 @@ The **Risk Register** consolidates all risks identified through the ARC Framewor
 
 Each risk in the register should:
 
-1. Originate from an **element** (components, design, or capabilities),
+1. Originate from one or more **elements** (components, design, or capabilities) — a risk that lists several elements arises from their *combination*, such as untrusted web content reaching an agent that also holds sensitive data and an outbound channel,
 2. Correspond to a **failure mode** (agent failure, external manipulation, or tool/resource malfunction), and
 3. Result in at least one **hazard** (from the categories listed above).
 
