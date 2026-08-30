@@ -104,8 +104,10 @@
           "id": "CTRL-0006",
           "level": 1,
           "statement": "Require human approval before executing high-impact actions",
-          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
-          "references": [],
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -260,8 +262,10 @@
           "id": "CTRL-0006",
           "level": 1,
           "statement": "Require human approval before executing high-impact actions",
-          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
-          "references": [],
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -443,8 +447,10 @@
           "id": "CTRL-0006",
           "level": 1,
           "statement": "Require human approval before executing high-impact actions",
-          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
-          "references": [],
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -540,9 +546,10 @@
           "id": "CTRL-0009",
           "level": 0,
           "statement": "Use only MCP servers that implement robust authentication mechanisms in production environments",
-          "recommendations": "Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management.",
+          "recommendations": "Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management. As of the 2026-07-28 MCP specification, verify additionally that the server implements RFC 9207 issuer identification (so a client can detect a substituted authorization server) and Client ID Metadata Documents in place of dynamic client registration, and prefer servers that support the Enterprise-Managed Authorization extension so that access is governed by your identity provider rather than by per-user ad-hoc consent. Treat servers still built on the pre-2026 stateful session model as needing review before production use.",
           "references": [
-            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices",
+            "https://blog.modelcontextprotocol.io/posts/2026-07-28/"
           ],
           "crosswalks": {
             "csa_addendum": [
@@ -577,9 +584,10 @@
           "id": "CTRL-0010",
           "level": 1,
           "statement": "Use only MCP servers that validate credentials on every inbound request",
-          "recommendations": "Relying on session state or connection-based authentication without per-request validation creates vulnerability to session hijacking, token replay attacks, and unauthorised access after initial authentication. Verify that MCP servers implement stateless authentication by validating credentials (e.g., OAuth tokens, API keys) on every single request rather than caching authorisation decisions based on connection or session state. Test this behaviour by monitoring whether the server accepts requests with expired, revoked, or missing credentials after an initial successful authentication. Ensure the server responds with appropriate HTTP 401 errors when credentials are invalid, expired, or absent, forcing re-authentication rather than relying on stale authorisation state.",
+          "recommendations": "Relying on session state or connection-based authentication without per-request validation creates vulnerability to session hijacking, token replay attacks, and unauthorised access after initial authentication. Verify that MCP servers implement stateless authentication by validating credentials (e.g., OAuth tokens, API keys) on every single request rather than caching authorisation decisions based on connection or session state. Test this behaviour by monitoring whether the server accepts requests with expired, revoked, or missing credentials after an initial successful authentication. Ensure the server responds with appropriate HTTP 401 errors when credentials are invalid, expired, or absent, forcing re-authentication rather than relying on stale authorisation state. The 2026-07-28 specification removes long-lived stateful sessions from the protocol core, making per-request validation the expected behaviour; treat a server whose authorization depends on session state as non-compliant.",
           "references": [
-            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices",
+            "https://blog.modelcontextprotocol.io/posts/2026-07-28/"
           ],
           "crosswalks": {
             "csa_addendum": [
@@ -715,11 +723,12 @@
           "id": "CTRL-0012",
           "level": 2,
           "statement": "Use only MCP servers that integrate with authorisation servers implementing per-client consent mechanisms",
-          "recommendations": "Without explicit per-client consent, a malicious or compromised client could abuse delegated permissions to access resources the user never intended to authorise for that specific application. Verify that MCP servers integrate with OAuth 2.1 authorisation servers that implement per-client consent flows, where users explicitly approve each client-permission combination rather than granting blanket permissions across all clients. The authorisation server should clearly identify the requesting client and display what data or actions are being requested during the consent flow. Ensure the authorisation server persists consent decisions and provides mechanisms for users to review and revoke previously granted permissions.",
+          "recommendations": "Without explicit per-client consent, a malicious or compromised client could abuse delegated permissions to access resources the user never intended to authorise for that specific application. Verify that MCP servers integrate with OAuth 2.1 authorisation servers that implement per-client consent flows, where users explicitly approve each client-permission combination rather than granting blanket permissions across all clients. The authorisation server should clearly identify the requesting client and display what data or actions are being requested during the consent flow. Ensure the authorisation server persists consent decisions and provides mechanisms for users to review and revoke previously granted permissions. With Client ID Metadata Documents (2026-07-28 specification), the authorization server identifies the client from its published metadata; check that consent screens name the client accurately, and use the Enterprise-Managed Authorization extension where a central identity provider should govern access on behalf of all users.",
           "references": [
             "https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization",
             "https://aaronparecki.com/2025/11/25/1/mcp-authorization-spec-update",
-            "https://stytch.com/blog/mcp-authentication-and-authorization-servers/"
+            "https://stytch.com/blog/mcp-authentication-and-authorization-servers/",
+            "https://blog.modelcontextprotocol.io/posts/2026-07-28/"
           ],
           "crosswalks": {
             "csa_addendum": [
@@ -1786,9 +1795,36 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0065",
+          "level": 0,
+          "statement": "Ensure every agent can be immediately paused or terminated by its operators",
+          "recommendations": "Agents may begin executing unintended actions - through prompt injection, runaway loops, containment gaps, or goal-directed misbehaviour - that require immediate human intervention. Provide an interruption mechanism for every deployed agent, not only those operating computer interfaces: a pause and terminate control reachable by operators at all times, which halts tool calls and outbound actions immediately, revokes or suspends the agent's credentials, and preserves state and logs for review. Test that the mechanism works under load and cannot be disabled or delayed by the agent itself, and make emergency revocation of a specific tool, credential, or agent possible across all deployments.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.4",
+                "title": "Ensure adequate human oversight"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://arxiv.org/abs/2402.06627",
         "https://arxiv.org/abs/2502.14143"
@@ -1839,9 +1875,12 @@
           "id": "CTRL-0030",
           "level": 1,
           "statement": "Assign each agent a unique, verifiable identity with no shared credentials",
-          "recommendations": "Shared credentials prevent accurate attribution of agent actions, making it impossible to identify which agent performed unauthorised activities or to revoke access for compromised agents without affecting legitimate ones. Assign each agent instance a unique identity (e.g., service account, API key, certificate) that can be independently tracked, audited, and revoked without impacting other agents. Prohibit credential sharing between agents even when they perform similar functions, as unique identities enable granular access control and forensic analysis of agent behaviour. Emerging agentic IAM platforms, such as Amazon Bedrock AgentCore Identity, can help to provide purpose-built identity management for AI agents.",
+          "recommendations": "Shared credentials prevent accurate attribution of agent actions, making it impossible to identify which agent performed unauthorised activities or to revoke access for compromised agents without affecting legitimate ones. Assign each agent instance a unique identity (e.g., service account, API key, certificate) that can be independently tracked, audited, and revoked without impacting other agents. Prohibit credential sharing between agents even when they perform similar functions, as unique identities enable granular access control and forensic analysis of agent behaviour. Emerging agentic IAM platforms, such as Amazon Bedrock AgentCore Identity, can help to provide purpose-built identity management for AI agents. Concrete mechanisms now exist: SPIFFE/SPIRE workload identities with short rotation for agents and MCP servers, Microsoft Entra Agent ID (assigned to all new Copilot Studio agents since July 2026), and the IETF drafts for OAuth on-behalf-of delegation and transaction tokens that carry separate actor (agent) and principal (initiating human) claims; A2A v1.0 signed agent cards provide the equivalent for agent-to-agent interactions. Prefer identities that keep the delegating human visible in every token so that actions remain attributable.",
           "references": [
-            "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-overview.html"
+            "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-overview.html",
+            "https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview",
+            "https://datatracker.ietf.org/doc/html/draft-oauth-transaction-tokens-for-agents-04",
+            "https://www.hashicorp.com/en/blog/spiffe-securing-the-identity-of-agentic-ai-and-non-human-actors"
           ],
           "crosswalks": {
             "csa_addendum": [
@@ -1868,9 +1907,10 @@
           "id": "CTRL-0031",
           "level": 1,
           "statement": "Use only MCP servers that validate token provenance and prohibit unauthorised token passthrough",
-          "recommendations": "Token passthrough is an anti-pattern where MCP servers accept tokens from clients without validating they were properly issued to the server, enabling malicious actors to use the server as a proxy for data exfiltration with stolen tokens. Verify that MCP servers validate the provenance of all tokens they receive, ensuring tokens are intended for that specific server by checking audience claims and preventing tokens from being blindly forwarded to third-party services. Reject MCP servers that implement token passthrough patterns, as they compromise incident investigation, access controls, and auditing capabilities by obscuring the true source of requests.",
+          "recommendations": "Token passthrough is an anti-pattern where MCP servers accept tokens from clients without validating they were properly issued to the server, enabling malicious actors to use the server as a proxy for data exfiltration with stolen tokens. Verify that MCP servers validate the provenance of all tokens they receive, ensuring tokens are intended for that specific server by checking audience claims and preventing tokens from being blindly forwarded to third-party services. Reject MCP servers that implement token passthrough patterns, as they compromise incident investigation, access controls, and auditing capabilities by obscuring the true source of requests. Since the 2026-07-28 specification, servers must validate the issuer of tokens they receive (RFC 9207) as well as the audience; reject servers that accept tokens from unexpected issuers or forward tokens they cannot prove were issued to them.",
           "references": [
-            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices",
+            "https://blog.modelcontextprotocol.io/posts/2026-07-28/"
           ],
           "crosswalks": {
             "csa_addendum": [
@@ -1940,9 +1980,12 @@
           "id": "CTRL-0030",
           "level": 1,
           "statement": "Assign each agent a unique, verifiable identity with no shared credentials",
-          "recommendations": "Shared credentials prevent accurate attribution of agent actions, making it impossible to identify which agent performed unauthorised activities or to revoke access for compromised agents without affecting legitimate ones. Assign each agent instance a unique identity (e.g., service account, API key, certificate) that can be independently tracked, audited, and revoked without impacting other agents. Prohibit credential sharing between agents even when they perform similar functions, as unique identities enable granular access control and forensic analysis of agent behaviour. Emerging agentic IAM platforms, such as Amazon Bedrock AgentCore Identity, can help to provide purpose-built identity management for AI agents.",
+          "recommendations": "Shared credentials prevent accurate attribution of agent actions, making it impossible to identify which agent performed unauthorised activities or to revoke access for compromised agents without affecting legitimate ones. Assign each agent instance a unique identity (e.g., service account, API key, certificate) that can be independently tracked, audited, and revoked without impacting other agents. Prohibit credential sharing between agents even when they perform similar functions, as unique identities enable granular access control and forensic analysis of agent behaviour. Emerging agentic IAM platforms, such as Amazon Bedrock AgentCore Identity, can help to provide purpose-built identity management for AI agents. Concrete mechanisms now exist: SPIFFE/SPIRE workload identities with short rotation for agents and MCP servers, Microsoft Entra Agent ID (assigned to all new Copilot Studio agents since July 2026), and the IETF drafts for OAuth on-behalf-of delegation and transaction tokens that carry separate actor (agent) and principal (initiating human) claims; A2A v1.0 signed agent cards provide the equivalent for agent-to-agent interactions. Prefer identities that keep the delegating human visible in every token so that actions remain attributable.",
           "references": [
-            "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-overview.html"
+            "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-overview.html",
+            "https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview",
+            "https://datatracker.ietf.org/doc/html/draft-oauth-transaction-tokens-for-agents-04",
+            "https://www.hashicorp.com/en/blog/spiffe-securing-the-identity-of-agentic-ai-and-non-human-actors"
           ],
           "crosswalks": {
             "csa_addendum": [
@@ -2228,8 +2271,10 @@
           "id": "CTRL-0006",
           "level": 1,
           "statement": "Require human approval before executing high-impact actions",
-          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
-          "references": [],
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -2361,8 +2406,10 @@
           "id": "CTRL-0006",
           "level": 1,
           "statement": "Require human approval before executing high-impact actions",
-          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
-          "references": [],
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -2391,9 +2438,13 @@
         {
           "id": "CTRL-0038",
           "level": 0,
-          "statement": "Conduct pre-deployment safety verification using domain-relevant stress tests and adversarial scenarios",
-          "recommendations": "Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review.",
-          "references": [],
+          "statement": "Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards",
+          "recommendations": "Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review. Repeat the exercise on a fixed cadence and whenever the model, tools, or capabilities change - attacks evolve faster than deployments. Use established agent security and safety benchmarks (for example AgentDojo, Agent Security Bench, and AgentHarm) as a baseline and add scenarios drawn from your own incidents and from published ones.",
+          "references": [
+            "https://arxiv.org/abs/2406.13352",
+            "https://arxiv.org/abs/2410.02644",
+            "https://arxiv.org/abs/2410.09024"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -2779,8 +2830,10 @@
           "id": "CTRL-0042",
           "level": 1,
           "statement": "Require explicit human confirmation before executing high-impact or irreversible tool actions",
-          "recommendations": "Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when.",
-          "references": [],
+          "recommendations": "Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -3892,8 +3945,8 @@
         {
           "id": "CTRL-0065",
           "level": 0,
-          "statement": "Ensure computer use capabilities provide immediate interruptability",
-          "recommendations": "Agents operating computer interfaces may encounter prompt injection attacks or begin executing unintended actions that require immediate human intervention to prevent harm. Implement interruptability mechanisms that allow users or operators to immediately halt agent computer use actions at any point, such as emergency stop buttons, kill switches, or session termination controls.",
+          "statement": "Ensure every agent can be immediately paused or terminated by its operators",
+          "recommendations": "Agents may begin executing unintended actions - through prompt injection, runaway loops, containment gaps, or goal-directed misbehaviour - that require immediate human intervention. Provide an interruption mechanism for every deployed agent, not only those operating computer interfaces: a pause and terminate control reachable by operators at all times, which halts tool calls and outbound actions immediately, revokes or suspends the agent's credentials, and preserves state and logs for review. Test that the mechanism works under load and cannot be disabled or delayed by the agent itself, and make emergency revocation of a specific tool, credential, or agent possible across all deployments.",
           "references": [],
           "crosswalks": {
             "csa_addendum": [
@@ -5641,8 +5694,8 @@
         {
           "id": "CTRL-0065",
           "level": 0,
-          "statement": "Ensure computer use capabilities provide immediate interruptability",
-          "recommendations": "Agents operating computer interfaces may encounter prompt injection attacks or begin executing unintended actions that require immediate human intervention to prevent harm. Implement interruptability mechanisms that allow users or operators to immediately halt agent computer use actions at any point, such as emergency stop buttons, kill switches, or session termination controls.",
+          "statement": "Ensure every agent can be immediately paused or terminated by its operators",
+          "recommendations": "Agents may begin executing unintended actions - through prompt injection, runaway loops, containment gaps, or goal-directed misbehaviour - that require immediate human intervention. Provide an interruption mechanism for every deployed agent, not only those operating computer interfaces: a pause and terminate control reachable by operators at all times, which halts tool calls and outbound actions immediately, revokes or suspends the agent's credentials, and preserves state and logs for review. Test that the mechanism works under load and cannot be disabled or delayed by the agent itself, and make emergency revocation of a specific tool, credential, or agent possible across all deployments.",
           "references": [],
           "crosswalks": {
             "csa_addendum": [
@@ -5871,9 +5924,13 @@
         {
           "id": "CTRL-0038",
           "level": 0,
-          "statement": "Conduct pre-deployment safety verification using domain-relevant stress tests and adversarial scenarios",
-          "recommendations": "Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review.",
-          "references": [],
+          "statement": "Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards",
+          "recommendations": "Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review. Repeat the exercise on a fixed cadence and whenever the model, tools, or capabilities change - attacks evolve faster than deployments. Use established agent security and safety benchmarks (for example AgentDojo, Agent Security Bench, and AgentHarm) as a baseline and add scenarios drawn from your own incidents and from published ones.",
+          "references": [
+            "https://arxiv.org/abs/2406.13352",
+            "https://arxiv.org/abs/2410.02644",
+            "https://arxiv.org/abs/2410.09024"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -6111,9 +6168,36 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0065",
+          "level": 0,
+          "statement": "Ensure every agent can be immediately paused or terminated by its operators",
+          "recommendations": "Agents may begin executing unintended actions - through prompt injection, runaway loops, containment gaps, or goal-directed misbehaviour - that require immediate human intervention. Provide an interruption mechanism for every deployed agent, not only those operating computer interfaces: a pause and terminate control reachable by operators at all times, which halts tool calls and outbound actions immediately, revokes or suspends the agent's credentials, and preserves state and logs for review. Test that the mechanism works under load and cannot be disabled or delayed by the agent itself, and make emergency revocation of a specific tool, credential, or agent possible across all deployments.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.4",
+                "title": "Ensure adequate human oversight"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 4,
+      "control_count": 5,
       "sources": [
         "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing",
         "https://arxiv.org/abs/2502.14143",
@@ -6166,8 +6250,10 @@
           "id": "CTRL-0006",
           "level": 1,
           "statement": "Require human approval before executing high-impact actions",
-          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
-          "references": [],
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -6197,8 +6283,10 @@
           "id": "CTRL-0042",
           "level": 1,
           "statement": "Require explicit human confirmation before executing high-impact or irreversible tool actions",
-          "recommendations": "Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when.",
-          "references": [],
+          "recommendations": "Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude"
+          ],
           "crosswalks": {
             "csa_addendum": [
               {
@@ -6577,9 +6665,10 @@
           "id": "CTRL-0009",
           "level": 0,
           "statement": "Use only MCP servers that implement robust authentication mechanisms in production environments",
-          "recommendations": "Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management.",
+          "recommendations": "Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management. As of the 2026-07-28 MCP specification, verify additionally that the server implements RFC 9207 issuer identification (so a client can detect a substituted authorization server) and Client ID Metadata Documents in place of dynamic client registration, and prefer servers that support the Enterprise-Managed Authorization extension so that access is governed by your identity provider rather than by per-user ad-hoc consent. Treat servers still built on the pre-2026 stateful session model as needing review before production use.",
           "references": [
-            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices",
+            "https://blog.modelcontextprotocol.io/posts/2026-07-28/"
           ],
           "crosswalks": {
             "csa_addendum": [
