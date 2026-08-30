@@ -1,0 +1,15 @@
+[theme]
+# Primary color for buttons and interactive elements
+primaryColor = "#1f77b4"
+
+# Background color
+backgroundColor = "#ffffff"
+
+# Secondary background color
+secondaryBackgroundColor = "#f0f2f6"
+
+# Text color
+textColor = "#262730"
+
+# Font
+font = "sans serif"

@@ -1,0 +1,456 @@
+CTRL-001:
+  name: "Review LLM system card"
+  description: "Review the LLM's system card for potential alignment issues before using the LLM for more complex tasks."
+
+CTRL-002:
+  name: "Integrate safety constraint layer"
+  description: "Integrate an explicit safety constraint layer (e.g., policy engine or constitutional rules) that overrides unsafe outputs at runtime."
+
+CTRL-003:
+  name: "Maintain human-in-the-loop approval"
+  description: "Maintain human‑in‑the‑loop approval for any high‑impact or irreversible actions."
+
+CTRL-004:
+  name: "Prioritise strong LLMs"
+  description: "Prioritise LLMs with stronger performance in instruction following and other related benchmarks."
+
+CTRL-005:
+  name: "Implement input sanitisation"
+  description: "Implement input sanitisation measures or limit inputs to conventional ASCII characters only."
+
+CTRL-006:
+  name: "Avoid untrusted LLMs"
+  description: "Do not use LLMs from unknown or untrusted sources, even if it is available on public platforms."
+
+CTRL-007:
+  name: "Reasoning time limit"
+  description: "Enforce time or token limits for agents' reasoning"
+
+CTRL-008:
+  name: "Scratchpad"
+  description: "Provide a scratchpad for agents to use to record its inner thoughts"
+
+CTRL-009:
+  name: "Use robust authentication protocols"
+  description: "Do not use tools which do not implement robust authentication protocols."
+
+CTRL-010:
+  name: "Conduct periodic audits"
+  description: "Conduct periodic audits to validate that tool actions match the appropriate user permissions."
+
+CTRL-011:
+  name: "Avoid untrusted tools"
+  description: "Do not use tools from unknown or untrusted sources, even if it is available on public platforms."
+
+CTRL-012:
+  name: "Test tools in sandboxes"
+  description: "Test third‑party tools in hardened sandboxes with syscall/network egress restrictions before using them in production environments."
+
+CTRL-013:
+  name: "Enforce strict schema validation"
+  description: "Enforce strict schema validation (e.g. JSON Schema, protobuf) and reject non‑conforming inputs upstream."
+
+CTRL-014:
+  name: "Escape user inputs"
+  description: "Escape or encode user inputs when embedding into tool prompts or commands."
+
+CTRL-015:
+  name: "Conduct least-privilege reviews"
+  description: "Conduct periodic least‑privilege reviews and automated permission drift detection."
+
+CTRL-016:
+  name: "Define multi-objective success criteria"
+  description: "Define multi‑objective success criteria incorporating safety, ethics, and usability metrics."
+
+CTRL-017:
+  name: "Conduct adversarial evaluation"
+  description: "Conduct adversarial evaluation to surface gaming behaviours and iterate on instruction design."
+
+CTRL-018:
+  name: "Request clarification"
+  description: "Ask the agent to summarise its understanding and request clarification before proceeding."
+
+CTRL-019:
+  name: "Test with scenario-based evaluations"
+  description: "Test instructions with scenario‑based evaluations to reveal ambiguities for refinement."
+
+CTRL-020:
+  name: "Signpost system prompts"
+  description: "Signpost system prompts with clear tags (e.g. XML) to distinguish between system prompts and user inputs."
+
+CTRL-021:
+  name: "Run periodic audits"
+  description: "Periodically run audits that reconcile stored data against trusted external references, with a flag for discrepancies."
+
+CTRL-022:
+  name: "Encrypt memory and restrict access"
+  description: "Encrypt memory at rest and restrict access via fine‑grained access controls and audit logs."
+
+CTRL-023:
+  name: "Schedule periodic memory reconciliation"
+  description: "Schedule periodic memory reconciliation where human reviewers or external tools flag anomalies."
+
+CTRL-024:
+  name: "Insert validation checkpoints"
+  description: "Insert validation checkpoints between stages that verify assumptions and reject invalid outputs."
+
+CTRL-025:
+  name: "Design feedback loops"
+  description: "Design feedback loops enabling later stages to roll back or request correction from earlier stages."
+
+CTRL-026:
+  name: "Apply circuit-breakers"
+  description: "Apply circuit‑breakers that freeze propagation when anomalous behaviour is detected."
+
+CTRL-027:
+  name: "Implement distributed tracing"
+  description: "Implement end‑to‑end distributed tracing with unique request IDs across all agents and tool calls."
+
+CTRL-028:
+  name: "Write immutable audit logs"
+  description: "Write immutable, tamper‑evident audit logs that capture prompts, responses, and tool invocations."
+
+CTRL-029:
+  name: "Whitelist outward network access"
+  description: "Implement a whitelist approach for outward network access, including API requests."
+
+CTRL-030:
+  name: "Use guardrails"
+  description: "Ensure that sensitive data is not passed and leaked between agents by using appropriate guardrails."
+
+CTRL-031:
+  name: "Cross-agent authentication"
+  description: "Ensure all cross-agent authentication and message validation and encryption where necessary."
+
+CTRL-032:
+  name: "Structured communication"
+  description: "Constrain agent communication with structured outputs and interactions."
+
+CTRL-033:
+  name: "Sanitise messages"
+  description: "Sanitise messages before agents process them - strip or escape unexpected instruction-like content that may have been injected."
+
+CTRL-034:
+  name: "Agent role isolation"
+  description: "Isolate roles and credentials of each agent."
+
+CTRL-035:
+  name: "Maintain trusted agent registry"
+  description: "Maintain trusted registry of agents and authenticate agents using strong, verifiable credentials."
+
+CTRL-036:
+  name: "Apply Principle of Least Privilege"
+  description: "Apply Principle of Least Privilege (PoLP) when configuring all agent and delegation roles."
+
+CTRL-037:
+  name: "No admin privileges"
+  description: "Do not grant admin privileges to agents"
+
+CTRL-038:
+  name: "No privilege modification"
+  description: "Do not allow agents to modify privileges"
+
+CTRL-039:
+  name: "Authenticate and validate agent roles"
+  description: "Authenticate and validate agent roles before authorising requests."
+
+CTRL-040:
+  name: "Use fine-grained credentials"
+  description: "Ensure fine-grained, scoped tokens or credentials where possible."
+
+CTRL-041:
+  name: "Use time-bound credentials"
+  description: "Use time-bound or one-time-use credentials where possible."
+
+CTRL-042:
+  name: "Implement real-time monitoring"
+  description: "Implement real-time monitoring of agent status, actions, and performance metrics, paired with automated alerting mechanisms that notify operators of anomalies, errors, or inactivity."
+
+CTRL-043:
+  name: "Record comprehensive logs"
+  description: "Record comprehensive logs of agent actions, inputs, outputs, and inter-agent communications, tagged with unique trace identifiers to reconstruct full decision-making paths."
+
+CTRL-044:
+  name: "Prompt self-reflection on plan adherence"
+  description: "Prompt the agent to self-reflect on the adherence of the plan to the user's instructions"
+
+CTRL-045:
+  name: "Require user approval for high-impact plans"
+  description: "Require the user to approve the plan in high-impact cases"
+
+CTRL-046:
+  name: "Prompt self-reflection on plan sensibility"
+  description: "Prompt the agent to self-reflect on whether the plan is sensible and reasonable, given the user's original request"
+
+CTRL-047:
+  name: "Include feasibility assumptions in system prompt"
+  description: "Ensure important assumptions about feasibility, scope, and cost, where relevant, are included in the system prompt"
+
+CTRL-048:
+  name: "Apply task assignment guardrails"
+  description: "Apply guardrails to limit the scope of tasks that can be assigned to specialised agents"
+
+CTRL-049:
+  name: "Log all task assignments"
+  description: "Log all task assignments by the agent to other agents"
+
+CTRL-050:
+  name: "Conduct adversarial testing on planning agents"
+  description: "Conduct rigorous adversarial testing on centralised planning agents"
+
+CTRL-051:
+  name: "Provide comprehensive tool descriptions"
+  description: "Provide comprehensive descriptions of each tool, including its intended use, required inputs, and potential outputs"
+
+CTRL-052:
+  name: "Implement output safety text guardrails"
+  description: "Implement output safety text guardrails to detect if undesirable content is being generated"
+
+CTRL-053:
+  name: "Implement input text guardrails for specialized domains"
+  description: "Implement input text guardrails to detect if the question is related to one of the specialised domains, and if so, to decline answering the question"
+
+CTRL-054:
+  name: "Implement input text guardrails for controversial content"
+  description: "Implement input text guardrails to detect instructions to generate content that is controversial according to the organisation's policies"
+
+CTRL-055:
+  name: "Implement output text guardrails for PII"
+  description: "Implement output text guardrails to detect personally identifiable information in the LLM's outputs before it reaches the user"
+
+CTRL-056:
+  name: "Implement methods to reduce hallucination rates"
+  description: "Implement methods to reduce hallucination rates (e.g. retrieval-augmented generation)"
+
+CTRL-057:
+  name: "Implement UI/UX cues for hallucination risk"
+  description: "Implement UI/UX cues to highlight the risk of hallucination to the user"
+
+CTRL-058:
+  name: "Implement features for answer verification"
+  description: "Implement features to enable users to easily verify the generated answer against the original content"
+
+CTRL-059:
+  name: "Implement input text guardrails for copyrighted content"
+  description: "Implement input text guardrails to detect instructions to generate copyrighted content"
+
+CTRL-060:
+  name: "Implement output multimodal safety guardrails"
+  description: "Implement output multimodal safety guardrails for the output to detect if undesirable content is being generated"
+
+CTRL-061:
+  name: "Implement input multimodal guardrails for specialized domains"
+  description: "Implement input multimodal guardrails to detect if the instruction is related to one of the specialised domains, and if so, to decline fulfilling the instruction"
+
+CTRL-062:
+  name: "Implement input multimodal guardrails for controversial content"
+  description: "Implement input multimodal guardrails to detect instructions to generate content that is controversial according to the organisation's policies"
+
+CTRL-063:
+  name: "Implement output multimodal guardrails for PII"
+  description: "Implement output multimodal guardrails to detect personally identifiable information in the LLM's outputs before it reaches the user"
+
+CTRL-064:
+  name: "Conduct testing for multimodal hallucination rates"
+  description: "Conduct testing to measure hallucination and factuality rates for multimodal outputs"
+
+CTRL-065:
+  name: "Implement input guardrails for copyrighted content"
+  description: "Implement input guardrails to detect instructions to generate copyrighted content"
+
+CTRL-066:
+  name: "Limit communications to standard processes"
+  description: "Limit the communications to standard processes, where communication templates are available"
+
+CTRL-067:
+  name: "Require human approval for sensitive communications"
+  description: "Require human approval for communications for more sensitive matters"
+
+CTRL-068:
+  name: "Provide alternate channels for clarification"
+  description: "Provide alternate channels for users to clarify communications or give feedback"
+
+CTRL-069:
+  name: "Implement output safety guardrails for communications"
+  description: "Implement output safety guardrails to detect if undesirable content is in the communications before it is sent to the user"
+
+CTRL-070:
+  name: "Check adherence to communication templates"
+  description: "Check for adherence to communication templates prior to sending email"
+
+CTRL-071:
+  name: "Validate links and attachments"
+  description: "Validate all links and attachments prior to sending them to users"
+
+CTRL-072:
+  name: "Declare AI authorship upfront"
+  description: "Declare upfront that the communications are generated by an AI system"
+
+CTRL-073:
+  name: "Require human validation for high-impact transactions"
+  description: "Require human validation for high-impact transactions"
+
+CTRL-074:
+  name: "Log all transaction requests"
+  description: "Logging all requests leading up to the transaction"
+
+CTRL-075:
+  name: "Apply fraud detection models"
+  description: "Apply fraud detection models or heuristics to the agent's own decisions"
+
+CTRL-076:
+  name: "Ensure virtual isolation for transaction agents"
+  description: "Ensure virtual isolation for agents carrying out transactions"
+
+CTRL-077:
+  name: "Use separate authentication service"
+  description: "Do not share credentials with the agent directly, require the agent to use a separate service for authentication and transactions"
+
+CTRL-078:
+  name: "Implement input guardrails for prompt injection"
+  description: "Implement input guardrails to detect prompt injection or adversarial attacks"
+
+CTRL-079:
+  name: "Implement escape filtering for web content"
+  description: "Implement escape filtering before including web content into prompts"
+
+CTRL-080:
+  name: "Use structured retrieval APIs"
+  description: "Use structured retrieval APIs for searching the web rather than through web scraping"
+
+CTRL-081:
+  name: "Prioritise verified domains"
+  description: "Prioritise results from verified, high-quality domains (e.g. .gov, .edu, well-known publishers)"
+
+CTRL-082:
+  name: "Require cross-source validation"
+  description: "Require cross-source validation for some of the claims made"
+
+CTRL-083:
+  name: "Ensure immediate interruptability"
+  description: "Ensure computer use protocol or application provides immediate interruptability"
+
+CTRL-084:
+  name: "Limit computer use to safe resources"
+  description: "Limit computer use to accessing only safe resources on the computer"
+
+CTRL-085:
+  name: "Activate take over mode for sensitive data"
+  description: "Ensure 'take over' mode is activated when keying in sensitive data (e.g. passwords, API keys)"
+
+CTRL-086:
+  name: "Specify whitelist of interfaces"
+  description: "Specify a whitelist of interfaces that agents are allowed to use"
+
+CTRL-087:
+  name: "Enforce zero-trust input handling"
+  description: "Enforce zero-trust input handling and validate all data flows"
+
+CTRL-088:
+  name: "Use code linters"
+  description: "Use code linters to screen for bad practices, anti-patterns, unused variables, or poor syntax"
+
+CTRL-089:
+  name: "Use static code analysers"
+  description: "Use static code analysers to detect problems with the code"
+
+CTRL-090:
+  name: "Run code in virtually isolated environments"
+  description: "Run code only in virtually isolated compute environments (e.g. Docker containers)"
+
+CTRL-091:
+  name: "Monitor code runtime and memory consumption"
+  description: "Ensure monitoring of code runtime and memory consumption"
+
+CTRL-092:
+  name: "Use static code analysers for dangerous patterns"
+  description: "Use static code analysers to identify dangerous patterns in the code before execution"
+
+CTRL-093:
+  name: "Conduct CVE scanning"
+  description: "Conduct CVE scanning and block execution if any High or Critical CVEs are detected"
+
+CTRL-094:
+  name: "Block all network access by default"
+  description: "Block all inward and outward network access by default"
+
+CTRL-095:
+  name: "Implement whitelist for inward network access"
+  description: "Implement a whitelist approach for inward network access"
+
+CTRL-096:
+  name: "Review all generated code before execution"
+  description: "Review all code generated by agents, including shell scripts, before execution"
+
+CTRL-097:
+  name: "Create deny list of commands"
+  description: "Create a Deny list of commands that agents are not allowed to run autonomously"
+
+CTRL-098:
+  name: "No write access to database tables unless required"
+  description: "No write access to tables in the database unless strictly required"
+
+CTRL-099:
+  name: "Human approval for data changes"
+  description: "Require human approval for any changes to the database, table, or file"
+
+CTRL-100:
+  name: "Avoid mounting broad or persistent paths"
+  description: "Avoid mounting broad or persistant paths"
+
+CTRL-101:
+  name: "Limit concurrent database queries"
+  description: "Limit the number of concurrent queries to the database from the agent"
+
+CTRL-102:
+  name: "Analyse past database queries"
+  description: "Analyse past database queries to identify repeated or inefficient queries"
+
+CTRL-103:
+  name: "Implement input guardrails for PII"
+  description: "Implement input guardrails to detect personally identifiable information"
+
+CTRL-104:
+  name: "Do not allow access to PII unless required"
+  description: "Do not allow access to personally identifiable data or sensitive data unless strictly required"
+
+CTRL-105:
+  name: "Log all database queries in production"
+  description: "Log all database queries in production"
+
+CTRL-106:
+  name: "Validate new data for RAG databases"
+  description: "Validate new data used to supplement RAG databases or training data"
+
+CTRL-107:
+  name: "Disallow unknown or external files unless scanned"
+  description: "Disallow unknown or external files unless it is scanned"
+
+CTRL-108:
+  name: "Require user confirmation before file operations"
+  description: "Require user confirmation before overwriting or deleting any files"
+
+CTRL-109:
+  name: "Keep separate copy of original files"
+  description: "Keep separate copy of original files"
+
+CTRL-110:
+  name: "Ensure database versioning"
+  description: "Ensure second copy of database is not changed until a pre-specified amount of time has passed / ensure database versioning"
+
+CTRL-111:
+  name: "Only grant necessary system modification privileges"
+  description: "Only grant agents privileges to modify system resources if strictly necessary for completion of tasks"
+
+CTRL-112:
+  name: "Set minimum and maximum limits for system resources"
+  description: "Set minimum and maximum limits to what the agent can modify within a given system resource"
+
+
+CTRL-113:
+  name: "Limit concurrent queries to external systems"
+  description: "Limit the number of concurrent queries to external systems from the agent"
+
+CTRL-114:
+  name: "Log all queries to external systems"
+  description: "Log all queries to external systems from the agent"
