@@ -9,17 +9,19 @@
 - Technical control specifications with risk-to-control mappings
 - An implementation methodology for organisational adoption and per-system assessment
 
-!!! info "Major Update"
+!!! info "What's new — August 2026"
 
-    We have significantly updated the ARC Framework since our initial release in August 2025. The main changes include:
+    The register and site have had their largest revision since the framework was published:
 
-    - **Updated theoretical foundations**: Added a comprehensive [introduction](arc_framework/introduction.md) with design rationale, literature review, real-world case studies (Replit, Antigravity incidents), as well as detailed justifications for the capability-based approach
-    - **Restructured documentation**: Consolidated Components and Design elements together with the Capabilities element into a unified [Elements](arc_framework/elements.md) reference page with clearer taxonomy and detailed definitions
-    - **Interactive Risk Register**: Introduced a [filterable, searchable risk register](arc_framework/risk-register.md) consolidating all 54 risks and 94 controls with risk-to-control mappings in a single interactive interface
-    - **Framework positioning**: Added a [comparison table](arc_framework/comparison.md) benchmarking ARC against NIST AI RMF, EU AI Act, Dimensional Governance, OWASP Agentic AI, Google SAIF 2.0, CSA MAESTRO, and other governance frameworks
-    - **Enhanced implementation guidance**: Updated implementation guides with more detailed methodologies for both organizational adoption and per-system assessment
-    - **ARCvisor tool**: Launched [ARCvisor](resources/index.md#arcvisor), an AI-powered risk assessment assistant achieving 50%+ time savings with live demo and open-source repository
-    - **Research publications**: Published two technical papers available in [Resources](resources/index.md) — the ARC Framework paper (accepted at IASEAI 2026) and the ARCvisor preprint
+    - **Register corrected and validated**: the risk-to-control mappings were realigned, and every build now runs a validator so the register cannot regress silently
+    - **Level 0 means unwaivable**: cardinal controls are those that must be adopted as-is wherever the risk applies; controls that could not meet that bar were re-tiered
+    - **Composite risks**: a risk can arise from a *combination* of elements (e.g., data exfiltration through untrusted content + sensitive data + an outbound channel)
+    - **Crosswalks**: every risk and control is mapped to the [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/), OWASP's agentic threat taxonomy, the [CSA Securing Agentic AI Addendum](https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/) (final, June 2026), and [IMDA's Model AI Governance Framework for Agentic AI](https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf) — see [Crosswalks](arc_framework/crosswalks.md)
+    - **2026 risks and controls**: eight risks and eight controls from the 2026 evidence base (supply-chain compromise, sandbox escape, deception toward overseers, unsanctioned agent coordination, automation bias, third-party agents, insecure runtime defaults), and updated controls for the current MCP specification, agent identity, kill switches, and continuous testing
+    - **Hazards recorded**: every risk now lists the safety or security hazards it results in, and the register can be filtered by hazard
+    - **ARCvisor reads the same register** as this site, so assessments and the published framework can no longer drift apart
+
+    Earlier (December 2025): the [introduction](arc_framework/introduction.md) with design rationale and literature review, the unified [Elements](arc_framework/elements.md) page, the [interactive register](arc_framework/risk-register.md), the [ARCvisor](resources/index.md#arcvisor) tool, and the two technical papers in [Resources](resources/index.md).
 
 ## Navigation
 
@@ -29,12 +31,11 @@ On this website, you'll find all the resources you need to get started with unde
 - **[Framework Introduction](arc_framework/introduction.md)** — Design rationale, literature review, and theoretical foundation
 - **[Agentic System Elements](arc_framework/elements.md)** — Detailed examination of components, design, and capabilities
 - **[Capability Taxonomy](arc_framework/elements.md#capabilities)** — Cognitive, interaction, and operational capability categories with definitions
-- **[Risk Register](arc_framework/risk-register.md)** — Component, design, and capability-specific risks with impact/likelihood assessment
-- **[Comparison Table](arc_framework/comparison.md)** — Comparison to NIST AI RMF, EU AI Act, Dimensional Governance, OWASP Agentic AI, Google SAIF 2.0, and CSA MAESTRO
-- **[Crosswalks](arc_framework/crosswalks.md)** — Entry-level mappings to the OWASP Top 10 for Agentic Applications, CSA's Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
+- **[Risk Register](arc_framework/risk-register.md)** — 54 component, design, and capability-specific risks with their hazards and 94 recommended controls at three levels, filterable and searchable
+- **[Crosswalks](arc_framework/crosswalks.md)** — Entry-level mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the Cyber Security Agency of Singapore's Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
 
 ### 🛠️ Implementation Guides
-- **[Implementation Overview](implementation/index.md)** — Macro and micro implementation levels, timelines, and resources
+- **[Implementation Overview](implementation/index.md)** — How the framework goes from general methodology to organisational practice
 - **[Organisational Adoption](implementation/for-governance-teams.md)** — Multi-phase rollout methodology for governance teams
 - **[System Assessment](implementation/for-ai-developers.md)** — Per-system risk assessment process for developers
 
@@ -46,7 +47,8 @@ On this website, you'll find all the resources you need to get started with unde
 
 The ARC framework has been mentioned in:
 
-* [Cybersecurity Agency of Singapore's Securing Agentic AI — An Addendum to the Guidelines and Companion Guide on Securing AI Systems](https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/) (finalised 17 June 2026)
+* [Cyber Security Agency of Singapore's Securing Agentic AI — An Addendum to the Guidelines and Companion Guide on Securing AI Systems](https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/) (finalised 17 June 2026), which adopts ARC's twelve capabilities as its organising taxonomy
+* [IMDA's Model AI Governance Framework for Agentic AI](https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf), which lists ARC under both risks and technical controls
 * [Opening Address by Minister Josephine Teo at HLP (AI) on 22 Oct 2025](https://www.csa.gov.sg/news-events/speeches/opening-address-by-minister-josephine-teo-at-hlp--ai--on-22-oct-2025/#:~:text=20.%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0%20First%2C%20we,can%20trust%20autonomy.)
 * [AI Agents and Global Governance: Analyzing Foundational Legal, Policy, and Accountability Tools by Talita Dias (Partnership on AI)](https://partnershiponai.org/wp-content/uploads/2025/09/agents-policy-analysis.pdf?vgo_ee=uag8GfRQtHHxKE9ENGhTyS97XYF3rhM%3D%3AZ%2BYB5WRdklLrdWegdiC1Lb9RPOHzTLfW)
 * [Engineering responsible AI: How Singapore builds trust in emerging technologies by GovTech Singapore](https://www.tech.gov.sg/technews/engineering-responsible-ai/)
@@ -81,4 +83,4 @@ To cite the framework website directly (e.g., for the Risk Register rather than 
 
 > GovTech Singapore (2025) Agentic Risk & Capability Framework. URL <https://govtech-responsibleai.github.io/agentic-risk-capability-framework/>
 
-*This page was last updated on 12 Aug 2026*
+*This page was last updated on 30 Aug 2026*
