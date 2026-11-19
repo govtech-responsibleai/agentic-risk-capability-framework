@@ -20,6 +20,7 @@ Checks:
   - crosswalks (if present) reference frameworks and IDs defined in
     crosswalk_references.yaml, and only frameworks that apply to that entry type;
     IDs must be quoted strings (an unquoted 2.10 is read by YAML as the number 2.1)
+  - register.yaml carries a semantic version (MAJOR.MINOR.PATCH) and a release date
   - warnings (non-fatal) for empty sources, missing recommendations, or missing crosswalks
 """
 
@@ -37,6 +38,8 @@ RISK_ID = re.compile(r'^RISK-\d{3}$')
 CTRL_ID = re.compile(r'^CTRL-\d{4}$')
 ELEMENT_ID = re.compile(r'^(CMP|DSN|CAP)-\d{2}$')
 HAZARD_ID = re.compile(r'^HZ-\d{2}$')
+SEMVER = re.compile(r'^\d+\.\d+\.\d+$')
+ISO_DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
 
 
 def load(filename):
@@ -80,6 +83,12 @@ def validate():
     elements = {**load('components.yaml'), **load('design.yaml'), **load('capabilities.yaml')}
     references = load('crosswalk_references.yaml')
     hazards = load('hazards.yaml')
+    register = load('register.yaml') or {}
+
+    if not SEMVER.match(str(register.get('version', ''))):
+        errors.append(f'register.yaml: version must be MAJOR.MINOR.PATCH (got {register.get("version")!r})')
+    if not ISO_DATE.match(str(register.get('released', ''))):
+        errors.append(f'register.yaml: released must be an ISO date YYYY-MM-DD (got {register.get("released")!r})')
 
     for element_id in elements:
         if not ELEMENT_ID.match(element_id):

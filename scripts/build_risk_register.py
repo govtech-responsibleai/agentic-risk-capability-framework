@@ -36,7 +36,7 @@ FRAMEWORK_SHORT = {
 }
 
 
-def build_crosswalks_page(risks, controls, references):
+def build_crosswalks_page(risks, controls, references, register):
     """Render docs/arc_framework/crosswalks.md from the register (generated file)."""
     def entries_for(section, framework):
         """external ID -> list of (entry_id, statement)"""
@@ -63,7 +63,8 @@ def build_crosswalks_page(risks, controls, references):
         'The crosswalks are maintained as a `crosswalks` field on every risk and control in the',
         '[register YAML](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/arc-risk-register),',
         'validated against `crosswalk_references.yaml`, and shown on each entry in the',
-        '[Interactive Risk Register](risk-register.md). This page is generated from the same data.',
+        '[Interactive Risk Register](risk-register.md). This page is generated from the same data',
+        f"(register version {register['version']}, {register['released']}).",
         '',
         '| Framework | Version | Maps to |',
         '| --- | --- | --- |',
@@ -116,6 +117,7 @@ def build_risk_register_data():
     design = load_yaml('design.yaml')
     references = load_yaml('crosswalk_references.yaml')
     hazards = load_yaml('hazards.yaml')
+    register = load_yaml('register.yaml')
 
     # Create element lookup (components + design + capabilities)
     elements = {}
@@ -201,6 +203,8 @@ def build_risk_register_data():
             for fw, ref in references.items()
         },
         'metadata': {
+            'version': str(register['version']),
+            'released': str(register['released']),
             'total_risks': len(risks),
             'total_controls': len(controls),
             'total_elements': len(elements),
@@ -238,7 +242,7 @@ def main():
         json.dump(data, f, indent=2)
 
     # Write generated crosswalks page
-    page = build_crosswalks_page(load_yaml('risks.yaml'), load_yaml('controls.yaml'), load_yaml('crosswalk_references.yaml'))
+    page = build_crosswalks_page(load_yaml('risks.yaml'), load_yaml('controls.yaml'), load_yaml('crosswalk_references.yaml'), load_yaml('register.yaml'))
     with open(CROSSWALKS_PAGE, 'w') as f:
         f.write(page)
     print(f"✓ Generated {CROSSWALKS_PAGE}")

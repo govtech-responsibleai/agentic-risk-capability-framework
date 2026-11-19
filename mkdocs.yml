@@ -81,10 +81,12 @@ nav:
     - Controls for agentic systems: arc_framework/controls.md
     - Interactive Risk Register: arc_framework/risk-register.md
     - Crosswalks to other frameworks: arc_framework/crosswalks.md
+    - Changelog: arc_framework/changelog.md
   - Implementation:
     - Implementing ARC: implementation/index.md
     - For Governance Teams: implementation/for-governance-teams.md
     - For AI Developers: implementation/for-ai-developers.md
+    - Assessment Template: implementation/assessment-template.md
   - Resources:
     - Resources: resources/index.md
 # Plugins

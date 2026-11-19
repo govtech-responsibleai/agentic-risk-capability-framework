@@ -1,6 +1,6 @@
 # Interactive Risk Register
 
-Here is our baseline **Risk Register** which we developed for the ARC Framework. It identifies a total of 54 risks arising from the different elements of agentic AI systems that we identified earlier, and recommends 94 controls to mitigate these risks.
+Here is our baseline **Risk Register** which we developed for the ARC Framework. It identifies a total of 54 risks arising from the different elements of agentic AI systems that we identified earlier, and recommends 94 controls to mitigate these risks. <span id="register-version" style="color: #6b7280; font-size: 0.9em;"></span> — see the [changelog](changelog.md) for what changed in each version and how to cite a specific one.
 
 !!! note "How to use the Risk Register"
 

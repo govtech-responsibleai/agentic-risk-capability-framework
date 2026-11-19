@@ -11,7 +11,8 @@
 The crosswalks are maintained as a `crosswalks` field on every risk and control in the
 [register YAML](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/arc-risk-register),
 validated against `crosswalk_references.yaml`, and shown on each entry in the
-[Interactive Risk Register](risk-register.md). This page is generated from the same data.
+[Interactive Risk Register](risk-register.md). This page is generated from the same data
+(register version 1.3.0, 2026-08-30).
 
 | Framework | Version | Maps to |
 | --- | --- | --- |
