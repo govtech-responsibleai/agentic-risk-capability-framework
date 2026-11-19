@@ -6,9 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="A technical governance framework for identifying, assessing, and mitigating safety and security risks in agentic AI systems, from GovTech Singapore.">
+      
       
         <meta name="author" content="GovTech AI Practice">
       
+      
+        <link rel="canonical" href="https://govtech-responsibleai.github.io/agentic-risk-capability-framework/">
       
       
       
@@ -610,6 +614,29 @@
   
   
     <li class="md-nav__item">
+      <a href="arc_framework/register-full-text/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Risk Register (full text)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="arc_framework/crosswalks/" class="md-nav__link">
         
   
@@ -904,18 +931,13 @@
 <li>An implementation methodology for organisational adoption and per-system assessment</li>
 </ul>
 <div class="admonition info">
-<p class="admonition-title">What's new — register v1.3, November 2026</p>
-<p>The register and site have had their largest revision since the framework was published:</p>
+<p class="admonition-title">What's new — register v1.4, November 2026</p>
 <ul>
-<li><strong>Register corrected and validated</strong>: the risk-to-control mappings were realigned, and every build now runs a validator so the register cannot regress silently</li>
-<li><strong>Level 0 means unwaivable</strong>: cardinal controls are those that must be adopted as-is wherever the risk applies; controls that could not meet that bar were re-tiered</li>
-<li><strong>Composite risks</strong>: a risk can arise from a <em>combination</em> of elements (e.g., data exfiltration through untrusted content + sensitive data + an outbound channel)</li>
-<li><strong>Crosswalks</strong>: every risk and control is mapped to the <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP Top 10 for Agentic Applications</a>, OWASP's agentic threat taxonomy, the <a href="https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/">CSA Securing Agentic AI Addendum</a> (final, June 2026), and <a href="https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf">IMDA's Model AI Governance Framework for Agentic AI</a> — see <a href="arc_framework/crosswalks/">Crosswalks</a></li>
-<li><strong>2026 risks and controls</strong>: eight risks and eight controls from the 2026 evidence base (supply-chain compromise, sandbox escape, deception toward overseers, unsanctioned agent coordination, automation bias, third-party agents, insecure runtime defaults), and updated controls for the current MCP specification, agent identity, kill switches, and continuous testing</li>
-<li><strong>Hazards recorded</strong>: every risk now lists the safety or security hazards it results in, and the register can be filtered by hazard</li>
-<li><strong>ARCvisor reads the same register</strong> as this site, so assessments and the published framework can no longer drift apart, and lists every Level 0 control for every applicable risk, whatever its score</li>
+<li><strong>Risks apply where they arise</strong>: multi-agent risks now apply only to systems in which more than one agent works on a task, including agents operated by other organisations, and the sandbox-escape risk only to systems that can execute code, so simpler systems no longer carry Level 0 controls that cannot apply to them; and a Level 0 control is waived when the capability or component it concerns is not present</li>
+<li><strong>Readable by AI agents</strong>: a <a href="arc_framework/register-full-text/">full-text register</a> with a link for every risk and control, and an <a href="llms.txt"><code>llms.txt</code></a> index for agents</li>
+<li><strong>ARC assessment skill</strong>: an <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills">Agent Skill</a> that lets a coding agent assess the system it is building against the register</li>
 </ul>
-<p>Each change is listed by version in the <a href="arc_framework/changelog/">Changelog</a>.</p>
+<p>Register v1.3 (November 2026) corrected and validated the register; defined Level 0 controls as unwaivable wherever their risk applies; introduced risks that arise from a combination of elements; added crosswalks to the <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP Top 10 for Agentic Applications</a>, OWASP's agentic threat taxonomy, the <a href="https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/">CSA Securing Agentic AI Addendum</a>, and <a href="https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf">IMDA's Model AI Governance Framework for Agentic AI</a>; added eight risks and eight controls from the 2026 evidence base; and recorded the hazards each risk results in. Each change is listed by version in the <a href="arc_framework/changelog/">Changelog</a>.</p>
 <p>Earlier (December 2025): the <a href="arc_framework/introduction/">introduction</a> with design rationale and literature review, the unified <a href="arc_framework/elements/">Elements</a> page, the <a href="arc_framework/risk-register/">interactive register</a>, the <a href="resources/#arcvisor">ARCvisor</a> tool, and the two technical papers in <a href="resources/">Resources</a>.</p>
 </div>
 <h2 id="navigation">Navigation</h2>

@@ -1797,15 +1797,18 @@
       "statement": "Cascading errors in multi-agent architectures",
       "description": "This risk arises when errors or misjudgements produced by one agent propagate through interconnected agents within a multi-agent system. As a result, small failures may compound across agent interactions, leading to amplified errors, degraded system performance, or unintended outcomes at the system level.",
       "element_ids": [
-        "DSN-01"
+        "DSN-01",
+        "CAP-02"
       ],
       "element_names": [
-        "Agentic Architecture"
+        "Agentic Architecture",
+        "Agent Delegation"
       ],
       "element_categories": [
-        "Design - Agentic Architecture"
+        "Design - Agentic Architecture",
+        "Capability - Cognitive"
       ],
-      "composite": false,
+      "composite": true,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -1972,15 +1975,18 @@
       "statement": "Man-in-the-middle attacks between agents",
       "description": "This risk arises when communication channels between agents are insufficiently secured, allowing an attacker to intercept, modify, or replay messages exchanged within the agentic system. As a result, agents may act on tampered information, leading to incorrect coordination, unauthorised actions, or compromised system behaviour.",
       "element_ids": [
-        "DSN-01"
+        "DSN-01",
+        "CAP-02"
       ],
       "element_names": [
-        "Agentic Architecture"
+        "Agentic Architecture",
+        "Agent Delegation"
       ],
       "element_categories": [
-        "Design - Agentic Architecture"
+        "Design - Agentic Architecture",
+        "Capability - Cognitive"
       ],
-      "composite": false,
+      "composite": true,
       "failure_mode": "External Manipulation",
       "type": [
         "Security"
@@ -2093,7 +2099,7 @@
     {
       "id": "RISK-014",
       "statement": "Feedback loops and runaway agent behaviour",
-      "description": "This risk arises when agents repeatedly reinforce each other\u2019s decisions, outputs, or errors within an agentic architecture. As a result, feedback loops may form that escalate actions, consume excessive resources, or cause the system to persist in harmful or unintended behaviour without effective human intervention.",
+      "description": "This risk arises when an agent repeatedly acts on its own outputs, or agents reinforce each other\u2019s decisions, outputs, or errors, with no bound on how many steps it takes, how much it spends, or how far its actions reach. As a result, feedback loops may form that escalate actions, consume excessive resources, or cause the system to persist in harmful or unintended behaviour without effective human intervention.",
       "element_ids": [
         "DSN-01"
       ],
@@ -2152,35 +2158,6 @@
           }
         },
         {
-          "id": "CTRL-0028",
-          "level": 0,
-          "statement": "Continuously monitor multi-agent systems for cascade failure indicators",
-          "recommendations": "Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.",
-          "references": [
-            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996"
-          ],
-          "crosswalks": {
-            "csa_addendum": [
-              {
-                "id": "4.3",
-                "title": "Continuous monitoring and logging"
-              }
-            ],
-            "imda_mgf": [
-              {
-                "id": "2.3.3",
-                "title": "Continuously monitor and test when deploying"
-              }
-            ],
-            "owasp_asi": [
-              {
-                "id": "ASI08",
-                "title": "Cascading Failures"
-              }
-            ]
-          }
-        },
-        {
           "id": "CTRL-0029",
           "level": 1,
           "statement": "Grant agents only the minimum permissions required for their designated tasks",
@@ -2203,6 +2180,41 @@
               {
                 "id": "ASI03",
                 "title": "Identity and Privilege Abuse"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0040",
+          "level": 0,
+          "statement": "Limit the scope of agent actions through predefined thresholds and baselines",
+          "recommendations": "Without action limits, agents may bypass controls by delegating excessive tasks, consuming unlimited resources, or spreading malicious activities across multiple operations to evade detection. Define quantitative thresholds that constrain agent behaviour, such as maximum number of tool calls per session, maximum number of agents that can be delegated to, maximum cost or resource consumption, or maximum data volume accessed. Implement runtime monitoring that tracks agent activity against these thresholds and halts execution when limits are exceeded. Examples include limiting an agent to 50 API calls per task or restricting delegation to no more than 3 sub-agents.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.7",
+                "title": "Implement controls to limit what models or agents can access and generate"
+              },
+              {
+                "id": "3.1",
+                "title": "Ensure availability controls against disruption or failure"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              },
+              {
+                "id": "ASI08",
+                "title": "Cascading Failures"
               }
             ]
           }
@@ -4944,9 +4956,43 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0089",
+          "level": 0,
+          "statement": "Enforce default-deny network egress for agent runtimes, allowing only approved destinations",
+          "recommendations": "Every exfiltration and every containment escape needs an outbound channel, and agents acquire new ones with each tool. Run agent runtimes behind an egress policy that denies all outbound connections by default and allows only named destinations required for the task, applied at the network layer (proxy, firewall, or sandbox policy) rather than in the prompt. Include browsing and API tools in the policy, block requests that carry data in URLs or headers to unapproved hosts, and validate at the egress boundary that any credential presented belongs to the deployment \u2014 an allowlisted API endpoint is still an exfiltration channel if the agent can use it with an attacker's account. Log and alert on denied connections; they are an early signal of injection or misbehaviour.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude",
+            "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.6",
+                "title": "Implement authentication, authorisation and access controls"
+              },
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://arxiv.org/html/2506.00618v3"
       ],
@@ -6720,17 +6766,20 @@
     {
       "id": "RISK-049",
       "statement": "Escape from evaluation or sandbox containment onto live systems",
-      "description": "This risk arises when an agent operating in what is intended to be a contained setting \u2014 an evaluation, a red-team exercise, or a sandboxed task \u2014 reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.",
+      "description": "This risk arises when an agent that can execute code, operating in what is intended to be a contained setting \u2014 an evaluation, a red-team exercise, or a sandboxed task \u2014 reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.",
       "element_ids": [
-        "DSN-02"
+        "DSN-02",
+        "CAP-10"
       ],
       "element_names": [
-        "Roles and Access Controls"
+        "Roles and Access Controls",
+        "Code Execution"
       ],
       "element_categories": [
-        "Design - Roles and Access Controls"
+        "Design - Roles and Access Controls",
+        "Capability - Operational"
       ],
-      "composite": false,
+      "composite": true,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -7158,15 +7207,18 @@
       "statement": "Unsanctioned coordination between agents",
       "description": "This risk arises when agents in a multi-agent system coordinate through channels or in ways that no operator sanctioned \u2014 sharing credentials, leaving each other messages in shared stores, using side channels, or dividing up a task so that each agent's actions look acceptable while the combined outcome is not. Coordination can emerge from shared objectives without any explicit instruction, and standard per-agent monitoring does not see it. As a result, the system as a whole pursues outcomes that would have been blocked had a single agent attempted them.",
       "element_ids": [
-        "DSN-01"
+        "DSN-01",
+        "CAP-02"
       ],
       "element_names": [
-        "Agentic Architecture"
+        "Agentic Architecture",
+        "Agent Delegation"
       ],
       "element_categories": [
-        "Design - Agentic Architecture"
+        "Design - Agentic Architecture",
+        "Capability - Cognitive"
       ],
-      "composite": false,
+      "composite": true,
       "failure_mode": "Agent Failure",
       "type": [
         "Safety",
@@ -8013,7 +8065,7 @@
       "id": "DSN-01",
       "name": "Agentic Architecture",
       "category": "Design - Agentic Architecture",
-      "description": "The agentic architecture defines how multiple agents are structured, interconnected, and coordinated to collectively perform tasks that exceed the capabilities of a single agent. This includes orchestration patterns such as hierarchical delegation, parallel agent execution, sequential handoffs between specialised agents, shared or centralized planning components, and the communication protocols that govern information exchange and coordination across the system."
+      "description": "The agentic architecture defines how an agentic system's control flow is structured: the loop through which a single agent plans, acts, and observes, and, where there are several agents, how they are structured, interconnected, and coordinated to collectively perform tasks that exceed the capabilities of a single agent. This includes orchestration patterns such as hierarchical delegation, parallel agent execution, sequential handoffs between specialised agents, shared or centralized planning components, and the communication protocols that govern information exchange and coordination across the system. Risks specific to multiple agents apply only to systems with the Agent Delegation capability."
     },
     {
       "id": "DSN-02",
@@ -8037,7 +8089,7 @@
       "id": "CAP-02",
       "name": "Agent Delegation",
       "category": "Capability - Cognitive",
-      "description": "The capability to assign subtasks to other agents and coordinate their activities to achieve broader goals. This includes identifying which components are best suited for specific tasks, issuing clear instructions, managing inter-agent dependencies, and monitoring performance or failures."
+      "description": "The capability to assign subtasks to other agents and coordinate their activities to achieve broader goals. This includes identifying which components are best suited for specific tasks, issuing clear instructions, managing inter-agent dependencies, and monitoring performance or failures. A system has this capability whenever more than one agent works on a task, whether an agent decides the hand-offs or they are fixed in the workflow, and whether the other agents belong to the same system or are operated by another party, including agents it transacts with as counterparties."
     },
     {
       "id": "CAP-03",
@@ -8123,7 +8175,7 @@
     }
   },
   "metadata": {
-    "version": "1.3.0",
+    "version": "1.4.0",
     "released": "2026-11-20",
     "total_risks": 54,
     "total_controls": 94,

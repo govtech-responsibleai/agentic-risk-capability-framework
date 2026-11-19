@@ -6,9 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="A technical governance framework for identifying, assessing, and mitigating safety and security risks in agentic AI systems, from GovTech Singapore.">
+      
       
         <meta name="author" content="GovTech AI Practice">
       
+      
+        <link rel="canonical" href="https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/changelog/">
       
       
         <link rel="prev" href="../crosswalks/">
@@ -501,6 +505,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../register-full-text/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Risk Register (full text)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../crosswalks/" class="md-nav__link">
         
   
@@ -577,6 +604,15 @@
   <a href="#versioning-policy" class="md-nav__link">
     <span class="md-ellipsis">
       Versioning policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1-4-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4.0 — November 2026
     </span>
   </a>
   
@@ -918,7 +954,17 @@
 <ul>
 <li><strong>IDs are never reused.</strong> A retired or merged entry keeps its ID and gains a <code>superseded_by</code> pointer, so assessments and citations written against an older version remain resolvable.</li>
 <li>Each release to the <code>main</code> branch is tagged <code>v&lt;version&gt;</code> on GitHub; the register YAML for any version can be retrieved from the tag.</li>
-<li>To cite a specific version: <em>GovTech Singapore (2026). Agentic Risk &amp; Capability Framework, risk register v1.3.0.</em> followed by the site URL.</li>
+<li>To cite a specific version: <em>GovTech Singapore (2026). Agentic Risk &amp; Capability Framework, risk register v1.4.0.</em> followed by the site URL.</li>
+</ul>
+<h2 id="v1-4-0">1.4.0 — November 2026</h2>
+<p>Applicability: a risk should apply only to systems that have the elements it arises from.</p>
+<ul>
+<li><strong>Multi-agent risks need Agent Delegation.</strong> RISK-012 (cascading errors), RISK-013 (man-in-the-middle attacks between agents) and RISK-051 (unsanctioned coordination) now arise from the agentic architecture (DSN-01) <em>together with</em> Agent Delegation (CAP-02), so a single-agent system no longer carries them or their multi-agent controls. Agent Delegation now states that it covers workflows with fixed hand-offs and agents operated by other parties, including counterparties, so these risks apply across organisational boundaries too.</li>
+<li><strong>Runaway behaviour covers single agents.</strong> RISK-014 stays a baseline risk, rewritten to include an agent acting on its own outputs without bound. It now carries CTRL-0040 (action thresholds) instead of CTRL-0028 (multi-agent cascade monitoring), which stays on RISK-012 and RISK-051, so every system keeps the kill switch (CTRL-0065) and action limits. The agentic architecture element (DSN-01) now includes a single agent's plan–act–observe loop.</li>
+<li><strong>Sandbox escape needs Code Execution.</strong> RISK-049 (escape from evaluation or sandbox containment) now arises from roles and access controls (DSN-02) <em>together with</em> Code Execution (CAP-10), the path in every incident it cites, so systems that cannot run code no longer carry code sandboxing (CTRL-0069) or contained evaluations (CTRL-0092) through it. Default-deny egress (CTRL-0089) is now also attached to RISK-037 (exposure of sensitive data through computer use), so computer-use agents keep it.</li>
+<li><strong>Level 0 waived when its subject is absent.</strong> A Level 0 control still applies to every applicable risk whatever its score, but is waived when the capability or component it concerns is not present in the system (for example, MCP-server controls in a system that uses no MCP servers). The assessment records the waiver with evidence; the <a href="../../implementation/assessment-template/">Assessment Template</a> gains a <em>Waived — not applicable</em> status and keeps one row per control per risk.</li>
+<li><strong>Site and tools.</strong> A <a href="../register-full-text/">full-text register</a> with a link for every risk and control, and an <code>llms.txt</code> index, make the site readable by AI agents; the site's register JSON and generated pages are now built from the YAML at build time rather than committed. The <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills">ARC assessment skill</a> lets a coding agent assess the system it is building against the register.</li>
+<li>Register: 54 risks and 94 controls (unchanged); baseline risks 24 → 20. Systems with Agent Delegation and Code Execution carry the same risks and Level 0 controls as before; a single-agent Q&amp;A system goes from 26 Level 0 controls to 21.</li>
 </ul>
 <h2 id="v1-3-0">1.3.0 — November 2026</h2>
 <p>Consolidation release: no change to the framework's model. Published to the site together with 1.2.0.</p>

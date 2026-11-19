@@ -6,9 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="A technical governance framework for identifying, assessing, and mitigating safety and security risks in agentic AI systems, from GovTech Singapore.">
+      
       
         <meta name="author" content="GovTech AI Practice">
       
+      
+        <link rel="canonical" href="https://govtech-responsibleai.github.io/agentic-risk-capability-framework/implementation/assessment-template/">
       
       
         <link rel="prev" href="../for-ai-developers/">
@@ -498,6 +502,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../arc_framework/register-full-text/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Risk Register (full text)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../arc_framework/crosswalks/" class="md-nav__link">
         
   
@@ -917,7 +944,7 @@
 </tr>
 <tr>
 <td>Register version assessed against</td>
-<td>e.g. <code>1.3.0</code> (see the <a href="../../arc_framework/changelog/">changelog</a>)</td>
+<td>e.g. <code>1.4.0</code> (see the <a href="../../arc_framework/changelog/">changelog</a>)</td>
 </tr>
 <tr>
 <td>Organisation's relevance threshold</td>
@@ -1016,7 +1043,7 @@
 </tbody>
 </table>
 <h2 id="2-applicable-risks">2. Applicable risks</h2>
-<p>List <strong>every applicable risk</strong>: all baseline risks (components CMP-01 to CMP-04 and design DSN-01 to DSN-03 — 24 in register 1.3.0), each capability risk for a capability marked present, and each composite risk whose capabilities are <em>all</em> present. Score each; a risk is a <strong>priority</strong> when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.</p>
+<p>List <strong>every applicable risk</strong>: all baseline risks (those arising only from components CMP-01 to CMP-04 and design elements DSN-01 to DSN-03 — 20 in register 1.4.0), each capability risk for a capability marked present, and each composite risk whose capabilities are <em>all</em> present. Score each; a risk is a <strong>priority</strong> when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.</p>
 <table>
 <thead>
 <tr>
@@ -1051,14 +1078,14 @@
 </tbody>
 </table>
 <h2 id="3-controls">3. Controls</h2>
-<p>One row per control per risk. <strong>Every Level 0 control of every applicable risk is listed with status <em>Implemented as-is</em>.</strong> Level 1 and 2 controls are listed for priority risks (and for any other risk where you choose to adopt them); if not adopted, record why.</p>
+<p>One row per control per risk, even where the same control addresses several risks. <strong>Every Level 0 control of every applicable risk is listed with status <em>Implemented as-is</em>, or <em>Waived — not applicable</em> where the capability or component it concerns is not present in the system, with evidence of its absence.</strong> Level 1 and 2 controls are listed for priority risks (and for any other risk where you choose to adopt them); if not adopted, record why.</p>
 <table>
 <thead>
 <tr>
 <th>Risk ID</th>
 <th>Control ID</th>
 <th>Level</th>
-<th>Status (as-is / adapted / not adopted)</th>
+<th>Status (as-is / adapted / not adopted / waived — not applicable)</th>
 <th>Implementation or adaptation (what, where, thresholds)</th>
 <th>Evidence (config, test result, log, review record)</th>
 <th>Owner</th>
@@ -1073,6 +1100,16 @@
 <td>Implemented as-is</td>
 <td></td>
 <td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>0</td>
+<td>Waived — not applicable</td>
+<td>e.g. "The system uses no MCP servers"</td>
+<td>e.g. the tool registry listing every tool it can call</td>
 <td></td>
 <td></td>
 </tr>

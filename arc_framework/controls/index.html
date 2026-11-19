@@ -6,9 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="A technical governance framework for identifying, assessing, and mitigating safety and security risks in agentic AI systems, from GovTech Singapore.">
+      
       
         <meta name="author" content="GovTech AI Practice">
       
+      
+        <link rel="canonical" href="https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/controls/">
       
       
         <link rel="prev" href="../risks/">
@@ -594,6 +598,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../register-full-text/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Risk Register (full text)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../crosswalks/" class="md-nav__link">
         
   
@@ -918,13 +945,13 @@
 <h3 id="control-levels">📶 Control levels</h3>
 <p>Next, we categorise the control into three levels based on its criticality:</p>
 <ul>
-<li><strong>Level 0: Cardinal control</strong> - fundamental requirement that cannot be waived, must be adopted as is</li>
+<li><strong>Level 0: Cardinal control</strong> - fundamental requirement that must be adopted as is; waived only when the capability or component it concerns is not present in the system</li>
 <li><strong>Level 1: Standard control</strong> - adopt or adapt meaningfully and sensibly</li>
 <li><strong>Level 2: Best practice control</strong> - good to consider, especially for high-risk systems</li>
 </ul>
 <div class="admonition info">
 <p class="admonition-title">When does a Level 0 control apply?</p>
-<p>A Level 0 control is mandatory for every system in which its risk is <strong>applicable</strong> — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, <strong>never waives a Level 0 control</strong>: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. This is the single definition of the levels; the implementation guides restate it.</p>
+<p>A Level 0 control is mandatory for every system in which its risk is <strong>applicable</strong> — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, <strong>never waives a Level 0 control</strong>: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. A Level 0 control is <strong>waived only when the capability or component it concerns is not present</strong> in the system — for example, a control on MCP servers in a system that uses none, or on agent-generated code in a system that generates none. Record the waiver with evidence that the capability or component is absent. This is the single definition of the levels; the implementation guides restate it.</p>
 </div>
 <details class="example">
 <summary>Example of controls targeting a specific risk</summary>

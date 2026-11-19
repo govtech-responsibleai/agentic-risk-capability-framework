@@ -1,0 +1,35 @@
+# Agentic Risk & Capability (ARC) Framework
+
+> A technical governance framework from GovTech Singapore for identifying, assessing, and mitigating safety and security risks in agentic AI systems. ARC derives a system's risks from its components, design, and capabilities, and maps each risk to technical controls. Risk register version 1.4.0.
+
+ARC describes an agentic system by three kinds of element: components (LLM, instructions, tools, memory), design (agentic architecture, roles and access controls, monitoring and traceability), and twelve capabilities, such as code execution, internet and search access, official communication, and business transactions. Each risk in the register arises from one or more elements through one of three failure modes, results in safety or security hazards, and is mapped to controls at Level 0 (cardinal), Level 1 (standard), or Level 2 (best practice).
+
+ARC is meant to be adapted: an organisation contextualises the baseline register to its own setting, and teams then assess individual systems against that version. When citing ARC, give the register version and the entry ID (for example RISK-034 or CTRL-0062).
+
+## Framework
+
+- [Introduction](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/introduction/): motivation, the capability-based approach, and related work
+- [Elements](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/elements/): definitions of the components, design elements, and twelve capabilities
+- [Risks](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/risks/): failure modes and hazards
+- [Controls](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/controls/): what the control levels mean and when they apply
+- [Risk Register (full text)](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/register-full-text/): every risk and control, one linkable section per entry
+
+## Implementation
+
+- [Implementing ARC](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/implementation/): the two-stage methodology
+- [For governance teams](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/implementation/for-governance-teams/): contextualising ARC for an organisation
+- [For AI developers](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/implementation/for-ai-developers/): assessing a system, with worked examples
+- [Assessment template](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/implementation/assessment-template/)
+
+## Register data
+
+- [risks.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/risks.yaml) and [controls.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/controls.yaml): the machine-readable register at v1.4.0
+- [capabilities.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/capabilities.yaml), [components.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/components.yaml), [design.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/design.yaml), [hazards.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/hazards.yaml): elements and hazard categories
+- [Changelog](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/changelog/): what changed in each version, and the versioning policy
+
+## Optional
+
+- [Crosswalks](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/crosswalks/): mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the CSA Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
+- [Paper](https://arxiv.org/abs/2512.22211): "With Great Capabilities Come Great Responsibilities", IASEAI'26 main track
+- [ARCvisor](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/resources/#arcvisor): an assistant that walks a team through an assessment
+- [ARC assessment skill](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills): an Agent Skill that lets a coding agent assess the system it is building with ARC
