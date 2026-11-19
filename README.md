@@ -36,8 +36,7 @@ In practice, a governance team adapts the baseline register to its organisation,
 ## Using the register
 
 - **Browse** the [interactive register](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/risk-register/), filterable by element, failure mode, risk type, and hazard, with full-text search.
-- **Machine-readable:** [`risk_register_data.json`](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/assets/risk_register_data.json) carries every risk with its elements, failure mode, hazards, controls, and crosswalks; `metadata.version` gives the register version.
-- **Source:** the YAML in [`arc-risk-register/`](arc-risk-register/) is the single source of truth for both the website and ARCvisor.
+- **Machine-readable:** the YAML in [`arc-risk-register/`](arc-risk-register/) *is* the register, and the format to build on. It is the single source for both the website and ARCvisor, with one file per kind of entry (risks, controls, elements, hazards, crosswalk references) cross-referenced by ID, and the version in `register.yaml`. The JSON the website loads is generated from it at build time for the interactive page; its shape may change, so don't depend on it.
 - **Pin a version:** each release is tagged `v<version>` (e.g. `v1.3.0`). The [changelog](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/changelog/) explains the versioning policy and how to cite a specific version.
 
 ## ARCvisor
@@ -50,7 +49,7 @@ In practice, a governance team adapts the baseline register to its organisation,
 | --- | --- |
 | [`arc-risk-register/`](arc-risk-register/) | The register: risks, controls, elements, hazards, crosswalk references, and the register version |
 | [`docs/`](docs/) | The website ([MkDocs Material](https://squidfunk.github.io/mkdocs-material/)) |
-| [`scripts/`](scripts/) | Validator, and the build that generates the site's JSON and crosswalks page |
+| [`scripts/`](scripts/) | Validator, and the MkDocs hook that generates the site's register JSON and Crosswalks page at build time |
 | [`app/`](app/) | ARCvisor |
 | [`iaseai26.tex`](iaseai26.tex) | Source of the IASEAI'26 paper |
 | [`archive/`](archive/) | Earlier versions of the site, kept for reference |
@@ -62,8 +61,7 @@ Website (Python 3.13):
 
 ```bash
 pip install -r requirements.txt
-python scripts/build_risk_register.py   # validates the register, then regenerates the JSON and crosswalks page
-mkdocs serve                            # http://127.0.0.1:8000
+mkdocs serve      # validates the register and generates its pages on every rebuild; http://127.0.0.1:8000
 ```
 
 ARCvisor:
