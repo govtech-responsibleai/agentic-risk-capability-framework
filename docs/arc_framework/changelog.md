@@ -20,14 +20,15 @@ Rules that hold across versions:
 - Each release to the `main` branch is tagged `v<version>` on GitHub; the YAML and JSON for any version can be retrieved from the tag.
 - To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.3.0.* followed by the site URL.
 
-## 1.3.0 — August 2026 { #v1-3-0 }
+## 1.3.0 — November 2026 { #v1-3-0 }
 
-Consolidation release: no change to the framework's model.
+Consolidation release: no change to the framework's model. Published to the site together with 1.2.0.
 
 - **Data integrity.** Crosswalk IDs are quoted strings; an unquoted `2.10` had been read as `2.1`, mis-mapping three controls to the wrong CSA Addendum section. The validator now rejects non-string IDs.
 - **Mappings corrected.** Twelve controls were attached to the wrong risk or missing from an obvious one (circuit breakers not on cascading errors; least privilege not on overly permissive roles; fraud detection on credential leakage instead of unauthorised transactions; and others). 23 links added, 4 moved.
 - **Hazards recorded.** Every risk lists the hazards it results in (`hazards.yaml`, nine categories); a risk's Safety/Security type must agree with its hazards. The register page can be filtered by hazard.
 - **Level 0 applicability stated once.** A Level 0 control attaches to every risk whose elements are present, regardless of impact/likelihood score; scoring governs Levels 1 and 2. The developer guide's worked examples were corrected to follow this.
+- **ARCvisor follows the Level 0 rule.** It lists every Level 0 control for every applicable risk, not only for risks above the scoring thresholds, and Level 0 entries start blank instead of defaulting to "I accept all residual risk"; the export flags any left undescribed. The model for each step is now one setting (`ARCVISOR_MODEL`).
 - **Site.** The December-2025 comparison page was retired in favour of the generated Crosswalks; an [Assessment Template](../implementation/assessment-template.md) and a contributing guide were added; the register now carries a version.
 
 ## 1.2.0 — August 2026 { #v1-2-0 }
