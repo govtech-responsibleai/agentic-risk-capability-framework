@@ -1330,6 +1330,7 @@ CTRL-0086:
 CTRL-0089:
   level: 0
   risks:
+  - RISK-037
   - RISK-047
   - RISK-049
   statement: Enforce default-deny network egress for agent runtimes, allowing only approved destinations

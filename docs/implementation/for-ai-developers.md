@@ -226,7 +226,7 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 #### Step 3: Implement Controls
 
-This system has 43 applicable risks (21 baseline, 18 from single capabilities, and four from combinations: RISK-047, plus the multi-agent risks RISK-012, RISK-013 and RISK-051 that Agent Delegation brings in), which between them carry 31 Level 0 controls. All 31 are implemented as-is and recorded in the assessment; the table below shows the priority risks only — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
+This system has 42 applicable risks (20 baseline, 18 from single capabilities, and four from combinations: RISK-047, plus the multi-agent risks RISK-012, RISK-013 and RISK-051 that Agent Delegation brings in), which between them carry 29 Level 0 controls. All 29 are implemented as-is and recorded in the assessment; the table below shows the priority risks only — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
 
 | Risk ID | Selected Controls | Implementation |
 |---------|-------------------|----------------|
@@ -301,7 +301,7 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 #### Step 3: Implement Controls
 
-This system has 42 applicable risks (21 baseline, 18 from single capabilities, and the three multi-agent risks that Agent Delegation brings in) carrying 34 Level 0 controls, all of which are implemented as-is. The table shows the priority risks — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
+This system has 42 applicable risks (20 baseline, 18 from single capabilities, and four from combinations: the three multi-agent risks that Agent Delegation brings in, and RISK-049, sandbox escape, which Code Execution brings in) carrying 34 Level 0 controls, all of which are implemented as-is. The table shows the priority risks — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
 
 | Risk ID | Selected Controls | Implementation |
 |---------|-------------------|----------------|
@@ -381,7 +381,7 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 #### Step 3: Implement Controls
 
-This system has 42 applicable risks (21 baseline, 18 from single capabilities, and the three multi-agent risks that Agent Delegation brings in) carrying 32 Level 0 controls, all implemented as-is even under the higher risk appetite — the appetite affects only which Level 1 and 2 controls are taken up. For the three priority risks we implement:
+This system has 41 applicable risks (20 baseline, 18 from single capabilities, and the three multi-agent risks that Agent Delegation brings in) carrying 29 Level 0 controls, all implemented as-is even under the higher risk appetite — the appetite affects only which Level 1 and 2 controls are taken up. For the three priority risks we implement:
 
 | Risk ID | Selected Controls | Implementation |
 |---------|-------------------|----------------|
