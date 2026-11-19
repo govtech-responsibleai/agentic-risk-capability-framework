@@ -532,6 +532,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#control-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      📶 Control levels
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -585,12 +594,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../comparison/" class="md-nav__link">
+      <a href="../crosswalks/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison to other frameworks
+    Crosswalks to other frameworks
     
   </span>
   
@@ -608,12 +617,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../crosswalks/" class="md-nav__link">
+      <a href="../changelog/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Crosswalks to other frameworks
+    Changelog
     
   </span>
   
@@ -745,6 +754,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/assessment-template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Assessment Template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -849,7 +881,7 @@
 <h1 id="controls-for-agentic-systems">Controls for agentic systems</h1>
 <div class="admonition abstract">
 <p class="admonition-title">Page Summary</p>
-<p>This page defines technical controls for mitigating risks in agentic systems, organised into three tiers: Cardinal (Level 0 - fundamental requirements), Standard (Level 1 - recommended implementations), and Best Practice (Level 2 - aspirational measures). Each control aims to either reduce the potential impact of failures or decrease the likelihood of specific failure modes occurring.</p>
+<p>This page defines technical controls for mitigating risks in agentic systems, organised into three tiers: Cardinal (Level 0 - fundamental requirements), Standard (Level 1 - adopt or adapt), and Best Practice (Level 2 - good to consider, especially for high-risk systems). Each control aims to either reduce the potential impact of failures or decrease the likelihood of specific failure modes occurring.</p>
 </div>
 <p>Controls are essential to mitigate risks to an acceptable level. Within the <strong>Risk Register</strong>, each risk comes with a set of <strong>recommended technical controls</strong> that aim to either:</p>
 <ol>
@@ -883,12 +915,17 @@
 <li>How can we <strong>deter attackers from probing our system</strong> for potential weaknesses?</li>
 </ul>
 <p>It is helpful to read up on the literature on AI safety and security to understand what the common mitigation measures are and how effective they are in managing agentic risks.</p>
+<h3 id="control-levels">📶 Control levels</h3>
 <p>Next, we categorise the control into three levels based on its criticality:</p>
 <ul>
 <li><strong>Level 0: Cardinal control</strong> - fundamental requirement that cannot be waived, must be adopted as is</li>
 <li><strong>Level 1: Standard control</strong> - adopt or adapt meaningfully and sensibly</li>
 <li><strong>Level 2: Best practice control</strong> - good to consider, especially for high-risk systems</li>
 </ul>
+<div class="admonition info">
+<p class="admonition-title">When does a Level 0 control apply?</p>
+<p>A Level 0 control is mandatory for every system in which its risk is <strong>applicable</strong> — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, <strong>never waives a Level 0 control</strong>: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. This is the single definition of the levels; the implementation guides restate it.</p>
+</div>
 <details class="example">
 <summary>Example of controls targeting a specific risk</summary>
 <p><strong>Risk:</strong> RISK-034 "Prompt injection via malicious websites" → <strong>Safety and security risk</strong> caused by <strong>external manipulation</strong> of the <strong>Internet and Search Access</strong> capability.</p>
@@ -899,7 +936,7 @@
 <li><strong>CTRL-0062</strong> [Level 0] Implement input guardrails to detect prompt injection and adversarial attacks → <em>reduces likelihood of prompt injection attack succeeding</em></li>
 </ol>
 </details>
-<p>Our <a href="../risk-register/">Interactive Risk Register</a> provides <strong>recommended controls</strong> for each of the 46 documented risks to help organizations get started.</p>
+<p>Our <a href="../risk-register/">Interactive Risk Register</a> provides <strong>recommended controls</strong> for each of the 54 documented risks to help organizations get started.</p>
 <hr />
 <h2 id="residual-risks">Residual Risks</h2>
 <p>Agentic AI and LLMs are evolving rapidly, and no list of technical controls can credibly claim to eliminate all potential threats. It is therefore crucial to evaluate the <strong>residual risk</strong> — the remaining risk after controls have been applied — to uncover gaps and assess the overall level of risk in the agentic system. If the residual risk is deemed unacceptable, further measures, both <strong>technical</strong> and <strong>organisational</strong>, must be implemented to reduce it to an acceptable level.</p>

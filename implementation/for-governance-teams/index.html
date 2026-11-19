@@ -498,12 +498,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arc_framework/comparison/" class="md-nav__link">
+      <a href="../../arc_framework/crosswalks/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison to other frameworks
+    Crosswalks to other frameworks
     
   </span>
   
@@ -521,12 +521,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arc_framework/crosswalks/" class="md-nav__link">
+      <a href="../../arc_framework/changelog/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Crosswalks to other frameworks
+    Changelog
     
   </span>
   
@@ -772,6 +772,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assessment-template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Assessment Template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -922,7 +945,7 @@
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Contextualising Risks for your Organisation</p>
-<p><strong>Geographic context</strong> matters significantly when contextualising risks. <strong>US organisations</strong> should map risks to state and federal regulations such as HIPAA, CCPA, and sector-specific requirements. <strong>Singapore-based organisations</strong> should align risks with the PDPA, Cybersecurity Act, and sectoral guidelines from regulators like MAS, MOH, and IMDA. <strong>Organisations with a presence in the EU</strong> must contextualise risks for GDPR compliance and emerging AI Act requirements.</p>
+<p><strong>Geographic context</strong> matters significantly when contextualising risks. <strong>US organisations</strong> should map risks to state and federal regulations such as HIPAA, CCPA, and sector-specific requirements. <strong>Singapore-based organisations</strong> should align risks with the PDPA, Cybersecurity Act, and sectoral guidelines from regulators like MAS, MOH, and IMDA. <strong>Organisations with a presence in the EU</strong> must contextualise risks for GDPR compliance and the EU AI Act's obligations as they phase in.</p>
 <p><strong>Industry context</strong> shapes risk prioritisation and impact assessment. <strong>Healthcare organisations</strong> should elevate all risks involving patient safety and medical information due to regulatory scrutiny and potential harm. <strong>Financial services firms</strong> must emphasize transaction integrity, market manipulation risks, and financial crime prevention. <strong>Legal firms</strong> should highlight risks to attorney-client privilege and professional liability. <strong>Manufacturing companies</strong> need to focus on safety-critical operations and operational continuity risks.</p>
 </div>
 <h3 id="step-3-adapt-controls">Step 3: Adapt Controls</h3>
@@ -951,7 +974,7 @@
 <p><strong>Baseline Control (CTRL-0044):</strong> "Implement output safety guardrails to detect and prevent generation of undesirable content"</p>
 <ul>
 <li><strong>Adapted for Organisation with Azure Infrastructure:</strong> "Use Azure AI Content Safety API with toxicity threshold &gt;0.7, sexual content threshold &gt;0.6; block flagged outputs and log violations to Application Insights; review flagged content weekly"</li>
-<li><strong>Adapted for Organisation Without Commercial Safety APIs:</strong> "Implement keyword-based filtering for high-priority harmful content categories (profanity, violence, hate speech); use open-source detectors (e.g., Detoxify) for toxicity scoring; plan migration to commercial API in Q3 when budget available"</li>
+<li><strong>Adapted for Organisation Without Commercial Safety APIs:</strong> "Implement keyword-based filtering for high-priority harmful content categories (profanity, violence, hate speech); use open-source detectors (e.g., Detoxify) for toxicity scoring; plan migration to a commercial API when budget allows"</li>
 </ul>
 </details>
 </div>
@@ -1008,7 +1031,7 @@
 <p class="admonition-title">Making It Easy for Developers</p>
 <p>Focus your initial efforts on reducing developer friction:</p>
 <p><strong>1. Create a developer self-service toolkit</strong> including pre-filled templates, decision trees for risk scoring, and concrete examples from your pilot projects. This enables developers to complete assessments without constant governance support.</p>
-<p><strong>2. Develop standardised assessment templates</strong> that auto-populate with your organisation's contextualised risks, controls, and relevance thresholds. Developers should be able to select from dropdowns rather than writing from scratch.</p>
+<p><strong>2. Develop standardised assessment templates</strong> that auto-populate with your organisation's contextualised risks, controls, and relevance thresholds. Developers should be able to select from dropdowns rather than writing from scratch. Start from the framework's <a href="../assessment-template/">Assessment Template</a>, which fixes the fields every assessment should capture, including the evidence for each control and who accepts residual risk.</p>
 <p><strong>3. Implement automated tooling where possible</strong> such as risk scoring calculators, control recommendation engines, or integration with <a href="../../resources/#arcvisor">ARCvisor</a> for guided workflows. Automation reduces assessment time and ensures consistency.</p>
 <p>Developers who can complete assessments quickly and confidently are far more likely to embrace the framework than those who face lengthy, ambiguous processes.</p>
 </div>

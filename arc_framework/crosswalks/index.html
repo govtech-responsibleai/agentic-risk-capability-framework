@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../comparison/">
+        <link rel="prev" href="../risk-register/">
       
       
-        <link rel="next" href="../../implementation/">
+        <link rel="next" href="../changelog/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -498,29 +498,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../comparison/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Comparison to other frameworks
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -631,6 +608,29 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -757,6 +757,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/assessment-template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Assessment Template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -870,7 +893,8 @@ Each mapping points to the <em>nearest corresponding entries</em>; it is not a c
 <p>The crosswalks are maintained as a <code>crosswalks</code> field on every risk and control in the
 <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/arc-risk-register">register YAML</a>,
 validated against <code>crosswalk_references.yaml</code>, and shown on each entry in the
-<a href="../risk-register/">Interactive Risk Register</a>. This page is generated from the same data.</p>
+<a href="../risk-register/">Interactive Risk Register</a>. This page is generated from the same data
+(register version 1.3.0, 2026-11-20).</p>
 <table>
 <thead>
 <tr>
@@ -921,23 +945,23 @@ ARC control corresponds to it.</p>
 <tbody>
 <tr>
 <td><strong>ASI01</strong> Agent Goal Hijack</td>
-<td><strong>RISK-008</strong> Vague or underspecified instructions<br><strong>RISK-009</strong> Unsanitised inputs in system instructions<br><strong>RISK-019</strong> Generating plans that fail to meet the user's requirements<br><strong>RISK-020</strong> Generating plans that overlook safety implications<br><strong>RISK-032</strong> Unauthorised execution of business transactions<br><strong>RISK-034</strong> Prompt injection via malicious websites<br><strong>RISK-036</strong> Prompt injection risks through computer use<br><strong>RISK-044</strong> Prompt injection via malicious files or data</td>
+<td><strong>RISK-008</strong> Vague or underspecified instructions<br><strong>RISK-009</strong> Unsanitised inputs in system instructions<br><strong>RISK-019</strong> Generating plans that fail to meet the user's requirements<br><strong>RISK-020</strong> Generating plans that overlook safety implications<br><strong>RISK-032</strong> Unauthorised execution of business transactions<br><strong>RISK-034</strong> Prompt injection via malicious websites<br><strong>RISK-036</strong> Prompt injection risks through computer use<br><strong>RISK-044</strong> Prompt injection via malicious files or data<br><strong>RISK-047</strong> Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel</td>
 </tr>
 <tr>
 <td><strong>ASI02</strong> Tool Misuse and Exploitation</td>
-<td><strong>RISK-004</strong> Weak tool authentication and authorisation controls<br><strong>RISK-006</strong> Tool poisoning by malicious actors<br><strong>RISK-007</strong> Lack of input sanitisation<br><strong>RISK-023</strong> Incorrect tool selection or misuse<br><strong>RISK-032</strong> Unauthorised execution of business transactions<br><strong>RISK-037</strong> Exposure of sensitive data<br><strong>RISK-038</strong> Incorrect use of unfamiliar programmatic interfaces<br><strong>RISK-041</strong> Unintended overwriting or deletion of files or data<br><strong>RISK-042</strong> Database overload due to inefficient data operations<br><strong>RISK-043</strong> Exposure of sensitive data through file or database access<br><strong>RISK-045</strong> Misconfiguration of system resources<br><strong>RISK-046</strong> System overload due to inefficient or excessive operations</td>
+<td><strong>RISK-004</strong> Weak tool authentication and authorisation controls<br><strong>RISK-006</strong> Tool poisoning by malicious actors<br><strong>RISK-007</strong> Lack of input sanitisation<br><strong>RISK-023</strong> Incorrect tool selection or misuse<br><strong>RISK-032</strong> Unauthorised execution of business transactions<br><strong>RISK-037</strong> Exposure of sensitive data<br><strong>RISK-038</strong> Incorrect use of unfamiliar programmatic interfaces<br><strong>RISK-041</strong> Unintended overwriting or deletion of files or data<br><strong>RISK-042</strong> Database overload due to inefficient data operations<br><strong>RISK-043</strong> Exposure of sensitive data through file or database access<br><strong>RISK-045</strong> Misconfiguration of system resources<br><strong>RISK-046</strong> System overload due to inefficient or excessive operations<br><strong>RISK-047</strong> Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel</td>
 </tr>
 <tr>
 <td><strong>ASI03</strong> Identity and Privilege Abuse</td>
-<td><strong>RISK-004</strong> Weak tool authentication and authorisation controls<br><strong>RISK-005</strong> Lack of proper role-based access control for tools<br><strong>RISK-011</strong> Sensitive data leakage across memory contexts<br><strong>RISK-015</strong> Overly permissive roles and permissions<br><strong>RISK-016</strong> Unauthorised privilege escalation<br><strong>RISK-021</strong> Incorrect task delegation between agents<br><strong>RISK-022</strong> Malicious or manipulative use of delegated agents<br><strong>RISK-033</strong> Leakage of transaction credentials<br><strong>RISK-043</strong> Exposure of sensitive data through file or database access</td>
+<td><strong>RISK-004</strong> Weak tool authentication and authorisation controls<br><strong>RISK-005</strong> Lack of proper role-based access control for tools<br><strong>RISK-011</strong> Sensitive data leakage across memory contexts<br><strong>RISK-015</strong> Overly permissive roles and permissions<br><strong>RISK-016</strong> Unauthorised privilege escalation<br><strong>RISK-021</strong> Incorrect task delegation between agents<br><strong>RISK-022</strong> Malicious or manipulative use of delegated agents<br><strong>RISK-033</strong> Leakage of transaction credentials<br><strong>RISK-043</strong> Exposure of sensitive data through file or database access<br><strong>RISK-049</strong> Escape from evaluation or sandbox containment onto live systems<br><strong>RISK-054</strong> Insecure default configuration of agent frameworks and runtimes</td>
 </tr>
 <tr>
 <td><strong>ASI04</strong> Agentic Supply Chain Vulnerabilities</td>
-<td><strong>RISK-001</strong> Use of untrusted or compromised LLMs<br><strong>RISK-006</strong> Tool poisoning by malicious actors</td>
+<td><strong>RISK-001</strong> Use of untrusted or compromised LLMs<br><strong>RISK-006</strong> Tool poisoning by malicious actors<br><strong>RISK-048</strong> Compromise through the tool, skill, and dependency supply chain<br><strong>RISK-053</strong> Dependence on third-party agents as counterparties or delegates</td>
 </tr>
 <tr>
 <td><strong>ASI05</strong> Unexpected Code Execution (RCE)</td>
-<td><strong>RISK-007</strong> Lack of input sanitisation<br><strong>RISK-039</strong> Production or execution of poor or ineffective code<br><strong>RISK-040</strong> Production or execution of vulnerable or malicious code</td>
+<td><strong>RISK-007</strong> Lack of input sanitisation<br><strong>RISK-039</strong> Production or execution of poor or ineffective code<br><strong>RISK-040</strong> Production or execution of vulnerable or malicious code<br><strong>RISK-054</strong> Insecure default configuration of agent frameworks and runtimes</td>
 </tr>
 <tr>
 <td><strong>ASI06</strong> Memory and Context Poisoning</td>
@@ -945,7 +969,7 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>ASI07</strong> Insecure Inter-Agent Communication</td>
-<td><strong>RISK-013</strong> Man-in-the-middle attacks between agents</td>
+<td><strong>RISK-013</strong> Man-in-the-middle attacks between agents<br><strong>RISK-051</strong> Unsanctioned coordination between agents<br><strong>RISK-053</strong> Dependence on third-party agents as counterparties or delegates</td>
 </tr>
 <tr>
 <td><strong>ASI08</strong> Cascading Failures</td>
@@ -953,11 +977,11 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>ASI09</strong> Human-Agent Trust Exploitation</td>
-<td><strong>RISK-030</strong> Misrepresentation of authorship<br><strong>RISK-031</strong> Inaccurate promises or statements in official communications</td>
+<td><strong>RISK-030</strong> Misrepresentation of authorship<br><strong>RISK-031</strong> Inaccurate promises or statements in official communications<br><strong>RISK-050</strong> Deceptive behaviour toward overseers<br><strong>RISK-052</strong> Automation bias and erosion of human oversight</td>
 </tr>
 <tr>
 <td><strong>ASI10</strong> Rogue Agents</td>
-<td><strong>RISK-002</strong> Insufficient alignment of LLM behaviour<br><strong>RISK-014</strong> Feedback loops and runaway agent behaviour<br><strong>RISK-018</strong> Inability to audit failures due to missing decision traces<br><strong>RISK-020</strong> Generating plans that overlook safety implications<br><strong>RISK-022</strong> Malicious or manipulative use of delegated agents</td>
+<td><strong>RISK-002</strong> Insufficient alignment of LLM behaviour<br><strong>RISK-014</strong> Feedback loops and runaway agent behaviour<br><strong>RISK-018</strong> Inability to audit failures due to missing decision traces<br><strong>RISK-020</strong> Generating plans that overlook safety implications<br><strong>RISK-022</strong> Malicious or manipulative use of delegated agents<br><strong>RISK-049</strong> Escape from evaluation or sandbox containment onto live systems<br><strong>RISK-050</strong> Deceptive behaviour toward overseers<br><strong>RISK-051</strong> Unsanctioned coordination between agents</td>
 </tr>
 </tbody>
 </table>
@@ -976,11 +1000,11 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>T2</strong> Tool misuse</td>
-<td><strong>RISK-004</strong> Weak tool authentication and authorisation controls<br><strong>RISK-006</strong> Tool poisoning by malicious actors<br><strong>RISK-007</strong> Lack of input sanitisation<br><strong>RISK-023</strong> Incorrect tool selection or misuse<br><strong>RISK-032</strong> Unauthorised execution of business transactions<br><strong>RISK-037</strong> Exposure of sensitive data<br><strong>RISK-038</strong> Incorrect use of unfamiliar programmatic interfaces<br><strong>RISK-041</strong> Unintended overwriting or deletion of files or data<br><strong>RISK-043</strong> Exposure of sensitive data through file or database access<br><strong>RISK-045</strong> Misconfiguration of system resources</td>
+<td><strong>RISK-004</strong> Weak tool authentication and authorisation controls<br><strong>RISK-006</strong> Tool poisoning by malicious actors<br><strong>RISK-007</strong> Lack of input sanitisation<br><strong>RISK-023</strong> Incorrect tool selection or misuse<br><strong>RISK-032</strong> Unauthorised execution of business transactions<br><strong>RISK-037</strong> Exposure of sensitive data<br><strong>RISK-038</strong> Incorrect use of unfamiliar programmatic interfaces<br><strong>RISK-041</strong> Unintended overwriting or deletion of files or data<br><strong>RISK-043</strong> Exposure of sensitive data through file or database access<br><strong>RISK-045</strong> Misconfiguration of system resources<br><strong>RISK-047</strong> Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel</td>
 </tr>
 <tr>
 <td><strong>T3</strong> Privilege compromise</td>
-<td><strong>RISK-004</strong> Weak tool authentication and authorisation controls<br><strong>RISK-005</strong> Lack of proper role-based access control for tools<br><strong>RISK-011</strong> Sensitive data leakage across memory contexts<br><strong>RISK-015</strong> Overly permissive roles and permissions<br><strong>RISK-016</strong> Unauthorised privilege escalation<br><strong>RISK-021</strong> Incorrect task delegation between agents<br><strong>RISK-033</strong> Leakage of transaction credentials<br><strong>RISK-043</strong> Exposure of sensitive data through file or database access</td>
+<td><strong>RISK-004</strong> Weak tool authentication and authorisation controls<br><strong>RISK-005</strong> Lack of proper role-based access control for tools<br><strong>RISK-011</strong> Sensitive data leakage across memory contexts<br><strong>RISK-015</strong> Overly permissive roles and permissions<br><strong>RISK-016</strong> Unauthorised privilege escalation<br><strong>RISK-021</strong> Incorrect task delegation between agents<br><strong>RISK-033</strong> Leakage of transaction credentials<br><strong>RISK-043</strong> Exposure of sensitive data through file or database access<br><strong>RISK-054</strong> Insecure default configuration of agent frameworks and runtimes</td>
 </tr>
 <tr>
 <td><strong>T4</strong> Resource overload</td>
@@ -992,11 +1016,11 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>T6</strong> Intent breaking and goal manipulation</td>
-<td><strong>RISK-008</strong> Vague or underspecified instructions<br><strong>RISK-009</strong> Unsanitised inputs in system instructions<br><strong>RISK-019</strong> Generating plans that fail to meet the user's requirements<br><strong>RISK-032</strong> Unauthorised execution of business transactions<br><strong>RISK-034</strong> Prompt injection via malicious websites<br><strong>RISK-036</strong> Prompt injection risks through computer use<br><strong>RISK-044</strong> Prompt injection via malicious files or data</td>
+<td><strong>RISK-008</strong> Vague or underspecified instructions<br><strong>RISK-009</strong> Unsanitised inputs in system instructions<br><strong>RISK-019</strong> Generating plans that fail to meet the user's requirements<br><strong>RISK-032</strong> Unauthorised execution of business transactions<br><strong>RISK-034</strong> Prompt injection via malicious websites<br><strong>RISK-036</strong> Prompt injection risks through computer use<br><strong>RISK-044</strong> Prompt injection via malicious files or data<br><strong>RISK-047</strong> Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel</td>
 </tr>
 <tr>
 <td><strong>T7</strong> Misaligned and deceptive behaviours</td>
-<td><strong>RISK-002</strong> Insufficient alignment of LLM behaviour<br><strong>RISK-020</strong> Generating plans that overlook safety implications</td>
+<td><strong>RISK-002</strong> Insufficient alignment of LLM behaviour<br><strong>RISK-020</strong> Generating plans that overlook safety implications<br><strong>RISK-049</strong> Escape from evaluation or sandbox containment onto live systems<br><strong>RISK-050</strong> Deceptive behaviour toward overseers</td>
 </tr>
 <tr>
 <td><strong>T8</strong> Repudiation and untraceability</td>
@@ -1008,19 +1032,19 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>T10</strong> Overwhelming human in the loop</td>
-<td>—</td>
+<td><strong>RISK-052</strong> Automation bias and erosion of human oversight</td>
 </tr>
 <tr>
 <td><strong>T11</strong> Unexpected RCE and code attacks</td>
-<td><strong>RISK-007</strong> Lack of input sanitisation<br><strong>RISK-039</strong> Production or execution of poor or ineffective code<br><strong>RISK-040</strong> Production or execution of vulnerable or malicious code</td>
+<td><strong>RISK-007</strong> Lack of input sanitisation<br><strong>RISK-039</strong> Production or execution of poor or ineffective code<br><strong>RISK-040</strong> Production or execution of vulnerable or malicious code<br><strong>RISK-054</strong> Insecure default configuration of agent frameworks and runtimes</td>
 </tr>
 <tr>
 <td><strong>T12</strong> Agent communication poisoning</td>
-<td><strong>RISK-013</strong> Man-in-the-middle attacks between agents</td>
+<td><strong>RISK-013</strong> Man-in-the-middle attacks between agents<br><strong>RISK-051</strong> Unsanctioned coordination between agents</td>
 </tr>
 <tr>
 <td><strong>T13</strong> Rogue agents in multi-agent systems</td>
-<td><strong>RISK-022</strong> Malicious or manipulative use of delegated agents</td>
+<td><strong>RISK-022</strong> Malicious or manipulative use of delegated agents<br><strong>RISK-049</strong> Escape from evaluation or sandbox containment onto live systems<br><strong>RISK-051</strong> Unsanctioned coordination between agents<br><strong>RISK-053</strong> Dependence on third-party agents as counterparties or delegates</td>
 </tr>
 <tr>
 <td><strong>T14</strong> Human attacks on multi-agent systems</td>
@@ -1036,7 +1060,7 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>T17</strong> Supply chain compromise</td>
-<td><strong>RISK-001</strong> Use of untrusted or compromised LLMs<br><strong>RISK-006</strong> Tool poisoning by malicious actors</td>
+<td><strong>RISK-001</strong> Use of untrusted or compromised LLMs<br><strong>RISK-006</strong> Tool poisoning by malicious actors<br><strong>RISK-048</strong> Compromise through the tool, skill, and dependency supply chain</td>
 </tr>
 </tbody>
 </table>
@@ -1055,7 +1079,7 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>2.1</strong> Supply chain security – ensure components are from trusted sources</td>
-<td><strong>CTRL-0001</strong> Use only LLMs from verified and trusted model developers<br><strong>CTRL-0002</strong> Obtain legally binding no-training and no-logging agreements from LLM API service providers<br><strong>CTRL-0003</strong> Use only established and verified model loaders in production environments<br><strong>CTRL-0004</strong> Review the LLM's system card to inform risk assessment and model selection<br><strong>CTRL-0009</strong> Use only MCP servers that implement robust authentication mechanisms in production environments<br><strong>CTRL-0014</strong> Use only MCP servers from verified and trusted developers<br><strong>CTRL-0018</strong> Define default behaviour when the agent encounters ambiguous situations<br><strong>CTRL-0035</strong> Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding<br><strong>CTRL-0037</strong> Require planning agents to include explicit safety constraints in all generated plans before execution<br><strong>CTRL-0061</strong> Use structured retrieval APIs for web searches rather than web scraping<br><strong>CTRL-0063</strong> Prioritise search results from verified, high-quality domains<br><strong>CTRL-0083</strong> Disallow unknown or external files unless they have been scanned for threats</td>
+<td><strong>CTRL-0001</strong> Use only LLMs from verified and trusted model developers<br><strong>CTRL-0002</strong> Obtain legally binding no-training and no-logging agreements from LLM API service providers<br><strong>CTRL-0003</strong> Use only established and verified model loaders in production environments<br><strong>CTRL-0004</strong> Review the LLM's system card to inform risk assessment and model selection<br><strong>CTRL-0009</strong> Use only MCP servers that implement robust authentication mechanisms in production environments<br><strong>CTRL-0014</strong> Use only MCP servers from verified and trusted developers<br><strong>CTRL-0061</strong> Use structured retrieval APIs for web searches rather than web scraping<br><strong>CTRL-0063</strong> Prioritise search results from verified, high-quality domains<br><strong>CTRL-0083</strong> Disallow unknown or external files unless they have been scanned for threats<br><strong>CTRL-0091</strong> Require verified provenance for tools, skills, and dependencies, and re-verify them on every update<br><strong>CTRL-0095</strong> Apply due diligence and technical bounds to third-party agents before delegating to them or transacting with them</td>
 </tr>
 <tr>
 <td><strong>2.2</strong> Consider model hardening</td>
@@ -1063,11 +1087,11 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>2.3</strong> Harden the system beyond the model itself</td>
-<td><strong>CTRL-0016</strong> Define clearly the agent's role, scope, and non-goals in the system prompt<br><strong>CTRL-0017</strong> Define clear success criteria for the agent's tasks</td>
+<td><strong>CTRL-0016</strong> Define clearly the agent's role, scope, and non-goals in the system prompt<br><strong>CTRL-0017</strong> Define clear success criteria for the agent's tasks<br><strong>CTRL-0096</strong> Harden agent frameworks and runtimes before exposing them, and patch framework vulnerabilities promptly</td>
 </tr>
 <tr>
 <td><strong>2.4</strong> Identify, track and protect AI system assets</td>
-<td><strong>CTRL-0039</strong> Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents<br><strong>CTRL-0041</strong> Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs<br><strong>CTRL-0067</strong> Ensure proper documentation of programmatic interfaces for agent use</td>
+<td><strong>CTRL-0039</strong> Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents<br><strong>CTRL-0041</strong> Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs<br><strong>CTRL-0067</strong> Ensure proper documentation of programmatic interfaces for agent use<br><strong>CTRL-0091</strong> Require verified provenance for tools, skills, and dependencies, and re-verify them on every update</td>
 </tr>
 <tr>
 <td><strong>2.5</strong> Have regular backups in the event of compromise</td>
@@ -1075,7 +1099,7 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>2.6</strong> Implement authentication, authorisation and access controls</td>
-<td><strong>CTRL-0010</strong> Use only MCP servers that validate credentials on every inbound request<br><strong>CTRL-0011</strong> Limit token scopes to the minimum privileges required and avoid broad or wildcard scopes<br><strong>CTRL-0021</strong> Implement allowlists and denylists to restrict what categories of information can be written to agent memory<br><strong>CTRL-0025</strong> Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels<br><strong>CTRL-0026</strong> Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests<br><strong>CTRL-0030</strong> Assign each agent a unique, verifiable identity with no shared credentials<br><strong>CTRL-0031</strong> Use only MCP servers that validate token provenance and prohibit unauthorised token passthrough</td>
+<td><strong>CTRL-0010</strong> Use only MCP servers that validate credentials on every inbound request<br><strong>CTRL-0011</strong> Limit token scopes to the minimum privileges required and avoid broad or wildcard scopes<br><strong>CTRL-0021</strong> Implement allowlists and denylists to restrict what categories of information can be written to agent memory<br><strong>CTRL-0025</strong> Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels<br><strong>CTRL-0026</strong> Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests<br><strong>CTRL-0030</strong> Assign each agent a unique, verifiable identity with no shared credentials<br><strong>CTRL-0031</strong> Use only MCP servers that validate token provenance and prohibit unauthorised token passthrough<br><strong>CTRL-0089</strong> Enforce default-deny network egress for agent runtimes, allowing only approved destinations</td>
 </tr>
 <tr>
 <td><strong>2.7</strong> Implement controls to limit what models or agents can access and generate</td>
@@ -1083,15 +1107,15 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>2.8</strong> Apply least privilege; secure-by-default configurations</td>
-<td><strong>CTRL-0011</strong> Limit token scopes to the minimum privileges required and avoid broad or wildcard scopes<br><strong>CTRL-0029</strong> Grant agents only the minimum permissions required for their designated tasks<br><strong>CTRL-0069</strong> Run agent-generated code only in isolated compute environments with network access blocked by default<br><strong>CTRL-0075</strong> Do not grant write access to agents unless strictly necessary<br><strong>CTRL-0082</strong> Do not grant agents access to personally identifiable or sensitive data unless strictly required</td>
+<td><strong>CTRL-0011</strong> Limit token scopes to the minimum privileges required and avoid broad or wildcard scopes<br><strong>CTRL-0029</strong> Grant agents only the minimum permissions required for their designated tasks<br><strong>CTRL-0069</strong> Run agent-generated code only in isolated compute environments with network access blocked by default<br><strong>CTRL-0075</strong> Do not grant write access to agents unless strictly necessary<br><strong>CTRL-0082</strong> Do not grant agents access to personally identifiable or sensitive data unless strictly required<br><strong>CTRL-0096</strong> Harden agent frameworks and runtimes before exposing them, and patch framework vulnerabilities promptly</td>
 </tr>
 <tr>
 <td><strong>2.9</strong> Segregate environments and segment networks</td>
-<td><strong>CTRL-0013</strong> Test all untested MCP servers in a sandboxed environment before deploying to production<br><strong>CTRL-0020</strong> Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions<br><strong>CTRL-0058</strong> Restrict agents to proposing transactions whilst using a separate transaction controller for execution<br><strong>CTRL-0069</strong> Run agent-generated code only in isolated compute environments with network access blocked by default</td>
+<td><strong>CTRL-0013</strong> Test all untested MCP servers in a sandboxed environment before deploying to production<br><strong>CTRL-0020</strong> Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions<br><strong>CTRL-0058</strong> Restrict agents to proposing transactions whilst using a separate transaction controller for execution<br><strong>CTRL-0069</strong> Run agent-generated code only in isolated compute environments with network access blocked by default<br><strong>CTRL-0089</strong> Enforce default-deny network egress for agent runtimes, allowing only approved destinations<br><strong>CTRL-0090</strong> Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions<br><strong>CTRL-0092</strong> Contain evaluations and red-team exercises so that agents cannot reach real systems, credentials, or people</td>
 </tr>
 <tr>
 <td><strong>2.10</strong> Implement model self-reflection before decisions</td>
-<td>—</td>
+<td><strong>CTRL-0018</strong> Define default behaviour when the agent encounters ambiguous situations<br><strong>CTRL-0035</strong> Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding<br><strong>CTRL-0037</strong> Require planning agents to include explicit safety constraints in all generated plans before execution</td>
 </tr>
 <tr>
 <td><strong>2.11</strong> Implement controls to reduce the likelihood of hallucination</td>
@@ -1103,7 +1127,7 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>3.2</strong> Conduct security testing</td>
-<td><strong>CTRL-0005</strong> Conduct structured evaluation of multiple LLMs for instruction-following, performance, and safety before deployment<br><strong>CTRL-0017</strong> Define clear success criteria for the agent's tasks<br><strong>CTRL-0036</strong> Regularly evaluate and test planning behaviour under representative workloads and failure scenarios<br><strong>CTRL-0038</strong> Conduct pre-deployment safety verification using domain-relevant stress tests and adversarial scenarios</td>
+<td><strong>CTRL-0005</strong> Conduct structured evaluation of multiple LLMs for instruction-following, performance, and safety before deployment<br><strong>CTRL-0017</strong> Define clear success criteria for the agent's tasks<br><strong>CTRL-0036</strong> Regularly evaluate and test planning behaviour under representative workloads and failure scenarios<br><strong>CTRL-0038</strong> Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards<br><strong>CTRL-0092</strong> Contain evaluations and red-team exercises so that agents cannot reach real systems, credentials, or people</td>
 </tr>
 <tr>
 <td><strong>3.3</strong> Secure the invocation of external tools (e.g. MCP servers)</td>
@@ -1111,11 +1135,11 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>3.4</strong> Implement security controls between agents</td>
-<td><strong>CTRL-0024</strong> Define formal schemas for inter-agent messages and validate all messages against these schemas before processing<br><strong>CTRL-0025</strong> Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels<br><strong>CTRL-0026</strong> Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests<br><strong>CTRL-0039</strong> Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents</td>
+<td><strong>CTRL-0024</strong> Define formal schemas for inter-agent messages and validate all messages against these schemas before processing<br><strong>CTRL-0025</strong> Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels<br><strong>CTRL-0026</strong> Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests<br><strong>CTRL-0039</strong> Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents<br><strong>CTRL-0093</strong> Monitor agents for deceptive and collusive behaviour using an independent monitor<br><strong>CTRL-0095</strong> Apply due diligence and technical bounds to third-party agents before delegating to them or transacting with them</td>
 </tr>
 <tr>
 <td><strong>4.1</strong> Validate inputs to models and agents</td>
-<td><strong>CTRL-0015</strong> Treat all tool metadata and outputs as untrusted input requiring validation<br><strong>CTRL-0019</strong> Use delimiters to enclose untrusted inputs and instruct the LLM to treat delimited content as data only<br><strong>CTRL-0020</strong> Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions<br><strong>CTRL-0022</strong> Implement content filtering on memory writes to detect and block known unsafe content patterns<br><strong>CTRL-0045</strong> Implement input guardrails to detect and decline requests for specialised domain advice<br><strong>CTRL-0046</strong> Implement input guardrails to detect and decline requests for controversial content that violates organisational policies<br><strong>CTRL-0051</strong> Implement input guardrails to detect and decline requests to generate copyrighted content<br><strong>CTRL-0060</strong> Implement escape filtering before incorporating web content into prompts<br><strong>CTRL-0062</strong> Implement input guardrails to detect prompt injection and adversarial attacks<br><strong>CTRL-0081</strong> Implement input guardrails to detect personally identifiable information in data accessed by agents<br><strong>CTRL-0083</strong> Disallow unknown or external files unless they have been scanned for threats</td>
+<td><strong>CTRL-0015</strong> Treat all tool metadata and outputs as untrusted input requiring validation<br><strong>CTRL-0019</strong> Use delimiters to enclose untrusted inputs and instruct the LLM to treat delimited content as data only<br><strong>CTRL-0020</strong> Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions<br><strong>CTRL-0022</strong> Implement content filtering on memory writes to detect and block known unsafe content patterns<br><strong>CTRL-0045</strong> Implement input guardrails to detect and decline requests for specialised domain advice<br><strong>CTRL-0046</strong> Implement input guardrails to detect and decline requests for controversial content that violates organisational policies<br><strong>CTRL-0051</strong> Implement input guardrails to detect and decline requests to generate copyrighted content<br><strong>CTRL-0060</strong> Implement escape filtering before incorporating web content into prompts<br><strong>CTRL-0062</strong> Implement input guardrails to detect prompt injection and adversarial attacks<br><strong>CTRL-0081</strong> Implement input guardrails to detect personally identifiable information in data accessed by agents<br><strong>CTRL-0083</strong> Disallow unknown or external files unless they have been scanned for threats<br><strong>CTRL-0090</strong> Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions</td>
 </tr>
 <tr>
 <td><strong>4.2</strong> Validate outputs from models and agents</td>
@@ -1123,11 +1147,11 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>4.3</strong> Continuous monitoring and logging</td>
-<td><strong>CTRL-0007</strong> Log all LLM inputs and outputs for regular review<br><strong>CTRL-0008</strong> Implement automated alerts when agent behaviour drifts from predefined thresholds<br><strong>CTRL-0023</strong> Log all memory modifications with comprehensive source metadata for audit purposes<br><strong>CTRL-0027</strong> Implement circuit breakers to prevent cascading failures in multi-agent systems<br><strong>CTRL-0028</strong> Continuously monitor multi-agent systems for cascade failure indicators<br><strong>CTRL-0032</strong> Centralise observability data collection in a unified backend system<br><strong>CTRL-0033</strong> Standardise trace attributes for agent operations using consistent semantic conventions<br><strong>CTRL-0034</strong> Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems<br><strong>CTRL-0043</strong> Log all tool selection decisions and invocations with comprehensive metadata<br><strong>CTRL-0085</strong> Log system health metrics and implement automated alerts for abnormal conditions</td>
+<td><strong>CTRL-0007</strong> Log all LLM inputs and outputs for regular review<br><strong>CTRL-0008</strong> Implement automated alerts when agent behaviour drifts from predefined thresholds<br><strong>CTRL-0023</strong> Log all memory modifications with comprehensive source metadata for audit purposes<br><strong>CTRL-0027</strong> Implement circuit breakers to prevent cascading failures in multi-agent systems<br><strong>CTRL-0028</strong> Continuously monitor multi-agent systems for cascade failure indicators<br><strong>CTRL-0032</strong> Centralise observability data collection in a unified backend system<br><strong>CTRL-0033</strong> Standardise trace attributes for agent operations using consistent semantic conventions<br><strong>CTRL-0034</strong> Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems<br><strong>CTRL-0043</strong> Log all tool selection decisions and invocations with comprehensive metadata<br><strong>CTRL-0085</strong> Log system health metrics and implement automated alerts for abnormal conditions<br><strong>CTRL-0093</strong> Monitor agents for deceptive and collusive behaviour using an independent monitor</td>
 </tr>
 <tr>
 <td><strong>4.4</strong> Ensure adequate human oversight</td>
-<td><strong>CTRL-0006</strong> Require human approval before executing high-impact actions<br><strong>CTRL-0042</strong> Require explicit human confirmation before executing high-impact or irreversible tool actions<br><strong>CTRL-0053</strong> Require human approval for communications on sensitive matters<br><strong>CTRL-0056</strong> Require explicit user confirmation before initiating or committing any business transaction<br><strong>CTRL-0057</strong> Require out-of-band confirmation when transaction risk signals are elevated<br><strong>CTRL-0065</strong> Ensure computer use capabilities provide immediate interruptability<br><strong>CTRL-0070</strong> Review all agent-generated code before execution<br><strong>CTRL-0076</strong> Require human approval for any destructive changes to databases, tables, or files</td>
+<td><strong>CTRL-0006</strong> Require human approval before executing high-impact actions<br><strong>CTRL-0042</strong> Require explicit human confirmation before executing high-impact or irreversible tool actions<br><strong>CTRL-0053</strong> Require human approval for communications on sensitive matters<br><strong>CTRL-0056</strong> Require explicit user confirmation before initiating or committing any business transaction<br><strong>CTRL-0057</strong> Require out-of-band confirmation when transaction risk signals are elevated<br><strong>CTRL-0065</strong> Ensure every agent can be immediately paused or terminated by its operators<br><strong>CTRL-0070</strong> Review all agent-generated code before execution<br><strong>CTRL-0076</strong> Require human approval for any destructive changes to databases, tables, or files<br><strong>CTRL-0094</strong> Measure the quality of human oversight and redesign approval steps that have become rubber stamps</td>
 </tr>
 <tr>
 <td><strong>4.5</strong> Establish a vulnerability disclosure process</td>
@@ -1150,27 +1174,27 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>2.1.2</strong> Bound risks through design (agent limits, agent identity)</td>
-<td><strong>CTRL-0010</strong> Use only MCP servers that validate credentials on every inbound request<br><strong>CTRL-0011</strong> Limit token scopes to the minimum privileges required and avoid broad or wildcard scopes<br><strong>CTRL-0012</strong> Use only MCP servers that integrate with authorisation servers implementing per-client consent mechanisms<br><strong>CTRL-0016</strong> Define clearly the agent's role, scope, and non-goals in the system prompt<br><strong>CTRL-0017</strong> Define clear success criteria for the agent's tasks<br><strong>CTRL-0026</strong> Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests<br><strong>CTRL-0029</strong> Grant agents only the minimum permissions required for their designated tasks<br><strong>CTRL-0030</strong> Assign each agent a unique, verifiable identity with no shared credentials<br><strong>CTRL-0031</strong> Use only MCP servers that validate token provenance and prohibit unauthorised token passthrough<br><strong>CTRL-0037</strong> Require planning agents to include explicit safety constraints in all generated plans before execution<br><strong>CTRL-0040</strong> Limit the scope of agent actions through predefined thresholds and baselines<br><strong>CTRL-0054</strong> Limit agent communications to standard processes with predefined templates<br><strong>CTRL-0058</strong> Restrict agents to proposing transactions whilst using a separate transaction controller for execution<br><strong>CTRL-0061</strong> Use structured retrieval APIs for web searches rather than web scraping<br><strong>CTRL-0064</strong> Limit computer use to accessing only safe and trusted resources<br><strong>CTRL-0069</strong> Run agent-generated code only in isolated compute environments with network access blocked by default<br><strong>CTRL-0073</strong> Create a denylist of commands that agents are not permitted to execute<br><strong>CTRL-0075</strong> Do not grant write access to agents unless strictly necessary<br><strong>CTRL-0077</strong> Enable versioning or soft-delete for managed object stores to allow recovery from accidental modifications<br><strong>CTRL-0078</strong> Enforce throttling or rate limits on agent-initiated database operations<br><strong>CTRL-0082</strong> Do not grant agents access to personally identifiable or sensitive data unless strictly required<br><strong>CTRL-0084</strong> Set minimum and maximum limits on what agents can modify within system resources<br><strong>CTRL-0086</strong> Limit the number of concurrent queries to external systems by agents</td>
+<td><strong>CTRL-0010</strong> Use only MCP servers that validate credentials on every inbound request<br><strong>CTRL-0011</strong> Limit token scopes to the minimum privileges required and avoid broad or wildcard scopes<br><strong>CTRL-0012</strong> Use only MCP servers that integrate with authorisation servers implementing per-client consent mechanisms<br><strong>CTRL-0016</strong> Define clearly the agent's role, scope, and non-goals in the system prompt<br><strong>CTRL-0017</strong> Define clear success criteria for the agent's tasks<br><strong>CTRL-0026</strong> Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests<br><strong>CTRL-0029</strong> Grant agents only the minimum permissions required for their designated tasks<br><strong>CTRL-0030</strong> Assign each agent a unique, verifiable identity with no shared credentials<br><strong>CTRL-0031</strong> Use only MCP servers that validate token provenance and prohibit unauthorised token passthrough<br><strong>CTRL-0037</strong> Require planning agents to include explicit safety constraints in all generated plans before execution<br><strong>CTRL-0040</strong> Limit the scope of agent actions through predefined thresholds and baselines<br><strong>CTRL-0054</strong> Limit agent communications to standard processes with predefined templates<br><strong>CTRL-0058</strong> Restrict agents to proposing transactions whilst using a separate transaction controller for execution<br><strong>CTRL-0061</strong> Use structured retrieval APIs for web searches rather than web scraping<br><strong>CTRL-0064</strong> Limit computer use to accessing only safe and trusted resources<br><strong>CTRL-0069</strong> Run agent-generated code only in isolated compute environments with network access blocked by default<br><strong>CTRL-0073</strong> Create a denylist of commands that agents are not permitted to execute<br><strong>CTRL-0075</strong> Do not grant write access to agents unless strictly necessary<br><strong>CTRL-0077</strong> Enable versioning or soft-delete for managed object stores to allow recovery from accidental modifications<br><strong>CTRL-0078</strong> Enforce throttling or rate limits on agent-initiated database operations<br><strong>CTRL-0082</strong> Do not grant agents access to personally identifiable or sensitive data unless strictly required<br><strong>CTRL-0084</strong> Set minimum and maximum limits on what agents can modify within system resources<br><strong>CTRL-0086</strong> Limit the number of concurrent queries to external systems by agents<br><strong>CTRL-0089</strong> Enforce default-deny network egress for agent runtimes, allowing only approved destinations</td>
 </tr>
 <tr>
 <td><strong>2.2.1</strong> Clear allocation of responsibilities</td>
-<td><strong>CTRL-0002</strong> Obtain legally binding no-training and no-logging agreements from LLM API service providers</td>
+<td><strong>CTRL-0002</strong> Obtain legally binding no-training and no-logging agreements from LLM API service providers<br><strong>CTRL-0095</strong> Apply due diligence and technical bounds to third-party agents before delegating to them or transacting with them</td>
 </tr>
 <tr>
 <td><strong>2.2.2</strong> Design for meaningful human oversight</td>
-<td><strong>CTRL-0006</strong> Require human approval before executing high-impact actions<br><strong>CTRL-0042</strong> Require explicit human confirmation before executing high-impact or irreversible tool actions<br><strong>CTRL-0053</strong> Require human approval for communications on sensitive matters<br><strong>CTRL-0056</strong> Require explicit user confirmation before initiating or committing any business transaction<br><strong>CTRL-0057</strong> Require out-of-band confirmation when transaction risk signals are elevated<br><strong>CTRL-0070</strong> Review all agent-generated code before execution<br><strong>CTRL-0076</strong> Require human approval for any destructive changes to databases, tables, or files</td>
+<td><strong>CTRL-0006</strong> Require human approval before executing high-impact actions<br><strong>CTRL-0042</strong> Require explicit human confirmation before executing high-impact or irreversible tool actions<br><strong>CTRL-0053</strong> Require human approval for communications on sensitive matters<br><strong>CTRL-0056</strong> Require explicit user confirmation before initiating or committing any business transaction<br><strong>CTRL-0057</strong> Require out-of-band confirmation when transaction risk signals are elevated<br><strong>CTRL-0070</strong> Review all agent-generated code before execution<br><strong>CTRL-0076</strong> Require human approval for any destructive changes to databases, tables, or files<br><strong>CTRL-0094</strong> Measure the quality of human oversight and redesign approval steps that have become rubber stamps</td>
 </tr>
 <tr>
 <td><strong>2.3.1</strong> Technical controls during design and development</td>
-<td><strong>CTRL-0001</strong> Use only LLMs from verified and trusted model developers<br><strong>CTRL-0009</strong> Use only MCP servers that implement robust authentication mechanisms in production environments<br><strong>CTRL-0014</strong> Use only MCP servers from verified and trusted developers<br><strong>CTRL-0015</strong> Treat all tool metadata and outputs as untrusted input requiring validation<br><strong>CTRL-0018</strong> Define default behaviour when the agent encounters ambiguous situations<br><strong>CTRL-0019</strong> Use delimiters to enclose untrusted inputs and instruct the LLM to treat delimited content as data only<br><strong>CTRL-0020</strong> Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions<br><strong>CTRL-0021</strong> Implement allowlists and denylists to restrict what categories of information can be written to agent memory<br><strong>CTRL-0022</strong> Implement content filtering on memory writes to detect and block known unsafe content patterns<br><strong>CTRL-0024</strong> Define formal schemas for inter-agent messages and validate all messages against these schemas before processing<br><strong>CTRL-0025</strong> Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels<br><strong>CTRL-0035</strong> Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding<br><strong>CTRL-0039</strong> Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents<br><strong>CTRL-0041</strong> Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs<br><strong>CTRL-0044</strong> Implement output safety guardrails to detect and prevent generation of undesirable content<br><strong>CTRL-0045</strong> Implement input guardrails to detect and decline requests for specialised domain advice<br><strong>CTRL-0046</strong> Implement input guardrails to detect and decline requests for controversial content that violates organisational policies<br><strong>CTRL-0047</strong> Implement output guardrails to detect and redact personally identifiable information<br><strong>CTRL-0048</strong> Implement methods to reduce hallucination rates in agent outputs<br><strong>CTRL-0051</strong> Implement input guardrails to detect and decline requests to generate copyrighted content<br><strong>CTRL-0060</strong> Implement escape filtering before incorporating web content into prompts<br><strong>CTRL-0062</strong> Implement input guardrails to detect prompt injection and adversarial attacks<br><strong>CTRL-0063</strong> Prioritise search results from verified, high-quality domains<br><strong>CTRL-0066</strong> Ensure "take over" mode is activated when entering sensitive data<br><strong>CTRL-0067</strong> Ensure proper documentation of programmatic interfaces for agent use<br><strong>CTRL-0068</strong> Use code linters to screen generated code for bad practices and poor syntax<br><strong>CTRL-0071</strong> Use static code analysers to detect security vulnerabilities and code quality issues<br><strong>CTRL-0074</strong> Conduct CVE scanning and block execution of code with High or Critical vulnerabilities<br><strong>CTRL-0081</strong> Implement input guardrails to detect personally identifiable information in data accessed by agents<br><strong>CTRL-0083</strong> Disallow unknown or external files unless they have been scanned for threats</td>
+<td><strong>CTRL-0001</strong> Use only LLMs from verified and trusted model developers<br><strong>CTRL-0009</strong> Use only MCP servers that implement robust authentication mechanisms in production environments<br><strong>CTRL-0014</strong> Use only MCP servers from verified and trusted developers<br><strong>CTRL-0015</strong> Treat all tool metadata and outputs as untrusted input requiring validation<br><strong>CTRL-0018</strong> Define default behaviour when the agent encounters ambiguous situations<br><strong>CTRL-0019</strong> Use delimiters to enclose untrusted inputs and instruct the LLM to treat delimited content as data only<br><strong>CTRL-0020</strong> Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions<br><strong>CTRL-0021</strong> Implement allowlists and denylists to restrict what categories of information can be written to agent memory<br><strong>CTRL-0022</strong> Implement content filtering on memory writes to detect and block known unsafe content patterns<br><strong>CTRL-0024</strong> Define formal schemas for inter-agent messages and validate all messages against these schemas before processing<br><strong>CTRL-0025</strong> Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels<br><strong>CTRL-0035</strong> Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding<br><strong>CTRL-0039</strong> Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents<br><strong>CTRL-0041</strong> Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs<br><strong>CTRL-0044</strong> Implement output safety guardrails to detect and prevent generation of undesirable content<br><strong>CTRL-0045</strong> Implement input guardrails to detect and decline requests for specialised domain advice<br><strong>CTRL-0046</strong> Implement input guardrails to detect and decline requests for controversial content that violates organisational policies<br><strong>CTRL-0047</strong> Implement output guardrails to detect and redact personally identifiable information<br><strong>CTRL-0048</strong> Implement methods to reduce hallucination rates in agent outputs<br><strong>CTRL-0051</strong> Implement input guardrails to detect and decline requests to generate copyrighted content<br><strong>CTRL-0060</strong> Implement escape filtering before incorporating web content into prompts<br><strong>CTRL-0062</strong> Implement input guardrails to detect prompt injection and adversarial attacks<br><strong>CTRL-0063</strong> Prioritise search results from verified, high-quality domains<br><strong>CTRL-0066</strong> Ensure "take over" mode is activated when entering sensitive data<br><strong>CTRL-0067</strong> Ensure proper documentation of programmatic interfaces for agent use<br><strong>CTRL-0068</strong> Use code linters to screen generated code for bad practices and poor syntax<br><strong>CTRL-0071</strong> Use static code analysers to detect security vulnerabilities and code quality issues<br><strong>CTRL-0074</strong> Conduct CVE scanning and block execution of code with High or Critical vulnerabilities<br><strong>CTRL-0081</strong> Implement input guardrails to detect personally identifiable information in data accessed by agents<br><strong>CTRL-0083</strong> Disallow unknown or external files unless they have been scanned for threats<br><strong>CTRL-0090</strong> Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions<br><strong>CTRL-0091</strong> Require verified provenance for tools, skills, and dependencies, and re-verify them on every update<br><strong>CTRL-0096</strong> Harden agent frameworks and runtimes before exposing them, and patch framework vulnerabilities promptly</td>
 </tr>
 <tr>
 <td><strong>2.3.2</strong> Test agents before deploying</td>
-<td><strong>CTRL-0005</strong> Conduct structured evaluation of multiple LLMs for instruction-following, performance, and safety before deployment<br><strong>CTRL-0013</strong> Test all untested MCP servers in a sandboxed environment before deploying to production<br><strong>CTRL-0036</strong> Regularly evaluate and test planning behaviour under representative workloads and failure scenarios<br><strong>CTRL-0038</strong> Conduct pre-deployment safety verification using domain-relevant stress tests and adversarial scenarios</td>
+<td><strong>CTRL-0005</strong> Conduct structured evaluation of multiple LLMs for instruction-following, performance, and safety before deployment<br><strong>CTRL-0013</strong> Test all untested MCP servers in a sandboxed environment before deploying to production<br><strong>CTRL-0036</strong> Regularly evaluate and test planning behaviour under representative workloads and failure scenarios<br><strong>CTRL-0038</strong> Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards<br><strong>CTRL-0092</strong> Contain evaluations and red-team exercises so that agents cannot reach real systems, credentials, or people</td>
 </tr>
 <tr>
 <td><strong>2.3.3</strong> Continuously monitor and test when deploying</td>
-<td><strong>CTRL-0007</strong> Log all LLM inputs and outputs for regular review<br><strong>CTRL-0008</strong> Implement automated alerts when agent behaviour drifts from predefined thresholds<br><strong>CTRL-0023</strong> Log all memory modifications with comprehensive source metadata for audit purposes<br><strong>CTRL-0027</strong> Implement circuit breakers to prevent cascading failures in multi-agent systems<br><strong>CTRL-0028</strong> Continuously monitor multi-agent systems for cascade failure indicators<br><strong>CTRL-0032</strong> Centralise observability data collection in a unified backend system<br><strong>CTRL-0033</strong> Standardise trace attributes for agent operations using consistent semantic conventions<br><strong>CTRL-0034</strong> Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems<br><strong>CTRL-0043</strong> Log all tool selection decisions and invocations with comprehensive metadata<br><strong>CTRL-0059</strong> Apply fraud detection models or heuristics to agent-proposed transactions<br><strong>CTRL-0065</strong> Ensure computer use capabilities provide immediate interruptability<br><strong>CTRL-0072</strong> Monitor runtime and memory consumption of agent-generated code<br><strong>CTRL-0079</strong> Validate agent-generated database queries for efficiency before execution against production databases<br><strong>CTRL-0085</strong> Log system health metrics and implement automated alerts for abnormal conditions</td>
+<td><strong>CTRL-0007</strong> Log all LLM inputs and outputs for regular review<br><strong>CTRL-0008</strong> Implement automated alerts when agent behaviour drifts from predefined thresholds<br><strong>CTRL-0023</strong> Log all memory modifications with comprehensive source metadata for audit purposes<br><strong>CTRL-0027</strong> Implement circuit breakers to prevent cascading failures in multi-agent systems<br><strong>CTRL-0028</strong> Continuously monitor multi-agent systems for cascade failure indicators<br><strong>CTRL-0032</strong> Centralise observability data collection in a unified backend system<br><strong>CTRL-0033</strong> Standardise trace attributes for agent operations using consistent semantic conventions<br><strong>CTRL-0034</strong> Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems<br><strong>CTRL-0043</strong> Log all tool selection decisions and invocations with comprehensive metadata<br><strong>CTRL-0059</strong> Apply fraud detection models or heuristics to agent-proposed transactions<br><strong>CTRL-0065</strong> Ensure every agent can be immediately paused or terminated by its operators<br><strong>CTRL-0072</strong> Monitor runtime and memory consumption of agent-generated code<br><strong>CTRL-0079</strong> Validate agent-generated database queries for efficiency before execution against production databases<br><strong>CTRL-0085</strong> Log system health metrics and implement automated alerts for abnormal conditions<br><strong>CTRL-0093</strong> Monitor agents for deceptive and collusive behaviour using an independent monitor</td>
 </tr>
 <tr>
 <td><strong>2.4.2</strong> Users who interact with agents (transparency, disclosure, escalation)</td>
@@ -1422,6 +1446,46 @@ ARC control corresponds to it.</p>
 <td>ASI02</td>
 <td>T4</td>
 </tr>
+<tr>
+<td><strong>RISK-047</strong> Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel</td>
+<td>ASI01, ASI02</td>
+<td>T6, T2</td>
+</tr>
+<tr>
+<td><strong>RISK-048</strong> Compromise through the tool, skill, and dependency supply chain</td>
+<td>ASI04</td>
+<td>T17</td>
+</tr>
+<tr>
+<td><strong>RISK-049</strong> Escape from evaluation or sandbox containment onto live systems</td>
+<td>ASI10, ASI03</td>
+<td>T13, T7</td>
+</tr>
+<tr>
+<td><strong>RISK-050</strong> Deceptive behaviour toward overseers</td>
+<td>ASI10, ASI09</td>
+<td>T7</td>
+</tr>
+<tr>
+<td><strong>RISK-051</strong> Unsanctioned coordination between agents</td>
+<td>ASI10, ASI07</td>
+<td>T13, T12</td>
+</tr>
+<tr>
+<td><strong>RISK-052</strong> Automation bias and erosion of human oversight</td>
+<td>ASI09</td>
+<td>T10</td>
+</tr>
+<tr>
+<td><strong>RISK-053</strong> Dependence on third-party agents as counterparties or delegates</td>
+<td>ASI04, ASI07</td>
+<td>T13</td>
+</tr>
+<tr>
+<td><strong>RISK-054</strong> Insecure default configuration of agent frameworks and runtimes</td>
+<td>ASI03, ASI05</td>
+<td>T3, T11</td>
+</tr>
 </tbody>
 </table>
 <h2 id="arc-controls-external-frameworks">ARC controls → external frameworks</h2>
@@ -1539,7 +1603,7 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>CTRL-0018</strong> Define default behaviour when the agent encounters ambiguous situations</td>
-<td>2.1</td>
+<td>2.10</td>
 <td>2.3.1</td>
 <td>ASI01</td>
 </tr>
@@ -1641,7 +1705,7 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>CTRL-0035</strong> Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding</td>
-<td>2.1</td>
+<td>2.10</td>
 <td>2.3.1</td>
 <td>ASI01</td>
 </tr>
@@ -1653,12 +1717,12 @@ ARC control corresponds to it.</p>
 </tr>
 <tr>
 <td><strong>CTRL-0037</strong> Require planning agents to include explicit safety constraints in all generated plans before execution</td>
-<td>2.7, 2.1</td>
+<td>2.7, 2.10</td>
 <td>2.1.2</td>
 <td>ASI01, ASI10</td>
 </tr>
 <tr>
-<td><strong>CTRL-0038</strong> Conduct pre-deployment safety verification using domain-relevant stress tests and adversarial scenarios</td>
+<td><strong>CTRL-0038</strong> Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards</td>
 <td>3.2</td>
 <td>2.3.2</td>
 <td>ASI01, ASI10</td>
@@ -1820,7 +1884,7 @@ ARC control corresponds to it.</p>
 <td>ASI02</td>
 </tr>
 <tr>
-<td><strong>CTRL-0065</strong> Ensure computer use capabilities provide immediate interruptability</td>
+<td><strong>CTRL-0065</strong> Ensure every agent can be immediately paused or terminated by its operators</td>
 <td>4.4</td>
 <td>2.3.3</td>
 <td>ASI10</td>
@@ -1951,6 +2015,54 @@ ARC control corresponds to it.</p>
 <td>2.1.2</td>
 <td>ASI02</td>
 </tr>
+<tr>
+<td><strong>CTRL-0089</strong> Enforce default-deny network egress for agent runtimes, allowing only approved destinations</td>
+<td>2.6, 2.9</td>
+<td>2.1.2</td>
+<td>ASI02</td>
+</tr>
+<tr>
+<td><strong>CTRL-0090</strong> Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions</td>
+<td>2.9, 4.1</td>
+<td>2.3.1</td>
+<td>ASI01</td>
+</tr>
+<tr>
+<td><strong>CTRL-0091</strong> Require verified provenance for tools, skills, and dependencies, and re-verify them on every update</td>
+<td>2.1, 2.4</td>
+<td>2.3.1</td>
+<td>ASI04</td>
+</tr>
+<tr>
+<td><strong>CTRL-0092</strong> Contain evaluations and red-team exercises so that agents cannot reach real systems, credentials, or people</td>
+<td>2.9, 3.2</td>
+<td>2.3.2</td>
+<td>ASI10</td>
+</tr>
+<tr>
+<td><strong>CTRL-0093</strong> Monitor agents for deceptive and collusive behaviour using an independent monitor</td>
+<td>4.3, 3.4</td>
+<td>2.3.3</td>
+<td>ASI10</td>
+</tr>
+<tr>
+<td><strong>CTRL-0094</strong> Measure the quality of human oversight and redesign approval steps that have become rubber stamps</td>
+<td>4.4</td>
+<td>2.2.2</td>
+<td>ASI09</td>
+</tr>
+<tr>
+<td><strong>CTRL-0095</strong> Apply due diligence and technical bounds to third-party agents before delegating to them or transacting with them</td>
+<td>2.1, 3.4</td>
+<td>2.2.1</td>
+<td>ASI04</td>
+</tr>
+<tr>
+<td><strong>CTRL-0096</strong> Harden agent frameworks and runtimes before exposing them, and patch framework vulnerabilities promptly</td>
+<td>2.3, 2.8</td>
+<td>2.3.1</td>
+<td>ASI05, ASI03</td>
+</tr>
 </tbody>
 </table>
 
@@ -2040,7 +2152,7 @@ ARC control corresponds to it.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../comparison/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Comparison to other frameworks">
+          <a href="../risk-register/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Interactive Risk Register">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2050,20 +2162,20 @@ ARC control corresponds to it.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Comparison to other frameworks
+                Interactive Risk Register
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../implementation/" class="md-footer__link md-footer__link--next" aria-label="Next: Implementing ARC">
+          <a href="../changelog/" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Implementing ARC
+                Changelog
               </div>
             </div>
             <div class="md-footer__button md-icon">

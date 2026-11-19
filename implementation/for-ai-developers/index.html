@@ -14,7 +14,7 @@
         <link rel="prev" href="../for-governance-teams/">
       
       
-        <link rel="next" href="../../resources/">
+        <link rel="next" href="../assessment-template/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -498,12 +498,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arc_framework/comparison/" class="md-nav__link">
+      <a href="../../arc_framework/crosswalks/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison to other frameworks
+    Crosswalks to other frameworks
     
   </span>
   
@@ -521,12 +521,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arc_framework/crosswalks/" class="md-nav__link">
+      <a href="../../arc_framework/changelog/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Crosswalks to other frameworks
+    Changelog
     
   </span>
   
@@ -931,6 +931,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assessment-template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Assessment Template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1080,11 +1103,15 @@
 <p>For each identified capability, map specific risks using <a href="../../arc_framework/risk-register/">the ARC Framework's risk register</a> or your organisation's contextualised version. <strong>Always include baseline risks</strong> from components (LLM, tools, instructions, memory) and design (architecture, access controls, monitoring).</p>
 <p><strong>Review process:</strong></p>
 <ol>
-<li><strong>Component and design risks</strong> - Apply to all agentic systems regardless of capabilities</li>
-<li><strong>Capability-specific risks</strong> - For each capability identified in Step 1</li>
-<li><strong>Contextualise to your use case</strong> - Define domain-specific terms and focus on critical scenarios</li>
-<li><strong>Apply relevance criteria</strong> - Score Impact and Likelihood separately (1-5 scale); retain risks where both scores meet your organisation's threshold (e.g., both ≥3)</li>
+<li><strong>Component and design risks</strong> — apply to every agentic system regardless of capabilities (the <em>baseline</em> risks)</li>
+<li><strong>Capability-specific risks</strong> — for each capability identified in Step 1. A <em>composite</em> risk (one that lists several elements, shown joined with "+" in the register) applies only when your system has <strong>all</strong> of them: for example, RISK-047 (data exfiltration through untrusted content, sensitive data, and an outbound channel) applies to any system that both browses the web (CAP-07) and handles files or data (CAP-11)</li>
+<li><strong>Contextualise to your use case</strong> — define domain-specific terms and focus on critical scenarios</li>
+<li><strong>Apply relevance criteria</strong> — score Impact and Likelihood (1–5) for each applicable risk, and mark as <em>priority</em> those that meet the threshold set by your governance team (see <a href="../for-governance-teams/#step-4-define-relevance-criteria">Define Relevance Criteria</a>). Scoring decides where Level 1 and Level 2 effort goes; <strong>it does not switch off Level 0 controls</strong> (see Step 3)</li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Applicable versus priority</p>
+<p>A risk is <strong>applicable</strong> when its element(s) are present in your system: every baseline risk, plus each capability risk whose capabilities you identified in Step 1. A risk is a <strong>priority</strong> when its Impact and Likelihood scores meet your organisation's threshold. Level 0 controls attach to <em>applicable</em> risks; scoring only prioritises Levels 1 and 2.</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Prioritising Risks Effectively</p>
 <p>High-stakes domains warrant extra scrutiny — for example, healthcare systems must treat hallucinated medical facts as a serious hazard, finance systems should prioritise preventing unauthorised transactions, and legal workflows must guard against unqualified legal advice. Across domains, common high-impact risks include unauthorised or incorrect transaction execution, PII exposure or leakage, malicious code injection where code execution is possible, and prompt injection via untrusted web content when internet access is enabled.</p>
@@ -1124,21 +1151,21 @@
   <tbody>
     <tr>
       <td><strong>Level 0: Cardinal Controls</strong></td>
-      <td>Fundamental requirements for any system where the associated risk applies</td>
+      <td>Every applicable risk, regardless of its score</td>
       <td>Must be adopted as-is; cannot be waived</td>
       <td>Authentication for transaction APIs, audit logging for sensitive operations, input validation for code execution</td>
       <td>Implementation verified before deployment; blockers escalated to the governance team</td>
     </tr>
     <tr>
       <td><strong>Level 1: Standard Controls</strong></td>
-      <td>Moderate-impact risks, best practices</td>
+      <td>Priority risks; adopt or adapt to your implementation</td>
       <td>Adopt or adapt meaningfully; exercise engineering judgement on feasibility</td>
       <td>Rate limiting for API calls, output guardrails for content quality, human review for edge cases</td>
       <td>Team-level decision with documented rationale</td>
     </tr>
     <tr>
       <td><strong>Level 2: Best Practice Controls</strong></td>
-      <td>Defence-in-depth, low residual risk tolerance</td>
+      <td>Good to consider, especially for high-risk systems</td>
       <td>Consider based on risk appetite and available resources, especially for high-risk systems</td>
       <td>Advanced monitoring dashboards, red team testing, redundant safety layers</td>
       <td>Optional; prioritise based on organisational maturity</td>
@@ -1146,7 +1173,7 @@
   </tbody>
 </table>
 
-<p>Level 0 controls are mandatory wherever the associated risk applies to your system. Levels 1 and 2 provide a menu of options—your governance team may specify which are required for your organisation; otherwise, apply them proportionate to risk severity.</p>
+<p>Level 0 controls are mandatory for every <strong>applicable</strong> risk. A risk that scores below your threshold still carries its Level 0 controls, because they are the floor without which the risk is unmitigated — scoring never waives them. Levels 1 and 2 are where scoring matters: apply them to priority risks proportionate to severity, or as your governance team specifies. The three levels are defined once, in <a href="../../arc_framework/controls/#control-levels">Controls for agentic systems</a>; this table restates them for developers.</p>
 <div class="admonition tip">
 <p class="admonition-title">Contextualising Controls</p>
 <p>Although the controls in the organisation's risk register would have been contextualised by the governance teams, they may need additional adaptation to your specific use case or implementation. Below are examples showing the full progression from framework baseline to organisation context to system-specific adaptation:</p>
@@ -1173,7 +1200,7 @@
 <h2 id="step-4-assess-residual-risks">Step 4: Assess Residual Risks</h2>
 <p>Assess residual risks after controls are implemented. Consider where harm can still occur and what control limitations exist. If residual risks remain unacceptable, implement additional controls to reduce likelihood or impact.</p>
 <p>For each implemented control, ask: <strong>What failure scenarios does this control not prevent?</strong> Think through attack vectors the control doesn't cover (e.g., "guardrails detect known patterns but miss novel encoding attacks"), conditions where it fails (e.g., "human approval fails if malicious requests appear legitimate"), and underlying assumptions (e.g., "RAG assumes knowledge base accuracy—fails if sources contain errors"). Re-assess each failure scenario's impact and likelihood to determine if the residual risk is acceptable.</p>
-<p>For residual risks you accept, <strong>document the specific failure scenario, your chosen strategy (accept, monitor, or mitigate), and concrete actions with measurable thresholds</strong>. Examples: "Accept hallucinations in casual conversation—users understand chatbot limitations"; "Monitor injection attempts via logs, alert if &gt;10/day, maintain &lt;0.1% exploitation rate"; "Mitigate advanced injection through weekly review of flagged conversations + quarterly red team testing".</p>
+<p>Record the whole assessment — capabilities, applicable risks with scores, controls with their implementation status and evidence, residual risks, and sign-off — using the <a href="../assessment-template/">Assessment Template</a>. For residual risks you accept, <strong>document the specific failure scenario, your chosen strategy (accept, monitor, or mitigate), and concrete actions with measurable thresholds</strong>. Examples: "Accept hallucinations in casual conversation—users understand chatbot limitations"; "Monitor injection attempts via logs, alert if &gt;10/day, maintain &lt;0.1% exploitation rate"; "Mitigate advanced injection through weekly review of flagged conversations + quarterly red team testing".</p>
 <div class="admonition warning">
 <p class="admonition-title">When Residual Risks Are Too High</p>
 <p>Review with senior stakeholders if you identify <strong>catastrophic residual risk</strong> (Impact 5, even if low likelihood), <strong>regulatory exposure</strong> where residual risk violates compliance requirements, or <strong>no mitigation strategy</strong> where risk is documented but there's no plan to manage it.</p>
@@ -1320,11 +1347,17 @@
 <td>Prompt injection via malicious files or data</td>
 <td><strong>[Impact: 4, Likelihood: 3]</strong> If internal knowledge base contains user-contributed content, malicious data could inject prompts affecting all verification tasks.</td>
 </tr>
+<tr>
+<td>RISK-047</td>
+<td>CAP-07 + CAP-11 (composite)</td>
+<td>Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel</td>
+<td><strong>[Impact: 5, Likelihood: 3]</strong> Applies because the system both browses the web and reads the internal knowledge base: an injected instruction on a web page could direct the agent to send internal content out through a search query or URL.</td>
+</tr>
 </tbody>
 </table>
 <p><em>(Lower-priority risks documented but not shown here for brevity)</em></p>
 <h4 id="step-3-implement-controls_1">Step 3: Implement Controls</h4>
-<p>For priority risks (Impact ≥3, Likelihood ≥3), we implement the following Level 0 and Level 1 controls:</p>
+<p>This system has 43 applicable risks (24 baseline, 18 capability-specific, and the composite RISK-047), which between them carry 31 Level 0 controls. All 31 are implemented as-is and recorded in the assessment; the table below shows the priority risks only — every Level 0 control of each, plus the Level 1 and 2 controls we selected:</p>
 <table>
 <thead>
 <tr>
@@ -1336,8 +1369,8 @@
 <tbody>
 <tr>
 <td>RISK-002</td>
-<td><strong>CTRL-0005</strong> (Level 1): Conduct structured evaluation of multiple LLMs<br><strong>CTRL-0006</strong> (Level 1): Require human approval before executing high-impact actions</td>
-<td>• Evaluated Claude Sonnet 4.5, GPT-4, and Gemini Pro on fact-checking benchmarks<br>• Selected Claude Sonnet 4.5 for superior instruction-following and refusal capabilities<br>• Require human review before publishing final verification verdicts</td>
+<td><strong>CTRL-0007</strong> (Level 0): Log all LLM inputs and outputs for regular review<br><strong>CTRL-0038</strong> (Level 0): Conduct safety verification before deployment and on a regular cadence<br><strong>CTRL-0005</strong> (Level 1): Conduct structured evaluation of multiple LLMs<br><strong>CTRL-0006</strong> (Level 1): Require human approval before executing high-impact actions</td>
+<td>• Log every prompt and completion with the claim ID; sample 5% weekly for review<br>• Run an adversarial test set of manipulated claims and injected sources before each model or prompt change<br>• Evaluated three candidate frontier models on fact-checking benchmarks; selected the one with the strongest instruction-following and refusal behaviour<br>• Require human review before publishing final verification verdicts</td>
 </tr>
 <tr>
 <td>RISK-007</td>
@@ -1363,6 +1396,11 @@
 <td>RISK-044</td>
 <td><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection<br><strong>CTRL-0083</strong> (Level 0): Disallow unknown or external files unless scanned</td>
 <td>• Validate all new data contributions to knowledge base before ingestion<br>• Scan uploaded files for embedded prompt injection attempts<br>• Maintain allowlist of approved data sources</td>
+</tr>
+<tr>
+<td>RISK-047</td>
+<td><strong>CTRL-0089</strong> (Level 0): Enforce default-deny network egress for agent runtimes<br><strong>CTRL-0090</strong> (Level 1): Enforce data-flow policies with a deterministic policy layer</td>
+<td>• Agent runtime may reach only the search API and the internal knowledge base; all other egress is blocked<br>• Search queries are generated by a component that never sees knowledge-base content, so retrieved internal text cannot be smuggled into an outbound query</td>
 </tr>
 </tbody>
 </table>
@@ -1530,7 +1568,7 @@
 <tr>
 <td>RISK-041</td>
 <td>CAP-11 (File &amp; Data Management)</td>
-<td>Destructive modifications to files or databases</td>
+<td>Unintended overwriting or deletion of files or data</td>
 <td><strong>[Impact: 5, Likelihood: 3]</strong> Assistant may accidentally delete critical files, overwrite production configs, or drop database tables when misinterpreting user intent.</td>
 </tr>
 <tr>
@@ -1549,7 +1587,7 @@
 </table>
 <p><em>(Lower-priority risks documented but not shown here for brevity)</em></p>
 <h4 id="step-3-implement-controls_2">Step 3: Implement Controls</h4>
-<p>For priority risks (Impact ≥3, Likelihood ≥3), we implement the following Level 0 and Level 1 controls:</p>
+<p>This system has 42 applicable risks (24 baseline and 18 capability-specific) carrying 34 Level 0 controls, all of which are implemented as-is. The table shows the priority risks — every Level 0 control of each, plus the Level 1 and 2 controls we selected:</p>
 <table>
 <thead>
 <tr>
@@ -1561,8 +1599,8 @@
 <tbody>
 <tr>
 <td>RISK-002</td>
-<td><strong>CTRL-0005</strong> (Level 1): Conduct structured evaluation of multiple LLMs<br><strong>CTRL-0007</strong> (Level 0): Log all LLM inputs and outputs</td>
-<td>• Evaluated Claude Sonnet 4.5, GPT-4o, and Gemini Pro on code generation benchmarks (HumanEval, MBPP)<br>• Selected Claude Sonnet 4.5 for superior instruction-following and code safety<br>• Log all prompts and generated code to CloudWatch with 90-day retention</td>
+<td><strong>CTRL-0007</strong> (Level 0): Log all LLM inputs and outputs<br><strong>CTRL-0038</strong> (Level 0): Conduct safety verification before deployment and on a regular cadence<br><strong>CTRL-0005</strong> (Level 1): Conduct structured evaluation of multiple LLMs</td>
+<td>• Log all prompts and generated code to CloudWatch with 90-day retention<br>• Run an agent-security benchmark (e.g., AgentDojo) and a set of repository-injection scenarios before each release<br>• Evaluated three candidate models on code-generation benchmarks (HumanEval, MBPP); selected the one with the strongest instruction-following and code safety</td>
 </tr>
 <tr>
 <td>RISK-007</td>
@@ -1571,23 +1609,23 @@
 </tr>
 <tr>
 <td>RISK-028</td>
-<td><strong>CTRL-0048</strong> (Level 2): Implement methods to reduce hallucination rates<br><strong>CTRL-0050</strong> (Level 1): Enable users to verify answers against sources</td>
-<td>• Implement RAG using codebase context to ground code suggestions in actual project patterns<br>• Display inline citations showing which files informed code suggestions<br>• Add "Verify this code before using" disclaimer on all generated code blocks</td>
+<td><strong>CTRL-0049</strong> (Level 0): Implement UI/UX cues to communicate the risk of hallucination<br><strong>CTRL-0050</strong> (Level 1): Enable users to verify answers against sources<br><strong>CTRL-0048</strong> (Level 2): Implement methods to reduce hallucination rates</td>
+<td>• Add "Verify this code before using" disclaimer on all generated code blocks<br>• Display inline citations showing which files informed code suggestions<br>• Implement RAG using codebase context to ground code suggestions in actual project patterns</td>
 </tr>
 <tr>
 <td>RISK-038</td>
-<td><strong>CTRL-0067</strong> (Level 0): Ensure proper documentation of programmatic interfaces for agent use</td>
+<td><strong>CTRL-0041</strong> (Level 0): Provide comprehensive descriptions for each tool<br><strong>CTRL-0067</strong> (Level 0): Ensure proper documentation of programmatic interfaces for agent use</td>
 <td>• Provide LLM-readable documentation for all internal APIs and bespoke tools the assistant integrates with<br>• Include parameter types, constraints, and error conditions in tool descriptions<br>• Validate assistant-generated API calls against interface schemas before execution</td>
 </tr>
 <tr>
 <td>RISK-039</td>
-<td><strong>CTRL-0068</strong> (Level 0): Use code linters to screen generated code<br><strong>CTRL-0069</strong> (Level 0): Run code only in isolated environments<br><strong>CTRL-0070</strong> (Level 1): Review all agent-generated code before execution</td>
+<td><strong>CTRL-0068</strong> (Level 0): Use code linters to screen generated code<br><strong>CTRL-0069</strong> (Level 0): Run code only in isolated environments<br><strong>CTRL-0071</strong> (Level 0): Use static code analysers (see RISK-040)<br><strong>CTRL-0070</strong> (Level 1): Review all agent-generated code before execution</td>
 <td>• Integrate ESLint for JavaScript/TypeScript and Pylint for Python, blocking code application if critical errors detected<br>• Execute all code in Docker containers with no network access by default<br>• Require explicit user approval before running any shell commands</td>
 </tr>
 <tr>
 <td>RISK-040</td>
-<td><strong>CTRL-0071</strong> (Level 0): Use static code analyzers to detect vulnerabilities<br><strong>CTRL-0070</strong> (Level 1): Review all agent-generated code before execution<br><strong>CTRL-0073</strong> (Level 0): Create denylist of dangerous commands</td>
-<td>• Integrate Semgrep with OWASP ruleset for vulnerability scanning<br>• Integrate Bandit for Python security analysis<br>• Flag HIGH/CRITICAL vulnerabilities and require user acknowledgment<br>• Denylist: rm -rf, dd, mkfs, iptables, sudo commands without user confirmation</td>
+<td><strong>CTRL-0069</strong> (Level 0): Run code only in isolated environments (see RISK-039)<br><strong>CTRL-0071</strong> (Level 0): Use static code analysers to detect vulnerabilities<br><strong>CTRL-0073</strong> (Level 0): Create denylist of dangerous commands<br><strong>CTRL-0074</strong> (Level 0): CVE-scan dependencies and block High/Critical<br><strong>CTRL-0070</strong> (Level 1): Review all agent-generated code before execution</td>
+<td>• Integrate Semgrep with OWASP ruleset for vulnerability scanning<br>• Integrate Bandit for Python security analysis<br>• Flag HIGH/CRITICAL vulnerabilities and require user acknowledgment<br>• Denylist: rm -rf, dd, mkfs, iptables, sudo commands without user confirmation<br>• Run dependency CVE scanning on every install the assistant performs; block on High/Critical findings</td>
 </tr>
 <tr>
 <td>RISK-041</td>
@@ -1795,7 +1833,7 @@
 </table>
 <p><em>(Additional risks documented but not shown here for brevity)</em></p>
 <h4 id="step-3-implement-controls_3">Step 3: Implement Controls</h4>
-<p>For priority risks (Impact ≥4, Likelihood ≥3), we implement primarily Level 0 controls with selective Level 1 controls:</p>
+<p>This system has 42 applicable risks (24 baseline and 18 capability-specific) carrying 32 Level 0 controls, all implemented as-is even under the higher risk appetite — the appetite affects only which Level 1 and 2 controls are taken up. For the three priority risks we implement:</p>
 <table>
 <thead>
 <tr>
@@ -1807,18 +1845,40 @@
 <tbody>
 <tr>
 <td>RISK-028</td>
-<td><strong>CTRL-0048</strong> (Level 2): Implement methods to reduce hallucination rates<br><strong>CTRL-0049</strong> (Level 0): Implement UI/UX cues for hallucination risk</td>
+<td><strong>CTRL-0049</strong> (Level 0): Implement UI/UX cues for hallucination risk<br><strong>CTRL-0048</strong> (Level 2): Implement methods to reduce hallucination rates</td>
 <td>• Implement RAG using verified product catalogue and policy database (updated daily)<br>• Add audio disclaimer at call start: "Information provided is for reference only; verify critical details with documentation"<br>• Include citations in call transcripts showing which knowledge base articles informed responses</td>
 </tr>
 <tr>
 <td>RISK-032</td>
-<td><strong>CTRL-0056</strong> (Level 1): Require explicit user confirmation before initiating transactions<br><strong>CTRL-0058</strong> (Level 1): Restrict agents to proposing transactions using separate controller</td>
+<td><strong>CTRL-0056</strong> (Level 1): Require explicit user confirmation before initiating transactions<br><strong>CTRL-0058</strong> (Level 1): Restrict agents to proposing transactions using separate controller<br><em>(RISK-032 carries no Level 0 control, so its treatment is entirely a scoring decision)</em></td>
 <td>• Require verbal confirmation before any booking changes: "I'll change your appointment to [date/time]. Please confirm by saying 'yes' or 'confirm'"<br>• Record confirmation audio for audit trail<br>• Use dedicated transaction controller API that validates all booking operations independently<br>• Booking Agent cannot directly modify databases; only submits requests to controller</td>
 </tr>
 <tr>
 <td>RISK-043</td>
 <td><strong>CTRL-0047</strong> (Level 0): Implement output guardrails to detect and redact PII<br><strong>CTRL-0082</strong> (Level 2): Do not grant access to PII unless required</td>
-<td>• Implement output guardrails that redact phone numbers, email addresses, and full addresses before agent responds<br>• Restrict Profile Agent access to current caller's records only (enforce via customer ID verification)<br>• Log all customer data access attempts with caller ID matching validation<br>• Block queries requesting data for different customer IDs</td>
+<td>• Implement output guardrails that redact phone numbers, email addresses, and full addresses before agent responds<br>• Restrict Profile Agent access to current caller's records only (enforce via customer ID verification)<br>• Log all customer data access attempts with caller ID matching validation<br>• Block queries requesting data for different customer IDs<br>• CTRL-0082 is a Level 2 control adopted deliberately: customer PII is the system's main exposure</td>
+</tr>
+</tbody>
+</table>
+<p>The below-threshold risks still contribute their Level 0 controls. Two examples from the table above:</p>
+<table>
+<thead>
+<tr>
+<th>Risk ID</th>
+<th>Level 0 controls carried regardless of score</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RISK-002</td>
+<td><strong>CTRL-0007</strong>: Log all LLM inputs and outputs<br><strong>CTRL-0038</strong>: Safety verification before deployment and on a cadence</td>
+<td>• Call transcripts and model outputs logged with the call ID<br>• Scripted adversarial calls (social-engineering and injection attempts) run before launch and monthly</td>
+</tr>
+<tr>
+<td>RISK-041</td>
+<td><strong>CTRL-0077</strong>: Enable versioning or soft-delete for managed data stores</td>
+<td>• Booking system changes are versioned; cancelled or modified appointments are recoverable for 30 days</td>
 </tr>
 </tbody>
 </table>
@@ -1960,13 +2020,13 @@
         
         
           
-          <a href="../../resources/" class="md-footer__link md-footer__link--next" aria-label="Next: Resources">
+          <a href="../assessment-template/" class="md-footer__link md-footer__link--next" aria-label="Next: Assessment Template">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Resources
+                Assessment Template
               </div>
             </div>
             <div class="md-footer__button md-icon">

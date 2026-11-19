@@ -579,12 +579,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../comparison/" class="md-nav__link">
+      <a href="../crosswalks/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison to other frameworks
+    Crosswalks to other frameworks
     
   </span>
   
@@ -602,12 +602,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../crosswalks/" class="md-nav__link">
+      <a href="../changelog/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Crosswalks to other frameworks
+    Changelog
     
   </span>
   
@@ -739,6 +739,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/assessment-template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Assessment Template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -853,7 +876,7 @@
 
 <hr />
 <h2 id="governing-agentic-systems">Governing agentic systems</h2>
-<p>In 2025, major AI providers deployed <strong>LLM agents with autonomous reasoning, planning, and task execution capabilities</strong>. Examples include <a href="https://openai.com/index/introducing-gpt-5-2/">OpenAI's GPT-5.2</a> (achieving state-of-the-art results on SWE-Bench Pro and Terminal-Bench 2.0 for software engineering), <a href="https://www.itpro.com/technology/artificial-intelligence/google-launches-flagship-gemini-3-model-and-google-antigravity-a-new-agentic-ai-development-platform">Google's Gemini 3 Pro</a> (reaching top scores across major AI benchmarks in multimodal reasoning), <a href="https://www.itpro.com/technology/artificial-intelligence/anthropic-announces-claude-opus-4-5-the-new-ai-coding-frontrunner">Anthropic's Claude Opus 4.5</a> (scoring 80.9% on SWE-Bench Verified), and Singapore-based <a href="https://en.wikipedia.org/wiki/Manus_%28AI_agent%29">Manus</a> (among the first fully autonomous AI agents capable of independent reasoning and dynamic planning). </p>
+<p>Since 2025, major AI providers have deployed <strong>LLM agents with autonomous reasoning, planning, and task execution capabilities</strong>. Examples include <a href="https://openai.com/index/introducing-gpt-5-2/">OpenAI's GPT-5.2</a> (achieving state-of-the-art results on SWE-Bench Pro and Terminal-Bench 2.0 for software engineering), <a href="https://www.itpro.com/technology/artificial-intelligence/google-launches-flagship-gemini-3-model-and-google-antigravity-a-new-agentic-ai-development-platform">Google's Gemini 3 Pro</a> (reaching top scores across major AI benchmarks in multimodal reasoning), <a href="https://www.itpro.com/technology/artificial-intelligence/anthropic-announces-claude-opus-4-5-the-new-ai-coding-frontrunner">Anthropic's Claude Opus 4.5</a> (scoring 80.9% on SWE-Bench Verified), and Singapore-based <a href="https://en.wikipedia.org/wiki/Manus_%28AI_agent%29">Manus</a> (among the first fully autonomous AI agents capable of independent reasoning and dynamic planning). </p>
 <p>Because agentic systems can <strong>plan and execute actions via tools (not just generate text)</strong>, they introduce distinct safety and security risks and a harder governance problem for organisations deploying them. Concretely, autonomy + tool access shifts the risk profile from “bad text output” to <strong>real-world actions</strong>:</p>
 <ul>
 <li><strong>Destructive or unauthorised actions</strong>: agents can take irreversible operational steps (e.g., deleting or modifying critical resources) when permissions are broad or approvals are bypassed (case study: <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-coding-platform-goes-rogue-during-code-freeze-and-deletes-entire-company-database-replit-ceo-apologizes-after-ai-engine-says-it-made-a-catastrophic-error-in-judgment-and-destroyed-all-production-data">Replit’s AI coding assistant reportedly wiped a production database during a code freeze</a>).</li>
@@ -872,7 +895,7 @@
 <li><strong>Benchmarks (evaluation support)</strong>: safety/security suites such as <a href="https://arxiv.org/abs/2410.02644">Agent Security Bench</a>, <a href="https://arxiv.org/abs/2503.17332">CVE-Bench</a>, <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfd082c452dffb450d5a5202b0419205-Abstract-Datasets_and_Benchmarks_Track.html">RedCode</a>, <a href="https://arxiv.org/abs/2410.09024">AgentHarm</a>, and <a href="https://arxiv.org/abs/2406.13352">AgentDojo</a>; and tool-use benchmarks such as <a href="https://arxiv.org/abs/2305.15334">Gorilla/APIBench</a>, <a href="https://arxiv.org/abs/2402.10753">ToolSword</a>, and <a href="https://arxiv.org/abs/2309.15817">ToolEmu</a>.</li>
 <li><strong>Controls (mitigation support)</strong>: <em>AI control</em> approaches emphasise monitoring and oversight (see <a href="https://arxiv.org/abs/2312.06942">Greenblatt et al., 2024</a>); policy/enforcement mechanisms like <a href="https://arxiv.org/abs/2504.11703">Progent</a> and <a href="https://arxiv.org/abs/2503.18666">AgentSpec</a>; control-evaluation trajectories (see <a href="https://arxiv.org/abs/2504.05259">Korbak et al., 2025</a>); and practitioner guidance from <a href="https://cdn.openai.com/papers/practices-for-governing-agentic-ai-systems.pdf">OpenAI</a>, <a href="https://research.google/pubs/an-introduction-to-googles-approach-for-secure-ai-agents/">Google</a>, and prompt-injection defences (see <a href="https://arxiv.org/abs/2506.08837">Beurer-Kellner et al., 2025</a>).</li>
 </ul>
-<p>ARC Framework complements these approaches by offering a scalable way to identify relevant risks and select appropriate controls based on an agent's <strong>capabilities</strong> and deployment context. For a more detailed literature review, please read our <a href="../../assets/ARC_Framework-Paper-IASEAI_2026.pdf">technical paper</a>.</p>
+<p>ARC Framework complements these approaches by offering a scalable way to identify relevant risks and select appropriate controls based on an agent's <strong>capabilities</strong> and deployment context. For a more detailed literature review, please read our <a href="../../assets/ARC_Framework-Paper-IASEAI_2026.pdf">technical paper</a>. For entry-by-entry mappings between the ARC register and the OWASP Top 10 for Agentic Applications, the CSA Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI, see <a href="../crosswalks/">Crosswalks</a>.</p>
 </details>
 <hr />
 <h2 id="what-are-capabilities">What are Capabilities?</h2>
