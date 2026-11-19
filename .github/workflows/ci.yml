@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  pull_request:
+  pull_request:          # every PR: validate, build, smoke test
   push:
-    branches: [main]
+    branches: [main, dev]   # dev: verify the merged state; main: verify then deploy
 
 permissions:
   contents: write   # deploy job pushes the built site to gh-pages
@@ -23,11 +23,11 @@ jobs:
       - name: Validate risk register
         run: python scripts/validate_risk_register.py
 
-      - name: Check generated register JSON is up to date
+      - name: Check generated files are up to date
         run: |
           python scripts/build_risk_register.py
-          git diff --exit-code docs/assets/risk_register_data.json \
-            || { echo "::error::docs/assets/risk_register_data.json is stale — run scripts/build_risk_register.py and commit the result"; exit 1; }
+          git diff --exit-code \
+            || { echo "::error::Generated files are stale (register JSON and/or crosswalks page) — run scripts/build_risk_register.py and commit the result"; exit 1; }
 
       - name: Build site (warnings are errors)
         run: mkdocs build --strict
