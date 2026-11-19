@@ -10,6 +10,7 @@ for the website and nothing else:
 - arc_framework/crosswalks.md: the generated Crosswalks page
 - arc_framework/register-full-text.md: every risk and control as plain text, one
   linkable section per entry, for readers and agents that don't run JavaScript
+- llms.txt: an index of the site for LLM agents (https://llmstxt.org)
 
 Neither is committed. MkDocs generates them at build time through
 scripts/mkdocs_hooks.py, so the site can never serve a stale copy. Run this
@@ -32,6 +33,9 @@ DATA_DIR = Path(__file__).parent.parent / 'arc-risk-register'
 JSON_PATH = 'assets/risk_register_data.json'
 CROSSWALKS_PATH = 'arc_framework/crosswalks.md'
 FULL_TEXT_PATH = 'arc_framework/register-full-text.md'
+LLMS_TXT_PATH = 'llms.txt'
+SITE_URL = 'https://govtech-responsibleai.github.io/agentic-risk-capability-framework/'
+RAW_URL = 'https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework'
 
 
 class RegisterInvalid(Exception):
@@ -346,6 +350,49 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
     return '\n'.join(lines) + '\n'
 
 
+
+def build_llms_txt(register):
+    """Render llms.txt (https://llmstxt.org): an index of the site for LLM agents, pinned to the register version."""
+    v = register['version']
+    site = SITE_URL
+    raw = f"{RAW_URL}/v{v}/arc-risk-register"
+    return f"""# Agentic Risk & Capability (ARC) Framework
+
+> A technical governance framework from GovTech Singapore for identifying, assessing, and mitigating safety and security risks in agentic AI systems. ARC derives a system's risks from its components, design, and capabilities, and maps each risk to technical controls. Risk register version {v}.
+
+ARC describes an agentic system by three kinds of element: components (LLM, instructions, tools, memory), design (agentic architecture, roles and access controls, monitoring and traceability), and twelve capabilities, such as code execution, internet and search access, official communication, and business transactions. Each risk in the register arises from one or more elements through one of three failure modes, results in safety or security hazards, and is mapped to controls at Level 0 (cardinal), Level 1 (standard), or Level 2 (best practice).
+
+ARC is meant to be adapted: an organisation contextualises the baseline register to its own setting, and teams then assess individual systems against that version. When citing ARC, give the register version and the entry ID (for example RISK-034 or CTRL-0062).
+
+## Framework
+
+- [Introduction]({site}arc_framework/introduction/): motivation, the capability-based approach, and related work
+- [Elements]({site}arc_framework/elements/): definitions of the components, design elements, and twelve capabilities
+- [Risks]({site}arc_framework/risks/): failure modes and hazards
+- [Controls]({site}arc_framework/controls/): what the control levels mean and when they apply
+- [Risk Register (full text)]({site}arc_framework/register-full-text/): every risk and control, one linkable section per entry
+
+## Implementation
+
+- [Implementing ARC]({site}implementation/): the two-stage methodology
+- [For governance teams]({site}implementation/for-governance-teams/): contextualising ARC for an organisation
+- [For AI developers]({site}implementation/for-ai-developers/): assessing a system, with worked examples
+- [Assessment template]({site}implementation/assessment-template/)
+
+## Register data
+
+- [risks.yaml]({raw}/risks.yaml) and [controls.yaml]({raw}/controls.yaml): the machine-readable register at v{v}
+- [capabilities.yaml]({raw}/capabilities.yaml), [components.yaml]({raw}/components.yaml), [design.yaml]({raw}/design.yaml), [hazards.yaml]({raw}/hazards.yaml): elements and hazard categories
+- [Changelog]({site}arc_framework/changelog/): what changed in each version, and the versioning policy
+
+## Optional
+
+- [Crosswalks]({site}arc_framework/crosswalks/): mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the CSA Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
+- [Paper](https://arxiv.org/abs/2512.22211): "With Great Capabilities Come Great Responsibilities", IASEAI'26 main track
+- [ARCvisor]({site}resources/#arcvisor): an assistant that walks a team through an assessment
+"""
+
+
 def generate():
     """Validate the register and return ({site path: content}, validator warnings).
 
@@ -363,7 +410,8 @@ def generate():
         load_yaml('risks.yaml'), load_yaml('controls.yaml'), load_yaml('capabilities.yaml'),
         load_yaml('components.yaml'), load_yaml('design.yaml'), load_yaml('hazards.yaml'),
         load_yaml('crosswalk_references.yaml'), load_yaml('register.yaml'))
-    return {JSON_PATH: json.dumps(data, indent=2), CROSSWALKS_PATH: page, FULL_TEXT_PATH: full_text}, warnings
+    return {JSON_PATH: json.dumps(data, indent=2), CROSSWALKS_PATH: page, FULL_TEXT_PATH: full_text,
+            LLMS_TXT_PATH: build_llms_txt(load_yaml('register.yaml'))}, warnings
 
 
 def main():

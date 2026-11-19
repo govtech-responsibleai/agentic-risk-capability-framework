@@ -25,3 +25,4 @@ __pycache__/
 docs/assets/risk_register_data.json
 docs/arc_framework/crosswalks.md
 docs/arc_framework/register-full-text.md
+docs/llms.txt

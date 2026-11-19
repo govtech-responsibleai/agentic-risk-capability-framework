@@ -12,11 +12,12 @@ python scripts/validate_risk_register.py
 
 ## `build_risk_register.py`
 
-Validates the register, then derives three files for the website:
+Validates the register, then derives four files for the website:
 
 - `assets/risk_register_data.json`: the data behind the [interactive register](../docs/arc_framework/risk-register.md) page, shaped for display (each risk carries copies of its controls, with element names and hazards resolved)
 - `arc_framework/crosswalks.md`: the generated Crosswalks page
 - `arc_framework/register-full-text.md`: every risk and control as plain text with a link per entry, for readers, search engines, and agents that don't run JavaScript
+- `llms.txt`: an index of the site for LLM agents ([llmstxt.org](https://llmstxt.org)), pinned to the register version
 
 You don't normally run it yourself, because the site build does. Running it directly validates the register and prints a summary; `--out DIR` also writes the files under `DIR` for inspection:
 
