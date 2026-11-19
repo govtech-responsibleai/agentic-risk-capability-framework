@@ -7,7 +7,7 @@ CTRL-0001:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -21,7 +21,7 @@ CTRL-0002:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.2.1
     owasp_asi:
@@ -35,7 +35,7 @@ CTRL-0003:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf: []
     owasp_asi:
     - ASI04
@@ -50,7 +50,7 @@ CTRL-0004:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.1.1
     owasp_asi:
@@ -65,8 +65,8 @@ CTRL-0005:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.2
-    - 3.2
+    - "2.2"
+    - "3.2"
     imda_mgf:
     - 2.3.2
     owasp_asi:
@@ -79,12 +79,14 @@ CTRL-0006:
   - RISK-003
   - RISK-019
   - RISK-020
+  - RISK-052
   statement: Require human approval before executing high-impact actions
-  recommendations: Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.
-  references: null
+  recommendations: "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions."
+  references:
+  - https://www.anthropic.com/engineering/how-we-contain-claude
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -96,12 +98,13 @@ CTRL-0007:
   - RISK-001
   - RISK-002
   - RISK-003
+  - RISK-050
   statement: Log all LLM inputs and outputs for regular review
   recommendations: Comprehensive logging enables post-incident analysis, safety monitoring, detection of adversarial inputs, and continuous improvement of LLM behaviour over time. Implement structured logging that captures all LLM inputs, outputs, timestamps, model versions, and relevant metadata (user ID, session ID, tool calls). Use a centralised logging system (e.g., ELK stack, Datadog, CloudWatch) with appropriate retention policies and access controls to protect sensitive data. Establish regular review processes—manual spot-checks or automated anomaly detection—to identify drift, unsafe outputs, or emerging failure patterns.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -116,7 +119,7 @@ CTRL-0008:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -125,14 +128,16 @@ CTRL-0009:
   level: 0
   risks:
   - RISK-004
+  - RISK-054
   statement: Use only MCP servers that implement robust authentication mechanisms in production environments
-  recommendations: Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management.
+  recommendations: Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management. As of the 2026-07-28 MCP specification, verify additionally that the server implements RFC 9207 issuer identification (so a client can detect a substituted authorization server) and Client ID Metadata Documents in place of dynamic client registration, and prefer servers that support the Enterprise-Managed Authorization extension so that access is governed by your identity provider rather than by per-user ad-hoc consent. Treat servers still built on the pre-2026 stateful session model as needing review before production use.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
+  - https://blog.modelcontextprotocol.io/posts/2026-07-28/
   crosswalks:
     csa_addendum:
-    - 2.1
-    - 3.3
+    - "2.1"
+    - "3.3"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -143,12 +148,13 @@ CTRL-0010:
   risks:
   - RISK-004
   statement: Use only MCP servers that validate credentials on every inbound request
-  recommendations: Relying on session state or connection-based authentication without per-request validation creates vulnerability to session hijacking, token replay attacks, and unauthorised access after initial authentication. Verify that MCP servers implement stateless authentication by validating credentials (e.g., OAuth tokens, API keys) on every single request rather than caching authorisation decisions based on connection or session state. Test this behaviour by monitoring whether the server accepts requests with expired, revoked, or missing credentials after an initial successful authentication. Ensure the server responds with appropriate HTTP 401 errors when credentials are invalid, expired, or absent, forcing re-authentication rather than relying on stale authorisation state.
+  recommendations: Relying on session state or connection-based authentication without per-request validation creates vulnerability to session hijacking, token replay attacks, and unauthorised access after initial authentication. Verify that MCP servers implement stateless authentication by validating credentials (e.g., OAuth tokens, API keys) on every single request rather than caching authorisation decisions based on connection or session state. Test this behaviour by monitoring whether the server accepts requests with expired, revoked, or missing credentials after an initial successful authentication. Ensure the server responds with appropriate HTTP 401 errors when credentials are invalid, expired, or absent, forcing re-authentication rather than relying on stale authorisation state. The 2026-07-28 specification removes long-lived stateful sessions from the protocol core, making per-request validation the expected behaviour; treat a server whose authorization depends on session state as non-compliant.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
+  - https://blog.modelcontextprotocol.io/posts/2026-07-28/
   crosswalks:
     csa_addendum:
-    - 2.6
+    - "2.6"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -163,8 +169,8 @@ CTRL-0011:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   crosswalks:
     csa_addendum:
-    - 2.6
-    - 2.8
+    - "2.6"
+    - "2.8"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -174,14 +180,15 @@ CTRL-0012:
   risks:
   - RISK-005
   statement: Use only MCP servers that integrate with authorisation servers implementing per-client consent mechanisms
-  recommendations: Without explicit per-client consent, a malicious or compromised client could abuse delegated permissions to access resources the user never intended to authorise for that specific application. Verify that MCP servers integrate with OAuth 2.1 authorisation servers that implement per-client consent flows, where users explicitly approve each client-permission combination rather than granting blanket permissions across all clients. The authorisation server should clearly identify the requesting client and display what data or actions are being requested during the consent flow. Ensure the authorisation server persists consent decisions and provides mechanisms for users to review and revoke previously granted permissions.
+  recommendations: Without explicit per-client consent, a malicious or compromised client could abuse delegated permissions to access resources the user never intended to authorise for that specific application. Verify that MCP servers integrate with OAuth 2.1 authorisation servers that implement per-client consent flows, where users explicitly approve each client-permission combination rather than granting blanket permissions across all clients. The authorisation server should clearly identify the requesting client and display what data or actions are being requested during the consent flow. Ensure the authorisation server persists consent decisions and provides mechanisms for users to review and revoke previously granted permissions. With Client ID Metadata Documents (2026-07-28 specification), the authorization server identifies the client from its published metadata; check that consent screens name the client accurately, and use the Enterprise-Managed Authorization extension where a central identity provider should govern access on behalf of all users.
   references:
   - https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization
   - https://aaronparecki.com/2025/11/25/1/mcp-authorization-spec-update
   - https://stytch.com/blog/mcp-authentication-and-authorization-servers/
+  - https://blog.modelcontextprotocol.io/posts/2026-07-28/
   crosswalks:
     csa_addendum:
-    - 3.3
+    - "3.3"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -190,13 +197,14 @@ CTRL-0013:
   level: 0
   risks:
   - RISK-006
+  - RISK-048
   statement: Test all untested MCP servers in a sandboxed environment before deploying to production
   recommendations: Untested MCP servers may contain vulnerabilities, malicious code, or unexpected behaviours that could compromise your production systems or data. Deploy MCP servers first to an isolated sandbox environment (e.g., containerised test environment, separate network segment, or dedicated development infrastructure) to evaluate their security posture, behaviour, and reliability. Monitor server activity during testing for anomalous network connections, excessive resource consumption, unauthorised file access, or other suspicious behaviours. Only promote MCP servers to production after successful security review, functional testing, and verification that the server behaves as documented.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   crosswalks:
     csa_addendum:
-    - 2.9
+    - "2.9"
     imda_mgf:
     - 2.3.2
     owasp_asi:
@@ -205,14 +213,15 @@ CTRL-0014:
   level: 0
   risks:
   - RISK-006
+  - RISK-048
   statement: Use only MCP servers from verified and trusted developers
   recommendations: Untrusted or unknown MCP server developers may introduce malicious functionality, security vulnerabilities, or data exfiltration mechanisms that compromise your agentic system. Establish evaluation criteria to assess MCP server developer trustworthiness before adoption, including verification of public code repositories, community reputation, security disclosure practices, and maintenance history. Evaluate whether the developer has a track record of responding to security issues, maintains active development, and provides transparent documentation of server capabilities. Prioritise MCP servers from the official Model Context Protocol repository, well-established organisations, or developers with verified identities and demonstrated security practices.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   crosswalks:
     csa_addendum:
-    - 2.1
-    - 3.3
+    - "2.1"
+    - "3.3"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -220,7 +229,9 @@ CTRL-0014:
 CTRL-0015:
   level: 1
   risks:
+  - RISK-006
   - RISK-007
+  - RISK-048
   statement: Treat all tool metadata and outputs as untrusted input requiring validation
   recommendations: Tool metadata (descriptions, parameter names, schema definitions) can contain prompt injection attacks that manipulate agent behaviour even without tool invocation, whilst tool outputs may contain malicious content designed to compromise downstream systems. Validate and sanitise all tool metadata before exposing it to the LLM, treating tool descriptions with the same scrutiny as external user input and implementing content filtering to detect embedded instructions or adversarial prompts. Apply strict schema validation to tool outputs and sanitise responses before using them in prompts, displaying them to users, or passing them to other systems. Implement monitoring and logging of tool metadata and outputs to enable detection of injection attempts and post-incident analysis of compromised tool behaviour.
   references:
@@ -229,8 +240,8 @@ CTRL-0015:
   - https://www.practical-devsecops.com/mcp-security-vulnerabilities/
   crosswalks:
     csa_addendum:
-    - 4.1
-    - 3.3
+    - "4.1"
+    - "3.3"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -245,7 +256,7 @@ CTRL-0016:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.3
+    - "2.3"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -259,8 +270,8 @@ CTRL-0017:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.3
-    - 3.2
+    - "2.3"
+    - "3.2"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -274,7 +285,7 @@ CTRL-0018:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.10
+    - "2.10"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -288,7 +299,7 @@ CTRL-0019:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -297,13 +308,14 @@ CTRL-0020:
   level: 2
   risks:
   - RISK-009
+  - RISK-047
   statement: Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions
   recommendations: Using the same LLM for both input processing and task execution creates vulnerability to prompt injection attacks embedded in user input. Deploy a separate LLM instance configured specifically for input sanitisation, with explicit instructions to extract only designated fields (e.g., name, email, query text) whilst ignoring any other content including embedded commands or meta-instructions. Configure this extraction LLM with a restrictive system prompt focused solely on structured data extraction and validation against expected schemas. Validate extracted fields against expected formats before passing them to the main agent LLM, and monitor extraction outputs for anomalies that might indicate injection attempts.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
-    - 2.9
+    - "4.1"
+    - "2.9"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -318,8 +330,8 @@ CTRL-0021:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.6
-    - 2.7
+    - "2.6"
+    - "2.7"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -333,7 +345,7 @@ CTRL-0022:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -348,7 +360,7 @@ CTRL-0023:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -359,13 +371,15 @@ CTRL-0024:
   risks:
   - RISK-012
   - RISK-022
+  - RISK-051
+  - RISK-053
   statement: Define formal schemas for inter-agent messages and validate all messages against these schemas before processing
   recommendations: Unstructured or inadequately validated inter-agent messages create vulnerability to injection attacks, misinterpretation, and parsing errors that could compromise agent behaviour or cascade through multi-agent systems. Define explicit message schemas using formal specification languages (e.g., JSON Schema, Protobuf, OpenAPI) that specify required fields, data types, validation rules, and permitted value ranges for all agent-to-agent communications. Implement strict input validation that verifies all incoming messages conform to expected schemas, checking field presence, data types, value ranges, and structural integrity before processing message content. Reject messages that are incomplete, contain unexpected fields, violate type constraints, or include suspicious patterns, returning explicit error responses to the sending agent and logging validation failures to enable detection of compromised or malfunctioning agents.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
-    - 3.4
+    - "2.7"
+    - "3.4"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -375,14 +389,15 @@ CTRL-0025:
   risks:
   - RISK-012
   - RISK-022
+  - RISK-053
   statement: Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels
   recommendations: Unencrypted inter-agent communications expose sensitive data, credentials, and operational context to network-based attackers through eavesdropping or man-in-the-middle attacks. Ensure all agent-to-agent network communications use transport-layer encryption (minimum TLS 1.2, preferably TLS 1.3), including internal traffic within trusted network boundaries, as internal networks are increasingly targeted by sophisticated attackers. For protocol-based frameworks (e.g., A2A Protocol), verify that TLS is enabled by default; for application frameworks (e.g., LangGraph, CrewAI), configure deployment infrastructure to enforce HTTPS endpoints for all remote agent APIs. Configure agents to reject plaintext connections and verify certificates to prevent downgrade attacks or rogue agent impersonation, and regularly audit network traffic to detect agents attempting unencrypted communication.
   references:
   - https://a2aprotocol.ai/blog/2025-full-guide-a2a-protocol
   crosswalks:
     csa_addendum:
-    - 3.4
-    - 2.6
+    - "3.4"
+    - "2.6"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -391,6 +406,8 @@ CTRL-0026:
   level: 1
   risks:
   - RISK-013
+  - RISK-051
+  - RISK-053
   statement: Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests
   recommendations: Without strong agent authentication, attackers can impersonate legitimate agents to gain unauthorised access, inject malicious commands, or exfiltrate sensitive data from multi-agent systems. Implement cryptographic identity verification using mechanisms such as mutual TLS (mTLS), signed JWTs, or certificate-based authentication to ensure each agent presents verifiable credentials before processing its requests. Configure the authentication system to validate that credentials are properly signed by a trusted authority, have not expired, and belong to the claimed agent identity. Reject unauthenticated requests immediately and log authentication failures to detect potential impersonation attempts or compromised agents attempting to bypass security controls. Both the A2A Protocol and LangGraph provide native support for cryptographic agent authentication through mTLS, OAuth 2.0, and JWT-based identity verification.
   references:
@@ -399,8 +416,8 @@ CTRL-0026:
   - https://blog.langchain.com/custom-authentication-and-access-control-in-langgraph/
   crosswalks:
     csa_addendum:
-    - 3.4
-    - 2.6
+    - "3.4"
+    - "2.6"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -409,14 +426,16 @@ CTRL-0026:
 CTRL-0027:
   level: 1
   risks:
+  - RISK-012
   - RISK-013
+  - RISK-014
   statement: Implement circuit breakers to prevent cascading failures in multi-agent systems
   recommendations: Without circuit breakers, failures in one agent can cascade through multi-agent systems, causing widespread outages, resource exhaustion, or degraded performance across interconnected agents. Implement circuit breaker patterns that monitor agent interactions and automatically halt requests to failing agents when error rates, timeouts, or response times exceed predefined thresholds. Configure circuit breakers with appropriate timeout values, retry limits, and failure thresholds based on your system's tolerance for latency and error rates.
   references:
   - https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -424,14 +443,16 @@ CTRL-0027:
 CTRL-0028:
   level: 0
   risks:
+  - RISK-012
   - RISK-014
+  - RISK-051
   statement: Continuously monitor multi-agent systems for cascade failure indicators
   recommendations: Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.
   references:
-  - https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996?utm_source=chatgpt.com
+  - https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -440,12 +461,15 @@ CTRL-0029:
   level: 1
   risks:
   - RISK-014
+  - RISK-015
+  - RISK-016
+  - RISK-049
   statement: Grant agents only the minimum permissions required for their designated tasks
   recommendations: Excessive permissions enable compromised or malfunctioning agents to access sensitive resources, modify critical data, or perform actions beyond their intended scope, amplifying the impact of security breaches. Apply the principle of least privilege by defining granular permission sets for each agent based on its specific role and required operations, avoiding blanket administrative access or broad permission grants. Review agent permissions regularly to ensure they remain aligned with current responsibilities, revoking unnecessary access as agent roles evolve.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.8
+    - "2.8"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -456,12 +480,15 @@ CTRL-0030:
   - RISK-015
   - RISK-016
   statement: Assign each agent a unique, verifiable identity with no shared credentials
-  recommendations: Shared credentials prevent accurate attribution of agent actions, making it impossible to identify which agent performed unauthorised activities or to revoke access for compromised agents without affecting legitimate ones. Assign each agent instance a unique identity (e.g., service account, API key, certificate) that can be independently tracked, audited, and revoked without impacting other agents. Prohibit credential sharing between agents even when they perform similar functions, as unique identities enable granular access control and forensic analysis of agent behaviour. Emerging agentic IAM platforms, such as Amazon Bedrock AgentCore Identity, can help to provide purpose-built identity management for AI agents.
+  recommendations: "Shared credentials prevent accurate attribution of agent actions, making it impossible to identify which agent performed unauthorised activities or to revoke access for compromised agents without affecting legitimate ones. Assign each agent instance a unique identity (e.g., service account, API key, certificate) that can be independently tracked, audited, and revoked without impacting other agents. Prohibit credential sharing between agents even when they perform similar functions, as unique identities enable granular access control and forensic analysis of agent behaviour. Emerging agentic IAM platforms, such as Amazon Bedrock AgentCore Identity, can help to provide purpose-built identity management for AI agents. Concrete mechanisms now exist: SPIFFE/SPIRE workload identities with short rotation for agents and MCP servers, Microsoft Entra Agent ID (assigned to all new Copilot Studio agents since July 2026), and the IETF drafts for OAuth on-behalf-of delegation and transaction tokens that carry separate actor (agent) and principal (initiating human) claims; A2A v1.0 signed agent cards provide the equivalent for agent-to-agent interactions. Prefer identities that keep the delegating human visible in every token so that actions remain attributable."
   references:
   - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-overview.html
+  - https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview
+  - https://datatracker.ietf.org/doc/html/draft-oauth-transaction-tokens-for-agents-04
+  - https://www.hashicorp.com/en/blog/spiffe-securing-the-identity-of-agentic-ai-and-non-human-actors
   crosswalks:
     csa_addendum:
-    - 2.6
+    - "2.6"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -471,13 +498,14 @@ CTRL-0031:
   risks:
   - RISK-015
   statement: Use only MCP servers that validate token provenance and prohibit unauthorised token passthrough
-  recommendations: Token passthrough is an anti-pattern where MCP servers accept tokens from clients without validating they were properly issued to the server, enabling malicious actors to use the server as a proxy for data exfiltration with stolen tokens. Verify that MCP servers validate the provenance of all tokens they receive, ensuring tokens are intended for that specific server by checking audience claims and preventing tokens from being blindly forwarded to third-party services. Reject MCP servers that implement token passthrough patterns, as they compromise incident investigation, access controls, and auditing capabilities by obscuring the true source of requests.
+  recommendations: Token passthrough is an anti-pattern where MCP servers accept tokens from clients without validating they were properly issued to the server, enabling malicious actors to use the server as a proxy for data exfiltration with stolen tokens. Verify that MCP servers validate the provenance of all tokens they receive, ensuring tokens are intended for that specific server by checking audience claims and preventing tokens from being blindly forwarded to third-party services. Reject MCP servers that implement token passthrough patterns, as they compromise incident investigation, access controls, and auditing capabilities by obscuring the true source of requests. Since the 2026-07-28 specification, servers must validate the issuer of tokens they receive (RFC 9207) as well as the audience; reject servers that accept tokens from unexpected issuers or forward tokens they cannot prove were issued to them.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
+  - https://blog.modelcontextprotocol.io/posts/2026-07-28/
   crosswalks:
     csa_addendum:
-    - 3.3
-    - 2.6
+    - "3.3"
+    - "2.6"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -487,12 +515,14 @@ CTRL-0032:
   risks:
   - RISK-004
   - RISK-016
+  - RISK-017
+  - RISK-018
   statement: Centralise observability data collection in a unified backend system
   recommendations: Distributed observability data across disconnected systems prevents effective analysis of multi-agent workflows, obscuring failure patterns, performance bottlenecks, and security incidents that span multiple agents. Centralise collection of logs, metrics, and traces from all agents into a unified observability backend using standards-compliant protocols (e.g., OpenTelemetry) to enable correlation analysis across the entire agentic system. Configure agents to emit structured telemetry with consistent identifiers (agent IDs, session IDs, request IDs) that enable tracing requests across agent boundaries and reconstructing complete workflow execution paths.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -506,7 +536,7 @@ CTRL-0033:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -515,12 +545,13 @@ CTRL-0034:
   level: 0
   risks:
   - RISK-018
+  - RISK-050
   statement: Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems
   recommendations: Automated monitoring may miss subtle patterns, novel failure modes, or emergent behaviours that only become apparent through human analysis of observability data. Establish a regular cadence for manual review of logs, traces, and metrics from production agentic systems, focusing on identifying unusual patterns, unexpected agent interactions, or degrading performance trends that automated alerts might not detect. Assign responsibility for these reviews to teams with deep understanding of expected agent behaviour, empowering them to investigate anomalies and propose system improvements. Document findings from reviews and track identified issues to closure, using insights to refine monitoring rules, update agent implementations, or strengthen security controls based on observed real-world behaviour.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -528,14 +559,14 @@ CTRL-0034:
 CTRL-0035:
   level: 2
   risks:
-  - RISK-017
-  - RISK-018
+  - RISK-019
+  - RISK-020
   statement: Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding
   recommendations: Agents that pursue goals without decomposition may execute unnecessary, excessive, or unintended actions that waste resources, violate constraints, or create unintended side effects. Configure planning agents to explicitly break down high-level user goals into discrete, verifiable sub-goals before executing any actions, and to validate that each sub-goal is necessary and sufficient for achieving the overall objective. Implement review mechanisms that require agents to justify the necessity of each sub-goal, either through automated reasoning checks or human approval for high-impact plans.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.10
+    - "2.10"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -549,7 +580,7 @@ CTRL-0036:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.2
+    - "3.2"
     imda_mgf:
     - 2.3.2
     owasp_asi:
@@ -557,14 +588,14 @@ CTRL-0036:
 CTRL-0037:
   level: 1
   risks:
-  - RISK-019
+  - RISK-020
   statement: Require planning agents to include explicit safety constraints in all generated plans before execution
   recommendations: Plans generated without explicit safety constraints may inadvertently violate security policies, regulatory requirements, or operational boundaries, leading to dangerous or non-compliant agent behaviour. Configure planning agents to incorporate safety constraints and domain-specific restrictions directly into plan representations, making safety requirements explicit and verifiable rather than implicit assumptions. Examples of planning-level safety constraints include limiting plan complexity (maximum number of steps or tools), requiring verification steps before irreversible actions, prohibiting plans that access certain data categories or environments, mandating human review checkpoints for high-risk operations, and including rollback or recovery procedures for plans involving state changes.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
-    - 2.10
+    - "2.7"
+    - "2.10"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -573,13 +604,19 @@ CTRL-0037:
 CTRL-0038:
   level: 0
   risks:
+  - RISK-002
+  - RISK-003
   - RISK-020
-  statement: Conduct pre-deployment safety verification using domain-relevant stress tests and adversarial scenarios
-  recommendations: Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review.
-  references: null
+  - RISK-050
+  statement: Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards
+  recommendations: Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review. Repeat the exercise on a fixed cadence and whenever the model, tools, or capabilities change - attacks evolve faster than deployments. Use established agent security and safety benchmarks (for example AgentDojo, Agent Security Bench, and AgentHarm) as a baseline and add scenarios drawn from your own incidents and from published ones.
+  references:
+  - https://arxiv.org/abs/2406.13352
+  - https://arxiv.org/abs/2410.02644
+  - https://arxiv.org/abs/2410.09024
   crosswalks:
     csa_addendum:
-    - 3.2
+    - "3.2"
     imda_mgf:
     - 2.3.2
     owasp_asi:
@@ -589,14 +626,15 @@ CTRL-0039:
   level: 1
   risks:
   - RISK-020
+  - RISK-053
   statement: Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents
   recommendations: Without standardised capability descriptors, agents cannot reliably discover what other agents can do, leading to misrouted requests, capability mismatches, or failed inter-agent collaborations. Implement machine-readable capability descriptions for each agent using standardised formats such as A2A Agent Cards that declare available skills, required inputs, output formats, and operational constraints. Publish capability descriptors through discoverable endpoints (e.g., well-known URIs at `https://{domain}/.well-known/agent-card.json`) or centralised agent registries that other agents can query to determine if a target agent can fulfil specific requests. Maintain capability descriptors in sync with actual agent implementations, updating descriptors whenever agent capabilities change to prevent stale metadata from causing integration failures.
   references:
   - https://a2a-protocol.org/latest/topics/agent-discovery/
   crosswalks:
     csa_addendum:
-    - 2.4
-    - 3.4
+    - "2.4"
+    - "3.4"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -605,13 +643,15 @@ CTRL-0040:
   level: 0
   risks:
   - RISK-021
+  - RISK-049
+  - RISK-053
   statement: Limit the scope of agent actions through predefined thresholds and baselines
   recommendations: Without action limits, agents may bypass controls by delegating excessive tasks, consuming unlimited resources, or spreading malicious activities across multiple operations to evade detection. Define quantitative thresholds that constrain agent behaviour, such as maximum number of tool calls per session, maximum number of agents that can be delegated to, maximum cost or resource consumption, or maximum data volume accessed. Implement runtime monitoring that tracks agent activity against these thresholds and halts execution when limits are exceeded. Examples include limiting an agent to 50 API calls per task or restricting delegation to no more than 3 sub-agents.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
-    - 3.1
+    - "2.7"
+    - "3.1"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -621,12 +661,14 @@ CTRL-0041:
   level: 0
   risks:
   - RISK-022
+  - RISK-023
+  - RISK-038
   statement: Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs
   recommendations: Incomplete or ambiguous tool descriptions lead agents to misunderstand tool capabilities, misuse tools for unintended purposes, or select inappropriate tools for tasks, resulting in failures or unsafe behaviour. Document each tool with clear, comprehensive descriptions that specify the tool's intended purpose, required input parameters with data types and constraints, expected outputs and formats, and any preconditions or side effects. Include usage examples and common failure scenarios to guide agent decision-making and prevent misuse. Ensure tool descriptions are accurate, up-to-date, and written in language that LLMs can reliably interpret, avoiding ambiguity that might lead to incorrect tool selection or invocation.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.4
+    - "2.4"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -635,12 +677,14 @@ CTRL-0042:
   level: 1
   risks:
   - RISK-023
+  - RISK-052
   statement: Require explicit human confirmation before executing high-impact or irreversible tool actions
-  recommendations: Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when.
-  references: null
+  recommendations: "Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions."
+  references:
+  - https://www.anthropic.com/engineering/how-we-contain-claude
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -655,7 +699,7 @@ CTRL-0043:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -669,7 +713,7 @@ CTRL-0044:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -682,7 +726,7 @@ CTRL-0045:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -695,20 +739,23 @@ CTRL-0046:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
 CTRL-0047:
   level: 0
   risks:
+  - RISK-011
   - RISK-027
+  - RISK-037
+  - RISK-043
   statement: Implement output guardrails to detect and redact personally identifiable information
   recommendations: Agents may reproduce personally identifiable information from training data, memory, or prior interactions in their outputs, violating privacy obligations, exposing individuals to harm, or breaching data protection requirements such as GDPR or PDPA. Deploy output guardrails that scan all agent-generated content for PII categories including names, email addresses, phone numbers, identification numbers, financial account details, and other sensitive personal data before delivery to users. Use PII detection tools, pattern matching, or named entity recognition models to identify and redact or block outputs containing PII. Configure appropriate handling based on context — some PII may be acceptable if it belongs to the current user, whilst PII belonging to other individuals should be strictly prevented from disclosure.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -721,7 +768,7 @@ CTRL-0048:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.11
+    - "2.11"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -730,12 +777,13 @@ CTRL-0049:
   level: 0
   risks:
   - RISK-028
+  - RISK-052
   statement: Implement UI/UX cues to communicate the risk of hallucination to users
   recommendations: Users may treat agent-generated content as completely reliable without recognising that LLMs can produce inaccurate or fabricated information presented as fact. Implement clear UI/UX indicators that remind users of hallucination risks, such as disclaimers on agent responses, visual cues distinguishing generated content from verified information, or warnings when agents make factual claims without citations. Consider contextual warnings that appear when agents discuss topics particularly prone to hallucination, such as recent events beyond the model's training data or highly specialised technical subjects.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.11
+    - "2.11"
     imda_mgf:
     - 2.4.2
     owasp_asi:
@@ -749,7 +797,7 @@ CTRL-0050:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.11
+    - "2.11"
     imda_mgf:
     - 2.4.2
     owasp_asi:
@@ -764,7 +812,7 @@ CTRL-0051:
   - https://www.patronus.ai/blog/introducing-copyright-catcher
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -790,7 +838,7 @@ CTRL-0053:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -804,7 +852,7 @@ CTRL-0054:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -818,7 +866,7 @@ CTRL-0055:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.5
+    - "4.5"
     imda_mgf:
     - 2.4.2
     owasp_asi:
@@ -832,7 +880,7 @@ CTRL-0056:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -847,7 +895,7 @@ CTRL-0057:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -856,12 +904,13 @@ CTRL-0058:
   level: 1
   risks:
   - RISK-032
+  - RISK-033
   statement: Restrict agents to proposing transactions whilst using a separate transaction controller for execution
   recommendations: Allowing agents direct access to transaction credentials creates risk of credential leakage through prompt injection, logging, or model outputs. Implement architectural separation where agents propose transactions but a dedicated non-LLM transaction controller handles authentication, authorisation, and execution. Ensure agents never receive or handle credentials directly, passing only transaction proposals through secure interfaces.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.9
+    - "2.9"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -869,13 +918,13 @@ CTRL-0058:
 CTRL-0059:
   level: 2
   risks:
-  - RISK-033
+  - RISK-032
   statement: Apply fraud detection models or heuristics to agent-proposed transactions
   recommendations: Compromised or manipulated agents may propose fraudulent transactions that bypass standard user confirmation by appearing legitimate to users but serving malicious purposes. Implement fraud detection systems that analyse agent-proposed transactions for suspicious patterns such as unusual amounts, unfamiliar recipients, rapid transaction sequences, or deviations from historical behaviour. Configure fraud detection to operate independently of the agent, using rule-based heuristics or machine learning models trained on legitimate and fraudulent transaction patterns.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -884,12 +933,13 @@ CTRL-0060:
   level: 1
   risks:
   - RISK-034
+  - RISK-047
   statement: Implement escape filtering before incorporating web content into prompts
   recommendations: Malicious websites may embed hidden instructions or manipulative prompts in their content designed to hijack agent behaviour when retrieved and processed. Implement escape filtering that sanitises web content before incorporating it into agent prompts, removing or neutralising potential injection attacks such as hidden instructions, delimiter manipulation attempts, or prompt override commands.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -903,7 +953,7 @@ CTRL-0061:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -912,13 +962,15 @@ CTRL-0062:
   level: 0
   risks:
   - RISK-034
+  - RISK-036
   - RISK-044
+  - RISK-047
   statement: Implement input guardrails to detect prompt injection and adversarial attacks
   recommendations: Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -932,7 +984,7 @@ CTRL-0063:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -946,7 +998,7 @@ CTRL-0064:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -955,12 +1007,15 @@ CTRL-0065:
   level: 0
   risks:
   - RISK-036
-  statement: Ensure computer use capabilities provide immediate interruptability
-  recommendations: Agents operating computer interfaces may encounter prompt injection attacks or begin executing unintended actions that require immediate human intervention to prevent harm. Implement interruptability mechanisms that allow users or operators to immediately halt agent computer use actions at any point, such as emergency stop buttons, kill switches, or session termination controls.
+  - RISK-049
+  - RISK-014
+  - RISK-051
+  statement: Ensure every agent can be immediately paused or terminated by its operators
+  recommendations: "Agents may begin executing unintended actions - through prompt injection, runaway loops, containment gaps, or goal-directed misbehaviour - that require immediate human intervention. Provide an interruption mechanism for every deployed agent, not only those operating computer interfaces: a pause and terminate control reachable by operators at all times, which halts tool calls and outbound actions immediately, revokes or suspends the agent's credentials, and preserves state and logs for review. Test that the mechanism works under load and cannot be disabled or delayed by the agent itself, and make emergency revocation of a specific tool, credential, or agent possible across all deployments."
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -987,7 +1042,7 @@ CTRL-0067:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.4
+    - "2.4"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1001,7 +1056,7 @@ CTRL-0068:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1011,13 +1066,14 @@ CTRL-0069:
   risks:
   - RISK-039
   - RISK-040
+  - RISK-049
   statement: Run agent-generated code only in isolated compute environments with network access blocked by default
   recommendations: Agent-generated code may contain vulnerabilities, bugs, or malicious logic that could compromise systems, leak data, exfiltrate information, or establish unauthorised network connections. Implement virtual isolation for all agent-generated code execution using containerised environments (e.g., Docker), virtual machines, or dedicated sandboxes that limit access to sensitive resources, networks, and data. Configure default-deny network policies that block all inbound and outbound network connections unless explicitly required and authorised for specific use cases. When network access is necessary, enforce allowlists restricting connections to known-safe endpoints such as internal APIs or approved external services.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.9
-    - 2.8
+    - "2.9"
+    - "2.8"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1032,8 +1088,8 @@ CTRL-0070:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
-    - 4.4
+    - "4.2"
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -1048,7 +1104,7 @@ CTRL-0071:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1063,7 +1119,7 @@ CTRL-0072:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -1077,7 +1133,7 @@ CTRL-0073:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1086,12 +1142,14 @@ CTRL-0074:
   level: 0
   risks:
   - RISK-040
+  - RISK-048
+  - RISK-054
   statement: Conduct CVE scanning and block execution of code with High or Critical vulnerabilities
   recommendations: Agent-generated code may inadvertently include dependencies or libraries containing known security vulnerabilities that could be exploited to compromise systems. Implement automated CVE scanning that analyses all dependencies, libraries, and packages used by agent-generated code before execution, checking against vulnerability databases such as the National Vulnerability Database. Configure scanning to block execution when High or Critical severity CVEs are detected, requiring remediation such as dependency updates or vulnerability patches before proceeding.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1106,7 +1164,7 @@ CTRL-0075:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.8
+    - "2.8"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1120,7 +1178,7 @@ CTRL-0076:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -1135,7 +1193,7 @@ CTRL-0077:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.5
+    - "2.5"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1149,7 +1207,7 @@ CTRL-0078:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1163,7 +1221,7 @@ CTRL-0079:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -1177,7 +1235,7 @@ CTRL-0080:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf: []
     owasp_asi:
     - ASI02
@@ -1190,7 +1248,7 @@ CTRL-0081:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -1198,13 +1256,14 @@ CTRL-0082:
   level: 2
   risks:
   - RISK-043
+  - RISK-047
   statement: Do not grant agents access to personally identifiable or sensitive data unless strictly required
   recommendations: Agents with unnecessary access to PII or sensitive data create elevated risk of exposure, leakage, or misuse, particularly if agents are compromised or misuse their permissions. Apply the principle of least privilege by restricting agent access to databases, files, or systems containing PII or sensitive information unless explicitly required for the agent's designated functionality. Implement access controls that enforce these restrictions at the data layer, preventing agents from querying or reading sensitive datasets they should not access.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.8
-    - 2.7
+    - "2.8"
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1213,13 +1272,14 @@ CTRL-0083:
   level: 0
   risks:
   - RISK-044
+  - RISK-047
   statement: Disallow unknown or external files unless they have been scanned for threats
   recommendations: External files may contain maliciously crafted content designed to inject hidden instructions, manipulate agent behaviour, or introduce security threats when processed. Implement mandatory scanning for all unknown or external files before allowing agents to access them, using antivirus software, malware scanners, or specialised tools that detect prompt injection attempts embedded in file content.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
-    - 2.1
+    - "4.1"
+    - "2.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1234,7 +1294,7 @@ CTRL-0084:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1248,7 +1308,7 @@ CTRL-0085:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -1262,8 +1322,153 @@ CTRL-0086:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf:
     - 2.1.2
     owasp_asi:
     - ASI02
+CTRL-0089:
+  level: 0
+  risks:
+  - RISK-047
+  - RISK-049
+  statement: Enforce default-deny network egress for agent runtimes, allowing only approved destinations
+  recommendations: Every exfiltration and every containment escape needs an outbound channel, and agents acquire new ones with each tool. Run agent runtimes behind an egress policy that denies all outbound connections by default and allows only named destinations required for the task, applied at the network layer (proxy, firewall, or sandbox policy) rather than in the prompt. Include browsing and API tools in the policy, block requests that carry data in URLs or headers to unapproved hosts, and validate at the egress boundary that any credential presented belongs to the deployment — an allowlisted API endpoint is still an exfiltration channel if the agent can use it with an attacker's account. Log and alert on denied connections; they are an early signal of injection or misbehaviour.
+  references:
+  - https://www.anthropic.com/engineering/how-we-contain-claude
+  - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
+  crosswalks:
+    csa_addendum:
+    - '2.6'
+    - '2.9'
+    imda_mgf:
+    - 2.1.2
+    owasp_asi:
+    - ASI02
+CTRL-0090:
+  level: 1
+  risks:
+  - RISK-009
+  - RISK-034
+  - RISK-036
+  - RISK-044
+  - RISK-047
+  statement: Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions
+  recommendations: Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.
+  references:
+  - https://arxiv.org/abs/2503.18813
+  - https://arxiv.org/abs/2504.11703
+  - https://arxiv.org/abs/2503.18666
+  crosswalks:
+    csa_addendum:
+    - '2.9'
+    - '4.1'
+    imda_mgf:
+    - 2.3.1
+    owasp_asi:
+    - ASI01
+CTRL-0091:
+  level: 0
+  risks:
+  - RISK-006
+  - RISK-048
+  statement: Require verified provenance for tools, skills, and dependencies, and re-verify them on every update
+  recommendations: Treat tools, MCP servers, agent skills or plug-ins, prompt templates, and packages as supply chain artefacts. Install them only from vetted registries, pin them by version and content hash, verify signatures or attestations where available, and keep an inventory (an AI bill of materials) of what each agent can load. Because approval does not survive an update, re-verify hashes and signatures at load time and diff tool definitions against the approved version so a silently changed server is detected before it runs. Do not let agents install unpinned dependencies autonomously, scan new packages for typosquatting and known vulnerabilities, and keep a way to revoke a specific tool or skill across all deployments quickly.
+  references:
+  - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
+  - https://morphisec.com/mcp-attack-chain/
+  crosswalks:
+    csa_addendum:
+    - '2.1'
+    - '2.4'
+    imda_mgf:
+    - 2.3.1
+    owasp_asi:
+    - ASI04
+CTRL-0092:
+  level: 0
+  risks:
+  - RISK-049
+  statement: Contain evaluations and red-team exercises so that agents cannot reach real systems, credentials, or people
+  recommendations: Treat every evaluation, benchmark run, and red-team exercise as a deployment with its own containment. Use synthetic or replica targets rather than production systems, issue no production credentials or real accounts, isolate the network with default-deny egress, and prohibit out-of-scope tactics such as contacting real people or third-party infrastructure explicitly in the task specification rather than assuming the agent will infer them. Monitor runs in real time with the ability to halt them, and review anomalous traffic (for example anonymising networks or unexpected destinations) immediately. Agents have breached third-party infrastructure from inside an evaluation and socially engineered real maintainers during cyber testing; design containment for a capable adversary, not a compliant one.
+  references:
+  - https://openai.com/index/hugging-face-model-evaluation-security-incident/
+  - https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing
+  crosswalks:
+    csa_addendum:
+    - '2.9'
+    - '3.2'
+    imda_mgf:
+    - 2.3.2
+    owasp_asi:
+    - ASI10
+CTRL-0093:
+  level: 2
+  risks:
+  - RISK-022
+  - RISK-050
+  - RISK-051
+  statement: Monitor agents for deceptive and collusive behaviour using an independent monitor
+  recommendations: Behaviour that is goal-directed against oversight will not show up as an error. Deploy an independent monitor - a separate model, classifier, or rule set that the monitored agents cannot influence - that compares actions taken with the plan declared, flags edits to an agent's own history or logs, unexplained credential sharing, communication through channels other than the sanctioned ones, and coordination between agents that were not asked to coordinate. Keep monitor logs tamper-evident and separate from agent-writable storage, and treat monitor alerts as incidents that pause the affected agents pending human review. Red-team the monitor itself so that its blind spots are known.
+  references:
+  - https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing
+  - https://arxiv.org/abs/2502.14143
+  crosswalks:
+    csa_addendum:
+    - '4.3'
+    - '3.4'
+    imda_mgf:
+    - 2.3.3
+    owasp_asi:
+    - ASI10
+CTRL-0094:
+  level: 1
+  risks:
+  - RISK-052
+  statement: Measure the quality of human oversight and redesign approval steps that have become rubber stamps
+  recommendations: 'A human approval step is only a control while the human is actually deciding. Instrument approval workflows: track approval rates, response times, and override rates per user and per action type, and audit random samples of approved actions. Approval rates near 100% or response times of seconds indicate that the step has stopped working. Respond by routing only genuinely uncertain or high-impact actions to humans, screening routine ones automatically, presenting the context needed to decide (what will change, why the agent chose it, what it would cost to reverse), and training overseers on the agent''s failure modes. Report oversight metrics alongside the agent''s other operating metrics so that erosion is visible to the governance team.'
+  references:
+  - https://www.anthropic.com/engineering/how-we-contain-claude
+  - https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf
+  crosswalks:
+    csa_addendum:
+    - '4.4'
+    imda_mgf:
+    - 2.2.2
+    owasp_asi:
+    - ASI09
+CTRL-0095:
+  level: 1
+  risks:
+  - RISK-053
+  statement: Apply due diligence and technical bounds to third-party agents before delegating to them or transacting with them
+  recommendations: An external agent is a supplier whose behaviour you cannot inspect. Before integration, obtain contractual commitments on data handling, retention, and change notification, and evidence of the provider's testing and security practices. Technically, give each third-party agent its own scoped, short-lived credentials bound to the specific tasks delegated, exchange only the data those tasks require through validated schemas, log every exchange on your side, and keep the ability to cut the integration off immediately. Verify the agent's identity on each interaction (signed agent cards, mutual TLS) so that a lookalike cannot take its place, and review its behaviour and outputs periodically as its provider updates it.
+  references:
+  - https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf
+  - https://a2a-protocol.org/latest/topics/enterprise-ready/
+  crosswalks:
+    csa_addendum:
+    - '2.1'
+    - '3.4'
+    imda_mgf:
+    - 2.2.1
+    owasp_asi:
+    - ASI04
+CTRL-0096:
+  level: 0
+  risks:
+  - RISK-054
+  statement: Harden agent frameworks and runtimes before exposing them, and patch framework vulnerabilities promptly
+  recommendations: Do not run an agent framework with its defaults on any reachable network. Before exposure, enable authentication on every control interface, bind local services to loopback rather than all interfaces, validate origins on WebSocket and browser-facing endpoints, disable or replace unsafe deserialisation of persisted state and checkpoints, remove default credentials, and run the agent as an unprivileged user. Track security advisories for the frameworks and SDKs in use and treat agent-framework vulnerabilities as high priority for patching, because an agent runtime typically holds the credentials of everything it can act on. Include these checks in the deployment baseline so that a new agent cannot go live unhardened.
+  references:
+  - https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now
+  - https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html
+  crosswalks:
+    csa_addendum:
+    - '2.3'
+    - '2.8'
+    imda_mgf:
+    - 2.3.1
+    owasp_asi:
+    - ASI05
+    - ASI03

@@ -56,7 +56,7 @@ This comprises scenarios such as API timeouts or rate limiting, database corrupt
 
 ## Hazards
 
-The following tables list a range of **safety and security hazards** which may result from these failures. This distinction serves as a heuristic for comprehensive risk identification and should not be interpreted as a rigid or complete taxonomy of hazards.
+The following tables list a range of **safety and security hazards** which may result from these failures. This distinction serves as a heuristic for comprehensive risk identification and should not be interpreted as a rigid or complete taxonomy of hazards. Every risk in the register records the hazards it results in (the `hazards` field, drawn from these nine categories), and a risk's Safety/Security type follows from its hazards.
 
 ### 🔒 Security Hazards
 
@@ -110,6 +110,6 @@ While combining **elements**, **failure modes**, and **hazards** helps brainstor
 For instance, "tool or resource malfunction" does not sensibly apply to the "instructions" component.
 Organizations should exercise discretion and retain only risks supported by **academic research** or **industry case studies**.
 
-We provide a comprehensive [**Interactive Risk Register**](risk-register.md) that documents 46 risks across all elements of agentic systems, each backed by real-world examples or academic studies.
+We provide a comprehensive [**Interactive Risk Register**](risk-register.md) that documents 54 risks across all elements of agentic systems, each backed by real-world examples or academic studies.
 The register includes recommended controls for each risk and serves as a practical starting point for organizations.
 It should be **continuously updated** as the field of agentic AI evolves.

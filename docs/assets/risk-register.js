@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     const response = await fetch('../../assets/risk_register_data.json');
     const data = await response.json();
 
+    // Register version (from register.yaml via the build)
+    const versionEl = document.getElementById('register-version');
+    if (versionEl && data.metadata.version) {
+        versionEl.textContent = `Register version ${data.metadata.version} (${data.metadata.released})`;
+    }
+
     // Populate filter options
     const elementFilter = document.getElementById('element-filter');
     const failureFilter = document.getElementById('failure-filter');
@@ -23,6 +29,15 @@ document.addEventListener('DOMContentLoaded', async function() {
         option.value = cat;
         option.textContent = cat;
         elementFilter.appendChild(option);
+    });
+
+    // Populate hazards (from register metadata, so the list matches hazards.yaml)
+    const hazardFilter = document.getElementById('hazard-filter');
+    (data.metadata.hazards || []).forEach(hz => {
+        const option = document.createElement('option');
+        option.value = hz.id;
+        option.textContent = `${hz.name} (${hz.type})`;
+        hazardFilter.appendChild(option);
     });
 
     // Populate failure modes
@@ -106,6 +121,18 @@ document.addEventListener('DOMContentLoaded', async function() {
         descriptionDiv.style.marginBottom = "15px";
         descriptionDiv.innerHTML = `<strong>Description:</strong> ${data.description}`;
         holderEl.appendChild(descriptionDiv);
+
+        // Hazards: the resulting impact of the risk
+        if (data.hazards && data.hazards.length > 0) {
+            const hazardsDiv = document.createElement("div");
+            hazardsDiv.style.marginBottom = "15px";
+            hazardsDiv.style.fontSize = "0.9em";
+            const hazardBadges = data.hazards.map(hz =>
+                `<span class="risk-type-badge risk-type-${hz.type.toLowerCase()}" title="${hz.type} hazard">${hz.name}</span>`
+            ).join(' ');
+            hazardsDiv.innerHTML = `<strong>Hazards:</strong> ${hazardBadges}`;
+            holderEl.appendChild(hazardsDiv);
+        }
 
         // References (if available)
         if (data.sources && data.sources.length > 0) {
@@ -381,6 +408,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const elementCategory = document.getElementById('element-filter').value;
         const failureMode = document.getElementById('failure-filter').value;
         const riskType = document.getElementById('type-filter').value;
+        const hazard = document.getElementById('hazard-filter').value;
         const searchTerm = document.getElementById('search-filter').value.toLowerCase().trim();
 
         // Use a single custom filter function for all filters
@@ -397,6 +425,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             
             // Risk type filter
             if (riskType && (!data.type || !data.type.includes(riskType))) {
+                return false;
+            }
+
+            // Hazard filter
+            if (hazard && !(data.hazards || []).some(hz => hz.id === hazard)) {
                 return false;
             }
             
@@ -423,6 +456,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('element-filter').addEventListener('change', applyFilters);
     document.getElementById('failure-filter').addEventListener('change', applyFilters);
     document.getElementById('type-filter').addEventListener('change', applyFilters);
+    document.getElementById('hazard-filter').addEventListener('change', applyFilters);
     document.getElementById('search-filter').addEventListener('input', applyFilters);
 
     // Clear filters
@@ -430,6 +464,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('element-filter').value = '';
         document.getElementById('failure-filter').value = '';
         document.getElementById('type-filter').value = '';
+        document.getElementById('hazard-filter').value = '';
         document.getElementById('search-filter').value = '';
         table.clearFilter();
         setTimeout(updateStats, 50);
