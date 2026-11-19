@@ -13,7 +13,7 @@
 | Deployment context (internal / external; pilot / production; jurisdiction; sector) | |
 | Agents and architecture (single agent / multi-agent; orchestration pattern; protocols such as MCP, A2A) | |
 | Autonomy: which actions run without a human in the loop | |
-| Register version assessed against | e.g. `1.3.0` (see the [changelog](../arc_framework/changelog.md)) |
+| Register version assessed against | e.g. `1.4.0` (see the [changelog](../arc_framework/changelog.md)) |
 | Organisation's relevance threshold | e.g. Impact ≥ 3 AND Likelihood ≥ 3, OR Impact ≥ 4 |
 | Assessment date; assessor; reviewer | |
 
@@ -38,7 +38,7 @@ Capabilities are system-level: if any agent has one, the system has it. Include 
 
 ## 2. Applicable risks
 
-List **every applicable risk**: all baseline risks (components CMP-01 to CMP-04 and design DSN-01 to DSN-03 — 24 in register 1.3.0), each capability risk for a capability marked present, and each composite risk whose capabilities are *all* present. Score each; a risk is a **priority** when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.
+List **every applicable risk**: all baseline risks (those arising only from components CMP-01 to CMP-04 and design elements DSN-01 to DSN-03 — 20 in register 1.4.0), each capability risk for a capability marked present, and each composite risk whose capabilities are *all* present. Score each; a risk is a **priority** when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.
 
 | Risk ID | Statement | Element(s) | Contextualised description (how it would materialise here) | Impact (1–5) | Likelihood (1–5) | Priority? |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -47,11 +47,12 @@ List **every applicable risk**: all baseline risks (components CMP-01 to CMP-04 
 
 ## 3. Controls
 
-One row per control per risk. **Every Level 0 control of every applicable risk is listed with status *Implemented as-is*.** Level 1 and 2 controls are listed for priority risks (and for any other risk where you choose to adopt them); if not adopted, record why.
+One row per control per risk, even where the same control addresses several risks. **Every Level 0 control of every applicable risk is listed with status *Implemented as-is*, or *Waived — not applicable* where the capability or component it concerns is not present in the system, with evidence of its absence.** Level 1 and 2 controls are listed for priority risks (and for any other risk where you choose to adopt them); if not adopted, record why.
 
-| Risk ID | Control ID | Level | Status (as-is / adapted / not adopted) | Implementation or adaptation (what, where, thresholds) | Evidence (config, test result, log, review record) | Owner | Verified on |
+| Risk ID | Control ID | Level | Status (as-is / adapted / not adopted / waived — not applicable) | Implementation or adaptation (what, where, thresholds) | Evidence (config, test result, log, review record) | Owner | Verified on |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | | | 0 | Implemented as-is | | | | |
+| | | 0 | Waived — not applicable | e.g. "The system uses no MCP servers" | e.g. the tool registry listing every tool it can call | | |
 | | | 1 | Adapted | | | | |
 | | | 2 | Not adopted — *rationale* | | | | |
 

@@ -444,7 +444,6 @@ CTRL-0028:
   level: 0
   risks:
   - RISK-012
-  - RISK-014
   - RISK-051
   statement: Continuously monitor multi-agent systems for cascade failure indicators
   recommendations: Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.
@@ -642,6 +641,7 @@ CTRL-0039:
 CTRL-0040:
   level: 0
   risks:
+  - RISK-014
   - RISK-021
   - RISK-049
   - RISK-053
@@ -1330,6 +1330,7 @@ CTRL-0086:
 CTRL-0089:
   level: 0
   risks:
+  - RISK-037
   - RISK-047
   - RISK-049
   statement: Enforce default-deny network egress for agent runtimes, allowing only approved destinations

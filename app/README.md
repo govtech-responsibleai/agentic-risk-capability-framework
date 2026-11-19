@@ -136,7 +136,7 @@ airbase container deploy
 8. **Review Risk Analysis**: The AI will contextualize all risks to your specific application
 9. **Adjust Scores**: Edit likelihood and impact scores and reasoning for each risk
 10. **Set Control Thresholds**: Adjust the likelihood and impact thresholds to determine which risks also get their Level 1 and 2 controls. Level 0 controls apply to every applicable risk, whatever its score
-11. **Continue to Controls**: Review and document control implementations. Level 0 controls start blank and cannot be waived; Level 1 and 2 controls default to "not implemented, residual risk accepted" until you describe them
+11. **Continue to Controls**: Review and document control implementations. Level 0 controls start blank and are waived only where the capability or component they concern is not present; Level 1 and 2 controls default to "not implemented, residual risk accepted" until you describe them
 12. **Export Assessment**: Use the "Export Assessment" button to generate a Word document with all assessment details
 
 ## Architecture

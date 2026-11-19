@@ -46,13 +46,13 @@ It is helpful to read up on the literature on AI safety and security to understa
 
 Next, we categorise the control into three levels based on its criticality:
 
-* **Level 0: Cardinal control** - fundamental requirement that cannot be waived, must be adopted as is
+* **Level 0: Cardinal control** - fundamental requirement that must be adopted as is; waived only when the capability or component it concerns is not present in the system
 * **Level 1: Standard control** - adopt or adapt meaningfully and sensibly
 * **Level 2: Best practice control** - good to consider, especially for high-risk systems
 
 !!! info "When does a Level 0 control apply?"
 
-    A Level 0 control is mandatory for every system in which its risk is **applicable** — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, **never waives a Level 0 control**: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. This is the single definition of the levels; the implementation guides restate it.
+    A Level 0 control is mandatory for every system in which its risk is **applicable** — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, **never waives a Level 0 control**: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. A Level 0 control is **waived only when the capability or component it concerns is not present** in the system — for example, a control on MCP servers in a system that uses none, or on agent-generated code in a system that generates none. Record the waiver with evidence that the capability or component is absent. This is the single definition of the levels; the implementation guides restate it.
 
 ??? example "Example of controls targeting a specific risk"
 

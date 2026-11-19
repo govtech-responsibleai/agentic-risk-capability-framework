@@ -321,6 +321,7 @@ RISK-012:
     degraded system performance, or unintended outcomes at the system level.
   element_ids:
   - DSN-01
+  - CAP-02
   failure_mode: Agent Failure
   type:
   - Safety
@@ -350,6 +351,7 @@ RISK-013:
     behaviour.
   element_ids:
   - DSN-01
+  - CAP-02
   failure_mode: External Manipulation
   type:
   - Security
@@ -369,10 +371,12 @@ RISK-013:
     - T9
 RISK-014:
   statement: Feedback loops and runaway agent behaviour
-  description: This risk arises when agents repeatedly reinforce each other’s decisions,
-    outputs, or errors within an agentic architecture. As a result, feedback loops
-    may form that escalate actions, consume excessive resources, or cause the system
-    to persist in harmful or unintended behaviour without effective human intervention.
+  description: This risk arises when an agent repeatedly acts on its own outputs, or
+    agents reinforce each other’s decisions, outputs, or errors, with no bound on how
+    many steps it takes, how much it spends, or how far its actions reach. As a result,
+    feedback loops may form that escalate actions, consume excessive resources, or cause
+    the system to persist in harmful or unintended behaviour without effective human
+    intervention.
   element_ids:
   - DSN-01
   failure_mode: Agent Failure
@@ -384,8 +388,8 @@ RISK-014:
   - HZ-08
   controls:
   - CTRL-0027
-  - CTRL-0028
   - CTRL-0029
+  - CTRL-0040
   - CTRL-0065
   sources:
   - https://arxiv.org/abs/2402.06627
@@ -965,6 +969,7 @@ RISK-037:
   controls:
   - CTRL-0047
   - CTRL-0066
+  - CTRL-0089
   sources:
   - https://arxiv.org/html/2506.00618v3
   crosswalks:
@@ -1268,9 +1273,10 @@ RISK-048:
     - T17
 RISK-049:
   statement: Escape from evaluation or sandbox containment onto live systems
-  description: 'This risk arises when an agent operating in what is intended to be a contained setting — an evaluation, a red-team exercise, or a sandboxed task — reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.'
+  description: 'This risk arises when an agent that can execute code, operating in what is intended to be a contained setting — an evaluation, a red-team exercise, or a sandboxed task — reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.'
   element_ids:
   - DSN-02
+  - CAP-10
   failure_mode: Agent Failure
   type:
   - Safety
@@ -1329,6 +1335,7 @@ RISK-051:
   description: This risk arises when agents in a multi-agent system coordinate through channels or in ways that no operator sanctioned — sharing credentials, leaving each other messages in shared stores, using side channels, or dividing up a task so that each agent's actions look acceptable while the combined outcome is not. Coordination can emerge from shared objectives without any explicit instruction, and standard per-agent monitoring does not see it. As a result, the system as a whole pursues outcomes that would have been blocked had a single agent attempted them.
   element_ids:
   - DSN-01
+  - CAP-02
   failure_mode: Agent Failure
   type:
   - Safety

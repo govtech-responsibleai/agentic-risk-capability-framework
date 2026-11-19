@@ -17,7 +17,7 @@ The ARC risk register is a living document. We welcome new risks, new controls, 
 | `arc-risk-register/crosswalk_references.yaml` | external frameworks and their valid IDs |
 | `arc-risk-register/register.yaml` | register version and release date |
 | `scripts/validate_risk_register.py` | validator (run by the build and by CI) |
-| `scripts/build_risk_register.py`, `scripts/mkdocs_hooks.py` | generate the site's register JSON and Crosswalks page from the YAML on every site build — they are **not committed**, so there is nothing to regenerate |
+| `scripts/build_risk_register.py`, `scripts/mkdocs_hooks.py` | generate the site's register JSON, Crosswalks page, and full-text register from the YAML on every site build — they are **not committed**, so there is nothing to regenerate |
 | `docs/` | the MkDocs site; `app/` | ARCvisor |
 
 Crosswalk IDs must be quoted strings (`- "2.10"`, not `- 2.10`).
@@ -27,7 +27,7 @@ Crosswalk IDs must be quoted strings (`- "2.10"`, not `- 2.10`).
 ```bash
 pip install -r requirements.txt            # site + scripts
 python scripts/validate_risk_register.py   # must report 0 errors
-mkdocs build --strict                      # validates again, generates the register JSON and Crosswalks page; must build with no warnings
+mkdocs build --strict                      # validates again, generates the register's site pages; must build with no warnings
 pip install -r app/requirements.txt && python app/tests/test_smoke.py   # if you touched the app or the register schema
 ```
 

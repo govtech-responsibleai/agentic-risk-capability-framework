@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         descriptionDiv.style.overflowWrap = "break-word";
         descriptionDiv.style.whiteSpace = "normal";
         descriptionDiv.style.marginBottom = "15px";
-        descriptionDiv.innerHTML = `<strong>Description:</strong> ${data.description}`;
+        descriptionDiv.innerHTML = `<strong>Description:</strong> ${data.description} <a href="../register-full-text/#${data.id}" style="font-size: 0.85em;" title="Link to this risk in the full-text register">(link)</a>`;
         holderEl.appendChild(descriptionDiv);
 
         // Hazards: the resulting impact of the risk

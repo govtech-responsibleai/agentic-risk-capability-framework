@@ -45,9 +45,12 @@ def initialize_session_state():
 
 
 NOT_IMPLEMENTED_TEXT = "I did not implement this control. I accept all residual risk."
-# Level 0 controls cannot be waived, so they start blank rather than pre-accepting the risk
-LEVEL0_PLACEHOLDER = "Describe how this control is implemented. Level 0 controls cannot be waived."
-LEVEL0_MISSING_TEXT = "NOT DESCRIBED. Level 0 controls cannot be waived; this control must be implemented."
+# Level 0 controls start blank rather than pre-accepting the risk: each is implemented, or waived only
+# when the capability or component it concerns is not present
+LEVEL0_PLACEHOLDER = ("Describe how this control is implemented, or why it is waived (the capability or component "
+                      "it concerns is not present).")
+LEVEL0_MISSING_TEXT = ("NOT DESCRIBED. Level 0 controls must be implemented unless the capability or component they "
+                       "concern is not present.")
 
 
 def control_implementation_key(risk_id: str, control_id: str) -> str:
