@@ -390,6 +390,7 @@ ARC is meant to be adapted: an organisation contextualises the baseline register
 - [Crosswalks]({site}arc_framework/crosswalks/): mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the CSA Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
 - [Paper](https://arxiv.org/abs/2512.22211): "With Great Capabilities Come Great Responsibilities", IASEAI'26 main track
 - [ARCvisor]({site}resources/#arcvisor): an assistant that walks a team through an assessment
+- [ARC assessment skill](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills): an Agent Skill that lets a coding agent assess the system it is building with ARC
 """
 
 

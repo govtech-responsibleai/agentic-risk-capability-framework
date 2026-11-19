@@ -26,6 +26,9 @@ jobs:
       - name: Build site (warnings are errors; generates the register JSON and Crosswalks page)
         run: mkdocs build --strict
 
+      - name: Test the ARC assessment skill against this register (offline)
+        run: python skills/tests/test_arc_assessment.py
+
   app-smoke-test:
     name: ARCvisor smoke test
     runs-on: ubuntu-latest

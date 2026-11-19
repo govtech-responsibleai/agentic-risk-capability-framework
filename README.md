@@ -44,6 +44,10 @@ In practice, a governance team adapts the baseline register to its organisation,
 
 [ARCvisor](app/) is a Streamlit assistant that walks a team through an ARC assessment. It drafts a system description, identifies capabilities, contextualises and scores the applicable risks, and lists the controls to implement, with a Word export. It reads the register directly from `arc-risk-register/`, so it always matches the published framework. Try the [live demo](https://agentic-risk-assessment.app.tc1.airbase.sg), or see [`app/README.md`](app/README.md) to run it yourself.
 
+## Agent skill
+
+[`skills/arc-assessment`](skills/) is an [Agent Skill](https://agentskills.io) that lets a coding agent assess the system it is building with ARC: it identifies capabilities from the code, lists the applicable risks and controls from the register (fetched at a release tag, or your organisation's own version), checks which controls are implemented, and drafts the assessment. See [`skills/README.md`](skills/README.md) to install it.
+
 ## Repository layout
 
 | Path | Contents |
@@ -52,6 +56,7 @@ In practice, a governance team adapts the baseline register to its organisation,
 | [`docs/`](docs/) | The website ([MkDocs Material](https://squidfunk.github.io/mkdocs-material/)) |
 | [`scripts/`](scripts/) | Validator, and the MkDocs hook that generates the site's register JSON, Crosswalks page, and full-text register at build time |
 | [`app/`](app/) | ARCvisor |
+| [`skills/`](skills/) | The ARC assessment Agent Skill for coding agents |
 | [`iaseai26.tex`](iaseai26.tex) | Source of the IASEAI'26 paper |
 | [`archive/`](archive/) | Earlier versions of the site, kept for reference |
 | `Dockerfile` | Container image for ARCvisor |
