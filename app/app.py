@@ -764,8 +764,8 @@ def controls_page():
         risks_with_controls = controls_by_risk(applicable_risks, above_threshold, risks, controls)
 
         st.info(
-            f"**Level 0 controls** are shown for all **{len(applicable_risks)} applicable risks**: they cannot be "
-            f"waived, whatever a risk's score. **Level 1 and 2 controls** are shown for the "
+            f"**Level 0 controls** are shown for all **{len(applicable_risks)} applicable risks**: scoring never "
+            f"waives them. **Level 1 and 2 controls** are shown for the "
             f"**{len(above_threshold)} risks** at or above your thresholds (Likelihood ≥ "
             f"{st.session_state.get('likelihood_threshold', 4)} AND Impact ≥ {st.session_state.get('impact_threshold', 4)})."
         )
@@ -781,7 +781,8 @@ def controls_page():
         )
         if undescribed:
             st.warning(f"{undescribed} Level 0 control entries have no implementation described yet. "
-                       "Level 0 controls cannot be waived; describe how each is implemented.")
+                       "Describe how each is implemented, or why it is waived because the capability or component it "
+                       "concerns is not present.")
 
         for risk_id, risk_controls in risks_with_controls:
             if risk_id in risks:
@@ -819,7 +820,7 @@ def controls_page():
                                 control_key = control_implementation_key(risk_id, control['id'])
                                 level0 = is_level0(control)
 
-                                # Level 0 starts blank: it cannot be waived, so nothing pre-accepts the risk
+                                # Level 0 starts blank so nothing pre-accepts the risk; it is waived only if its subject is absent
                                 initialize_control_implementation(risk_id, control['id'],
                                                                   "" if level0 else NOT_IMPLEMENTED_TEXT)
 
@@ -830,7 +831,7 @@ def controls_page():
                                     height=150,
                                     key=f"implementation_text_{risk_id}_{control['id']}",
                                     placeholder=LEVEL0_PLACEHOLDER if level0 else None,
-                                    help=("Level 0 controls cannot be waived: describe how this control is implemented."
+                                    help=("Level 0: describe how this control is implemented, or why it is waived (its capability or component is not present)."
                                           if level0 else
                                           "Describe what you have implemented for this control, or leave the default text if not implemented.")
                                 )

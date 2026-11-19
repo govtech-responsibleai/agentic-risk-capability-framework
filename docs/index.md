@@ -9,19 +9,13 @@
 - Technical control specifications with risk-to-control mappings
 - An implementation methodology for organisational adoption and per-system assessment
 
-!!! info "What's new — register v1.3, November 2026"
+!!! info "What's new — register v1.4, November 2026"
 
-    The register and site have had their largest revision since the framework was published:
+    - **Risks apply where they arise**: multi-agent risks now apply only to systems in which more than one agent works on a task, including agents operated by other organisations, and the sandbox-escape risk only to systems that can execute code, so simpler systems no longer carry Level 0 controls that cannot apply to them; and a Level 0 control is waived when the capability or component it concerns is not present
+    - **Readable by AI agents**: a [full-text register](arc_framework/register-full-text.md) with a link for every risk and control, and an [`llms.txt`](llms.txt) index for agents
+    - **ARC assessment skill**: an [Agent Skill](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills) that lets a coding agent assess the system it is building against the register
 
-    - **Register corrected and validated**: the risk-to-control mappings were realigned, and every build now runs a validator so the register cannot regress silently
-    - **Level 0 means unwaivable**: cardinal controls are those that must be adopted as-is wherever the risk applies; controls that could not meet that bar were re-tiered
-    - **Composite risks**: a risk can arise from a *combination* of elements (e.g., data exfiltration through untrusted content + sensitive data + an outbound channel)
-    - **Crosswalks**: every risk and control is mapped to the [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/), OWASP's agentic threat taxonomy, the [CSA Securing Agentic AI Addendum](https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/) (final, June 2026), and [IMDA's Model AI Governance Framework for Agentic AI](https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf) — see [Crosswalks](arc_framework/crosswalks.md)
-    - **2026 risks and controls**: eight risks and eight controls from the 2026 evidence base (supply-chain compromise, sandbox escape, deception toward overseers, unsanctioned agent coordination, automation bias, third-party agents, insecure runtime defaults), and updated controls for the current MCP specification, agent identity, kill switches, and continuous testing
-    - **Hazards recorded**: every risk now lists the safety or security hazards it results in, and the register can be filtered by hazard
-    - **ARCvisor reads the same register** as this site, so assessments and the published framework can no longer drift apart, and lists every Level 0 control for every applicable risk, whatever its score
-
-    Each change is listed by version in the [Changelog](arc_framework/changelog.md).
+    Register v1.3 (November 2026) corrected and validated the register; defined Level 0 controls as unwaivable wherever their risk applies; introduced risks that arise from a combination of elements; added crosswalks to the [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/), OWASP's agentic threat taxonomy, the [CSA Securing Agentic AI Addendum](https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/), and [IMDA's Model AI Governance Framework for Agentic AI](https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf); added eight risks and eight controls from the 2026 evidence base; and recorded the hazards each risk results in. Each change is listed by version in the [Changelog](arc_framework/changelog.md).
 
     Earlier (December 2025): the [introduction](arc_framework/introduction.md) with design rationale and literature review, the unified [Elements](arc_framework/elements.md) page, the [interactive register](arc_framework/risk-register.md), the [ARCvisor](resources/index.md#arcvisor) tool, and the two technical papers in [Resources](resources/index.md).
 

@@ -18,15 +18,18 @@ Rules that hold across versions:
 
 - **IDs are never reused.** A retired or merged entry keeps its ID and gains a `superseded_by` pointer, so assessments and citations written against an older version remain resolvable.
 - Each release to the `main` branch is tagged `v<version>` on GitHub; the register YAML for any version can be retrieved from the tag.
-- To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.3.0.* followed by the site URL.
+- To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.4.0.* followed by the site URL.
 
-## 1.4.0 — in preparation { #v1-4-0 }
+## 1.4.0 — November 2026 { #v1-4-0 }
 
 Applicability: a risk should apply only to systems that have the elements it arises from.
 
 - **Multi-agent risks need Agent Delegation.** RISK-012 (cascading errors), RISK-013 (man-in-the-middle attacks between agents) and RISK-051 (unsanctioned coordination) now arise from the agentic architecture (DSN-01) *together with* Agent Delegation (CAP-02), so a single-agent system no longer carries them or their multi-agent controls. Agent Delegation now states that it covers workflows with fixed hand-offs and agents operated by other parties, including counterparties, so these risks apply across organisational boundaries too.
 - **Runaway behaviour covers single agents.** RISK-014 stays a baseline risk, rewritten to include an agent acting on its own outputs without bound. It now carries CTRL-0040 (action thresholds) instead of CTRL-0028 (multi-agent cascade monitoring), which stays on RISK-012 and RISK-051, so every system keeps the kill switch (CTRL-0065) and action limits. The agentic architecture element (DSN-01) now includes a single agent's plan–act–observe loop.
-- Register: 54 risks and 94 controls (unchanged); baseline risks 24 → 21. Multi-agent systems carry the same risks and Level 0 controls as before.
+- **Sandbox escape needs Code Execution.** RISK-049 (escape from evaluation or sandbox containment) now arises from roles and access controls (DSN-02) *together with* Code Execution (CAP-10), the path in every incident it cites, so systems that cannot run code no longer carry code sandboxing (CTRL-0069) or contained evaluations (CTRL-0092) through it. Default-deny egress (CTRL-0089) is now also attached to RISK-037 (exposure of sensitive data through computer use), so computer-use agents keep it.
+- **Level 0 waived when its subject is absent.** A Level 0 control still applies to every applicable risk whatever its score, but is waived when the capability or component it concerns is not present in the system (for example, MCP-server controls in a system that uses no MCP servers). The assessment records the waiver with evidence; the [Assessment Template](../implementation/assessment-template.md) gains a *Waived — not applicable* status and keeps one row per control per risk.
+- **Site and tools.** A [full-text register](register-full-text.md) with a link for every risk and control, and an `llms.txt` index, make the site readable by AI agents; the site's register JSON and generated pages are now built from the YAML at build time rather than committed. The [ARC assessment skill](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills) lets a coding agent assess the system it is building against the register.
+- Register: 54 risks and 94 controls (unchanged); baseline risks 24 → 20. Systems with Agent Delegation and Code Execution carry the same risks and Level 0 controls as before; a single-agent Q&A system goes from 26 Level 0 controls to 21.
 
 ## 1.3.0 — November 2026 { #v1-3-0 }
 

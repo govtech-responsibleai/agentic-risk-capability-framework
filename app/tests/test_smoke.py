@@ -125,7 +125,7 @@ def test_app_flow():
         shown = {k.split("_", 3)[3] for k in boxes if k.startswith(f"implementation_text_{BELOW_THRESHOLD}_")}
         level0 = {c for c in risks[BELOW_THRESHOLD]["controls"] if controls[c]["level"] == 0}
         assert shown == level0, (shown, level0)
-        # Level 0 starts blank (cannot be waived); Levels 1-2 keep the explicit "not implemented" default
+        # Level 0 starts blank (implemented, or waived only if its subject is absent); Levels 1-2 keep the explicit "not implemented" default
         for key, value in boxes.items():
             ctrl = key.split("_", 3)[3]
             assert value == ("" if controls[ctrl]["level"] == 0 else NOT_IMPLEMENTED_TEXT), (key, value)

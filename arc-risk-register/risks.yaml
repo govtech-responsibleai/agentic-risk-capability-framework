@@ -969,6 +969,7 @@ RISK-037:
   controls:
   - CTRL-0047
   - CTRL-0066
+  - CTRL-0089
   sources:
   - https://arxiv.org/html/2506.00618v3
   crosswalks:
@@ -1272,9 +1273,10 @@ RISK-048:
     - T17
 RISK-049:
   statement: Escape from evaluation or sandbox containment onto live systems
-  description: 'This risk arises when an agent operating in what is intended to be a contained setting — an evaluation, a red-team exercise, or a sandboxed task — reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.'
+  description: 'This risk arises when an agent that can execute code, operating in what is intended to be a contained setting — an evaluation, a red-team exercise, or a sandboxed task — reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.'
   element_ids:
   - DSN-02
+  - CAP-10
   failure_mode: Agent Failure
   type:
   - Safety

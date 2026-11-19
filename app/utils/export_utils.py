@@ -108,7 +108,7 @@ def export_assessment_to_word() -> Document:
         likelihood_threshold = st.session_state.get('likelihood_threshold', 4)
         impact_threshold = st.session_state.get('impact_threshold', 4)
         doc.add_paragraph(f"Level 0 controls apply to all {len(applicable_risks)} applicable risks, whatever their score, "
-                          "and cannot be waived.")
+                          "and are waived only where the capability or component they concern is not present.")
         doc.add_paragraph(f"Level 1 and 2 controls apply to the {len(above_threshold)} risks meeting the thresholds: "
                           f"Likelihood ≥ {likelihood_threshold} AND Impact ≥ {impact_threshold}")
         doc.add_paragraph("")
