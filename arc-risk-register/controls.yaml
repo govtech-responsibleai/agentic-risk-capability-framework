@@ -7,7 +7,7 @@ CTRL-0001:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -21,7 +21,7 @@ CTRL-0002:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.2.1
     owasp_asi:
@@ -35,7 +35,7 @@ CTRL-0003:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf: []
     owasp_asi:
     - ASI04
@@ -50,7 +50,7 @@ CTRL-0004:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.1.1
     owasp_asi:
@@ -65,8 +65,8 @@ CTRL-0005:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.2
-    - 3.2
+    - "2.2"
+    - "3.2"
     imda_mgf:
     - 2.3.2
     owasp_asi:
@@ -86,7 +86,7 @@ CTRL-0006:
   - https://www.anthropic.com/engineering/how-we-contain-claude
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -104,7 +104,7 @@ CTRL-0007:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -119,7 +119,7 @@ CTRL-0008:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -136,8 +136,8 @@ CTRL-0009:
   - https://blog.modelcontextprotocol.io/posts/2026-07-28/
   crosswalks:
     csa_addendum:
-    - 2.1
-    - 3.3
+    - "2.1"
+    - "3.3"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -154,7 +154,7 @@ CTRL-0010:
   - https://blog.modelcontextprotocol.io/posts/2026-07-28/
   crosswalks:
     csa_addendum:
-    - 2.6
+    - "2.6"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -169,8 +169,8 @@ CTRL-0011:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   crosswalks:
     csa_addendum:
-    - 2.6
-    - 2.8
+    - "2.6"
+    - "2.8"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -188,7 +188,7 @@ CTRL-0012:
   - https://blog.modelcontextprotocol.io/posts/2026-07-28/
   crosswalks:
     csa_addendum:
-    - 3.3
+    - "3.3"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -204,7 +204,7 @@ CTRL-0013:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   crosswalks:
     csa_addendum:
-    - 2.9
+    - "2.9"
     imda_mgf:
     - 2.3.2
     owasp_asi:
@@ -220,8 +220,8 @@ CTRL-0014:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   crosswalks:
     csa_addendum:
-    - 2.1
-    - 3.3
+    - "2.1"
+    - "3.3"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -229,7 +229,9 @@ CTRL-0014:
 CTRL-0015:
   level: 1
   risks:
+  - RISK-006
   - RISK-007
+  - RISK-048
   statement: Treat all tool metadata and outputs as untrusted input requiring validation
   recommendations: Tool metadata (descriptions, parameter names, schema definitions) can contain prompt injection attacks that manipulate agent behaviour even without tool invocation, whilst tool outputs may contain malicious content designed to compromise downstream systems. Validate and sanitise all tool metadata before exposing it to the LLM, treating tool descriptions with the same scrutiny as external user input and implementing content filtering to detect embedded instructions or adversarial prompts. Apply strict schema validation to tool outputs and sanitise responses before using them in prompts, displaying them to users, or passing them to other systems. Implement monitoring and logging of tool metadata and outputs to enable detection of injection attempts and post-incident analysis of compromised tool behaviour.
   references:
@@ -238,8 +240,8 @@ CTRL-0015:
   - https://www.practical-devsecops.com/mcp-security-vulnerabilities/
   crosswalks:
     csa_addendum:
-    - 4.1
-    - 3.3
+    - "4.1"
+    - "3.3"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -254,7 +256,7 @@ CTRL-0016:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.3
+    - "2.3"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -268,8 +270,8 @@ CTRL-0017:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.3
-    - 3.2
+    - "2.3"
+    - "3.2"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -283,7 +285,7 @@ CTRL-0018:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.10
+    - "2.10"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -297,7 +299,7 @@ CTRL-0019:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -312,8 +314,8 @@ CTRL-0020:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
-    - 2.9
+    - "4.1"
+    - "2.9"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -328,8 +330,8 @@ CTRL-0021:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.6
-    - 2.7
+    - "2.6"
+    - "2.7"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -343,7 +345,7 @@ CTRL-0022:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -358,7 +360,7 @@ CTRL-0023:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -376,8 +378,8 @@ CTRL-0024:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
-    - 3.4
+    - "2.7"
+    - "3.4"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -394,8 +396,8 @@ CTRL-0025:
   - https://a2aprotocol.ai/blog/2025-full-guide-a2a-protocol
   crosswalks:
     csa_addendum:
-    - 3.4
-    - 2.6
+    - "3.4"
+    - "2.6"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -414,8 +416,8 @@ CTRL-0026:
   - https://blog.langchain.com/custom-authentication-and-access-control-in-langgraph/
   crosswalks:
     csa_addendum:
-    - 3.4
-    - 2.6
+    - "3.4"
+    - "2.6"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -424,14 +426,16 @@ CTRL-0026:
 CTRL-0027:
   level: 1
   risks:
+  - RISK-012
   - RISK-013
+  - RISK-014
   statement: Implement circuit breakers to prevent cascading failures in multi-agent systems
   recommendations: Without circuit breakers, failures in one agent can cascade through multi-agent systems, causing widespread outages, resource exhaustion, or degraded performance across interconnected agents. Implement circuit breaker patterns that monitor agent interactions and automatically halt requests to failing agents when error rates, timeouts, or response times exceed predefined thresholds. Configure circuit breakers with appropriate timeout values, retry limits, and failure thresholds based on your system's tolerance for latency and error rates.
   references:
   - https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -439,15 +443,16 @@ CTRL-0027:
 CTRL-0028:
   level: 0
   risks:
+  - RISK-012
   - RISK-014
   - RISK-051
   statement: Continuously monitor multi-agent systems for cascade failure indicators
   recommendations: Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.
   references:
-  - https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996?utm_source=chatgpt.com
+  - https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -456,13 +461,15 @@ CTRL-0029:
   level: 1
   risks:
   - RISK-014
+  - RISK-015
+  - RISK-016
   - RISK-049
   statement: Grant agents only the minimum permissions required for their designated tasks
   recommendations: Excessive permissions enable compromised or malfunctioning agents to access sensitive resources, modify critical data, or perform actions beyond their intended scope, amplifying the impact of security breaches. Apply the principle of least privilege by defining granular permission sets for each agent based on its specific role and required operations, avoiding blanket administrative access or broad permission grants. Review agent permissions regularly to ensure they remain aligned with current responsibilities, revoking unnecessary access as agent roles evolve.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.8
+    - "2.8"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -481,7 +488,7 @@ CTRL-0030:
   - https://www.hashicorp.com/en/blog/spiffe-securing-the-identity-of-agentic-ai-and-non-human-actors
   crosswalks:
     csa_addendum:
-    - 2.6
+    - "2.6"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -497,8 +504,8 @@ CTRL-0031:
   - https://blog.modelcontextprotocol.io/posts/2026-07-28/
   crosswalks:
     csa_addendum:
-    - 3.3
-    - 2.6
+    - "3.3"
+    - "2.6"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -508,12 +515,14 @@ CTRL-0032:
   risks:
   - RISK-004
   - RISK-016
+  - RISK-017
+  - RISK-018
   statement: Centralise observability data collection in a unified backend system
   recommendations: Distributed observability data across disconnected systems prevents effective analysis of multi-agent workflows, obscuring failure patterns, performance bottlenecks, and security incidents that span multiple agents. Centralise collection of logs, metrics, and traces from all agents into a unified observability backend using standards-compliant protocols (e.g., OpenTelemetry) to enable correlation analysis across the entire agentic system. Configure agents to emit structured telemetry with consistent identifiers (agent IDs, session IDs, request IDs) that enable tracing requests across agent boundaries and reconstructing complete workflow execution paths.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -527,7 +536,7 @@ CTRL-0033:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -542,7 +551,7 @@ CTRL-0034:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -550,14 +559,14 @@ CTRL-0034:
 CTRL-0035:
   level: 2
   risks:
-  - RISK-017
-  - RISK-018
+  - RISK-019
+  - RISK-020
   statement: Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding
   recommendations: Agents that pursue goals without decomposition may execute unnecessary, excessive, or unintended actions that waste resources, violate constraints, or create unintended side effects. Configure planning agents to explicitly break down high-level user goals into discrete, verifiable sub-goals before executing any actions, and to validate that each sub-goal is necessary and sufficient for achieving the overall objective. Implement review mechanisms that require agents to justify the necessity of each sub-goal, either through automated reasoning checks or human approval for high-impact plans.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.10
+    - "2.10"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -571,7 +580,7 @@ CTRL-0036:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.2
+    - "3.2"
     imda_mgf:
     - 2.3.2
     owasp_asi:
@@ -579,14 +588,14 @@ CTRL-0036:
 CTRL-0037:
   level: 1
   risks:
-  - RISK-019
+  - RISK-020
   statement: Require planning agents to include explicit safety constraints in all generated plans before execution
   recommendations: Plans generated without explicit safety constraints may inadvertently violate security policies, regulatory requirements, or operational boundaries, leading to dangerous or non-compliant agent behaviour. Configure planning agents to incorporate safety constraints and domain-specific restrictions directly into plan representations, making safety requirements explicit and verifiable rather than implicit assumptions. Examples of planning-level safety constraints include limiting plan complexity (maximum number of steps or tools), requiring verification steps before irreversible actions, prohibiting plans that access certain data categories or environments, mandating human review checkpoints for high-risk operations, and including rollback or recovery procedures for plans involving state changes.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
-    - 2.10
+    - "2.7"
+    - "2.10"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -595,6 +604,8 @@ CTRL-0037:
 CTRL-0038:
   level: 0
   risks:
+  - RISK-002
+  - RISK-003
   - RISK-020
   - RISK-050
   statement: Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards
@@ -605,7 +616,7 @@ CTRL-0038:
   - https://arxiv.org/abs/2410.09024
   crosswalks:
     csa_addendum:
-    - 3.2
+    - "3.2"
     imda_mgf:
     - 2.3.2
     owasp_asi:
@@ -622,8 +633,8 @@ CTRL-0039:
   - https://a2a-protocol.org/latest/topics/agent-discovery/
   crosswalks:
     csa_addendum:
-    - 2.4
-    - 3.4
+    - "2.4"
+    - "3.4"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -639,8 +650,8 @@ CTRL-0040:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
-    - 3.1
+    - "2.7"
+    - "3.1"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -650,12 +661,14 @@ CTRL-0041:
   level: 0
   risks:
   - RISK-022
+  - RISK-023
+  - RISK-038
   statement: Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs
   recommendations: Incomplete or ambiguous tool descriptions lead agents to misunderstand tool capabilities, misuse tools for unintended purposes, or select inappropriate tools for tasks, resulting in failures or unsafe behaviour. Document each tool with clear, comprehensive descriptions that specify the tool's intended purpose, required input parameters with data types and constraints, expected outputs and formats, and any preconditions or side effects. Include usage examples and common failure scenarios to guide agent decision-making and prevent misuse. Ensure tool descriptions are accurate, up-to-date, and written in language that LLMs can reliably interpret, avoiding ambiguity that might lead to incorrect tool selection or invocation.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.4
+    - "2.4"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -671,7 +684,7 @@ CTRL-0042:
   - https://www.anthropic.com/engineering/how-we-contain-claude
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -686,7 +699,7 @@ CTRL-0043:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -700,7 +713,7 @@ CTRL-0044:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -713,7 +726,7 @@ CTRL-0045:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -726,20 +739,23 @@ CTRL-0046:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
 CTRL-0047:
   level: 0
   risks:
+  - RISK-011
   - RISK-027
+  - RISK-037
+  - RISK-043
   statement: Implement output guardrails to detect and redact personally identifiable information
   recommendations: Agents may reproduce personally identifiable information from training data, memory, or prior interactions in their outputs, violating privacy obligations, exposing individuals to harm, or breaching data protection requirements such as GDPR or PDPA. Deploy output guardrails that scan all agent-generated content for PII categories including names, email addresses, phone numbers, identification numbers, financial account details, and other sensitive personal data before delivery to users. Use PII detection tools, pattern matching, or named entity recognition models to identify and redact or block outputs containing PII. Configure appropriate handling based on context — some PII may be acceptable if it belongs to the current user, whilst PII belonging to other individuals should be strictly prevented from disclosure.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -752,7 +768,7 @@ CTRL-0048:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.11
+    - "2.11"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -767,7 +783,7 @@ CTRL-0049:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.11
+    - "2.11"
     imda_mgf:
     - 2.4.2
     owasp_asi:
@@ -781,7 +797,7 @@ CTRL-0050:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.11
+    - "2.11"
     imda_mgf:
     - 2.4.2
     owasp_asi:
@@ -796,7 +812,7 @@ CTRL-0051:
   - https://www.patronus.ai/blog/introducing-copyright-catcher
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -822,7 +838,7 @@ CTRL-0053:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -836,7 +852,7 @@ CTRL-0054:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -850,7 +866,7 @@ CTRL-0055:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.5
+    - "4.5"
     imda_mgf:
     - 2.4.2
     owasp_asi:
@@ -864,7 +880,7 @@ CTRL-0056:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -879,7 +895,7 @@ CTRL-0057:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -888,12 +904,13 @@ CTRL-0058:
   level: 1
   risks:
   - RISK-032
+  - RISK-033
   statement: Restrict agents to proposing transactions whilst using a separate transaction controller for execution
   recommendations: Allowing agents direct access to transaction credentials creates risk of credential leakage through prompt injection, logging, or model outputs. Implement architectural separation where agents propose transactions but a dedicated non-LLM transaction controller handles authentication, authorisation, and execution. Ensure agents never receive or handle credentials directly, passing only transaction proposals through secure interfaces.
   references: null
   crosswalks:
     csa_addendum:
-    - 2.9
+    - "2.9"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -901,13 +918,13 @@ CTRL-0058:
 CTRL-0059:
   level: 2
   risks:
-  - RISK-033
+  - RISK-032
   statement: Apply fraud detection models or heuristics to agent-proposed transactions
   recommendations: Compromised or manipulated agents may propose fraudulent transactions that bypass standard user confirmation by appearing legitimate to users but serving malicious purposes. Implement fraud detection systems that analyse agent-proposed transactions for suspicious patterns such as unusual amounts, unfamiliar recipients, rapid transaction sequences, or deviations from historical behaviour. Configure fraud detection to operate independently of the agent, using rule-based heuristics or machine learning models trained on legitimate and fraudulent transaction patterns.
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -922,7 +939,7 @@ CTRL-0060:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -936,7 +953,7 @@ CTRL-0061:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -945,6 +962,7 @@ CTRL-0062:
   level: 0
   risks:
   - RISK-034
+  - RISK-036
   - RISK-044
   - RISK-047
   statement: Implement input guardrails to detect prompt injection and adversarial attacks
@@ -952,7 +970,7 @@ CTRL-0062:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -966,7 +984,7 @@ CTRL-0063:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.1
+    - "2.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -980,7 +998,7 @@ CTRL-0064:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -997,7 +1015,7 @@ CTRL-0065:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -1024,7 +1042,7 @@ CTRL-0067:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.4
+    - "2.4"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1038,7 +1056,7 @@ CTRL-0068:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1054,8 +1072,8 @@ CTRL-0069:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.9
-    - 2.8
+    - "2.9"
+    - "2.8"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1070,8 +1088,8 @@ CTRL-0070:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
-    - 4.4
+    - "4.2"
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -1086,7 +1104,7 @@ CTRL-0071:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1101,7 +1119,7 @@ CTRL-0072:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -1115,7 +1133,7 @@ CTRL-0073:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1131,7 +1149,7 @@ CTRL-0074:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.2
+    - "4.2"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1146,7 +1164,7 @@ CTRL-0075:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.8
+    - "2.8"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1160,7 +1178,7 @@ CTRL-0076:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.4
+    - "4.4"
     imda_mgf:
     - 2.2.2
     owasp_asi:
@@ -1175,7 +1193,7 @@ CTRL-0077:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.5
+    - "2.5"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1189,7 +1207,7 @@ CTRL-0078:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1203,7 +1221,7 @@ CTRL-0079:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -1217,7 +1235,7 @@ CTRL-0080:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf: []
     owasp_asi:
     - ASI02
@@ -1230,7 +1248,7 @@ CTRL-0081:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
+    - "4.1"
     imda_mgf:
     - 2.3.1
     owasp_asi: []
@@ -1244,8 +1262,8 @@ CTRL-0082:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.8
-    - 2.7
+    - "2.8"
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1260,8 +1278,8 @@ CTRL-0083:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.1
-    - 2.1
+    - "4.1"
+    - "2.1"
     imda_mgf:
     - 2.3.1
     owasp_asi:
@@ -1276,7 +1294,7 @@ CTRL-0084:
   references: null
   crosswalks:
     csa_addendum:
-    - 2.7
+    - "2.7"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1290,7 +1308,7 @@ CTRL-0085:
   references: null
   crosswalks:
     csa_addendum:
-    - 4.3
+    - "4.3"
     imda_mgf:
     - 2.3.3
     owasp_asi:
@@ -1304,7 +1322,7 @@ CTRL-0086:
   references: null
   crosswalks:
     csa_addendum:
-    - 3.1
+    - "3.1"
     imda_mgf:
     - 2.1.2
     owasp_asi:
@@ -1332,6 +1350,7 @@ CTRL-0090:
   risks:
   - RISK-009
   - RISK-034
+  - RISK-036
   - RISK-044
   - RISK-047
   statement: Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions

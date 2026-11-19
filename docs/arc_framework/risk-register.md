@@ -4,7 +4,7 @@ Here is our baseline **Risk Register** which we developed for the ARC Framework.
 
 !!! note "How to use the Risk Register"
 
-    Click any risk row to expand and view its full description, references, and recommended controls, then click individual control statements for detailed implementation guidance. Use the expand icons (▸/▾) to navigate between views and hover over elements to see visual indicators of interactivity.
+    Click any risk row to expand and view its full description, hazards, references, crosswalks to other frameworks, and recommended controls, then click individual control statements for detailed implementation guidance. Controls are colour-coded by level (red = Level 0 Cardinal, amber = Level 1 Standard, green = Level 2 Best Practice). A risk whose Element column joins several elements with "+" is a *composite* risk that applies only when all of those elements are present. Filter by element, failure mode, hazard, or risk type, or search by keyword.
 
 <div class="risk-register-container">
     <!-- Stats Summary -->
@@ -32,6 +32,12 @@ Here is our baseline **Risk Register** which we developed for the ARC Framework.
                     <option value="">All Types</option>
                     <option value="Safety">Safety</option>
                     <option value="Security">Security</option>
+                </select>
+            </div>
+            <div>
+                <label for="hazard-filter" style="font-weight: 600; display: block; margin-bottom: 5px;">Hazard:</label>
+                <select id="hazard-filter" style="width: 100%; padding: 8px; border-radius: 3px; border: 1px solid #ccc; font-size: 0.8em;">
+                    <option value="">All Hazards</option>
                 </select>
             </div>
             <div>

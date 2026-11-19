@@ -115,6 +115,7 @@ def build_risk_register_data():
     components = load_yaml('components.yaml')
     design = load_yaml('design.yaml')
     references = load_yaml('crosswalk_references.yaml')
+    hazards = load_yaml('hazards.yaml')
 
     # Create element lookup (components + design + capabilities)
     elements = {}
@@ -181,6 +182,8 @@ def build_risk_register_data():
             'composite': len(risk_elements) > 1,
             'failure_mode': risk_data.get('failure_mode', ''),
             'type': risk_data.get('type', []),
+            'hazards': [{'id': h, 'name': hazards[h]['name'], 'type': hazards[h]['type']}
+                        for h in risk_data.get('hazards', []) if h in hazards],
             'controls': control_details,
             'control_count': len(control_details),
             'sources': risk_data.get('sources', []),
@@ -203,6 +206,7 @@ def build_risk_register_data():
             'total_elements': len(elements),
             'categories': sorted(set(e['category'] for e in elements.values())),
             'failure_modes': sorted(set(r.get('failure_mode', '') for r in risks.values())),
+            'hazards': [{'id': h, 'name': d['name'], 'type': d['type']} for h, d in hazards.items()],
             'risk_types': ['Safety', 'Security']
         }
     }
