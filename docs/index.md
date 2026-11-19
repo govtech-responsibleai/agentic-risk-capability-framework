@@ -65,21 +65,24 @@ To reach out to us, please fill out the Google form <a href="https://forms.gle/K
 
 ## Citation
 
-To cite this work, please use the following BibTeX citation:
+The framework paper was published in the main track of IASEAI'26, the Second Conference of the International Association for Safe and Ethical Artificial Intelligence. To cite this work, please use the following BibTeX citation:
 
 ```
-@article{khoo2025arc,
-    title   = {With Great Capabilities Come Great Responsibilities: Introducing the Agentic Risk & Capability Framework for Governing Agentic AI Systems},
-    author  = {Khoo, Shaun and Foo, Jessica and Lee, Roy Ka-Wei},
-    journal = {arXiv preprint arXiv:2512.22211},
-    year    = {2025},
-    url     = {https://arxiv.org/abs/2512.22211}
+@inproceedings{khoo2026arc,
+    title         = {With Great Capabilities Come Great Responsibilities: Introducing the Agentic Risk \& Capability Framework for Governing Agentic AI Systems},
+    author        = {Khoo, Shaun and Foo, Jessica and Lee, Roy Ka-Wei},
+    booktitle     = {Second Conference of the International Association for Safe and Ethical Artificial Intelligence (IASEAI'26)},
+    note          = {Main track},
+    year          = {2026},
+    eprint        = {2512.22211},
+    archivePrefix = {arXiv},
+    url           = {https://arxiv.org/abs/2512.22211}
 }
 ```
 
 Alternatively, you may use the APA-formatted citation below:
 
-> Khoo, S., Foo, J., & Lee, R. K.-W. (2025). With great capabilities come great responsibilities: Introducing the Agentic Risk & Capability Framework for governing agentic AI systems. *arXiv preprint arXiv:2512.22211*. <https://arxiv.org/abs/2512.22211>
+> Khoo, S., Foo, J., & Lee, R. K.-W. (2026). With great capabilities come great responsibilities: Introducing the Agentic Risk & Capability Framework for governing agentic AI systems. In *Second Conference of the International Association for Safe and Ethical Artificial Intelligence (IASEAI'26)*, main track. <https://arxiv.org/abs/2512.22211>
 
 To cite the framework website directly (e.g., for the Risk Register rather than the paper):
 
