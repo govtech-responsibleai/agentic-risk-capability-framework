@@ -2,7 +2,7 @@
 
 !!! abstract "Page Summary"
 
-    This page defines technical controls for mitigating risks in agentic systems, organised into three tiers: Cardinal (Level 0 - fundamental requirements), Standard (Level 1 - recommended implementations), and Best Practice (Level 2 - aspirational measures). Each control aims to either reduce the potential impact of failures or decrease the likelihood of specific failure modes occurring.
+    This page defines technical controls for mitigating risks in agentic systems, organised into three tiers: Cardinal (Level 0 - fundamental requirements), Standard (Level 1 - adopt or adapt), and Best Practice (Level 2 - good to consider, especially for high-risk systems). Each control aims to either reduce the potential impact of failures or decrease the likelihood of specific failure modes occurring.
 
 Controls are essential to mitigate risks to an acceptable level. Within the **Risk Register**, each risk comes with a set of **recommended technical controls** that aim to either:
 
@@ -42,11 +42,17 @@ First, we start by analysing the risk for its failure mode and hazard, and consi
 
 It is helpful to read up on the literature on AI safety and security to understand what the common mitigation measures are and how effective they are in managing agentic risks.
 
+### 📶 Control levels { #control-levels }
+
 Next, we categorise the control into three levels based on its criticality:
 
 * **Level 0: Cardinal control** - fundamental requirement that cannot be waived, must be adopted as is
 * **Level 1: Standard control** - adopt or adapt meaningfully and sensibly
 * **Level 2: Best practice control** - good to consider, especially for high-risk systems
+
+!!! info "When does a Level 0 control apply?"
+
+    A Level 0 control is mandatory for every system in which its risk is **applicable** — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, **never waives a Level 0 control**: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. This is the single definition of the levels; the implementation guides restate it.
 
 ??? example "Example of controls targeting a specific risk"
 

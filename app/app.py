@@ -9,7 +9,8 @@ from models.schemas import SessionKeys, RiskAssessment, ScoreAssessment
 from utils.data_loader import (
     load_data,
     load_sample_data,
-    get_controls_for_risk,
+    controls_by_risk,
+    is_level0,
     get_applicable_risk_ids,
     is_baseline_risk,
     describe_risk_element,
@@ -20,7 +21,13 @@ from utils.llm_utils import (
     get_application_description,
     analyze_public_repo,
 )
-from utils.session_utils import initialize_session_state, initialize_control_implementation
+from utils.session_utils import (
+    initialize_session_state,
+    initialize_control_implementation,
+    control_implementation_key,
+    NOT_IMPLEMENTED_TEXT,
+    LEVEL0_PLACEHOLDER,
+)
 # Import will be done inside the function to avoid relative import issues
 from datetime import datetime
 
@@ -657,24 +664,26 @@ def risk_assessment_page():
         # Control Thresholds
         st.markdown("---")
         st.markdown("### Control Thresholds")
+        st.caption("Level 0 controls apply to every applicable risk, whatever its score. "
+                   "These thresholds decide which risks also get their Level 1 and 2 controls.")
         col_likelihood, col_impact = st.columns(2)
-        
+
         with col_likelihood:
             likelihood_threshold = st.slider(
-                "Minimum Likelihood Score for Controls",
+                "Minimum Likelihood Score for Level 1–2 Controls",
                 min_value=1,
                 max_value=5,
                 value=st.session_state.get('likelihood_threshold', 4),
-                help="Risks with likelihood scores at or above this threshold will be considered for controls"
+                help="Risks at or above this likelihood (and the impact threshold) get their Level 1 and 2 controls"
             )
-        
+
         with col_impact:
             impact_threshold = st.slider(
-                "Minimum Impact Score for Controls",
+                "Minimum Impact Score for Level 1–2 Controls",
                 min_value=1,
                 max_value=5,
                 value=st.session_state.get('impact_threshold', 4),
-                help="Risks with impact scores at or above this threshold will be considered for controls"
+                help="Risks at or above this impact (and the likelihood threshold) get their Level 1 and 2 controls"
             )
         
         # Calculate high-priority risks
@@ -687,7 +696,9 @@ def risk_assessment_page():
                     high_priority_risks.append(risk_id)
         
         # Display summary
-        st.info(f"**{len(high_priority_risks)} out of {len(st.session_state[SessionKeys.APPLICABLE_RISKS])} risks** meet the threshold criteria and will be analyzed for controls.")
+        n_applicable = len(st.session_state[SessionKeys.APPLICABLE_RISKS])
+        st.info(f"**{len(high_priority_risks)} out of {n_applicable} risks** meet the thresholds and get their "
+                f"Level 1 and 2 controls. Level 0 controls apply to all {n_applicable} applicable risks.")
         
         # Store thresholds in session state
         st.session_state.likelihood_threshold = likelihood_threshold
@@ -747,12 +758,32 @@ def controls_page():
         st.error("Failed to load required data files. Please check that all YAML files exist and are valid.")
         st.stop()
     
-    # Risk selection interface
-    if 'high_priority_risks' in st.session_state and st.session_state.high_priority_risks:
-        # Show threshold summary
-        st.info(f"Showing controls for **{len(st.session_state.high_priority_risks)} high-priority risks** (Likelihood ≥ {st.session_state.get('likelihood_threshold', 4)} AND Impact ≥ {st.session_state.get('impact_threshold', 4)})")
+    applicable_risks = st.session_state.get(SessionKeys.APPLICABLE_RISKS) or []
+    if applicable_risks:
+        above_threshold = st.session_state.get('high_priority_risks') or []
+        risks_with_controls = controls_by_risk(applicable_risks, above_threshold, risks, controls)
 
-        for risk_id in st.session_state.high_priority_risks:
+        st.info(
+            f"**Level 0 controls** are shown for all **{len(applicable_risks)} applicable risks**: they cannot be "
+            f"waived, whatever a risk's score. **Level 1 and 2 controls** are shown for the "
+            f"**{len(above_threshold)} risks** at or above your thresholds (Likelihood ≥ "
+            f"{st.session_state.get('likelihood_threshold', 4)} AND Impact ≥ {st.session_state.get('impact_threshold', 4)})."
+        )
+        def _status_text(risk_id, control_id):
+            # The widget holds the latest edit; the stored copy is updated after it renders
+            widget_key = f"implementation_text_{risk_id}_{control_id}"
+            stored = st.session_state.get(control_implementation_key(risk_id, control_id), "")
+            return str(st.session_state.get(widget_key, stored) or "")
+
+        undescribed = sum(
+            1 for risk_id, risk_controls in risks_with_controls for control in risk_controls
+            if is_level0(control) and not _status_text(risk_id, control['id']).strip()
+        )
+        if undescribed:
+            st.warning(f"{undescribed} Level 0 control entries have no implementation described yet. "
+                       "Level 0 controls cannot be waived; describe how each is implemented.")
+
+        for risk_id, risk_controls in risks_with_controls:
             if risk_id in risks:
                 risk_data = risks[risk_id]
 
@@ -770,9 +801,7 @@ def controls_page():
                     if hasattr(assessment, 'context'):
                         st.caption(f"Context: {assessment.context}")
                 
-                # Get and display controls for this risk (expanded focus)
-                risk_controls = get_controls_for_risk(risk_id, risks, controls)
-                
+                # Display the controls in scope for this risk (expanded focus)
                 if risk_controls:
                     for i, control in enumerate(risk_controls, 1):
                         with st.expander(f"Control {i}: {control['statement']}", expanded=True):
@@ -787,19 +816,23 @@ def controls_page():
                             
                             with col_implementation:
                                 # Editable text box for control implementation
-                                control_key = f"control_implementation_{risk_id}_{control['id']}"
-                                default_text = "I did not implement this control. I accept all residual risk."
-                                
-                                # Initialize session state for this control if not exists
-                                initialize_control_implementation(risk_id, control['id'], default_text)
-                                
+                                control_key = control_implementation_key(risk_id, control['id'])
+                                level0 = is_level0(control)
+
+                                # Level 0 starts blank: it cannot be waived, so nothing pre-accepts the risk
+                                initialize_control_implementation(risk_id, control['id'],
+                                                                  "" if level0 else NOT_IMPLEMENTED_TEXT)
+
                                 st.write("**Your Implementation Status:**")
                                 implementation_text = st.text_area(
                                     f"Describe how you have implemented this control and remaining residual risks.",
                                     value=st.session_state[control_key],
                                     height=150,
                                     key=f"implementation_text_{risk_id}_{control['id']}",
-                                    help="Describe what you have implemented for this control, or leave the default text if not implemented."
+                                    placeholder=LEVEL0_PLACEHOLDER if level0 else None,
+                                    help=("Level 0 controls cannot be waived: describe how this control is implemented."
+                                          if level0 else
+                                          "Describe what you have implemented for this control, or leave the default text if not implemented.")
                                 )
                                 
                                 # Update session state when text changes
@@ -807,11 +840,11 @@ def controls_page():
                                     st.session_state[control_key] = implementation_text
                 else:
                     st.warning("No specific controls found for this risk.")
+        if not risks_with_controls:
+            st.info("None of the applicable risks has a Level 0 control, and none meets the thresholds for "
+                    "Level 1 and 2 controls. Adjust the thresholds in the Risk Assessment page to see them.")
     else:
-        if SessionKeys.APPLICABLE_RISKS in st.session_state and st.session_state[SessionKeys.APPLICABLE_RISKS]:
-            st.info("No risks meet the current threshold criteria for controls. Adjust the thresholds in the Risk Assessment page to see controls for lower-priority risks.")
-        else:
-            st.info("Please complete the risk assessment to view controls.")
+        st.info("Please complete the risk assessment to view controls.")
 
 
 def main():

@@ -44,15 +44,25 @@ def initialize_session_state():
         st.session_state[SessionKeys.IMPACT_THRESHOLD] = 4
 
 
-def initialize_control_implementation(risk_id: str, control_id: str, 
-                                   default_text: str = "I did not implement this control. I accept all residual risk."):
+NOT_IMPLEMENTED_TEXT = "I did not implement this control. I accept all residual risk."
+# Level 0 controls cannot be waived, so they start blank rather than pre-accepting the risk
+LEVEL0_PLACEHOLDER = "Describe how this control is implemented. Level 0 controls cannot be waived."
+LEVEL0_MISSING_TEXT = "NOT DESCRIBED. Level 0 controls cannot be waived; this control must be implemented."
+
+
+def control_implementation_key(risk_id: str, control_id: str) -> str:
+    return f"control_implementation_{risk_id}_{control_id}"
+
+
+def initialize_control_implementation(risk_id: str, control_id: str,
+                                   default_text: str = NOT_IMPLEMENTED_TEXT):
     """Initialize implementation status for a specific control.
-    
+
     Args:
         risk_id: The ID of the risk
         control_id: The ID of the control
-        default_text: Default text for unimplemented controls
+        default_text: Starting text ("" for Level 0 controls)
     """
-    control_key = f"control_implementation_{risk_id}_{control_id}"
+    control_key = control_implementation_key(risk_id, control_id)
     if control_key not in st.session_state:
         st.session_state[control_key] = default_text

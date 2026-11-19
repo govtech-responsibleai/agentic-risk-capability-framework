@@ -62,7 +62,8 @@ def export_assessment_to_word() -> Document:
         doc.add_paragraph(f"Components: {app_info.get('components', 'Not provided')}")
     
     # Import here to avoid relative import issues
-    from utils.data_loader import load_data, get_controls_for_risk, is_baseline_risk, describe_risk_element
+    from utils.data_loader import load_data, controls_by_risk, is_level0, is_baseline_risk, describe_risk_element
+    from utils.session_utils import control_implementation_key, NOT_IMPLEMENTED_TEXT, LEVEL0_MISSING_TEXT
     capabilities, risks, controls, components, design = load_data()
 
     # 2. Capability Analysis
@@ -98,18 +99,22 @@ def export_assessment_to_word() -> Document:
                                      describe_risk_element(risk_data, capabilities, components, design))
     
     # 4. Controls
-    if 'high_priority_risks' in st.session_state:
+    if st.session_state.get('applicable_risks'):
         doc.add_heading('4. Controls and Implementation', level=1)
-        
+
         # Thresholds
+        applicable_risks = st.session_state.applicable_risks
+        above_threshold = st.session_state.get('high_priority_risks') or []
         likelihood_threshold = st.session_state.get('likelihood_threshold', 4)
         impact_threshold = st.session_state.get('impact_threshold', 4)
-        doc.add_paragraph(f"Control Thresholds: Likelihood ≥ {likelihood_threshold} AND Impact ≥ {impact_threshold}")
-        doc.add_paragraph(f"High-Priority Risks: {len(st.session_state.high_priority_risks)} risks meet the threshold criteria")
+        doc.add_paragraph(f"Level 0 controls apply to all {len(applicable_risks)} applicable risks, whatever their score, "
+                          "and cannot be waived.")
+        doc.add_paragraph(f"Level 1 and 2 controls apply to the {len(above_threshold)} risks meeting the thresholds: "
+                          f"Likelihood ≥ {likelihood_threshold} AND Impact ≥ {impact_threshold}")
         doc.add_paragraph("")
-        
-        # Controls for each high-priority risk
-        for i, risk_id in enumerate(st.session_state.high_priority_risks, 1):
+
+        # Controls in scope for each applicable risk
+        for i, (risk_id, risk_controls) in enumerate(controls_by_risk(applicable_risks, above_threshold, risks, controls), 1):
             if risk_id in risks:
                 risk_data = risks[risk_id]
                 doc.add_heading(f"4.{i} {risk_id}: {risk_data['statement']}", level=2)
@@ -122,7 +127,6 @@ def export_assessment_to_word() -> Document:
                     doc.add_paragraph("")
                 
                 # Controls
-                risk_controls = get_controls_for_risk(risk_id, risks, controls)
                 if risk_controls:
                     doc.add_paragraph("Controls:")
                     for j, control in enumerate(risk_controls, 1):
@@ -133,11 +137,10 @@ def export_assessment_to_word() -> Document:
                             doc.add_paragraph(f"   References: {', '.join(control['references'])}")
                         
                         # Implementation status
-                        control_key = f"control_implementation_{risk_id}_{control['id']}"
-                        if control_key in st.session_state:
-                            doc.add_paragraph(f"   Implementation Status: {st.session_state[control_key]}")
-                        else:
-                            doc.add_paragraph(f"   Implementation Status: I did not implement this control. I accept all residual risk.")
+                        status = str(st.session_state.get(control_implementation_key(risk_id, control['id'])) or "").strip()
+                        if not status:
+                            status = LEVEL0_MISSING_TEXT if is_level0(control) else NOT_IMPLEMENTED_TEXT
+                        doc.add_paragraph(f"   Implementation Status: {status}")
                         doc.add_paragraph("")
     
     return doc
