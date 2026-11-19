@@ -47,11 +47,12 @@ List **every applicable risk**: all baseline risks (those arising only from comp
 
 ## 3. Controls
 
-One row per control per risk. **Every Level 0 control of every applicable risk is listed with status *Implemented as-is*.** Level 1 and 2 controls are listed for priority risks (and for any other risk where you choose to adopt them); if not adopted, record why.
+One row per control per risk, even where the same control addresses several risks. **Every Level 0 control of every applicable risk is listed with status *Implemented as-is*, or *Waived — not applicable* where the capability or component it concerns is not present in the system, with evidence of its absence.** Level 1 and 2 controls are listed for priority risks (and for any other risk where you choose to adopt them); if not adopted, record why.
 
-| Risk ID | Control ID | Level | Status (as-is / adapted / not adopted) | Implementation or adaptation (what, where, thresholds) | Evidence (config, test result, log, review record) | Owner | Verified on |
+| Risk ID | Control ID | Level | Status (as-is / adapted / not adopted / waived — not applicable) | Implementation or adaptation (what, where, thresholds) | Evidence (config, test result, log, review record) | Owner | Verified on |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | | | 0 | Implemented as-is | | | | |
+| | | 0 | Waived — not applicable | e.g. "The system uses no MCP servers" | e.g. the tool registry listing every tool it can call | | |
 | | | 1 | Adapted | | | | |
 | | | 2 | Not adopted — *rationale* | | | | |
 

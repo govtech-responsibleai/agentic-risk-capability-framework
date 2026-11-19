@@ -11,7 +11,7 @@
 
 !!! info "What's new — register v1.4, November 2026"
 
-    - **Risks apply where they arise**: multi-agent risks now apply only to systems in which more than one agent works on a task, including agents operated by other organisations, and the sandbox-escape risk only to systems that can execute code, so simpler systems no longer carry Level 0 controls that cannot apply to them
+    - **Risks apply where they arise**: multi-agent risks now apply only to systems in which more than one agent works on a task, including agents operated by other organisations, and the sandbox-escape risk only to systems that can execute code, so simpler systems no longer carry Level 0 controls that cannot apply to them; and a Level 0 control is waived when the capability or component it concerns is not present
     - **Readable by AI agents**: a [full-text register](arc_framework/register-full-text.md) with a link for every risk and control, and an [`llms.txt`](llms.txt) index for agents
     - **ARC assessment skill**: an [Agent Skill](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills) that lets a coding agent assess the system it is building against the register
 

@@ -76,16 +76,16 @@ For each control in scope, follow these steps.
 1. Read its guidance with `ARC show CTRL-xxxx`, or use `assess --detail --format json`.
 2. Search the codebase for an existing implementation, and record the evidence: file paths, configuration, or tests.
 3. Fill in the template's Controls table:
-   - **Status:** as-is, adapted, or not adopted.
+   - **Status:** as-is, adapted, not adopted, or waived — not applicable.
    - **Implementation:** what is done, where, and with what thresholds. For a control that isn't in place yet, write "Not implemented", followed by the specific change you propose and how to test it.
    - **Evidence:** what you found.
 
-   The template asks for one row per control per risk. Where a control is implemented the same way for several risks, you may list those risk IDs together in one row.
+   Write one row per control per risk, as the template requires, even where the same control addresses several risks: `--priority` lists each control once with its risks, so expand it into one row for each.
 4. Make each control concrete and specific to the components involved. ARC's guide shows the progression from framework control to organisation control to system-specific implementation; with no organisation register, go straight from framework control to system.
 5. Apply the expectations for each level from the guide's table:
    - **Level 0:** adopted as-is. The template expects every Level 0 control to be implemented before sign-off.
-     - Any Level 0 control that isn't implemented is a blocker for the governance team. List these blockers at the top of your summary.
-     - Sometimes a Level 0 control's subject doesn't exist in the system, for example a control about MCP servers in a system that uses none. In that case, say so with evidence and flag the control for the governance team to confirm.
+     - A Level 0 control is waived only when the capability or component it concerns is not present in the system, for example a control on MCP servers in a system that uses none. Record it as *Waived — not applicable*, with the evidence that the capability or component is absent.
+     - Any other Level 0 control that isn't implemented is a blocker for the governance team. List these blockers at the top of your summary.
    - **Level 1:** adopted or adapted, or not adopted with a documented rationale.
    - **Level 2:** considered according to the system's risk.
 6. Make code changes only if the user asks you to.

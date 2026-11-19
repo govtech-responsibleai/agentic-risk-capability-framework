@@ -25,7 +25,7 @@ Each risk arises from one or more elements, through one of three failure modes (
 
 | Level | Meaning |
 | --- | --- |
-| **0 · Cardinal** | Cannot be waived; must be adopted as is wherever the risk applies, whatever its score |
+| **0 · Cardinal** | Must be adopted as is wherever the risk applies, whatever its score; waived only if the capability or component it concerns is not present |
 | **1 · Standard** | Adopt or adapt meaningfully and sensibly; prioritised by impact and likelihood |
 | **2 · Best practice** | Good to consider, especially for high-risk systems |
 
