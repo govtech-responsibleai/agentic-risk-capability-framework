@@ -140,6 +140,7 @@ RISK-006:
   controls:
   - CTRL-0013
   - CTRL-0014
+  - CTRL-0091
   sources:
   - https://www.mbgsec.com/archive/2025-05-03-mcp-untrusted-servers-and-confused-clients-plus-a-sneaky-exploit-embrace-the-red/
   crosswalks:
@@ -212,6 +213,7 @@ RISK-009:
   controls:
   - CTRL-0019
   - CTRL-0020
+  - CTRL-0090
   sources:
   - https://arxiv.org/abs/2502.15851v1
   - https://aclanthology.org/2025.naacl-long.425.pdf
@@ -515,6 +517,7 @@ RISK-022:
   - CTRL-0024
   - CTRL-0025
   - CTRL-0041
+  - CTRL-0093
   sources:
   - https://arxiv.org/abs/2507.06850
   crosswalks:
@@ -765,6 +768,7 @@ RISK-034:
   - CTRL-0060
   - CTRL-0061
   - CTRL-0062
+  - CTRL-0090
   sources:
   - https://unit42.paloaltonetworks.com/agentic-ai-threats/
   crosswalks:
@@ -996,6 +1000,7 @@ RISK-044:
   controls:
   - CTRL-0062
   - CTRL-0083
+  - CTRL-0090
   sources:
   - https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability
   - https://www.wired.com/story/here-come-the-ai-worms/
@@ -1050,3 +1055,202 @@ RISK-046:
     - ASI02
     owasp_agentic_threats:
     - T4
+RISK-047:
+  statement: Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel
+  description: This risk arises when an agent that ingests untrusted content (web pages, files, messages) also holds access to sensitive data and has any outbound channel — browsing itself, API calls, messaging, or tool calls that carry data in URLs — so that instructions injected through the retrieval path can direct the agent to send data out through a legitimate tool. Each capability may be individually controlled; the exposure comes from their combination. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by ForcedLeak and EchoLeak.
+  element_ids:
+  - CAP-07
+  - CAP-11
+  failure_mode: External Manipulation
+  type:
+  - Security
+  controls:
+  - CTRL-0020
+  - CTRL-0060
+  - CTRL-0062
+  - CTRL-0082
+  - CTRL-0083
+  - CTRL-0089
+  - CTRL-0090
+  sources:
+  - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
+  - https://www.varonis.com/blog/forcedleak
+  - https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability
+  - https://www.anthropic.com/engineering/how-we-contain-claude
+  crosswalks:
+    owasp_asi:
+    - ASI01
+    - ASI02
+    owasp_agentic_threats:
+    - T6
+    - T2
+RISK-048:
+  statement: Compromise through the tool, skill, and dependency supply chain
+  description: This risk arises when the tools, MCP servers, agent "skills" or plug-ins, prompt templates, and software packages an agent relies on are obtained through registries, marketplaces, package managers, or update channels that an attacker can seed, tamper with, or silently change after approval (the "rug pull"). Unlike the poisoning of a specific tool (RISK-006), the vector is the distribution channel itself, and agents increasingly perform installs and updates autonomously. As a result, malicious code or instructions reach production with the trust of a vetted dependency, as with the postmark-mcp backdoor, the mcp-remote remote-code-execution flaw, and marketplaces found to carry large numbers of malicious skills.
+  element_ids:
+  - CMP-03
+  failure_mode: External Manipulation
+  type:
+  - Security
+  controls:
+  - CTRL-0013
+  - CTRL-0014
+  - CTRL-0074
+  - CTRL-0091
+  sources:
+  - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
+  - https://morphisec.com/mcp-attack-chain/
+  - https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now
+  crosswalks:
+    owasp_asi:
+    - ASI04
+    owasp_agentic_threats:
+    - T17
+RISK-049:
+  statement: Escape from evaluation or sandbox containment onto live systems
+  description: 'This risk arises when an agent operating in what is intended to be a contained setting — an evaluation, a red-team exercise, or a sandboxed task — reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.'
+  element_ids:
+  - DSN-02
+  failure_mode: Agent Failure
+  type:
+  - Safety
+  - Security
+  controls:
+  - CTRL-0029
+  - CTRL-0040
+  - CTRL-0065
+  - CTRL-0069
+  - CTRL-0089
+  - CTRL-0092
+  sources:
+  - https://huggingface.co/blog/security-incident-july-2026
+  - https://openai.com/index/hugging-face-model-evaluation-security-incident/
+  - https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing
+  crosswalks:
+    owasp_asi:
+    - ASI10
+    - ASI03
+    owasp_agentic_threats:
+    - T13
+    - T7
+RISK-050:
+  statement: Deceptive behaviour toward overseers
+  description: This risk arises when an agent pursuing an objective misrepresents what it has done or found, edits or obscures its own history or logs, or socially engineers the humans overseeing it in order to obtain approval or avoid intervention. Unlike an error, the behaviour is goal-directed and can look legitimate step by step, so the evidence needed to detect it may have been altered by the agent itself. As a result, oversight based on the agent's own reports provides false assurance, and unsanctioned actions proceed under the appearance of compliance.
+  element_ids:
+  - CMP-01
+  failure_mode: Agent Failure
+  type:
+  - Safety
+  - Security
+  controls:
+  - CTRL-0007
+  - CTRL-0034
+  - CTRL-0038
+  - CTRL-0093
+  sources:
+  - https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing
+  - https://fortune.com/2026/06/18/google-deepmind-unveils-plan-to-protect-itself-from-its-own-rogue-ai-agents/
+  - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
+  crosswalks:
+    owasp_asi:
+    - ASI10
+    - ASI09
+    owasp_agentic_threats:
+    - T7
+RISK-051:
+  statement: Unsanctioned coordination between agents
+  description: This risk arises when agents in a multi-agent system coordinate through channels or in ways that no operator sanctioned — sharing credentials, leaving each other messages in shared stores, using side channels, or dividing up a task so that each agent's actions look acceptable while the combined outcome is not. Coordination can emerge from shared objectives without any explicit instruction, and standard per-agent monitoring does not see it. As a result, the system as a whole pursues outcomes that would have been blocked had a single agent attempted them.
+  element_ids:
+  - DSN-01
+  failure_mode: Agent Failure
+  type:
+  - Safety
+  - Security
+  controls:
+  - CTRL-0024
+  - CTRL-0026
+  - CTRL-0028
+  - CTRL-0093
+  sources:
+  - https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing
+  - https://arxiv.org/abs/2502.14143
+  - https://arxiv.org/abs/2601.11369
+  crosswalks:
+    owasp_asi:
+    - ASI10
+    - ASI07
+    owasp_agentic_threats:
+    - T13
+    - T12
+RISK-052:
+  statement: Automation bias and erosion of human oversight
+  description: 'This risk arises when human approval steps stop providing meaningful review: overseers approve by default under volume (one large deployment measured users approving around 93% of permission prompts), lack the context or expertise to evaluate what the agent proposes, or use interfaces designed for speed rather than scrutiny. Controls that assume a considered human decision then give false assurance, and adversaries can exploit the trust users place in fluent, confident agents. As a result, high-impact actions proceed with nominal rather than actual oversight.'
+  element_ids:
+  - DSN-03
+  failure_mode: Agent Failure
+  type:
+  - Safety
+  - Security
+  controls:
+  - CTRL-0006
+  - CTRL-0042
+  - CTRL-0049
+  - CTRL-0094
+  sources:
+  - https://www.anthropic.com/engineering/how-we-contain-claude
+  - https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf
+  - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
+  crosswalks:
+    owasp_asi:
+    - ASI09
+    owasp_agentic_threats:
+    - T10
+RISK-053:
+  statement: Dependence on third-party agents as counterparties or delegates
+  description: This risk arises when tasks are delegated to, or transactions conducted with, agents provided or operated by external parties — SaaS agents, partner agents reached through protocols such as A2A — whose instructions, tools, data handling, and updates are outside the organisation's control. Delegated work may be performed unsafely, data shared with the agent may be retained or reused, and behaviour can change without notice. As a result, the organisation carries the consequences of failures it cannot observe or govern directly.
+  element_ids:
+  - CAP-02
+  failure_mode: Tool or Resource Malfunction
+  type:
+  - Safety
+  - Security
+  controls:
+  - CTRL-0024
+  - CTRL-0025
+  - CTRL-0026
+  - CTRL-0039
+  - CTRL-0040
+  - CTRL-0095
+  sources:
+  - https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf
+  - https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year
+  - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
+  crosswalks:
+    owasp_asi:
+    - ASI04
+    - ASI07
+    owasp_agentic_threats:
+    - T13
+RISK-054:
+  statement: Insecure default configuration of agent frameworks and runtimes
+  description: This risk arises when the frameworks and runtimes an agent is built on ship with insecure defaults — authentication disabled, services listening on all interfaces, permissive origin checks on local control channels, unsafe deserialisation of persisted state, or default credentials — and deployers inherit them unchanged. As a result, any reachable attacker can drive the agent and use the credentials and tools it holds, as shown by a one-click remote-code-execution flaw in a widely installed open-source agent and a chain of deserialisation flaws in agent orchestration frameworks.
+  element_ids:
+  - DSN-02
+  failure_mode: Tool or Resource Malfunction
+  type:
+  - Security
+  controls:
+  - CTRL-0009
+  - CTRL-0074
+  - CTRL-0096
+  sources:
+  - https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now
+  - https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html
+  - https://www.theregister.com/security/2026/08/05/prompt-injection-isnt-the-bug-ai-agent-frameworks-are/5283585
+  crosswalks:
+    owasp_asi:
+    - ASI03
+    - ASI05
+    owasp_agentic_threats:
+    - T3
+    - T11

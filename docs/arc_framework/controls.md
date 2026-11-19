@@ -58,7 +58,7 @@ Next, we categorise the control into three levels based on its criticality:
     2. **CTRL-0061** [Level 1] Use structured retrieval APIs for web searches rather than web scraping → *reduces exposure to malicious web content and injection vectors*
     3. **CTRL-0062** [Level 0] Implement input guardrails to detect prompt injection and adversarial attacks → *reduces likelihood of prompt injection attack succeeding*
 
-Our [Interactive Risk Register](risk-register.md) provides **recommended controls** for each of the 46 documented risks to help organizations get started.
+Our [Interactive Risk Register](risk-register.md) provides **recommended controls** for each of the 54 documented risks to help organizations get started.
 
 ---
 

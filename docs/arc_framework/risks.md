@@ -110,6 +110,6 @@ While combining **elements**, **failure modes**, and **hazards** helps brainstor
 For instance, "tool or resource malfunction" does not sensibly apply to the "instructions" component.
 Organizations should exercise discretion and retain only risks supported by **academic research** or **industry case studies**.
 
-We provide a comprehensive [**Interactive Risk Register**](risk-register.md) that documents 46 risks across all elements of agentic systems, each backed by real-world examples or academic studies.
+We provide a comprehensive [**Interactive Risk Register**](risk-register.md) that documents 54 risks across all elements of agentic systems, each backed by real-world examples or academic studies.
 The register includes recommended controls for each risk and serves as a practical starting point for organizations.
 It should be **continuously updated** as the field of agentic AI evolves.

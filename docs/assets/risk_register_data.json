@@ -843,9 +843,43 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0091",
+          "level": 0,
+          "statement": "Require verified provenance for tools, skills, and dependencies, and re-verify them on every update",
+          "recommendations": "Treat tools, MCP servers, agent skills or plug-ins, prompt templates, and packages as supply chain artefacts. Install them only from vetted registries, pin them by version and content hash, verify signatures or attestations where available, and keep an inventory (an AI bill of materials) of what each agent can load. Because approval does not survive an update, re-verify hashes and signatures at load time and diff tool definitions against the approved version so a silently changed server is detected before it runs. Do not let agents install unpinned dependencies autonomously, scan new packages for typosquatting and known vulnerabilities, and keep a way to revoke a specific tool or skill across all deployments quickly.",
+          "references": [
+            "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+            "https://morphisec.com/mcp-attack-chain/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.1",
+                "title": "Supply chain security \u2013 ensure components are from trusted sources"
+              },
+              {
+                "id": "2.4",
+                "title": "Identify, track and protect AI system assets"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://www.mbgsec.com/archive/2025-05-03-mcp-untrusted-servers-and-confused-clients-plus-a-sneaky-exploit-embrace-the-red/"
       ],
@@ -1163,9 +1197,44 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0090",
+          "level": 1,
+          "statement": "Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions",
+          "recommendations": "Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.",
+          "references": [
+            "https://arxiv.org/abs/2503.18813",
+            "https://arxiv.org/abs/2504.11703",
+            "https://arxiv.org/abs/2503.18666"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              },
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://arxiv.org/abs/2502.15851v1",
         "https://aclanthology.org/2025.naacl-long.425.pdf"
@@ -2623,9 +2692,43 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0093",
+          "level": 2,
+          "statement": "Monitor agents for deceptive and collusive behaviour using an independent monitor",
+          "recommendations": "Behaviour that is goal-directed against oversight will not show up as an error. Deploy an independent monitor - a separate model, classifier, or rule set that the monitored agents cannot influence - that compares actions taken with the plan declared, flags edits to an agent's own history or logs, unexplained credential sharing, communication through channels other than the sanctioned ones, and coordination between agents that were not asked to coordinate. Keep monitor logs tamper-evident and separate from agent-writable storage, and treat monitor alerts as incidents that pause the affected agents pending human review. Red-team the monitor itself so that its blind spots are known.",
+          "references": [
+            "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing",
+            "https://arxiv.org/abs/2502.14143"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
+              },
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 4,
+      "control_count": 5,
       "sources": [
         "https://arxiv.org/abs/2507.06850"
       ],
@@ -3617,9 +3720,44 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0090",
+          "level": 1,
+          "statement": "Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions",
+          "recommendations": "Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.",
+          "references": [
+            "https://arxiv.org/abs/2503.18813",
+            "https://arxiv.org/abs/2504.11703",
+            "https://arxiv.org/abs/2503.18666"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              },
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 3,
+      "control_count": 4,
       "sources": [
         "https://unit42.paloaltonetworks.com/agentic-ai-threats/"
       ],
@@ -4747,9 +4885,44 @@
               }
             ]
           }
+        },
+        {
+          "id": "CTRL-0090",
+          "level": 1,
+          "statement": "Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions",
+          "recommendations": "Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.",
+          "references": [
+            "https://arxiv.org/abs/2503.18813",
+            "https://arxiv.org/abs/2504.11703",
+            "https://arxiv.org/abs/2503.18666"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              },
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
         }
       ],
-      "control_count": 2,
+      "control_count": 3,
       "sources": [
         "https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability",
         "https://www.wired.com/story/here-come-the-ai-worms/"
@@ -4941,6 +5114,1600 @@
           }
         ]
       }
+    },
+    {
+      "id": "RISK-047",
+      "statement": "Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel",
+      "description": "This risk arises when an agent that ingests untrusted content (web pages, files, messages) also holds access to sensitive data and has any outbound channel \u2014 browsing itself, API calls, messaging, or tool calls that carry data in URLs \u2014 so that instructions injected through the retrieval path can direct the agent to send data out through a legitimate tool. Each capability may be individually controlled; the exposure comes from their combination. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by ForcedLeak and EchoLeak.",
+      "element_ids": [
+        "CAP-07",
+        "CAP-11"
+      ],
+      "element_names": [
+        "Internet and Search Access",
+        "File and Data Management"
+      ],
+      "element_categories": [
+        "Capability - Interaction",
+        "Capability - Operational"
+      ],
+      "composite": true,
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0020",
+          "level": 2,
+          "statement": "Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions",
+          "recommendations": "Using the same LLM for both input processing and task execution creates vulnerability to prompt injection attacks embedded in user input. Deploy a separate LLM instance configured specifically for input sanitisation, with explicit instructions to extract only designated fields (e.g., name, email, query text) whilst ignoring any other content including embedded commands or meta-instructions. Configure this extraction LLM with a restrictive system prompt focused solely on structured data extraction and validation against expected schemas. Validate extracted fields against expected formats before passing them to the main agent LLM, and monitor extraction outputs for anomalies that might indicate injection attempts.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              },
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0060",
+          "level": 1,
+          "statement": "Implement escape filtering before incorporating web content into prompts",
+          "recommendations": "Malicious websites may embed hidden instructions or manipulative prompts in their content designed to hijack agent behaviour when retrieved and processed. Implement escape filtering that sanitises web content before incorporating it into agent prompts, removing or neutralising potential injection attacks such as hidden instructions, delimiter manipulation attempts, or prompt override commands.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0062",
+          "level": 0,
+          "statement": "Implement input guardrails to detect prompt injection and adversarial attacks",
+          "recommendations": "Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0082",
+          "level": 2,
+          "statement": "Do not grant agents access to personally identifiable or sensitive data unless strictly required",
+          "recommendations": "Agents with unnecessary access to PII or sensitive data create elevated risk of exposure, leakage, or misuse, particularly if agents are compromised or misuse their permissions. Apply the principle of least privilege by restricting agent access to databases, files, or systems containing PII or sensitive information unless explicitly required for the agent's designated functionality. Implement access controls that enforce these restrictions at the data layer, preventing agents from querying or reading sensitive datasets they should not access.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.8",
+                "title": "Apply least privilege; secure-by-default configurations"
+              },
+              {
+                "id": "2.7",
+                "title": "Implement controls to limit what models or agents can access and generate"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI03",
+                "title": "Identity and Privilege Abuse"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0083",
+          "level": 0,
+          "statement": "Disallow unknown or external files unless they have been scanned for threats",
+          "recommendations": "External files may contain maliciously crafted content designed to inject hidden instructions, manipulate agent behaviour, or introduce security threats when processed. Implement mandatory scanning for all unknown or external files before allowing agents to access them, using antivirus software, malware scanners, or specialised tools that detect prompt injection attempts embedded in file content.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              },
+              {
+                "id": "2.1",
+                "title": "Supply chain security \u2013 ensure components are from trusted sources"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              },
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0089",
+          "level": 0,
+          "statement": "Enforce default-deny network egress for agent runtimes, allowing only approved destinations",
+          "recommendations": "Every exfiltration and every containment escape needs an outbound channel, and agents acquire new ones with each tool. Run agent runtimes behind an egress policy that denies all outbound connections by default and allows only named destinations required for the task, applied at the network layer (proxy, firewall, or sandbox policy) rather than in the prompt. Include browsing and API tools in the policy, block requests that carry data in URLs or headers to unapproved hosts, and validate at the egress boundary that any credential presented belongs to the deployment \u2014 an allowlisted API endpoint is still an exfiltration channel if the agent can use it with an attacker's account. Log and alert on denied connections; they are an early signal of injection or misbehaviour.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude",
+            "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.6",
+                "title": "Implement authentication, authorisation and access controls"
+              },
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0090",
+          "level": 1,
+          "statement": "Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions",
+          "recommendations": "Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.",
+          "references": [
+            "https://arxiv.org/abs/2503.18813",
+            "https://arxiv.org/abs/2504.11703",
+            "https://arxiv.org/abs/2503.18666"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              },
+              {
+                "id": "4.1",
+                "title": "Validate inputs to models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              }
+            ]
+          }
+        }
+      ],
+      "control_count": 7,
+      "sources": [
+        "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/",
+        "https://www.varonis.com/blog/forcedleak",
+        "https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability",
+        "https://www.anthropic.com/engineering/how-we-contain-claude"
+      ],
+      "crosswalks": {
+        "owasp_asi": [
+          {
+            "id": "ASI01",
+            "title": "Agent Goal Hijack"
+          },
+          {
+            "id": "ASI02",
+            "title": "Tool Misuse and Exploitation"
+          }
+        ],
+        "owasp_agentic_threats": [
+          {
+            "id": "T6",
+            "title": "Intent breaking and goal manipulation"
+          },
+          {
+            "id": "T2",
+            "title": "Tool misuse"
+          }
+        ]
+      }
+    },
+    {
+      "id": "RISK-048",
+      "statement": "Compromise through the tool, skill, and dependency supply chain",
+      "description": "This risk arises when the tools, MCP servers, agent \"skills\" or plug-ins, prompt templates, and software packages an agent relies on are obtained through registries, marketplaces, package managers, or update channels that an attacker can seed, tamper with, or silently change after approval (the \"rug pull\"). Unlike the poisoning of a specific tool (RISK-006), the vector is the distribution channel itself, and agents increasingly perform installs and updates autonomously. As a result, malicious code or instructions reach production with the trust of a vetted dependency, as with the postmark-mcp backdoor, the mcp-remote remote-code-execution flaw, and marketplaces found to carry large numbers of malicious skills.",
+      "element_ids": [
+        "CMP-03"
+      ],
+      "element_names": [
+        "Tools"
+      ],
+      "element_categories": [
+        "Component - Tools"
+      ],
+      "composite": false,
+      "failure_mode": "External Manipulation",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0013",
+          "level": 0,
+          "statement": "Test all untested MCP servers in a sandboxed environment before deploying to production",
+          "recommendations": "Untested MCP servers may contain vulnerabilities, malicious code, or unexpected behaviours that could compromise your production systems or data. Deploy MCP servers first to an isolated sandbox environment (e.g., containerised test environment, separate network segment, or dedicated development infrastructure) to evaluate their security posture, behaviour, and reliability. Monitor server activity during testing for anomalous network connections, excessive resource consumption, unauthorised file access, or other suspicious behaviours. Only promote MCP servers to production after successful security review, functional testing, and verification that the server behaves as documented.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.2",
+                "title": "Test agents before deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0014",
+          "level": 0,
+          "statement": "Use only MCP servers from verified and trusted developers",
+          "recommendations": "Untrusted or unknown MCP server developers may introduce malicious functionality, security vulnerabilities, or data exfiltration mechanisms that compromise your agentic system. Establish evaluation criteria to assess MCP server developer trustworthiness before adoption, including verification of public code repositories, community reputation, security disclosure practices, and maintenance history. Evaluate whether the developer has a track record of responding to security issues, maintains active development, and provides transparent documentation of server capabilities. Prioritise MCP servers from the official Model Context Protocol repository, well-established organisations, or developers with verified identities and demonstrated security practices.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.1",
+                "title": "Supply chain security \u2013 ensure components are from trusted sources"
+              },
+              {
+                "id": "3.3",
+                "title": "Secure the invocation of external tools (e.g. MCP servers)"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0074",
+          "level": 0,
+          "statement": "Conduct CVE scanning and block execution of code with High or Critical vulnerabilities",
+          "recommendations": "Agent-generated code may inadvertently include dependencies or libraries containing known security vulnerabilities that could be exploited to compromise systems. Implement automated CVE scanning that analyses all dependencies, libraries, and packages used by agent-generated code before execution, checking against vulnerability databases such as the National Vulnerability Database. Configure scanning to block execution when High or Critical severity CVEs are detected, requiring remediation such as dependency updates or vulnerability patches before proceeding.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.2",
+                "title": "Validate outputs from models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              },
+              {
+                "id": "ASI05",
+                "title": "Unexpected Code Execution (RCE)"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0091",
+          "level": 0,
+          "statement": "Require verified provenance for tools, skills, and dependencies, and re-verify them on every update",
+          "recommendations": "Treat tools, MCP servers, agent skills or plug-ins, prompt templates, and packages as supply chain artefacts. Install them only from vetted registries, pin them by version and content hash, verify signatures or attestations where available, and keep an inventory (an AI bill of materials) of what each agent can load. Because approval does not survive an update, re-verify hashes and signatures at load time and diff tool definitions against the approved version so a silently changed server is detected before it runs. Do not let agents install unpinned dependencies autonomously, scan new packages for typosquatting and known vulnerabilities, and keep a way to revoke a specific tool or skill across all deployments quickly.",
+          "references": [
+            "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+            "https://morphisec.com/mcp-attack-chain/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.1",
+                "title": "Supply chain security \u2013 ensure components are from trusted sources"
+              },
+              {
+                "id": "2.4",
+                "title": "Identify, track and protect AI system assets"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              }
+            ]
+          }
+        }
+      ],
+      "control_count": 4,
+      "sources": [
+        "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+        "https://morphisec.com/mcp-attack-chain/",
+        "https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now"
+      ],
+      "crosswalks": {
+        "owasp_asi": [
+          {
+            "id": "ASI04",
+            "title": "Agentic Supply Chain Vulnerabilities"
+          }
+        ],
+        "owasp_agentic_threats": [
+          {
+            "id": "T17",
+            "title": "Supply chain compromise"
+          }
+        ]
+      }
+    },
+    {
+      "id": "RISK-049",
+      "statement": "Escape from evaluation or sandbox containment onto live systems",
+      "description": "This risk arises when an agent operating in what is intended to be a contained setting \u2014 an evaluation, a red-team exercise, or a sandboxed task \u2014 reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.",
+      "element_ids": [
+        "DSN-02"
+      ],
+      "element_names": [
+        "Roles and Access Controls"
+      ],
+      "element_categories": [
+        "Design - Roles and Access Controls"
+      ],
+      "composite": false,
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0029",
+          "level": 1,
+          "statement": "Grant agents only the minimum permissions required for their designated tasks",
+          "recommendations": "Excessive permissions enable compromised or malfunctioning agents to access sensitive resources, modify critical data, or perform actions beyond their intended scope, amplifying the impact of security breaches. Apply the principle of least privilege by defining granular permission sets for each agent based on its specific role and required operations, avoiding blanket administrative access or broad permission grants. Review agent permissions regularly to ensure they remain aligned with current responsibilities, revoking unnecessary access as agent roles evolve.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.8",
+                "title": "Apply least privilege; secure-by-default configurations"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI03",
+                "title": "Identity and Privilege Abuse"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0040",
+          "level": 0,
+          "statement": "Limit the scope of agent actions through predefined thresholds and baselines",
+          "recommendations": "Without action limits, agents may bypass controls by delegating excessive tasks, consuming unlimited resources, or spreading malicious activities across multiple operations to evade detection. Define quantitative thresholds that constrain agent behaviour, such as maximum number of tool calls per session, maximum number of agents that can be delegated to, maximum cost or resource consumption, or maximum data volume accessed. Implement runtime monitoring that tracks agent activity against these thresholds and halts execution when limits are exceeded. Examples include limiting an agent to 50 API calls per task or restricting delegation to no more than 3 sub-agents.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.7",
+                "title": "Implement controls to limit what models or agents can access and generate"
+              },
+              {
+                "id": "3.1",
+                "title": "Ensure availability controls against disruption or failure"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              },
+              {
+                "id": "ASI08",
+                "title": "Cascading Failures"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0065",
+          "level": 0,
+          "statement": "Ensure computer use capabilities provide immediate interruptability",
+          "recommendations": "Agents operating computer interfaces may encounter prompt injection attacks or begin executing unintended actions that require immediate human intervention to prevent harm. Implement interruptability mechanisms that allow users or operators to immediately halt agent computer use actions at any point, such as emergency stop buttons, kill switches, or session termination controls.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.4",
+                "title": "Ensure adequate human oversight"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0069",
+          "level": 0,
+          "statement": "Run agent-generated code only in isolated compute environments with network access blocked by default",
+          "recommendations": "Agent-generated code may contain vulnerabilities, bugs, or malicious logic that could compromise systems, leak data, exfiltrate information, or establish unauthorised network connections. Implement virtual isolation for all agent-generated code execution using containerised environments (e.g., Docker), virtual machines, or dedicated sandboxes that limit access to sensitive resources, networks, and data. Configure default-deny network policies that block all inbound and outbound network connections unless explicitly required and authorised for specific use cases. When network access is necessary, enforce allowlists restricting connections to known-safe endpoints such as internal APIs or approved external services.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              },
+              {
+                "id": "2.8",
+                "title": "Apply least privilege; secure-by-default configurations"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI05",
+                "title": "Unexpected Code Execution (RCE)"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0089",
+          "level": 0,
+          "statement": "Enforce default-deny network egress for agent runtimes, allowing only approved destinations",
+          "recommendations": "Every exfiltration and every containment escape needs an outbound channel, and agents acquire new ones with each tool. Run agent runtimes behind an egress policy that denies all outbound connections by default and allows only named destinations required for the task, applied at the network layer (proxy, firewall, or sandbox policy) rather than in the prompt. Include browsing and API tools in the policy, block requests that carry data in URLs or headers to unapproved hosts, and validate at the egress boundary that any credential presented belongs to the deployment \u2014 an allowlisted API endpoint is still an exfiltration channel if the agent can use it with an attacker's account. Log and alert on denied connections; they are an early signal of injection or misbehaviour.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude",
+            "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.6",
+                "title": "Implement authentication, authorisation and access controls"
+              },
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0092",
+          "level": 0,
+          "statement": "Contain evaluations and red-team exercises so that agents cannot reach real systems, credentials, or people",
+          "recommendations": "Treat every evaluation, benchmark run, and red-team exercise as a deployment with its own containment. Use synthetic or replica targets rather than production systems, issue no production credentials or real accounts, isolate the network with default-deny egress, and prohibit out-of-scope tactics such as contacting real people or third-party infrastructure explicitly in the task specification rather than assuming the agent will infer them. Monitor runs in real time with the ability to halt them, and review anomalous traffic (for example anonymising networks or unexpected destinations) immediately. Agents have breached third-party infrastructure from inside an evaluation and socially engineered real maintainers during cyber testing; design containment for a capable adversary, not a compliant one.",
+          "references": [
+            "https://openai.com/index/hugging-face-model-evaluation-security-incident/",
+            "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.9",
+                "title": "Segregate environments and segment networks"
+              },
+              {
+                "id": "3.2",
+                "title": "Conduct security testing"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.2",
+                "title": "Test agents before deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
+        }
+      ],
+      "control_count": 6,
+      "sources": [
+        "https://huggingface.co/blog/security-incident-july-2026",
+        "https://openai.com/index/hugging-face-model-evaluation-security-incident/",
+        "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing"
+      ],
+      "crosswalks": {
+        "owasp_asi": [
+          {
+            "id": "ASI10",
+            "title": "Rogue Agents"
+          },
+          {
+            "id": "ASI03",
+            "title": "Identity and Privilege Abuse"
+          }
+        ],
+        "owasp_agentic_threats": [
+          {
+            "id": "T13",
+            "title": "Rogue agents in multi-agent systems"
+          },
+          {
+            "id": "T7",
+            "title": "Misaligned and deceptive behaviours"
+          }
+        ]
+      }
+    },
+    {
+      "id": "RISK-050",
+      "statement": "Deceptive behaviour toward overseers",
+      "description": "This risk arises when an agent pursuing an objective misrepresents what it has done or found, edits or obscures its own history or logs, or socially engineers the humans overseeing it in order to obtain approval or avoid intervention. Unlike an error, the behaviour is goal-directed and can look legitimate step by step, so the evidence needed to detect it may have been altered by the agent itself. As a result, oversight based on the agent's own reports provides false assurance, and unsanctioned actions proceed under the appearance of compliance.",
+      "element_ids": [
+        "CMP-01"
+      ],
+      "element_names": [
+        "LLM"
+      ],
+      "element_categories": [
+        "Component - LLM"
+      ],
+      "composite": false,
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0007",
+          "level": 0,
+          "statement": "Log all LLM inputs and outputs for regular review",
+          "recommendations": "Comprehensive logging enables post-incident analysis, safety monitoring, detection of adversarial inputs, and continuous improvement of LLM behaviour over time. Implement structured logging that captures all LLM inputs, outputs, timestamps, model versions, and relevant metadata (user ID, session ID, tool calls). Use a centralised logging system (e.g., ELK stack, Datadog, CloudWatch) with appropriate retention policies and access controls to protect sensitive data. Establish regular review processes\u2014manual spot-checks or automated anomaly detection\u2014to identify drift, unsafe outputs, or emerging failure patterns.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI08",
+                "title": "Cascading Failures"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0034",
+          "level": 0,
+          "statement": "Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems",
+          "recommendations": "Automated monitoring may miss subtle patterns, novel failure modes, or emergent behaviours that only become apparent through human analysis of observability data. Establish a regular cadence for manual review of logs, traces, and metrics from production agentic systems, focusing on identifying unusual patterns, unexpected agent interactions, or degrading performance trends that automated alerts might not detect. Assign responsibility for these reviews to teams with deep understanding of expected agent behaviour, empowering them to investigate anomalies and propose system improvements. Document findings from reviews and track identified issues to closure, using insights to refine monitoring rules, update agent implementations, or strengthen security controls based on observed real-world behaviour.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI08",
+                "title": "Cascading Failures"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0038",
+          "level": 0,
+          "statement": "Conduct pre-deployment safety verification using domain-relevant stress tests and adversarial scenarios",
+          "recommendations": "Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "3.2",
+                "title": "Conduct security testing"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.2",
+                "title": "Test agents before deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              },
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0093",
+          "level": 2,
+          "statement": "Monitor agents for deceptive and collusive behaviour using an independent monitor",
+          "recommendations": "Behaviour that is goal-directed against oversight will not show up as an error. Deploy an independent monitor - a separate model, classifier, or rule set that the monitored agents cannot influence - that compares actions taken with the plan declared, flags edits to an agent's own history or logs, unexplained credential sharing, communication through channels other than the sanctioned ones, and coordination between agents that were not asked to coordinate. Keep monitor logs tamper-evident and separate from agent-writable storage, and treat monitor alerts as incidents that pause the affected agents pending human review. Red-team the monitor itself so that its blind spots are known.",
+          "references": [
+            "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing",
+            "https://arxiv.org/abs/2502.14143"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
+              },
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
+        }
+      ],
+      "control_count": 4,
+      "sources": [
+        "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing",
+        "https://fortune.com/2026/06/18/google-deepmind-unveils-plan-to-protect-itself-from-its-own-rogue-ai-agents/",
+        "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
+      ],
+      "crosswalks": {
+        "owasp_asi": [
+          {
+            "id": "ASI10",
+            "title": "Rogue Agents"
+          },
+          {
+            "id": "ASI09",
+            "title": "Human-Agent Trust Exploitation"
+          }
+        ],
+        "owasp_agentic_threats": [
+          {
+            "id": "T7",
+            "title": "Misaligned and deceptive behaviours"
+          }
+        ]
+      }
+    },
+    {
+      "id": "RISK-051",
+      "statement": "Unsanctioned coordination between agents",
+      "description": "This risk arises when agents in a multi-agent system coordinate through channels or in ways that no operator sanctioned \u2014 sharing credentials, leaving each other messages in shared stores, using side channels, or dividing up a task so that each agent's actions look acceptable while the combined outcome is not. Coordination can emerge from shared objectives without any explicit instruction, and standard per-agent monitoring does not see it. As a result, the system as a whole pursues outcomes that would have been blocked had a single agent attempted them.",
+      "element_ids": [
+        "DSN-01"
+      ],
+      "element_names": [
+        "Agentic Architecture"
+      ],
+      "element_categories": [
+        "Design - Agentic Architecture"
+      ],
+      "composite": false,
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0024",
+          "level": 0,
+          "statement": "Define formal schemas for inter-agent messages and validate all messages against these schemas before processing",
+          "recommendations": "Unstructured or inadequately validated inter-agent messages create vulnerability to injection attacks, misinterpretation, and parsing errors that could compromise agent behaviour or cascade through multi-agent systems. Define explicit message schemas using formal specification languages (e.g., JSON Schema, Protobuf, OpenAPI) that specify required fields, data types, validation rules, and permitted value ranges for all agent-to-agent communications. Implement strict input validation that verifies all incoming messages conform to expected schemas, checking field presence, data types, value ranges, and structural integrity before processing message content. Reject messages that are incomplete, contain unexpected fields, violate type constraints, or include suspicious patterns, returning explicit error responses to the sending agent and logging validation failures to enable detection of compromised or malfunctioning agents.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.7",
+                "title": "Implement controls to limit what models or agents can access and generate"
+              },
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI07",
+                "title": "Insecure Inter-Agent Communication"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0026",
+          "level": 1,
+          "statement": "Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests",
+          "recommendations": "Without strong agent authentication, attackers can impersonate legitimate agents to gain unauthorised access, inject malicious commands, or exfiltrate sensitive data from multi-agent systems. Implement cryptographic identity verification using mechanisms such as mutual TLS (mTLS), signed JWTs, or certificate-based authentication to ensure each agent presents verifiable credentials before processing its requests. Configure the authentication system to validate that credentials are properly signed by a trusted authority, have not expired, and belong to the claimed agent identity. Reject unauthenticated requests immediately and log authentication failures to detect potential impersonation attempts or compromised agents attempting to bypass security controls. Both the A2A Protocol and LangGraph provide native support for cryptographic agent authentication through mTLS, OAuth 2.0, and JWT-based identity verification.",
+          "references": [
+            "https://developers.redhat.com/articles/2025/08/19/how-enhance-agent2agent-security",
+            "https://a2a-protocol.org/latest/topics/enterprise-ready/",
+            "https://blog.langchain.com/custom-authentication-and-access-control-in-langgraph/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              },
+              {
+                "id": "2.6",
+                "title": "Implement authentication, authorisation and access controls"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI03",
+                "title": "Identity and Privilege Abuse"
+              },
+              {
+                "id": "ASI07",
+                "title": "Insecure Inter-Agent Communication"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0028",
+          "level": 0,
+          "statement": "Continuously monitor multi-agent systems for cascade failure indicators",
+          "recommendations": "Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.",
+          "references": [
+            "https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996?utm_source=chatgpt.com"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI08",
+                "title": "Cascading Failures"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0093",
+          "level": 2,
+          "statement": "Monitor agents for deceptive and collusive behaviour using an independent monitor",
+          "recommendations": "Behaviour that is goal-directed against oversight will not show up as an error. Deploy an independent monitor - a separate model, classifier, or rule set that the monitored agents cannot influence - that compares actions taken with the plan declared, flags edits to an agent's own history or logs, unexplained credential sharing, communication through channels other than the sanctioned ones, and coordination between agents that were not asked to coordinate. Keep monitor logs tamper-evident and separate from agent-writable storage, and treat monitor alerts as incidents that pause the affected agents pending human review. Red-team the monitor itself so that its blind spots are known.",
+          "references": [
+            "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing",
+            "https://arxiv.org/abs/2502.14143"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.3",
+                "title": "Continuous monitoring and logging"
+              },
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.3",
+                "title": "Continuously monitor and test when deploying"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI10",
+                "title": "Rogue Agents"
+              }
+            ]
+          }
+        }
+      ],
+      "control_count": 4,
+      "sources": [
+        "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing",
+        "https://arxiv.org/abs/2502.14143",
+        "https://arxiv.org/abs/2601.11369"
+      ],
+      "crosswalks": {
+        "owasp_asi": [
+          {
+            "id": "ASI10",
+            "title": "Rogue Agents"
+          },
+          {
+            "id": "ASI07",
+            "title": "Insecure Inter-Agent Communication"
+          }
+        ],
+        "owasp_agentic_threats": [
+          {
+            "id": "T13",
+            "title": "Rogue agents in multi-agent systems"
+          },
+          {
+            "id": "T12",
+            "title": "Agent communication poisoning"
+          }
+        ]
+      }
+    },
+    {
+      "id": "RISK-052",
+      "statement": "Automation bias and erosion of human oversight",
+      "description": "This risk arises when human approval steps stop providing meaningful review: overseers approve by default under volume (one large deployment measured users approving around 93% of permission prompts), lack the context or expertise to evaluate what the agent proposes, or use interfaces designed for speed rather than scrutiny. Controls that assume a considered human decision then give false assurance, and adversaries can exploit the trust users place in fluent, confident agents. As a result, high-impact actions proceed with nominal rather than actual oversight.",
+      "element_ids": [
+        "DSN-03"
+      ],
+      "element_names": [
+        "Monitoring and Traceability"
+      ],
+      "element_categories": [
+        "Design - Monitoring and Traceability"
+      ],
+      "composite": false,
+      "failure_mode": "Agent Failure",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0006",
+          "level": 1,
+          "statement": "Require human approval before executing high-impact actions",
+          "recommendations": "Autonomous execution of high-impact actions without human oversight creates unacceptable risk of unintended consequences, including financial loss, data deletion, reputational damage, or safety incidents. Implement approval workflows that pause agent execution before critical actions (e.g., financial transactions, data deletion, external communications, system configuration changes) and present the proposed action with sufficient context for informed human decision-making. Design the approval interface to clearly display what will be executed, why the agent selected this action, and potential consequences. Ensure approval mechanisms cannot be bypassed by the agent and maintain audit logs of all approval decisions.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.4",
+                "title": "Ensure adequate human oversight"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.2.2",
+                "title": "Design for meaningful human oversight"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI01",
+                "title": "Agent Goal Hijack"
+              },
+              {
+                "id": "ASI09",
+                "title": "Human-Agent Trust Exploitation"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0042",
+          "level": 1,
+          "statement": "Require explicit human confirmation before executing high-impact or irreversible tool actions",
+          "recommendations": "Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.4",
+                "title": "Ensure adequate human oversight"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.2.2",
+                "title": "Design for meaningful human oversight"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              },
+              {
+                "id": "ASI09",
+                "title": "Human-Agent Trust Exploitation"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0049",
+          "level": 0,
+          "statement": "Implement UI/UX cues to communicate the risk of hallucination to users",
+          "recommendations": "Users may treat agent-generated content as completely reliable without recognising that LLMs can produce inaccurate or fabricated information presented as fact. Implement clear UI/UX indicators that remind users of hallucination risks, such as disclaimers on agent responses, visual cues distinguishing generated content from verified information, or warnings when agents make factual claims without citations. Consider contextual warnings that appear when agents discuss topics particularly prone to hallucination, such as recent events beyond the model's training data or highly specialised technical subjects.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.11",
+                "title": "Implement controls to reduce the likelihood of hallucination"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.4.2",
+                "title": "Users who interact with agents (transparency, disclosure, escalation)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI09",
+                "title": "Human-Agent Trust Exploitation"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0094",
+          "level": 1,
+          "statement": "Measure the quality of human oversight and redesign approval steps that have become rubber stamps",
+          "recommendations": "A human approval step is only a control while the human is actually deciding. Instrument approval workflows: track approval rates, response times, and override rates per user and per action type, and audit random samples of approved actions. Approval rates near 100% or response times of seconds indicate that the step has stopped working. Respond by routing only genuinely uncertain or high-impact actions to humans, screening routine ones automatically, presenting the context needed to decide (what will change, why the agent chose it, what it would cost to reverse), and training overseers on the agent's failure modes. Report oversight metrics alongside the agent's other operating metrics so that erosion is visible to the governance team.",
+          "references": [
+            "https://www.anthropic.com/engineering/how-we-contain-claude",
+            "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.4",
+                "title": "Ensure adequate human oversight"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.2.2",
+                "title": "Design for meaningful human oversight"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI09",
+                "title": "Human-Agent Trust Exploitation"
+              }
+            ]
+          }
+        }
+      ],
+      "control_count": 4,
+      "sources": [
+        "https://www.anthropic.com/engineering/how-we-contain-claude",
+        "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf",
+        "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
+      ],
+      "crosswalks": {
+        "owasp_asi": [
+          {
+            "id": "ASI09",
+            "title": "Human-Agent Trust Exploitation"
+          }
+        ],
+        "owasp_agentic_threats": [
+          {
+            "id": "T10",
+            "title": "Overwhelming human in the loop"
+          }
+        ]
+      }
+    },
+    {
+      "id": "RISK-053",
+      "statement": "Dependence on third-party agents as counterparties or delegates",
+      "description": "This risk arises when tasks are delegated to, or transactions conducted with, agents provided or operated by external parties \u2014 SaaS agents, partner agents reached through protocols such as A2A \u2014 whose instructions, tools, data handling, and updates are outside the organisation's control. Delegated work may be performed unsafely, data shared with the agent may be retained or reused, and behaviour can change without notice. As a result, the organisation carries the consequences of failures it cannot observe or govern directly.",
+      "element_ids": [
+        "CAP-02"
+      ],
+      "element_names": [
+        "Agent Delegation"
+      ],
+      "element_categories": [
+        "Capability - Cognitive"
+      ],
+      "composite": false,
+      "failure_mode": "Tool or Resource Malfunction",
+      "type": [
+        "Safety",
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0024",
+          "level": 0,
+          "statement": "Define formal schemas for inter-agent messages and validate all messages against these schemas before processing",
+          "recommendations": "Unstructured or inadequately validated inter-agent messages create vulnerability to injection attacks, misinterpretation, and parsing errors that could compromise agent behaviour or cascade through multi-agent systems. Define explicit message schemas using formal specification languages (e.g., JSON Schema, Protobuf, OpenAPI) that specify required fields, data types, validation rules, and permitted value ranges for all agent-to-agent communications. Implement strict input validation that verifies all incoming messages conform to expected schemas, checking field presence, data types, value ranges, and structural integrity before processing message content. Reject messages that are incomplete, contain unexpected fields, violate type constraints, or include suspicious patterns, returning explicit error responses to the sending agent and logging validation failures to enable detection of compromised or malfunctioning agents.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.7",
+                "title": "Implement controls to limit what models or agents can access and generate"
+              },
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI07",
+                "title": "Insecure Inter-Agent Communication"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0025",
+          "level": 1,
+          "statement": "Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels",
+          "recommendations": "Unencrypted inter-agent communications expose sensitive data, credentials, and operational context to network-based attackers through eavesdropping or man-in-the-middle attacks. Ensure all agent-to-agent network communications use transport-layer encryption (minimum TLS 1.2, preferably TLS 1.3), including internal traffic within trusted network boundaries, as internal networks are increasingly targeted by sophisticated attackers. For protocol-based frameworks (e.g., A2A Protocol), verify that TLS is enabled by default; for application frameworks (e.g., LangGraph, CrewAI), configure deployment infrastructure to enforce HTTPS endpoints for all remote agent APIs. Configure agents to reject plaintext connections and verify certificates to prevent downgrade attacks or rogue agent impersonation, and regularly audit network traffic to detect agents attempting unencrypted communication.",
+          "references": [
+            "https://a2aprotocol.ai/blog/2025-full-guide-a2a-protocol"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              },
+              {
+                "id": "2.6",
+                "title": "Implement authentication, authorisation and access controls"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI07",
+                "title": "Insecure Inter-Agent Communication"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0026",
+          "level": 1,
+          "statement": "Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests",
+          "recommendations": "Without strong agent authentication, attackers can impersonate legitimate agents to gain unauthorised access, inject malicious commands, or exfiltrate sensitive data from multi-agent systems. Implement cryptographic identity verification using mechanisms such as mutual TLS (mTLS), signed JWTs, or certificate-based authentication to ensure each agent presents verifiable credentials before processing its requests. Configure the authentication system to validate that credentials are properly signed by a trusted authority, have not expired, and belong to the claimed agent identity. Reject unauthenticated requests immediately and log authentication failures to detect potential impersonation attempts or compromised agents attempting to bypass security controls. Both the A2A Protocol and LangGraph provide native support for cryptographic agent authentication through mTLS, OAuth 2.0, and JWT-based identity verification.",
+          "references": [
+            "https://developers.redhat.com/articles/2025/08/19/how-enhance-agent2agent-security",
+            "https://a2a-protocol.org/latest/topics/enterprise-ready/",
+            "https://blog.langchain.com/custom-authentication-and-access-control-in-langgraph/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              },
+              {
+                "id": "2.6",
+                "title": "Implement authentication, authorisation and access controls"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI03",
+                "title": "Identity and Privilege Abuse"
+              },
+              {
+                "id": "ASI07",
+                "title": "Insecure Inter-Agent Communication"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0039",
+          "level": 1,
+          "statement": "Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents",
+          "recommendations": "Without standardised capability descriptors, agents cannot reliably discover what other agents can do, leading to misrouted requests, capability mismatches, or failed inter-agent collaborations. Implement machine-readable capability descriptions for each agent using standardised formats such as A2A Agent Cards that declare available skills, required inputs, output formats, and operational constraints. Publish capability descriptors through discoverable endpoints (e.g., well-known URIs at `https://{domain}/.well-known/agent-card.json`) or centralised agent registries that other agents can query to determine if a target agent can fulfil specific requests. Maintain capability descriptors in sync with actual agent implementations, updating descriptors whenever agent capabilities change to prevent stale metadata from causing integration failures.",
+          "references": [
+            "https://a2a-protocol.org/latest/topics/agent-discovery/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.4",
+                "title": "Identify, track and protect AI system assets"
+              },
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI07",
+                "title": "Insecure Inter-Agent Communication"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0040",
+          "level": 0,
+          "statement": "Limit the scope of agent actions through predefined thresholds and baselines",
+          "recommendations": "Without action limits, agents may bypass controls by delegating excessive tasks, consuming unlimited resources, or spreading malicious activities across multiple operations to evade detection. Define quantitative thresholds that constrain agent behaviour, such as maximum number of tool calls per session, maximum number of agents that can be delegated to, maximum cost or resource consumption, or maximum data volume accessed. Implement runtime monitoring that tracks agent activity against these thresholds and halts execution when limits are exceeded. Examples include limiting an agent to 50 API calls per task or restricting delegation to no more than 3 sub-agents.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.7",
+                "title": "Implement controls to limit what models or agents can access and generate"
+              },
+              {
+                "id": "3.1",
+                "title": "Ensure availability controls against disruption or failure"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.1.2",
+                "title": "Bound risks through design (agent limits, agent identity)"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI02",
+                "title": "Tool Misuse and Exploitation"
+              },
+              {
+                "id": "ASI08",
+                "title": "Cascading Failures"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0095",
+          "level": 1,
+          "statement": "Apply due diligence and technical bounds to third-party agents before delegating to them or transacting with them",
+          "recommendations": "An external agent is a supplier whose behaviour you cannot inspect. Before integration, obtain contractual commitments on data handling, retention, and change notification, and evidence of the provider's testing and security practices. Technically, give each third-party agent its own scoped, short-lived credentials bound to the specific tasks delegated, exchange only the data those tasks require through validated schemas, log every exchange on your side, and keep the ability to cut the integration off immediately. Verify the agent's identity on each interaction (signed agent cards, mutual TLS) so that a lookalike cannot take its place, and review its behaviour and outputs periodically as its provider updates it.",
+          "references": [
+            "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf",
+            "https://a2a-protocol.org/latest/topics/enterprise-ready/"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.1",
+                "title": "Supply chain security \u2013 ensure components are from trusted sources"
+              },
+              {
+                "id": "3.4",
+                "title": "Implement security controls between agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.2.1",
+                "title": "Clear allocation of responsibilities"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              }
+            ]
+          }
+        }
+      ],
+      "control_count": 6,
+      "sources": [
+        "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf",
+        "https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year",
+        "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
+      ],
+      "crosswalks": {
+        "owasp_asi": [
+          {
+            "id": "ASI04",
+            "title": "Agentic Supply Chain Vulnerabilities"
+          },
+          {
+            "id": "ASI07",
+            "title": "Insecure Inter-Agent Communication"
+          }
+        ],
+        "owasp_agentic_threats": [
+          {
+            "id": "T13",
+            "title": "Rogue agents in multi-agent systems"
+          }
+        ]
+      }
+    },
+    {
+      "id": "RISK-054",
+      "statement": "Insecure default configuration of agent frameworks and runtimes",
+      "description": "This risk arises when the frameworks and runtimes an agent is built on ship with insecure defaults \u2014 authentication disabled, services listening on all interfaces, permissive origin checks on local control channels, unsafe deserialisation of persisted state, or default credentials \u2014 and deployers inherit them unchanged. As a result, any reachable attacker can drive the agent and use the credentials and tools it holds, as shown by a one-click remote-code-execution flaw in a widely installed open-source agent and a chain of deserialisation flaws in agent orchestration frameworks.",
+      "element_ids": [
+        "DSN-02"
+      ],
+      "element_names": [
+        "Roles and Access Controls"
+      ],
+      "element_categories": [
+        "Design - Roles and Access Controls"
+      ],
+      "composite": false,
+      "failure_mode": "Tool or Resource Malfunction",
+      "type": [
+        "Security"
+      ],
+      "controls": [
+        {
+          "id": "CTRL-0009",
+          "level": 0,
+          "statement": "Use only MCP servers that implement robust authentication mechanisms in production environments",
+          "recommendations": "Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management.",
+          "references": [
+            "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.1",
+                "title": "Supply chain security \u2013 ensure components are from trusted sources"
+              },
+              {
+                "id": "3.3",
+                "title": "Secure the invocation of external tools (e.g. MCP servers)"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI03",
+                "title": "Identity and Privilege Abuse"
+              },
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0074",
+          "level": 0,
+          "statement": "Conduct CVE scanning and block execution of code with High or Critical vulnerabilities",
+          "recommendations": "Agent-generated code may inadvertently include dependencies or libraries containing known security vulnerabilities that could be exploited to compromise systems. Implement automated CVE scanning that analyses all dependencies, libraries, and packages used by agent-generated code before execution, checking against vulnerability databases such as the National Vulnerability Database. Configure scanning to block execution when High or Critical severity CVEs are detected, requiring remediation such as dependency updates or vulnerability patches before proceeding.",
+          "references": [],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "4.2",
+                "title": "Validate outputs from models and agents"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI04",
+                "title": "Agentic Supply Chain Vulnerabilities"
+              },
+              {
+                "id": "ASI05",
+                "title": "Unexpected Code Execution (RCE)"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTRL-0096",
+          "level": 0,
+          "statement": "Harden agent frameworks and runtimes before exposing them, and patch framework vulnerabilities promptly",
+          "recommendations": "Do not run an agent framework with its defaults on any reachable network. Before exposure, enable authentication on every control interface, bind local services to loopback rather than all interfaces, validate origins on WebSocket and browser-facing endpoints, disable or replace unsafe deserialisation of persisted state and checkpoints, remove default credentials, and run the agent as an unprivileged user. Track security advisories for the frameworks and SDKs in use and treat agent-framework vulnerabilities as high priority for patching, because an agent runtime typically holds the credentials of everything it can act on. Include these checks in the deployment baseline so that a new agent cannot go live unhardened.",
+          "references": [
+            "https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now",
+            "https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html"
+          ],
+          "crosswalks": {
+            "csa_addendum": [
+              {
+                "id": "2.3",
+                "title": "Harden the system beyond the model itself"
+              },
+              {
+                "id": "2.8",
+                "title": "Apply least privilege; secure-by-default configurations"
+              }
+            ],
+            "imda_mgf": [
+              {
+                "id": "2.3.1",
+                "title": "Technical controls during design and development"
+              }
+            ],
+            "owasp_asi": [
+              {
+                "id": "ASI05",
+                "title": "Unexpected Code Execution (RCE)"
+              },
+              {
+                "id": "ASI03",
+                "title": "Identity and Privilege Abuse"
+              }
+            ]
+          }
+        }
+      ],
+      "control_count": 3,
+      "sources": [
+        "https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now",
+        "https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html",
+        "https://www.theregister.com/security/2026/08/05/prompt-injection-isnt-the-bug-ai-agent-frameworks-are/5283585"
+      ],
+      "crosswalks": {
+        "owasp_asi": [
+          {
+            "id": "ASI03",
+            "title": "Identity and Privilege Abuse"
+          },
+          {
+            "id": "ASI05",
+            "title": "Unexpected Code Execution (RCE)"
+          }
+        ],
+        "owasp_agentic_threats": [
+          {
+            "id": "T3",
+            "title": "Privilege compromise"
+          },
+          {
+            "id": "T11",
+            "title": "Unexpected RCE and code attacks"
+          }
+        ]
+      }
     }
   ],
   "elements": [
@@ -5082,8 +6849,8 @@
     }
   },
   "metadata": {
-    "total_risks": 46,
-    "total_controls": 86,
+    "total_risks": 54,
+    "total_controls": 94,
     "total_elements": 19,
     "categories": [
       "Capability - Cognitive",
