@@ -8,6 +8,9 @@ for the website and nothing else:
 - assets/risk_register_data.json: the data behind the interactive register
   page, shaped for display (each risk carries copies of its controls)
 - arc_framework/crosswalks.md: the generated Crosswalks page
+- arc_framework/register-full-text.md: every risk and control as plain text, one
+  linkable section per entry, for readers and agents that don't run JavaScript
+- llms.txt: an index of the site for LLM agents (https://llmstxt.org)
 
 Neither is committed. MkDocs generates them at build time through
 scripts/mkdocs_hooks.py, so the site can never serve a stale copy. Run this
@@ -29,6 +32,10 @@ DATA_DIR = Path(__file__).parent.parent / 'arc-risk-register'
 # Site paths (relative to docs/) of the generated files
 JSON_PATH = 'assets/risk_register_data.json'
 CROSSWALKS_PATH = 'arc_framework/crosswalks.md'
+FULL_TEXT_PATH = 'arc_framework/register-full-text.md'
+LLMS_TXT_PATH = 'llms.txt'
+SITE_URL = 'https://govtech-responsibleai.github.io/agentic-risk-capability-framework/'
+RAW_URL = 'https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework'
 
 
 class RegisterInvalid(Exception):
@@ -237,6 +244,155 @@ def build_risk_register_data():
 
     return output
 
+LEVEL_LABELS = {0: 'Level 0 · Cardinal', 1: 'Level 1 · Standard', 2: 'Level 2 · Best Practice'}
+
+
+def _crosswalk_line(crosswalks, references):
+    parts = [f"{FRAMEWORK_SHORT.get(fw, fw)} {', '.join(map(str, ids))}"
+             for fw, ids in (crosswalks or {}).items() if ids and fw in references]
+    return '; '.join(parts)
+
+
+def build_full_text_page(risks, controls, capabilities, components, design, hazards, references, register):
+    """Render the full-text register (arc_framework/register-full-text.md): one linkable section per entry."""
+    elements = {}
+    for eid, e in components.items():
+        elements[eid] = ('Component', e)
+    for eid, e in design.items():
+        elements[eid] = ('Design', e)
+    for eid, e in capabilities.items():
+        elements[eid] = (f"Capability ({e.get('category', '')})", e)
+
+    def element_label(eid):
+        kind, e = elements[eid]
+        return f"{kind.split(' (')[0]}: {e['name']} ({eid})"
+
+    lines = [
+        '---',
+        'hide:',
+        '  - toc',
+        '---',
+        '',
+        '# Risk Register (full text)',
+        '',
+        '<!-- Generated at build time from arc-risk-register/*.yaml by scripts/build_risk_register.py; there is no source file to edit -->',
+        '',
+        '!!! abstract "Page Summary"',
+        '',
+        f"    Every risk and control in ARC risk register **v{register['version']}** (released {register['released']}), "
+        'as plain text generated from the register\'s YAML. Each entry has its own link: append its ID, '
+        'e.g. [`#RISK-034`](#RISK-034) or [`#CTRL-0062`](#CTRL-0062). The [Interactive Risk Register](risk-register.md) '
+        'has the same content with filters; the machine-readable source is the '
+        f"[register YAML](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/v{register['version']}/arc-risk-register).",
+        '',
+        f"**Contents:** [Risks](#risks) ({len(risks)}, grouped by the element they arise from) · [Controls](#controls) ({len(controls)})",
+        '',
+        '## Risks { #risks }',
+        '',
+        'Each risk arises from one or more [elements](elements.md) through one failure mode, and results in one or more '
+        'hazards. A risk that lists several elements arises from their combination and applies only when all of them are present.',
+    ]
+
+    groups = {}
+    for rid, r in risks.items():
+        ids = r.get('element_ids', [])
+        key = ids[0] if len(ids) == 1 else 'combination'
+        groups.setdefault(key, []).append(rid)
+    order = [eid for eid in elements if eid in groups] + (['combination'] if 'combination' in groups else [])
+
+    for key in order:
+        if key == 'combination':
+            lines += ['', '### Combinations of elements', '']
+        else:
+            lines += ['', f"### {element_label(key)}", '', f"*{elements[key][1].get('description', '').strip()}*"]
+        for rid in groups[key]:
+            r = risks[rid]
+            hz = ', '.join(f"{hazards[h]['name']} ({h})" for h in r.get('hazards', []) if h in hazards)
+            lines += [
+                '',
+                f"#### {rid} · {r['statement']} {{ #{rid} }}",
+                '',
+                f"**Arises from:** {' + '.join(element_label(e) for e in r.get('element_ids', []))}  ",
+                f"**Failure mode:** {r.get('failure_mode', '')} · **Type:** {', '.join(r.get('type', []))} · **Hazards:** {hz}",
+                '',
+                r.get('description', '').strip(),
+                '',
+                '**Controls:**',
+                '',
+            ]
+            for cid in r.get('controls', []):
+                c = controls[cid]
+                lines.append(f"- [{cid}](#{cid}) ({LEVEL_LABELS.get(c['level'], c['level'])}): {c['statement']}")
+            if r.get('sources'):
+                lines += ['', '**Sources:** ' + ' · '.join(f'<{u}>' if str(u).startswith('http') else str(u) for u in r['sources'])]
+            cw = _crosswalk_line(r.get('crosswalks'), references)
+            if cw:
+                lines += ['', f"**Crosswalks:** {cw}"]
+
+    lines += ['', '## Controls { #controls }', '',
+              'Level 0 controls are cardinal, Level 1 standard and Level 2 best practice; '
+              '[Controls → Control levels](controls.md#control-levels) defines when each applies.']
+    for cid, c in controls.items():
+        lines += [
+            '',
+            f"### {cid} · {c['statement']} {{ #{cid} }}",
+            '',
+            f"**{LEVEL_LABELS.get(c['level'], c['level'])}** · **Mitigates:** "
+            + ', '.join(f'[{rid}](#{rid})' for rid in c.get('risks', [])),
+            '',
+            (c.get('recommendations') or '*No implementation guidance recorded.*').strip(),
+        ]
+        if c.get('references'):
+            lines += ['', '**References:** ' + ' · '.join(f'<{u}>' if str(u).startswith('http') else str(u) for u in c['references'])]
+        cw = _crosswalk_line(c.get('crosswalks'), references)
+        if cw:
+            lines += ['', f"**Crosswalks:** {cw}"]
+    return '\n'.join(lines) + '\n'
+
+
+
+def build_llms_txt(register):
+    """Render llms.txt (https://llmstxt.org): an index of the site for LLM agents, pinned to the register version."""
+    v = register['version']
+    site = SITE_URL
+    raw = f"{RAW_URL}/v{v}/arc-risk-register"
+    return f"""# Agentic Risk & Capability (ARC) Framework
+
+> A technical governance framework from GovTech Singapore for identifying, assessing, and mitigating safety and security risks in agentic AI systems. ARC derives a system's risks from its components, design, and capabilities, and maps each risk to technical controls. Risk register version {v}.
+
+ARC describes an agentic system by three kinds of element: components (LLM, instructions, tools, memory), design (agentic architecture, roles and access controls, monitoring and traceability), and twelve capabilities, such as code execution, internet and search access, official communication, and business transactions. Each risk in the register arises from one or more elements through one of three failure modes, results in safety or security hazards, and is mapped to controls at Level 0 (cardinal), Level 1 (standard), or Level 2 (best practice).
+
+ARC is meant to be adapted: an organisation contextualises the baseline register to its own setting, and teams then assess individual systems against that version. When citing ARC, give the register version and the entry ID (for example RISK-034 or CTRL-0062).
+
+## Framework
+
+- [Introduction]({site}arc_framework/introduction/): motivation, the capability-based approach, and related work
+- [Elements]({site}arc_framework/elements/): definitions of the components, design elements, and twelve capabilities
+- [Risks]({site}arc_framework/risks/): failure modes and hazards
+- [Controls]({site}arc_framework/controls/): what the control levels mean and when they apply
+- [Risk Register (full text)]({site}arc_framework/register-full-text/): every risk and control, one linkable section per entry
+
+## Implementation
+
+- [Implementing ARC]({site}implementation/): the two-stage methodology
+- [For governance teams]({site}implementation/for-governance-teams/): contextualising ARC for an organisation
+- [For AI developers]({site}implementation/for-ai-developers/): assessing a system, with worked examples
+- [Assessment template]({site}implementation/assessment-template/)
+
+## Register data
+
+- [risks.yaml]({raw}/risks.yaml) and [controls.yaml]({raw}/controls.yaml): the machine-readable register at v{v}
+- [capabilities.yaml]({raw}/capabilities.yaml), [components.yaml]({raw}/components.yaml), [design.yaml]({raw}/design.yaml), [hazards.yaml]({raw}/hazards.yaml): elements and hazard categories
+- [Changelog]({site}arc_framework/changelog/): what changed in each version, and the versioning policy
+
+## Optional
+
+- [Crosswalks]({site}arc_framework/crosswalks/): mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the CSA Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
+- [Paper](https://arxiv.org/abs/2512.22211): "With Great Capabilities Come Great Responsibilities", IASEAI'26 main track
+- [ARCvisor]({site}resources/#arcvisor): an assistant that walks a team through an assessment
+"""
+
+
 def generate():
     """Validate the register and return ({site path: content}, validator warnings).
 
@@ -250,7 +406,12 @@ def generate():
     data = build_risk_register_data()
     page = build_crosswalks_page(load_yaml('risks.yaml'), load_yaml('controls.yaml'),
                                  load_yaml('crosswalk_references.yaml'), load_yaml('register.yaml'))
-    return {JSON_PATH: json.dumps(data, indent=2), CROSSWALKS_PATH: page}, warnings
+    full_text = build_full_text_page(
+        load_yaml('risks.yaml'), load_yaml('controls.yaml'), load_yaml('capabilities.yaml'),
+        load_yaml('components.yaml'), load_yaml('design.yaml'), load_yaml('hazards.yaml'),
+        load_yaml('crosswalk_references.yaml'), load_yaml('register.yaml'))
+    return {JSON_PATH: json.dumps(data, indent=2), CROSSWALKS_PATH: page, FULL_TEXT_PATH: full_text,
+            LLMS_TXT_PATH: build_llms_txt(load_yaml('register.yaml'))}, warnings
 
 
 def main():

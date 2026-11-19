@@ -6,7 +6,7 @@ Beyond the [technical governance framework](../arc_framework/introduction.md) an
 | --- | --- | --- |
 | [ARCvisor Tool](#arcvisor) | AI governance teams, developers | Web-based risk assessment workflow with 50%+ time savings |
 | [Technical Paper](../assets/ARC_Framework-Paper-IASEAI_2026.pdf) | AI governance teams, academia | In-depth technical details and research foundations |
-| [Baseline Risk Register](../arc_framework/risk-register.md) | AI governance teams, developers | Interactive exploration of 54 risks and 94 controls ([machine-readable YAML](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/arc-risk-register)) |
+| [Baseline Risk Register](../arc_framework/risk-register.md) | AI governance teams, developers | Interactive exploration of 54 risks and 94 controls ([full text](../arc_framework/register-full-text.md); [machine-readable YAML](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/arc-risk-register)) |
 | [Assessment Template](../implementation/assessment-template.md) | AI developers, governance teams | Record of a per-system assessment: capabilities, applicable risks, controls with evidence, residual risks, sign-off |
 | [Changelog](../arc_framework/changelog.md) | Everyone using the register | What changed in each register version, and the versioning policy |
 | Presentation slides (pending) | General AI-literate audience | High-level overview of the ARC framework |
