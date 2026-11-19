@@ -22,19 +22,20 @@ cp -r /tmp/arc/skills/arc-assessment ~/.claude/skills/      # or <project>/.clau
 
 Other agents that support Agent Skills load the same folder from their own skills directory. For an agent without skills support, point it at `SKILL.md`.
 
-The script needs Python 3.9+ and PyYAML (`pip install pyyaml`, or `uv run scripts/arc.py ...`), and network access to `raw.githubusercontent.com` unless `--register` is a local directory.
+The script needs only Python 3.9+. It uses PyYAML if installed, and otherwise a built-in parser that CI checks against PyYAML on every register file. It needs network access to `raw.githubusercontent.com` unless `--register` is a local directory; release files are cached in `ARC_CACHE_DIR` (default `~/.cache/arc-assessment/`), so an assessment pinned with `--version` keeps working offline.
 
 ### Use
 
 Ask the agent, for example, "assess this agent with ARC" or "which ARC controls does this system still need?". The script can also be run directly:
 
 ```bash
-python skills/arc-assessment/scripts/arc.py elements
-python skills/arc-assessment/scripts/arc.py assess --capabilities CAP-03,CAP-07,CAP-11
-python skills/arc-assessment/scripts/arc.py show RISK-047 CTRL-0089
-python skills/arc-assessment/scripts/arc.py --register ./our-arc-register assess --capabilities CAP-02,CAP-06
+python3 skills/arc-assessment/scripts/arc.py elements
+python3 skills/arc-assessment/scripts/arc.py assess --capabilities CAP-03,CAP-07,CAP-11
+python3 skills/arc-assessment/scripts/arc.py --version 1.4.0 assess --capabilities CAP-03,CAP-07,CAP-11 --priority RISK-034,RISK-047
+python3 skills/arc-assessment/scripts/arc.py show RISK-047 CTRL-0089 CAP-07
+python3 skills/arc-assessment/scripts/arc.py --register ./our-arc-register assess --capabilities CAP-02,CAP-06
 ```
 
 ### Maintenance
 
-`skills/tests/test_arc_assessment.py` runs in CI against this repository's register. It checks that the script's applicability logic still matches the register (baseline risks, capability risks, risks from combinations of elements) and that it accepts an organisation register using the older single `element_id` field.
+`skills/tests/test_arc_assessment.py` runs in CI against this repository's register. It checks that the script's applicability logic and controls-in-scope still match the register, that its built-in YAML parser reads every register file exactly as PyYAML does, that it runs without PyYAML, that the template comes out as plain Markdown, and that it accepts an organisation register using the older single `element_id` field.

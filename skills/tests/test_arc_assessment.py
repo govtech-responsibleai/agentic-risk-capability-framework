@@ -59,8 +59,9 @@ def test_applicability_matches_register_rules():
 
 
 def test_show_and_elements():
-    out = json.loads(run("--register", str(REGISTER), "show", "RISK-034", "CTRL-0062", "--format", "json"))
-    assert [e["id"] for e in out["entries"]] == ["RISK-034", "CTRL-0062"]
+    out = json.loads(run("--register", str(REGISTER), "show", "RISK-034", "CTRL-0062", "CAP-07", "--format", "json"))
+    assert [e["id"] for e in out["entries"]] == ["RISK-034", "CTRL-0062", "CAP-07"]
+    assert "RISK-034" in out["entries"][2]["risks"]
     elements = json.loads(run("--register", str(REGISTER), "elements", "--format", "json"))
     assert sum(e["kind"] == "Capability" for e in elements["elements"]) == 12
 
@@ -82,8 +83,52 @@ def test_organisation_register_with_single_element_id():
         assert "RISK-034" in {r["id"] for r in result["risks"]["capability"]}
 
 
+def test_builtin_yaml_parser_matches_pyyaml():
+    """Without PyYAML the script uses its own parser; it must read every register file exactly as PyYAML does."""
+    for f in sorted(REGISTER.glob("*.yaml")):
+        if f.stem.endswith("-wog"):
+            continue
+        text = f.read_text()
+        assert arc.mini_yaml_load(text) == yaml.safe_load(text), f.name
+
+
+def test_runs_without_pyyaml():
+    with_pyyaml = assess(["CAP-07", "CAP-11"])
+    saved, arc.yaml = arc.yaml, None
+    try:
+        assert assess(["CAP-07", "CAP-11"]) == with_pyyaml
+    finally:
+        arc.yaml = saved
+
+
+def test_priority_lists_controls_in_scope():
+    risks = yaml.safe_load((REGISTER / "risks.yaml").read_text())
+    controls = yaml.safe_load((REGISTER / "controls.yaml").read_text())
+    caps = ["CAP-07", "CAP-11"]
+    applicable = [r["id"] for g in assess(caps)["risks"].values() for r in g]
+    priority = ["RISK-034"]
+    out = json.loads(run("--register", str(REGISTER), "assess", "--capabilities", ",".join(caps),
+                         "--priority", ",".join(priority), "--format", "json"))
+    expected = {c for rid in applicable for c in risks[rid]["controls"]
+                if controls[c]["level"] == 0 or rid in priority}
+    assert {c["id"] for c in out["controls_in_scope"]} == expected
+    assert len(out["controls_in_scope"]) == len(expected), "each control in scope should appear once"
+
+
+def test_template_is_plain_markdown():
+    page = (REPO / "docs" / "implementation" / "assessment-template.md").read_text()
+    plain = arc.plain_markdown(page)
+    assert "!!!" not in plain and "???" not in plain
+    assert "](../" not in plain and ".md)" not in plain
+    assert arc.SITE + "arc_framework/changelog/" in plain
+
+
 if __name__ == "__main__":
     test_applicability_matches_register_rules()
     test_show_and_elements()
     test_organisation_register_with_single_element_id()
+    test_builtin_yaml_parser_matches_pyyaml()
+    test_runs_without_pyyaml()
+    test_priority_lists_controls_in_scope()
+    test_template_is_plain_markdown()
     print("ALL PASSED")
