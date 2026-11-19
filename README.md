@@ -36,6 +36,7 @@ In practice, a governance team adapts the baseline register to its organisation,
 ## Using the register
 
 - **Browse** the [interactive register](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/risk-register/), filterable by element, failure mode, risk type, and hazard, with full-text search.
+- **Read or link** the [full-text register](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/register-full-text/): every risk and control as plain text, with a link per entry (e.g. `#RISK-034`). It needs no JavaScript, so agents and search engines can read it too.
 - **Machine-readable:** the YAML in [`arc-risk-register/`](arc-risk-register/) *is* the register, and the format to build on. It is the single source for both the website and ARCvisor, with one file per kind of entry (risks, controls, elements, hazards, crosswalk references) cross-referenced by ID, and the version in `register.yaml`. The JSON the website loads is generated from it at build time for the interactive page; its shape may change, so don't depend on it.
 - **Pin a version:** each release is tagged `v<version>` (e.g. `v1.3.0`). The [changelog](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/changelog/) explains the versioning policy and how to cite a specific version.
 
@@ -49,7 +50,7 @@ In practice, a governance team adapts the baseline register to its organisation,
 | --- | --- |
 | [`arc-risk-register/`](arc-risk-register/) | The register: risks, controls, elements, hazards, crosswalk references, and the register version |
 | [`docs/`](docs/) | The website ([MkDocs Material](https://squidfunk.github.io/mkdocs-material/)) |
-| [`scripts/`](scripts/) | Validator, and the MkDocs hook that generates the site's register JSON and Crosswalks page at build time |
+| [`scripts/`](scripts/) | Validator, and the MkDocs hook that generates the site's register JSON, Crosswalks page, and full-text register at build time |
 | [`app/`](app/) | ARCvisor |
 | [`iaseai26.tex`](iaseai26.tex) | Source of the IASEAI'26 paper |
 | [`archive/`](archive/) | Earlier versions of the site, kept for reference |
