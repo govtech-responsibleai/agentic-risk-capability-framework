@@ -20,6 +20,14 @@ Rules that hold across versions:
 - Each release to the `main` branch is tagged `v<version>` on GitHub; the register YAML for any version can be retrieved from the tag.
 - To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.3.0.* followed by the site URL.
 
+## 1.4.0 — in preparation { #v1-4-0 }
+
+Applicability: a risk should apply only to systems that have the elements it arises from.
+
+- **Multi-agent risks need Agent Delegation.** RISK-012 (cascading errors), RISK-013 (man-in-the-middle attacks between agents) and RISK-051 (unsanctioned coordination) now arise from the agentic architecture (DSN-01) *together with* Agent Delegation (CAP-02), so a single-agent system no longer carries them or their multi-agent controls. Agent Delegation now states that it covers workflows with fixed hand-offs and agents operated by other parties, including counterparties, so these risks apply across organisational boundaries too.
+- **Runaway behaviour covers single agents.** RISK-014 stays a baseline risk, rewritten to include an agent acting on its own outputs without bound. It now carries CTRL-0040 (action thresholds) instead of CTRL-0028 (multi-agent cascade monitoring), which stays on RISK-012 and RISK-051, so every system keeps the kill switch (CTRL-0065) and action limits. The agentic architecture element (DSN-01) now includes a single agent's plan–act–observe loop.
+- Register: 54 risks and 94 controls (unchanged); baseline risks 24 → 21. Multi-agent systems carry the same risks and Level 0 controls as before.
+
 ## 1.3.0 — November 2026 { #v1-3-0 }
 
 Consolidation release: no change to the framework's model. Published to the site together with 1.2.0.

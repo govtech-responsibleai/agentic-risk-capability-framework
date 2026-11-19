@@ -38,7 +38,7 @@ Capabilities are system-level: if any agent has one, the system has it. Include 
 
 ## 2. Applicable risks
 
-List **every applicable risk**: all baseline risks (components CMP-01 to CMP-04 and design DSN-01 to DSN-03 — 24 in register 1.3.0), each capability risk for a capability marked present, and each composite risk whose capabilities are *all* present. Score each; a risk is a **priority** when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.
+List **every applicable risk**: all baseline risks (those arising only from components CMP-01 to CMP-04 and design elements DSN-01 to DSN-03 — 21 in register 1.4.0), each capability risk for a capability marked present, and each composite risk whose capabilities are *all* present. Score each; a risk is a **priority** when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.
 
 | Risk ID | Statement | Element(s) | Contextualised description (how it would materialise here) | Impact (1–5) | Likelihood (1–5) | Priority? |
 | --- | --- | --- | --- | --- | --- | --- |
