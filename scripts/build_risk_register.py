@@ -1,18 +1,38 @@
 #!/usr/bin/env python3
 """
-Build script to convert YAML data to JSON for interactive risk register.
-This merges risks, controls, capabilities, components, and design elements.
+Generate the website's views of the ARC risk register from its YAML source.
+
+The YAML in arc-risk-register/ is the register. This module derives two files
+for the website and nothing else:
+
+- assets/risk_register_data.json: the data behind the interactive register
+  page, shaped for display (each risk carries copies of its controls)
+- arc_framework/crosswalks.md: the generated Crosswalks page
+
+Neither is committed. MkDocs generates them at build time through
+scripts/mkdocs_hooks.py, so the site can never serve a stale copy. Run this
+script directly to validate and preview, or with --out DIR to write the files.
 """
 
-import yaml
+import argparse
 import json
+import sys
 from pathlib import Path
+
+import yaml
+
+sys.path.insert(0, str(Path(__file__).parent))
+import validate_risk_register  # noqa: E402
 
 # Define paths
 DATA_DIR = Path(__file__).parent.parent / 'arc-risk-register'
-DOCS_DIR = Path(__file__).parent.parent / 'docs'
-OUTPUT_FILE = DOCS_DIR / 'assets' / 'risk_register_data.json'
-CROSSWALKS_PAGE = DOCS_DIR / 'arc_framework' / 'crosswalks.md'
+# Site paths (relative to docs/) of the generated files
+JSON_PATH = 'assets/risk_register_data.json'
+CROSSWALKS_PATH = 'arc_framework/crosswalks.md'
+
+
+class RegisterInvalid(Exception):
+    """The register failed validation, so nothing can be generated from it."""
 
 def load_yaml(filename):
     """Load a YAML file and return the data."""
@@ -37,7 +57,7 @@ FRAMEWORK_SHORT = {
 
 
 def build_crosswalks_page(risks, controls, references, register):
-    """Render docs/arc_framework/crosswalks.md from the register (generated file)."""
+    """Render the Crosswalks page (arc_framework/crosswalks.md) from the register."""
     def entries_for(section, framework):
         """external ID -> list of (entry_id, statement)"""
         table = {str(k): [] for k in references[framework]['ids']}
@@ -52,7 +72,7 @@ def build_crosswalks_page(risks, controls, references, register):
     lines = [
         '# Crosswalks to other frameworks',
         '',
-        '<!-- GENERATED FILE: edit arc-risk-register/*.yaml and run scripts/build_risk_register.py -->',
+        '<!-- Generated at build time from arc-risk-register/*.yaml by scripts/build_risk_register.py; there is no source file to edit -->',
         '',
         '!!! abstract "Page Summary"',
         '',
@@ -217,40 +237,44 @@ def build_risk_register_data():
 
     return output
 
-def main():
-    """Main execution."""
-    print("Validating risk register...")
-    import validate_risk_register
+def generate():
+    """Validate the register and return ({site path: content}, validator warnings).
+
+    Raises RegisterInvalid if the register has validation errors.
+    """
     errors, warnings = validate_risk_register.validate()
+    if errors:
+        raise RegisterInvalid(
+            f'{len(errors)} validation error(s) in the risk register:\n'
+            + '\n'.join(f'  - {e}' for e in errors))
+    data = build_risk_register_data()
+    page = build_crosswalks_page(load_yaml('risks.yaml'), load_yaml('controls.yaml'),
+                                 load_yaml('crosswalk_references.yaml'), load_yaml('register.yaml'))
+    return {JSON_PATH: json.dumps(data, indent=2), CROSSWALKS_PATH: page}, warnings
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('--out', type=Path, help='write the generated files under this directory')
+    args = parser.parse_args()
+
+    try:
+        files, warnings = generate()
+    except RegisterInvalid as e:
+        raise SystemExit(f'✗ {e}')
     for w in warnings:
         print(f'  warning: {w}')
-    if errors:
-        for e in errors:
-            print(f'  ERROR: {e}')
-        raise SystemExit(f'✗ Refusing to build: {len(errors)} validation error(s) in the risk register')
 
-    print("Building risk register data...")
+    meta = json.loads(files[JSON_PATH])['metadata']
+    print(f"✓ Register {meta['version']} is valid and builds: {meta['total_risks']} risks, "
+          f"{meta['total_controls']} controls, {meta['total_elements']} elements")
+    if args.out:
+        for rel, content in files.items():
+            target = args.out / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content)
+            print(f'  wrote {target}')
 
-    # Ensure output directory exists
-    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-
-    # Build data
-    data = build_risk_register_data()
-
-    # Write JSON
-    with open(OUTPUT_FILE, 'w') as f:
-        json.dump(data, f, indent=2)
-
-    # Write generated crosswalks page
-    page = build_crosswalks_page(load_yaml('risks.yaml'), load_yaml('controls.yaml'), load_yaml('crosswalk_references.yaml'), load_yaml('register.yaml'))
-    with open(CROSSWALKS_PAGE, 'w') as f:
-        f.write(page)
-    print(f"✓ Generated {CROSSWALKS_PAGE}")
-
-    print(f"✓ Generated {OUTPUT_FILE}")
-    print(f"  - {data['metadata']['total_risks']} risks")
-    print(f"  - {data['metadata']['total_controls']} controls")
-    print(f"  - {data['metadata']['total_elements']} elements")
 
 if __name__ == '__main__':
     main()

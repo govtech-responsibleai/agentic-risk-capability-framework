@@ -20,3 +20,7 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+
+# Generated at build time by scripts/mkdocs_hooks.py from arc-risk-register/; never commit
+docs/assets/risk_register_data.json
+docs/arc_framework/crosswalks.md

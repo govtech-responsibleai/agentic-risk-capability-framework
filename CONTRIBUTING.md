@@ -17,7 +17,7 @@ The ARC risk register is a living document. We welcome new risks, new controls, 
 | `arc-risk-register/crosswalk_references.yaml` | external frameworks and their valid IDs |
 | `arc-risk-register/register.yaml` | register version and release date |
 | `scripts/validate_risk_register.py` | validator (run by the build and by CI) |
-| `scripts/build_risk_register.py` | generates `docs/assets/risk_register_data.json` and `docs/arc_framework/crosswalks.md` — **commit the regenerated files** |
+| `scripts/build_risk_register.py`, `scripts/mkdocs_hooks.py` | generate the site's register JSON and Crosswalks page from the YAML on every site build — they are **not committed**, so there is nothing to regenerate |
 | `docs/` | the MkDocs site; `app/` | ARCvisor |
 
 Crosswalk IDs must be quoted strings (`- "2.10"`, not `- 2.10`).
@@ -27,13 +27,12 @@ Crosswalk IDs must be quoted strings (`- "2.10"`, not `- 2.10`).
 ```bash
 pip install -r requirements.txt            # site + scripts
 python scripts/validate_risk_register.py   # must report 0 errors
-python scripts/build_risk_register.py      # regenerates JSON and crosswalks page
-mkdocs build --strict                      # site must build with no warnings
+mkdocs build --strict                      # validates again, generates the register JSON and Crosswalks page; must build with no warnings
 pip install -r app/requirements.txt && python app/tests/test_smoke.py   # if you touched the app or the register schema
 ```
 
 1. Branch from `dev` (the integration branch), not from `main`.
-2. Open a pull request against `dev`. CI runs the validator, checks the generated files are fresh, builds the site strictly, and runs the ARCvisor smoke test. Describe *why* the change is right — for a risk, cite the evidence; for a control, say which risk it mitigates and why at that level.
+2. Open a pull request against `dev`. CI runs the validator, builds the site strictly (an invalid register fails the build), and runs the ARCvisor smoke test. Describe *why* the change is right — for a risk, cite the evidence; for a control, say which risk it mitigates and why at that level.
 3. Maintainers merge into `dev`; periodically `dev` is released to `main` via a pull request, which deploys the site and is tagged `v<version>`. Bump `register.yaml` and add a changelog entry (`docs/arc_framework/changelog.md`) in the PR that changes register content: MAJOR for model changes, MINOR for entries added/retired/re-tiered/re-mapped, PATCH for wording.
 
 If you would rather describe a proposal than draft it, open an issue.
