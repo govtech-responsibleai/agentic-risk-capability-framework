@@ -2,7 +2,7 @@
 
 !!! abstract "Page Summary"
 
-    What changed in each version of the ARC risk register, and the versioning policy that lets you cite or pin a specific version. The current version is shown at the top of the [Interactive Risk Register](risk-register.md) and carried in the machine-readable JSON (`metadata.version`).
+    What changed in each version of the ARC risk register, and the versioning policy that lets you cite or pin a specific version. The current version is shown at the top of the [Interactive Risk Register](risk-register.md) and recorded in the register's machine-readable YAML (`arc-risk-register/register.yaml`).
 
 ## Versioning policy
 
@@ -17,7 +17,7 @@ The register version lives in `arc-risk-register/register.yaml` and follows `MAJ
 Rules that hold across versions:
 
 - **IDs are never reused.** A retired or merged entry keeps its ID and gains a `superseded_by` pointer, so assessments and citations written against an older version remain resolvable.
-- Each release to the `main` branch is tagged `v<version>` on GitHub; the YAML and JSON for any version can be retrieved from the tag.
+- Each release to the `main` branch is tagged `v<version>` on GitHub; the register YAML for any version can be retrieved from the tag.
 - To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.3.0.* followed by the site URL.
 
 ## 1.3.0 — November 2026 { #v1-3-0 }

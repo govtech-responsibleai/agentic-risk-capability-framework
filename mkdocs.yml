@@ -89,6 +89,15 @@ nav:
     - Assessment Template: implementation/assessment-template.md
   - Resources:
     - Resources: resources/index.md
+# Generate the register's JSON and Crosswalks page from arc-risk-register/ at build time
+hooks:
+  - scripts/mkdocs_hooks.py
+
+# Rebuild `mkdocs serve` when the register or its generator changes
+watch:
+  - arc-risk-register
+  - scripts
+
 # Plugins
 plugins:
   - search

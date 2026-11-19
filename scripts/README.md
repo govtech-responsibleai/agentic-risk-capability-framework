@@ -1,63 +1,35 @@
-# Build Scripts
+# Scripts
 
-This directory contains scripts for building and processing data for the ARC Framework documentation.
+The YAML in `arc-risk-register/` is the register. These scripts check it and derive the website's views of it. Nothing they generate is committed.
 
 ## `validate_risk_register.py`
 
-Checks the register for well-formed IDs, required fields, valid elements, hazards, failure modes and levels, inverse-consistent risk↔control links, and valid crosswalk IDs. Exits non-zero on any error. Run it directly, or let the build script run it first.
+Checks the register for well-formed IDs, required fields, valid elements, hazards, failure modes and levels, inverse-consistent risk↔control links, and valid crosswalk IDs. Exits non-zero on any error.
+
+```bash
+python scripts/validate_risk_register.py
+```
 
 ## `build_risk_register.py`
 
-Validates the register, then converts the YAML data files into the consolidated JSON used by the interactive risk register and generates the Crosswalks page.
+Validates the register, then derives two files for the website:
 
-### Usage
+- `assets/risk_register_data.json`: the data behind the [interactive register](../docs/arc_framework/risk-register.md) page, shaped for display (each risk carries copies of its controls, with element names and hazards resolved)
+- `arc_framework/crosswalks.md`: the generated Crosswalks page
+
+You don't normally run it yourself, because the site build does. Running it directly validates the register and prints a summary; `--out DIR` also writes the two files under `DIR` for inspection:
 
 ```bash
-# From the repository root
 python scripts/build_risk_register.py
+python scripts/build_risk_register.py --out /tmp/arc-site-data
 ```
 
-Or with the virtual environment:
+## `mkdocs_hooks.py`
 
-```bash
-source .venv/bin/activate
-python scripts/build_risk_register.py
-```
+An [MkDocs hook](https://www.mkdocs.org/user-guide/configuration/#hooks) registered in `mkdocs.yml`. On every `mkdocs build` and every `mkdocs serve` rebuild it calls `build_risk_register.generate()` and adds the two files to the site in memory. As a result:
 
-### What it does
+- the site always reflects the YAML it was built from, so there is no stale copy to forget to regenerate;
+- an invalid register fails the build, so CI's `mkdocs build --strict` also gates on validation;
+- `mkdocs serve` reloads when anything in `arc-risk-register/` or `scripts/` changes (`watch:` in `mkdocs.yml`).
 
-1. Loads YAML files from `arc-risk-register/`:
-   - `risks.yaml` - Risk definitions
-   - `controls.yaml` - Control definitions
-   - `capabilities.yaml` - Capability taxonomy
-   - `components.yaml` - System components
-   - `design.yaml` - Design elements
-   - `hazards.yaml` - Hazard categories
-   - `crosswalk_references.yaml` - External frameworks and their valid IDs
-
-2. Merges and enriches the data by:
-   - Linking risks to their elements (components, design, capabilities)
-   - Attaching full control details to each risk
-   - Computing metadata and statistics
-
-3. Outputs:
-   - `docs/assets/risk_register_data.json` - consolidated JSON for the interactive register
-   - `docs/arc_framework/crosswalks.md` - generated Crosswalks page (do not edit by hand)
-
-### When to run
-
-Run this script whenever you update any of the source YAML files, and commit the regenerated outputs. CI fails a pull request whose generated files are stale.
-
-### Integration with MkDocs
-
-The generated JSON file is consumed by the interactive risk register page at `docs/arc_framework/risk-register.md`. After running this script, rebuild the docs:
-
-```bash
-mkdocs build
-```
-
-Or for local development:
-
-```bash
-mkdocs serve
-```
+The two output paths are in `.gitignore`. If an older checkout left copies in `docs/`, the hook replaces them with freshly generated ones.
