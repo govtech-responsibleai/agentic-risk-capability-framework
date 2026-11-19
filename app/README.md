@@ -135,8 +135,8 @@ airbase container deploy
 7. **Continue to Risk Assessment**: Click "Continue to Risk Assessment" to proceed
 8. **Review Risk Analysis**: The AI will contextualize all risks to your specific application
 9. **Adjust Scores**: Edit likelihood and impact scores and reasoning for each risk
-10. **Set Control Thresholds**: Adjust the likelihood and impact thresholds to determine which risks require controls
-11. **Continue to Controls**: Review and document control implementations
+10. **Set Control Thresholds**: Adjust the likelihood and impact thresholds to determine which risks also get their Level 1 and 2 controls. Level 0 controls apply to every applicable risk, whatever its score
+11. **Continue to Controls**: Review and document control implementations. Level 0 controls start blank and cannot be waived; Level 1 and 2 controls default to "not implemented, residual risk accepted" until you describe them
 12. **Export Assessment**: Use the "Export Assessment" button to generate a Word document with all assessment details
 
 ## Architecture
@@ -153,7 +153,12 @@ The application follows a modular architecture:
 
 ## API Integration
 
-The application uses LiteLLM to integrate with various LLM providers. By default, it uses GPT-4o-mini, but you can modify the model in the `get_llm_capability_analysis`, `get_llm_risk_analysis`, and `get_application_description` functions in `utils/llm_utils.py`.
+The application uses LiteLLM to integrate with various LLM providers. The model for each step is set in one place, `DEFAULT_MODELS` in `utils/llm_utils.py` (OpenAI models by default), and can be overridden without code changes:
+
+- `ARCVISOR_MODEL` uses one model for every step, e.g. `ARCVISOR_MODEL=gpt-5`
+- `ARCVISOR_MODEL_<STEP>` overrides a single step: `DESCRIPTION`, `REPO`, `CAPABILITIES`, or `RISKS`
+
+Any LiteLLM model string works (e.g. `anthropic/<model>` or `gemini/<model>`), given that provider's API key in `.env`. Parameters a model does not support, such as `temperature=0` on reasoning models, are dropped rather than failing the call.
 
 ## Error Handling
 

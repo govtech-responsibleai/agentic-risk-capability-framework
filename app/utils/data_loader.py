@@ -198,3 +198,34 @@ def get_controls_for_risk(risk_id: str, risks: Dict[str, Any],
             "references": control.get("references") or [],
         })
     return risk_controls
+
+
+def is_level0(control: Dict[str, Any]) -> bool:
+    try:
+        return int(control.get("level")) == 0
+    except (TypeError, ValueError):
+        return False
+
+
+def controls_in_scope(risk_controls: List[Dict[str, Any]], meets_threshold: bool) -> List[Dict[str, Any]]:
+    """The controls an assessment must address for one applicable risk.
+
+    Level 0 controls apply whenever the risk is applicable, whatever its score; Levels 1
+    and 2 apply when the risk meets the impact/likelihood thresholds
+    (docs/arc_framework/controls.md#control-levels).
+    """
+    if meets_threshold:
+        return risk_controls
+    return [c for c in risk_controls if is_level0(c)]
+
+
+def controls_by_risk(applicable_risk_ids: List[str], above_threshold_ids: List[str],
+                     risks: Dict[str, Any], controls: Dict[str, Any]) -> List[Tuple[str, List[Dict[str, Any]]]]:
+    """(risk_id, controls in scope) for each applicable risk that has any, in assessment order."""
+    above = set(above_threshold_ids or [])
+    result = []
+    for risk_id in applicable_risk_ids or []:
+        in_scope = controls_in_scope(get_controls_for_risk(risk_id, risks, controls), risk_id in above)
+        if in_scope:
+            result.append((risk_id, in_scope))
+    return result

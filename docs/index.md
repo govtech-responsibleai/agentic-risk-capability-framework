@@ -9,7 +9,7 @@
 - Technical control specifications with risk-to-control mappings
 - An implementation methodology for organisational adoption and per-system assessment
 
-!!! info "What's new — August 2026"
+!!! info "What's new — register v1.3, November 2026"
 
     The register and site have had their largest revision since the framework was published:
 
@@ -19,7 +19,9 @@
     - **Crosswalks**: every risk and control is mapped to the [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/), OWASP's agentic threat taxonomy, the [CSA Securing Agentic AI Addendum](https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/) (final, June 2026), and [IMDA's Model AI Governance Framework for Agentic AI](https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf) — see [Crosswalks](arc_framework/crosswalks.md)
     - **2026 risks and controls**: eight risks and eight controls from the 2026 evidence base (supply-chain compromise, sandbox escape, deception toward overseers, unsanctioned agent coordination, automation bias, third-party agents, insecure runtime defaults), and updated controls for the current MCP specification, agent identity, kill switches, and continuous testing
     - **Hazards recorded**: every risk now lists the safety or security hazards it results in, and the register can be filtered by hazard
-    - **ARCvisor reads the same register** as this site, so assessments and the published framework can no longer drift apart
+    - **ARCvisor reads the same register** as this site, so assessments and the published framework can no longer drift apart, and lists every Level 0 control for every applicable risk, whatever its score
+
+    Each change is listed by version in the [Changelog](arc_framework/changelog.md).
 
     Earlier (December 2025): the [introduction](arc_framework/introduction.md) with design rationale and literature review, the unified [Elements](arc_framework/elements.md) page, the [interactive register](arc_framework/risk-register.md), the [ARCvisor](resources/index.md#arcvisor) tool, and the two technical papers in [Resources](resources/index.md).
 
@@ -83,4 +85,4 @@ To cite the framework website directly (e.g., for the Risk Register rather than 
 
 > GovTech Singapore (2025) Agentic Risk & Capability Framework. URL <https://govtech-responsibleai.github.io/agentic-risk-capability-framework/>
 
-*This page was last updated on 30 Aug 2026*
+*This page was last updated on 20 Nov 2026*

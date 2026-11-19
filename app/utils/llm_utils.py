@@ -2,12 +2,30 @@
 
 import streamlit as st
 import json
+import os
 import re
 import requests
 from typing import Dict, List, Any, Tuple
 from litellm import completion
 from models.schemas import CapabilityAnalysis, CapabilityEvaluation, RiskAnalysis, SessionKeys
 from utils.data_loader import get_applicable_risk_ids, describe_risk_element
+
+# The LiteLLM model each step uses. Set ARCVISOR_MODEL to use one model for every step, or
+# ARCVISOR_MODEL_<STEP> (e.g. ARCVISOR_MODEL_RISKS) to override one step. Any LiteLLM model
+# string works, given the matching provider API key in the environment.
+DEFAULT_MODELS = {
+    "description": "gpt-4o-mini",   # Step 1: draft the application description
+    "repo": "gpt-5.1-codex",        # Step 1: summarise a public GitHub repository
+    "capabilities": "gpt-4o",       # Step 2: identify capabilities
+    "risks": "gpt-5",               # Step 3: contextualise and score risks
+}
+
+
+def model_for(step: str) -> str:
+    """The model configured for an ARCvisor step (see DEFAULT_MODELS)."""
+    return (os.getenv(f"ARCVISOR_MODEL_{step.upper()}")
+            or os.getenv("ARCVISOR_MODEL")
+            or DEFAULT_MODELS[step])
 
 
 def format_risks_for_prompt(risk_ids: List[str], risks: Dict[str, Any], capabilities: Dict[str, Any],
@@ -95,10 +113,11 @@ The "evaluations" array must contain exactly {len(capability_ids)} objects, one 
         message_placeholder = st.empty()
 
         response = completion(
-            model="gpt-4o",  # Use more capable model for systematic evaluation
+            model=model_for("capabilities"),
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
-            temperature=0  # Deterministic for consistency
+            temperature=0,  # Deterministic for consistency
+            drop_params=True,  # e.g. reasoning models reject temperature=0
         )
 
         message_placeholder.empty()
@@ -218,9 +237,10 @@ Remember:
         message_placeholder = st.empty()
 
         response = completion(
-            model="gpt-5",  # Use more capable model for better structured output reliability
+            model=model_for("risks"),
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
+            drop_params=True,  # providers without JSON mode still get the JSON-only prompt
         )
         
         # Clear progress message
@@ -458,7 +478,7 @@ Be specific to the observed files. If something is not evident, state the assump
 
     try:
         response = completion(
-            model="gpt-5.1-codex",
+            model=model_for("repo"),
             messages=[{"role": "user", "content": prompt}],
             stream=True,
         )
@@ -515,7 +535,7 @@ Keep language tight and avoid repetition. Do not add a title or headings in the 
 
     try:
         response = completion(
-            model="gpt-4o-mini",
+            model=model_for("description"),
             messages=[{"role": "user", "content": prompt}],
             stream=True
         )
