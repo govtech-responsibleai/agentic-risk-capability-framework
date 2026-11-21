@@ -1260,7 +1260,6 @@ RISK-048:
   - CTRL-0013
   - CTRL-0014
   - CTRL-0015
-  - CTRL-0074
   - CTRL-0091
   sources:
   - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
@@ -1428,7 +1427,6 @@ RISK-054:
   - HZ-04
   controls:
   - CTRL-0009
-  - CTRL-0074
   - CTRL-0096
   sources:
   - https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now

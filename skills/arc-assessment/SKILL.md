@@ -84,7 +84,7 @@ For each control in scope, follow these steps.
 4. Make each control concrete and specific to the components involved. ARC's guide shows the progression from framework control to organisation control to system-specific implementation; with no organisation register, go straight from framework control to system.
 5. Apply the expectations for each level from the guide's table:
    - **Level 0:** adopted as-is. The template expects every Level 0 control to be implemented before sign-off.
-     - A Level 0 control is waived only when the capability or component it concerns is not present in the system, for example a control on MCP servers in a system that uses none. Record it as *Waived — not applicable*, with the evidence that the capability or component is absent.
+     - A Level 0 control is waived only when the capability or component it concerns is not present in the system, for example a control on MCP servers in a system that uses none, or on persistent memory in a system that keeps nothing beyond a session. Record it as *Waived — not applicable*, with the evidence that the capability or component is absent.
      - Any other Level 0 control that isn't implemented is a blocker for the governance team. List these blockers at the top of your summary.
    - **Level 1:** adopted or adapted, or not adopted with a documented rationale.
    - **Level 2:** considered according to the system's risk.
