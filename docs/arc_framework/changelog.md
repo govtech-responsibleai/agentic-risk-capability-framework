@@ -18,7 +18,16 @@ Rules that hold across versions:
 
 - **IDs are never reused.** A retired or merged entry keeps its ID and gains a `superseded_by` pointer, so assessments and citations written against an older version remain resolvable.
 - Each release to the `main` branch is tagged `v<version>` on GitHub; the register YAML for any version can be retrieved from the tag.
-- To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.4.0.* followed by the site URL.
+- To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.5.0.* followed by the site URL.
+
+## 1.5.0 — November 2026 { #v1-5-0 }
+
+Level 0 controls match their subject, so the waiver rule introduced in 1.4.0 applies cleanly.
+
+- **CVE scanning stays with code execution.** CTRL-0074 (CVE-scan agent-generated code and block High or Critical vulnerabilities) is now attached only to RISK-040 (vulnerable or malicious code). It is removed from RISK-048 (supply-chain compromise) and RISK-054 (insecure framework defaults), which are already covered by CTRL-0091 (verified provenance, including vulnerability scanning of new packages) and CTRL-0096 (runtime hardening and prompt patching).
+- **Tool authentication covers every remote tool.** CTRL-0009 now requires robust authentication on all tool servers and APIs, including MCP servers, so RISK-004 (weak tool authentication) keeps an authentication control in systems that use no MCP servers. Its MCP-specific requirements are unchanged. CTRL-0010 and CTRL-0013 remain specific to MCP servers.
+- **Working and persistent memory.** The Memory component (CMP-04) now distinguishes working memory, which every agent has, from persistent memory, which keeps information beyond a single session or shares it across users or tasks. The memory-write controls CTRL-0021, CTRL-0022 and CTRL-0023 now concern persistent memory, so a system that keeps nothing beyond a session records CTRL-0021 as waived, with evidence. RISK-010 (poisoned memory) and RISK-011 (leakage across memory contexts) are unchanged.
+- Register: 54 risks and 94 controls (unchanged). Systems without Code Execution carry one fewer Level 0 control (a single-agent Q&A system goes from 21 to 20); systems with Code Execution are unchanged.
 
 ## 1.4.0 — November 2026 { #v1-4-0 }
 
