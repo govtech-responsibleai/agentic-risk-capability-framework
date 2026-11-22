@@ -19,8 +19,8 @@ RISK-001:
   - CTRL-0001
   - CTRL-0002
   - CTRL-0003
-  - CTRL-0006
   - CTRL-0007
+  - CTRL-0042
   sources:
   - https://arxiv.org/abs/2408.02946v6
   crosswalks:
@@ -53,10 +53,10 @@ RISK-002:
   controls:
   - CTRL-0004
   - CTRL-0005
-  - CTRL-0006
   - CTRL-0007
   - CTRL-0008
   - CTRL-0038
+  - CTRL-0042
   sources:
   - https://arxiv.org/abs/2406.10162
   crosswalks:
@@ -85,9 +85,9 @@ RISK-003:
   controls:
   - CTRL-0004
   - CTRL-0005
-  - CTRL-0006
   - CTRL-0007
   - CTRL-0038
+  - CTRL-0042
   sources:
   - https://arxiv.org/abs/2505.00212
   crosswalks:
@@ -170,11 +170,11 @@ RISK-006:
   - HZ-08
   controls:
   - CTRL-0013
-  - CTRL-0014
   - CTRL-0015
   - CTRL-0091
   sources:
-  - https://www.mbgsec.com/archive/2025-05-03-mcp-untrusted-servers-and-confused-clients-plus-a-sneaky-exploit-embrace-the-red/
+  - "https://embracethered.com/blog/posts/2025/model-context-protocol-security-risks-and-exploits/"
+  - "https://arxiv.org/abs/2508.14925"
   crosswalks:
     owasp_asi:
     - ASI04
@@ -444,7 +444,8 @@ RISK-015:
   - CTRL-0030
   - CTRL-0031
   sources:
-  - https://cyberweapons.medium.com/escaping-reality-privilege-escalation-in-gen-ai-admin-panel-aka-the-chaos-of-a-misconfigured-b6ad73bf1b65
+  - "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+  - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
   crosswalks:
     owasp_asi:
     - ASI03
@@ -471,7 +472,8 @@ RISK-016:
   - CTRL-0030
   - CTRL-0032
   sources:
-  - https://arxiv.org/abs/2505.19301
+  - "https://arxiv.org/abs/2503.15547"
+  - "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
   crosswalks:
     owasp_asi:
     - ASI03
@@ -523,8 +525,8 @@ RISK-018:
   - CTRL-0032
   - CTRL-0034
   sources:
-  - https://arxiv.org/abs/2411.05285
-  - https://opentelemetry.io/docs/specs/semconv/gen-ai/
+  - "https://arxiv.org/abs/2411.05285"
+  - "https://github.com/open-telemetry/semantic-conventions-genai"
   crosswalks:
     owasp_asi:
     - ASI08
@@ -548,9 +550,9 @@ RISK-019:
   - HZ-02
   - HZ-08
   controls:
-  - CTRL-0006
   - CTRL-0035
   - CTRL-0036
+  - CTRL-0042
   sources:
   - https://arxiv.org/pdf/2402.01622v4
   - https://aclanthology.org/2025.naacl-long.93.pdf
@@ -574,13 +576,14 @@ RISK-020:
   hazards:
   - HZ-08
   controls:
-  - CTRL-0006
   - CTRL-0035
   - CTRL-0037
   - CTRL-0038
   - CTRL-0039
+  - CTRL-0042
   sources:
-  - https://garymarcus.substack.com/p/ai-still-lacks-common-sense-70-years
+  - "https://arxiv.org/abs/2412.13178"
+  - "https://arxiv.org/abs/2412.14470"
   crosswalks:
     owasp_asi:
     - ASI10
@@ -715,7 +718,8 @@ RISK-025:
   controls:
   - CTRL-0045
   sources:
-  - https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf
+  - "https://arxiv.org/abs/2401.01301"
+  - "https://genai.owasp.org/llmrisk/llm092025-misinformation/"
   crosswalks:
     owasp_asi: []
     owasp_agentic_threats: []
@@ -830,7 +834,8 @@ RISK-030:
   controls:
   - CTRL-0052
   sources:
-  - https://fortune.com/article/customer-support-ai-cursor-went-rogue/
+  - "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-50"
+  - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
   crosswalks:
     owasp_asi:
     - ASI09
@@ -857,7 +862,8 @@ RISK-031:
   - CTRL-0055
   - CTRL-0094
   sources:
-  - https://the-decoder.com/people-buy-brand-new-chevrolets-for-1-from-a-chatgpt-chatbot/
+  - "https://decisions.civilresolutionbc.ca/crt/crtd/en/525448/1/document.do"
+  - "https://incidentdatabase.ai/cite/622/"
   crosswalks:
     owasp_asi:
     - ASI09
@@ -889,7 +895,7 @@ RISK-032:
   - CTRL-0059
   - CTRL-0094
   sources:
-  - https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks
+  - "https://arxiv.org/abs/2503.16248"
   crosswalks:
     owasp_asi:
     - ASI02
@@ -976,7 +982,8 @@ RISK-035:
   controls:
   - CTRL-0063
   sources:
-  - https://www.techradar.com/computing/artificial-intelligence/googles-ai-overviews-are-often-so-confidently-wrong-that-ive-lost-all-trust-in-them
+  - "https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php"
+  - "https://genai.owasp.org/llmrisk/llm092025-misinformation/"
   crosswalks:
     owasp_asi:
     - ASI06
@@ -1182,7 +1189,9 @@ RISK-042:
   - CTRL-0079
   - CTRL-0080
   sources:
-  - https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql
+  - "https://www.tinybird.co/blog-posts/which-llm-writes-the-best-sql"
+  - "https://arxiv.org/abs/2305.03111"
+  - "https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/"
   crosswalks:
     owasp_asi:
     - ASI02
@@ -1207,7 +1216,8 @@ RISK-043:
   - CTRL-0081
   - CTRL-0082
   sources:
-  - https://www.infosecurity-magazine.com/news/microsoft-365-copilot-zeroclick-ai/
+  - "https://arxiv.org/abs/2509.10540"
+  - "https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/"
   crosswalks:
     owasp_asi:
     - ASI02
@@ -1238,8 +1248,8 @@ RISK-044:
   - CTRL-0090
   - CTRL-0097
   sources:
-  - https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability
-  - https://www.wired.com/story/here-come-the-ai-worms/
+  - "https://arxiv.org/abs/2509.10540"
+  - "https://arxiv.org/abs/2403.02817"
   crosswalks:
     owasp_asi:
     - ASI01
@@ -1325,7 +1335,7 @@ RISK-047:
   sources:
   - "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
   - "https://www.varonis.com/blog/forcedleak"
-  - "https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability"
+  - "https://arxiv.org/abs/2509.10540"
   - "https://www.anthropic.com/engineering/how-we-contain-claude"
   - "https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf"
   crosswalks:
@@ -1354,7 +1364,6 @@ RISK-048:
   - HZ-02
   controls:
   - CTRL-0013
-  - CTRL-0014
   - CTRL-0015
   - CTRL-0091
   sources:
@@ -1486,7 +1495,6 @@ RISK-052:
   - HZ-02
   - HZ-08
   controls:
-  - CTRL-0006
   - CTRL-0042
   - CTRL-0049
   - CTRL-0094
@@ -1548,9 +1556,9 @@ RISK-054:
   - CTRL-0009
   - CTRL-0096
   sources:
-  - https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now
-  - https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html
-  - https://www.theregister.com/security/2026/08/05/prompt-injection-isnt-the-bug-ai-agent-frameworks-are/5283585
+  - "https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html"
+  - "https://nvd.nist.gov/vuln/detail/CVE-2026-25253"
+  - "https://github.com/advisories/GHSA-g48c-2wqr-h844"
   crosswalks:
     owasp_asi:
     - ASI03

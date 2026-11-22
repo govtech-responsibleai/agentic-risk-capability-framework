@@ -70,7 +70,7 @@ Technical controls require adaptation to the organisation's existing technical s
         - **Adapted for Small Organisation Without Centralised Logging:** "Log all LLM inputs and outputs to structured JSON files with daily rotation; implement weekly manual review process by security team; escalate to cloud logging system when budget allows"
     
     ??? example "Example 2: Adapting Approval Workflows to Organisational Context"
-        **Baseline Control (CTRL-0006):** "Require human approval before executing high-impact actions"
+        **Baseline Control (CTRL-0042):** "Require explicit human confirmation before executing high-impact or irreversible tool actions"
         
         - **Adapted for Enterprise with Slack:** "Require manager approval via Slack workflow for transactions >$1,000 or data modifications affecting >100 records; auto-approve lower-risk actions with notification; escalate to director approval for transactions >$10,000"
         - **Adapted for Financial Services Firm:** "Require dual approval (originator + supervisor) via internal workflow system for all transactions; implement out-of-band SMS confirmation for transactions >$50,000; maintain immutable audit trail in compliance database"
