@@ -145,13 +145,9 @@ RISK-005:
     - T3
 RISK-006:
   statement: Tool poisoning by malicious actors
-  description: This risk arises when tools or their interfaces are intentionally modified,
-    compromised, or replaced by malicious actors to introduce harmful or deceptive
-    behaviour when invoked by an agent. As a result, the agent may unknowingly execute
-    malicious actions, leak sensitive information, or produce manipulated outputs
-    that undermine system integrity and trust.
+  description: This risk arises when a tool server or agent that another party builds or operates describes itself in a way that manipulates the agent that connects to it. Instructions can be hidden in tool descriptions, parameter schemas, or agent cards; a tool can imitate or shadow a trusted one; and a definition can change after it was approved. The agent reads these descriptions as part of its instructions, so it may follow them even when the tool is never called. As a result, the agent may unknowingly execute malicious actions, leak sensitive information, or produce manipulated outputs that undermine system integrity and trust.
   element_ids:
-  - CMP-03
+  - CMP-05
   failure_mode: External Manipulation
   type:
   - Safety
@@ -1395,6 +1391,7 @@ RISK-053:
   statement: Dependence on third-party agents as counterparties or delegates
   description: This risk arises when tasks are delegated to, or transactions conducted with, agents provided or operated by external parties — SaaS agents, partner agents reached through protocols such as A2A — whose instructions, tools, data handling, and updates are outside the organisation's control. Delegated work may be performed unsafely, data shared with the agent may be retained or reused, and behaviour can change without notice. As a result, the organisation carries the consequences of failures it cannot observe or govern directly.
   element_ids:
+  - CMP-05
   - CAP-02
   failure_mode: Tool or Resource Malfunction
   type:

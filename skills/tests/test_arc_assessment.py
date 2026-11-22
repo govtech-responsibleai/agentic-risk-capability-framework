@@ -28,14 +28,27 @@ def run(*argv):
     return buf.getvalue()
 
 
-def assess(caps, register=REGISTER):
-    return json.loads(run("--register", str(register), "assess", "--capabilities", ",".join(caps), "--format", "json"))
+def assess(present, register=REGISTER):
+    """Assess a system that has the given capabilities and conditional components (CAP-.. and CMP-.. IDs)."""
+    caps = [e for e in present if e.startswith("CAP-")]
+    components = [e for e in present if not e.startswith("CAP-")]
+    return json.loads(run("--register", str(register), "assess", "--capabilities", ",".join(caps),
+                          "--components", ",".join(components), "--format", "json"))
+
+
+def chosen_elements(register=REGISTER):
+    """Elements only some systems have: capabilities, and components or design elements with `present_when`."""
+    chosen = set(yaml.safe_load((register / "capabilities.yaml").read_text()))
+    for name in ("components", "design"):
+        chosen |= {e for e, v in yaml.safe_load((register / f"{name}.yaml").read_text()).items() if v.get("present_when")}
+    return chosen
 
 
 def test_applicability_matches_register_rules():
     risks = yaml.safe_load((REGISTER / "risks.yaml").read_text())
     controls = yaml.safe_load((REGISTER / "controls.yaml").read_text())
-    is_cap = lambda e: e.startswith("CAP-")
+    chosen = chosen_elements()
+    is_cap = lambda e: e in chosen
     baseline = [r for r, v in risks.items() if not any(is_cap(e) for e in v["element_ids"])]
 
     none = assess([])
@@ -52,13 +65,31 @@ def test_applicability_matches_register_rules():
         full = assess(sorted(caps))
         assert rid in {r["id"] for r in full["risks"]["combination"]}, rid
 
-    # Every capability's own risks appear when it is selected, with their Level 0 controls summarised once
-    all_caps = sorted(yaml.safe_load((REGISTER / "capabilities.yaml").read_text()))
-    everything = assess(all_caps)
+    # Every chosen element's own risks appear when it is selected, with their Level 0 controls summarised once
+    everything = assess(sorted(chosen))
     listed = {r["id"] for g in everything["risks"].values() for r in g}
     assert listed == set(risks), set(risks) ^ listed
     level0 = {c["id"] for c in everything["level0_controls"]}
     assert level0 == {c for c, v in controls.items() if v["level"] == 0 and set(v["risks"]) & listed}
+
+
+def test_conditional_components():
+    """A component with `present_when` contributes its risks only when the system is said to have it."""
+    risks = yaml.safe_load((REGISTER / "risks.yaml").read_text())
+    components = yaml.safe_load((REGISTER / "components.yaml").read_text())
+    conditional = [c for c, v in components.items() if v.get("present_when")]
+    assert conditional, "the register should define at least one conditional component"
+    for cid in conditional:
+        own = {r for r, v in risks.items() if v["element_ids"] == [cid]}
+        without = {r["id"] for g in assess([])["risks"].values() for r in g}
+        with_it = {r["id"] for g in assess([cid])["risks"].values() for r in g}
+        assert own and not (own & without) and own <= with_it, cid
+    try:
+        run("--register", str(REGISTER), "assess", "--capabilities", "CAP-04", "--components", "CMP-01")
+    except SystemExit as e:
+        assert "not a conditional component" in str(e)
+    else:
+        raise AssertionError("CMP-01 is always present and should be rejected by --components")
 
 
 def test_show_and_elements():
@@ -204,6 +235,7 @@ def test_template_is_plain_markdown():
 
 if __name__ == "__main__":
     test_applicability_matches_register_rules()
+    test_conditional_components()
     test_show_and_elements()
     test_organisation_register_with_single_element_id()
     test_builtin_yaml_parser_matches_pyyaml()

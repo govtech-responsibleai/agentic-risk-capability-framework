@@ -16,6 +16,7 @@ The script needs only Python 3.9+ (it uses PyYAML if present, and a built-in par
 ```bash
 ARC elements                                          # definitions of components, design elements, capabilities
 ARC assess --capabilities CAP-03,CAP-07               # applicable risks, their controls, and the combination check
+ARC assess --capabilities ... --components CMP-04     # ...for a system that also has a conditional component
 ARC assess --capabilities ... --priority RISK-...     # ...plus every control in scope, once each
 ARC show RISK-034 CTRL-0062 CAP-07                    # full text of any entry
 ARC template                                          # the assessment template as plain Markdown
@@ -53,13 +54,14 @@ Ask the user these questions. If you can't reach them, choose a sensible default
    - whether a human approves before it acts. If only some actions are approved, say which.
 
    Also list the capabilities you ruled out, with reasons.
-6. Show the user the capability list and evidence. Get their confirmation before Step 2.
+6. Decide which conditional components the system has. `ARC elements` marks them and gives the condition for each, for example Memory (the system keeps information beyond a session or shares it across users or tasks) and Protocols (a tool server or agent that another party builds or operates is connected through an agent protocol such as MCP or A2A). Record the evidence for each answer, including for the ones that are absent.
+7. Show the user the capability list, the conditional components, and the evidence. Get their confirmation before Step 2.
 
 ## Step 2: Evaluate risks
 
-1. Run `ARC --version X.Y.Z assess --capabilities <confirmed IDs>`. It lists every applicable risk:
-   - baseline risks, which come from components and design elements and are present in every agentic system;
-   - risks from each capability;
+1. Run `ARC --version X.Y.Z assess --capabilities <confirmed IDs> --components <conditional components present>`. It lists every applicable risk:
+   - baseline risks, which come from the components and design elements that every agentic system has;
+   - risks from each capability and each conditional component that is present;
    - risks from combinations of elements, which apply only when all of their elements are present.
 2. Read the "Capability combinations" section of the output. Some risks arise only when a system holds several capabilities at once, and the script reports a verdict for each combination the register defines (the [lethal trifecta](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/capability-combinations/) in register 1.5):
    - **present:** every leg is supplied by a capability. The combination's control must be implemented.

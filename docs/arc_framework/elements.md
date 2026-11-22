@@ -2,7 +2,7 @@
 
 !!! abstract "Page Summary"
 
-    This page defines the three analytical elements used to assess agentic systems: components (LLM, tools, instructions, memory), design (architecture, access controls, monitoring), and capabilities (cognitive, interaction, operational). It provides a detailed taxonomy serving as a reference for identifying elements during risk assessment.
+    This page defines the three analytical elements used to assess agentic systems: components (LLM, instructions, tools, memory, protocols), design (architecture, access controls, monitoring), and capabilities (cognitive, interaction, operational). It provides a detailed taxonomy serving as a reference for identifying elements during risk assessment.
 
 Across all agentic systems, there are three indispensable elements to examine:
 **(1)** the components of an agent,
@@ -27,6 +27,15 @@ Here, we synthesise prevailing agreement on the key components of an agent from 
 * **🔧 Tools**: Tools are external functions, APIs, or resources attached to an LLM that extend its capabilities beyond text generation, enabling it to retrieve information, execute actions, and affect external systems (e.g., search, code execution, database queries, or file manipulation), typically through structured interfaces such as the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) that constrain invocation, inputs, permissions, and outputs for agentic control and safety.
 
 * **💾 Memory**: Memory is a persistent or semi-persistent data store attached to an LLM that retains information across interactions—such as conversation history, user preferences, task state, and retrieved knowledge—enabling continuity, long-horizon reasoning, and personalization in agentic workflows. Memory may be implemented through mechanisms such as context windows, vector databases, episodic logs, or external state stores, each offering different trade-offs in latency, fidelity, and persistence. Every agent has working memory, the context it carries within a task; a system has persistent memory when it keeps information beyond a single session or shares it across users or tasks.
+
+* **🔗 Protocols**: Protocols are the standard interfaces through which an agentic system connects to tools, services, and agents that another party builds or operates, such as the Model Context Protocol (MCP) for tool servers and agent-to-agent protocols such as A2A. A protocol governs how the other party is discovered, how it is identified and authenticated, what it declares about itself to the agent (tool descriptions, capability lists, agent cards), and how requests and results pass between the two. A system has this component when it makes at least one such connection, in either direction: its agents reach another party's tool server or agent, or another party's agents reach it. A function or API wrapper that the system's own team writes is a tool, not a protocol connection, because the team controls the description the agent sees.
+
+!!! note "Conditional components"
+
+    Every agentic system has an LLM, instructions, and tools. Memory and Protocols are conditional: a system has them only when a stated condition holds, and their risks apply only to systems that have them.
+
+    - **Memory** is present when: the system keeps information beyond a single session, or shares it across users or tasks.
+    - **Protocols** is present when: at least one tool server or agent that another party builds or operates is connected to the system through an agent protocol such as MCP or A2A, in either direction.
 
 ---
 

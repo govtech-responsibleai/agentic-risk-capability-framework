@@ -36,9 +36,16 @@ Capabilities are system-level: if any agent has one, the system has it. Include 
 | CAP-11 File and Data Management | | | |
 | CAP-12 System Management | | | |
 
+**Conditional components.** Most components and design elements are present in every agentic system. Two components are conditional. Record whether the system has each one; its risks apply only if it does.
+
+| Component | Present when | Present? (yes / no, with evidence) |
+| --- | --- | --- |
+| CMP-04 Memory | The system keeps information beyond a single session, or shares it across users or tasks. | |
+| CMP-05 Protocols | At least one tool server or agent that another party builds or operates is connected to the system through an agent protocol such as MCP or A2A, in either direction. | |
+
 ## 2. Applicable risks
 
-List **every applicable risk**: all baseline risks (those arising only from components CMP-01 to CMP-04 and design elements DSN-01 to DSN-03 — 20 in register 1.5.0), each capability risk for a capability marked present, and each composite risk whose capabilities are *all* present. Score each; a risk is a **priority** when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.
+List **every applicable risk**: all baseline risks (those arising only from components and design elements that every agentic system has), the risks of each conditional component marked present, each capability risk for a capability marked present, and each composite risk whose capabilities are *all* present. Score each; a risk is a **priority** when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.
 
 | Risk ID | Statement | Element(s) | Contextualised description (how it would materialise here) | Impact (1–5) | Likelihood (1–5) | Priority? |
 | --- | --- | --- | --- | --- | --- | --- |
