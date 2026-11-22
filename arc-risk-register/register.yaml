@@ -2,4 +2,4 @@
 # (see docs/arc_framework/changelog.md for the versioning policy) and tag main with v<version>
 # when a release is merged.
 version: "1.5.0"
-released: "2026-11-21"
+released: "2026-11-23"
