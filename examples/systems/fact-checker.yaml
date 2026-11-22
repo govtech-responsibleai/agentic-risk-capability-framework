@@ -1,0 +1,15 @@
+# The Agentic Fact Checker from the developer guide (Example 1). Six agents verify claims against
+# web sources and an internal knowledge base. It reads the web and the knowledge base and changes
+# neither.
+name: Agentic fact checker
+capabilities:
+  CAP-01: {}
+  CAP-02: {}
+  CAP-03: {}
+  CAP-04: {}
+  CAP-07:
+    authority: read
+  CAP-11:
+    authority: read
+    external: false
+components: []

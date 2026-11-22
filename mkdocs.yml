@@ -86,6 +86,7 @@ nav:
     - Interactive Risk Register: arc_framework/risk-register.md
     - Risk Register (full text): arc_framework/register-full-text.md
     - Crosswalks to other frameworks: arc_framework/crosswalks.md
+    - Keeping the register current: arc_framework/keeping-current.md
     - Changelog: arc_framework/changelog.md
   - Implementation:
     - Implementing ARC: implementation/index.md

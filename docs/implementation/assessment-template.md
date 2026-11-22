@@ -13,7 +13,7 @@
 | Deployment context (internal / external; pilot / production; jurisdiction; sector) | |
 | Agents and architecture (single agent / multi-agent; orchestration pattern; protocols such as MCP, A2A) | |
 | Autonomy: which actions run without a human in the loop | |
-| Register version assessed against | e.g. `1.4.0` (see the [changelog](../arc_framework/changelog.md)) |
+| Register version assessed against | e.g. `2.0.0` (see the [changelog](../arc_framework/changelog.md)) |
 | Organisation's relevance threshold | e.g. Impact ≥ 3 AND Likelihood ≥ 3, OR Impact ≥ 4 |
 | Assessment date; assessor; reviewer | |
 

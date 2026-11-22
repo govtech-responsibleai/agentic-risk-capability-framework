@@ -1,0 +1,19 @@
+# The Agentic Coding Assistant from the developer guide (Example 2). Five agents read a codebase,
+# write code, and run commands. Shell commands run in a container with no network access by
+# default and only after the user approves them; file edits are made directly, in a workspace
+# under version control.
+name: Agentic coding assistant
+capabilities:
+  CAP-01: {}
+  CAP-02: {}
+  CAP-03: {}
+  CAP-04: {}
+  CAP-10:
+    authority: act-with-approval
+    irreversible: false
+    external: false
+  CAP-11:
+    authority: act-alone
+    irreversible: false
+    external: false
+components: []

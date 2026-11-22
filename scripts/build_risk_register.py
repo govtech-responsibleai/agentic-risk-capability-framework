@@ -573,6 +573,7 @@ ARC is meant to be adapted: an organisation contextualises the baseline register
 - [capabilities.yaml]({raw}/capabilities.yaml), [components.yaml]({raw}/components.yaml), [design.yaml]({raw}/design.yaml), [hazards.yaml]({raw}/hazards.yaml): elements and hazard categories
 - [combinations.yaml]({raw}/combinations.yaml): which capabilities supply each leg of a checked combination
 - [Changelog]({site}arc_framework/changelog/): what changed in each version, and the versioning policy
+- [Keeping the register current]({site}arc_framework/keeping-current/): the incident file, the quarterly review, and how changes are proposed
 
 ## Optional
 

@@ -31,7 +31,7 @@ Ask the agent, for example, "assess this agent with ARC" or "which ARC controls 
 ```bash
 python3 skills/arc-assessment/scripts/arc.py elements
 python3 skills/arc-assessment/scripts/arc.py assess --capabilities CAP-03,CAP-07,CAP-11
-python3 skills/arc-assessment/scripts/arc.py --version 1.5.0 assess --capabilities CAP-03,CAP-07,CAP-11 --priority RISK-034,RISK-047
+python3 skills/arc-assessment/scripts/arc.py --version 2.0.0 assess --capabilities CAP-03,CAP-07,CAP-11 --priority RISK-034,RISK-047
 python3 skills/arc-assessment/scripts/arc.py show RISK-047 CTRL-0089 CAP-07
 python3 skills/arc-assessment/scripts/arc.py --register ./our-arc-register assess --capabilities CAP-02,CAP-06
 ```

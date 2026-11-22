@@ -355,6 +355,32 @@ def test_overlay():
     refused({"controls": {"remove": {"CTRL-0097": "x"}}}, "combination rule")
 
 
+def test_worked_examples_match_the_guide():
+    """The developer guide quotes risk and Level 0 counts for its worked examples; they must be what the tool gives.
+
+    Each example in the guide carries a marker such as
+    `<!-- arc:example fact-checker risks=45 level0=28 lethal-trifecta=present -->`, and its profile is in
+    examples/systems/. When the register changes these numbers, update the guide's prose and its marker together.
+    """
+    import re
+    guide = (REPO / "docs" / "implementation" / "for-ai-developers.md").read_text()
+    markers = re.findall(r"<!-- arc:example ([a-z-]+) (.+?) -->", guide)
+    assert len(markers) >= 3, "the guide should mark each worked example"
+    for name, fields in markers:
+        quoted = dict(f.split("=") for f in fields.split())
+        out = json.loads(run("--register", str(REGISTER), "assess", "--profile",
+                             str(REPO / "examples" / "systems" / f"{name}.yaml"), "--format", "json"))
+        actual = {"risks": str(sum(len(g) for g in out["risks"].values())), "level0": str(len(out["level0_controls"]))}
+        actual.update({c["id"]: c["verdict"].replace(" ", "-") for c in out["combinations"]})
+        assert quoted == {k: actual.get(k) for k in quoted}, (name, quoted, actual)
+        # the prose must carry the same numbers as the marker
+        paragraph = guide.split(f"<!-- arc:example {name} ")[1].split("\n")[1]
+        assert f"This system has {quoted['risks']} applicable risks" in paragraph, name
+        assert f"{quoted['level0']} Level 0 controls" in paragraph, name
+    for profile in sorted((REPO / "examples" / "systems").glob("*.yaml")):   # every profile must be assessable
+        run("--register", str(REGISTER), "assess", "--profile", str(profile), "--format", "json")
+
+
 def test_template_is_plain_markdown():
     page = (REPO / "docs" / "implementation" / "assessment-template.md").read_text()
     plain = arc.plain_markdown(page)
@@ -376,5 +402,6 @@ if __name__ == "__main__":
     test_register_without_combinations()
     test_site_check_matches_script()
     test_overlay()
+    test_worked_examples_match_the_guide()
     test_template_is_plain_markdown()
     print("ALL PASSED")

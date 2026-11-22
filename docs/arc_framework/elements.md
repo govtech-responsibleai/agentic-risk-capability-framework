@@ -30,6 +30,10 @@ Here, we synthesise prevailing agreement on the key components of an agent from 
 
 * **🔗 Protocols**: Protocols are the standard interfaces through which an agentic system connects to tools, services, and agents that another party builds or operates, such as the Model Context Protocol (MCP) for tool servers and agent-to-agent protocols such as A2A. A protocol governs how the other party is discovered, how it is identified and authenticated, what it declares about itself to the agent (tool descriptions, capability lists, agent cards), and how requests and results pass between the two. A system has this component when it makes at least one such connection, in either direction: its agents reach another party's tool server or agent, or another party's agents reach it. A function or API wrapper that the system's own team writes is a tool, not a protocol connection, because the team controls the description the agent sees.
 
+!!! note "How this compares with CSA's taxonomy"
+
+    The Cyber Security Agency of Singapore's [Securing Agentic AI addendum](https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/) builds on ARC's elements and capabilities. It lists Protocols as a component, which ARC has adopted from version 2.0 with a narrower definition: connections to tools and agents that another party builds or operates. It also lists System Workflows & Autonomy as a design element. ARC treats workflows as part of Agentic Architecture, and records autonomy for each capability as its [authority](#context-how-a-capability-is-used). ARC keeps Monitoring and Traceability as a design element. The twelve capabilities are the same in both.
+
 !!! note "Conditional components"
 
     Every agentic system has an LLM, instructions, and tools. Memory and Protocols are conditional: a system has them only when a stated condition holds, and their risks apply only to systems that have them.
