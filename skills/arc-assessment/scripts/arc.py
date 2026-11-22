@@ -9,7 +9,8 @@ built-in parser for the register's YAML otherwise.
 
 Commands:
   elements                       components, design elements and capabilities, with definitions
-  assess --capabilities IDS      applicable risks and their controls for a system
+  assess --capabilities IDS      applicable risks and their controls for a system, and a check for
+                                 capability combinations such as the lethal trifecta
          [--priority IDS|all]    ...and the controls in scope once priority risks are known
   show ID [ID ...]               full text of risks, controls or elements (RISK-034, CTRL-0062, CAP-07)
   template                       the ARC assessment template (Markdown)
@@ -46,6 +47,7 @@ except ImportError:
 REPO_RAW = "https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework"
 SITE = "https://govtech-responsibleai.github.io/agentic-risk-capability-framework/"
 REGISTER_FILES = ("register", "risks", "controls", "capabilities", "components", "design", "hazards")
+OPTIONAL_FILES = ("combinations",)  # added in register 1.5.0; older releases and organisation registers may lack them
 TEMPLATE_PATH = "docs/implementation/assessment-template.md"
 LEVELS = {0: "Level 0 · Cardinal", 1: "Level 1 · Standard", 2: "Level 2 · Best Practice"}
 
@@ -369,6 +371,15 @@ def load_register(args):
                            "register must use the same file layout as arc-risk-register/.")
         data["hazards"] = data["hazards"] or {}
         data["register"] = data["register"] or {"version": "unversioned", "released": ""}
+        for name in OPTIONAL_FILES:
+            data[name] = None
+            try:
+                if src.startswith(("http://", "https://")):
+                    data[name] = load_yaml_text(http_get(f"{src.rstrip('/')}/{name}.yaml"), f"{name}.yaml")
+                elif (Path(src) / f"{name}.yaml").exists():
+                    data[name] = load_yaml_text((Path(src) / f"{name}.yaml").read_text(), f"{name}.yaml")
+            except (urllib.error.HTTPError, ArcError):
+                pass
         return data, f"organisation register at {src}", None
 
     ref = resolve_official_ref(args.version)
@@ -381,6 +392,19 @@ def load_register(args):
                 raise ArcError(f"release {ref} not found in the ARC repository"
                                + ("; check --version" if args.version else "; pass --version to choose one"))
             raise ArcError(f"couldn't fetch {url} (HTTP {e.code})")
+    for name in OPTIONAL_FILES:
+        url = f"{REPO_RAW}/{ref}/arc-risk-register/{name}.yaml"
+        try:
+            data[name] = load_yaml_text(cached_get(url, ref, f"{name}.yaml", args.refresh), f"{name}.yaml")
+        except urllib.error.HTTPError as e:
+            data[name] = None
+            if e.code == 404 and ref.startswith("v"):  # this release predates the file; remember that
+                try:
+                    (cache_dir() / ref / f"{name}.yaml").write_text("{}\n")
+                except OSError:
+                    pass
+        except ArcError:
+            data[name] = None
     return data, f"official ARC register, tag {ref}", ref
 
 
@@ -445,6 +469,61 @@ def risk_record(reg, rid, elements, detail=False):
     }
 
 
+def combination_checks(reg, capabilities):
+    """Check the system's capabilities against each combination the register defines (combinations.yaml).
+
+    Each combination has legs; a capability supplies a leg always ("yes") or only in some deployments
+    ("maybe"). The combination is present when every leg has a "yes" capability, possible when every leg
+    is supplied but at least one only by "maybe" capabilities, and not present otherwise. The verdict
+    decides whether the combination's control is implemented or waived; it does not change which risks apply.
+    """
+    elements = element_index(reg)
+    applicable = [rid for group in applicable_risks(reg, capabilities) for rid in group]
+    out = []
+    for combo_id, combo in (reg.get("combinations") or {}).items():
+        legs = []
+        for leg_id, leg in (combo.get("legs") or {}).items():
+            marks = leg.get("capabilities") or {}
+            suppliers = [{"id": c, "name": elements.get(c, {}).get("name", ""), "mark": marks[c].get("mark"),
+                          "note": marks[c].get("note", "")} for c in capabilities if c in marks]
+            status = "yes" if any(s["mark"] == "yes" for s in suppliers) else ("maybe" if suppliers else "none")
+            legs.append({"id": leg_id, "name": leg.get("name", leg_id), "description": leg.get("description", ""),
+                         "question": leg.get("question", ""), "status": status, "capabilities": suppliers})
+        statuses = [leg["status"] for leg in legs]
+        verdict = ("not present" if "none" in statuses or not legs
+                   else "present" if all(s == "yes" for s in statuses) else "possible")
+        cid = combo.get("control")
+        control = reg["controls"].get(cid) or {}
+        out.append({
+            "id": combo_id, "name": combo.get("name", combo_id), "description": combo.get("description", ""),
+            "verdict": verdict, "legs": legs,
+            "control": {"id": cid, "level": control.get("level"), "statement": control.get("statement", "")},
+            "control_listed_by": [rid for rid in applicable if cid in (reg["risks"][rid].get("controls") or [])],
+        })
+    return out
+
+
+def combination_advice(check):
+    """What the assessor does with a combination verdict."""
+    cid = check["control"]["id"]
+    missing = [leg["name"].lower() for leg in check["legs"] if leg["status"] == "none"]
+    unsure = [leg["name"].lower() for leg in check["legs"] if leg["status"] == "maybe"]
+    if check["verdict"] == "present":
+        advice = (f"Every leg is present. Implement {cid}. If your review of the system finds that a leg is absent "
+                  f"in practice, record which one and the evidence, and record {cid} as waived — not applicable.")
+    elif check["verdict"] == "possible":
+        advice = (f"Whether this system has {' and '.join(unsure)} depends on how it is deployed. Answer each "
+                  f"note marked maybe from the code and configuration. If every leg is confirmed, implement "
+                  f"{cid}. If one is absent, record {cid} as waived — not applicable, with the evidence.")
+    else:
+        advice = (f"No capability of this system supplies {' or '.join(missing)}. Where {cid} is listed, record it "
+                  "as waived — not applicable, with this as the evidence.")
+    if check["verdict"] != "not present" and not check["control_listed_by"]:
+        advice += (f" None of this system's applicable risks lists {cid} in this register version, so record it "
+                   "with the combination check.")
+    return advice
+
+
 def parse_ids(text):
     return [x.strip().upper() for x in (text or "").split(",") if x.strip()]
 
@@ -502,12 +581,14 @@ def cmd_assess(reg, source, args):
     level0 = rollup(lambda rid, c: c["level"] == 0)
     in_scope = rollup(lambda rid, c: c["level"] == 0 or rid in priority) if priority is not None else None
 
+    combinations = combination_checks(reg, caps)
     v = reg["register"].get("version")
     if args.format == "json":
         out = {"register_version": v, "source": source, "capabilities": caps,
                "risks": {"baseline": [records[r] for r in baseline], "capability": [records[r] for r in single],
                          "combination": [records[r] for r in combination]},
-               "level0_controls": [{"id": k, **val} for k, val in level0.items()]}
+               "level0_controls": [{"id": k, **val} for k, val in level0.items()],
+               "combinations": [{**c, "advice": combination_advice(c)} for c in combinations]}
         if in_scope is not None:
             out["priority_risks"] = priority
             out["controls_in_scope"] = [{"id": k, **val} for k, val in in_scope.items()]
@@ -538,6 +619,26 @@ def cmd_assess(reg, source, args):
                 if args.detail and c.get("recommendations"):
                     print(f"  - Guidance: {c['recommendations']}")
             print()
+
+    if combinations:
+        print("## Capability combinations\n")
+        print("Some capabilities create a risk only when a system holds them together. This check uses the "
+              "capabilities alone. Persistent memory can carry untrusted content or sensitive data from one "
+              f"session into another, so count it when answering. See {SITE}arc_framework/capability-combinations/.\n")
+        for c in combinations:
+            print(f"### {c['name']}: {c['verdict']}\n")
+            print(f"{c['description']}\n")
+            for leg in c["legs"]:
+                if leg["status"] == "none":
+                    print(f"- {leg['name']}: not supplied by any capability of this system")
+                    continue
+                print(f"- {leg['name']}: {leg['status']}")
+                shown = [s for s in leg["capabilities"] if s["mark"] == "yes"] or leg["capabilities"]
+                for s in shown:
+                    print(f"  - {s['id']} {s['name']} ({s['mark']}): {s['note']}")
+            print(f"\n{combination_advice(c)}\n")
+            print(f"- {c['control']['id']} [{LEVELS.get(c['control']['level'], c['control']['level'])}] "
+                  f"{c['control']['statement']}\n")
 
     def table(d):
         for cid, val in d.items():

@@ -972,6 +972,7 @@ RISK-037:
   - CTRL-0047
   - CTRL-0066
   - CTRL-0089
+  - CTRL-0097
   sources:
   - https://arxiv.org/html/2506.00618v3
   crosswalks:
@@ -1158,6 +1159,7 @@ RISK-044:
   - CTRL-0062
   - CTRL-0083
   - CTRL-0090
+  - CTRL-0097
   sources:
   - https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability
   - https://www.wired.com/story/here-come-the-ai-worms/
@@ -1219,7 +1221,7 @@ RISK-046:
     - T4
 RISK-047:
   statement: Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel
-  description: This risk arises when an agent that ingests untrusted content (web pages, files, messages) also holds access to sensitive data and has any outbound channel — browsing itself, API calls, messaging, or tool calls that carry data in URLs — so that instructions injected through the retrieval path can direct the agent to send data out through a legitimate tool. Each capability may be individually controlled; the exposure comes from their combination. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by ForcedLeak and EchoLeak.
+  description: This risk arises when an agent that ingests untrusted content (web pages, files, messages) also holds access to sensitive data and has any outbound channel — browsing itself, API calls, messaging, or tool calls that carry data in URLs — so that instructions injected through the retrieval path can direct the agent to send data out through a legitimate tool. Each capability may be individually controlled; the exposure comes from their combination. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by ForcedLeak and EchoLeak. RISK-055 covers the same combination when the untrusted content arrives through messages or APIs rather than the web.
   element_ids:
   - CAP-07
   - CAP-11
@@ -1236,6 +1238,7 @@ RISK-047:
   - CTRL-0083
   - CTRL-0089
   - CTRL-0090
+  - CTRL-0097
   sources:
   - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
   - https://www.varonis.com/blog/forcedleak
@@ -1442,3 +1445,34 @@ RISK-054:
     owasp_agentic_threats:
     - T3
     - T11
+RISK-055:
+  statement: Data exfiltration through message and API channels
+  description: "This risk arises when an agent that reads messages or data sent by outside parties through a programmatic channel — email, chat, support tickets, form submissions, webhooks, or API responses — also holds access to sensitive data and can send messages or make API calls outward. Instructions injected in an inbound message can then direct the agent to send data out through a legitimate channel: replying or forwarding to an attacker's address, posting to a shared channel, or calling an API with data in its parameters or in a URL. Unlike RISK-047, no web access is needed, because the message channel is both the way in and the way out. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by EchoLeak, where a single crafted email led Microsoft 365 Copilot to send internal data to an attacker, and ForcedLeak, where instructions in a web-form submission led Salesforce Agentforce to exfiltrate CRM records."
+  element_ids:
+  - CAP-09
+  - CAP-11
+  failure_mode: External Manipulation
+  type:
+  - Security
+  hazards:
+  - HZ-01
+  controls:
+  - CTRL-0020
+  - CTRL-0062
+  - CTRL-0082
+  - CTRL-0083
+  - CTRL-0089
+  - CTRL-0090
+  - CTRL-0097
+  sources:
+  - https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf
+  - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
+  - https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability
+  - https://www.varonis.com/blog/forcedleak
+  crosswalks:
+    owasp_asi:
+    - ASI01
+    - ASI02
+    owasp_agentic_threats:
+    - T6
+    - T2

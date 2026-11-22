@@ -11,6 +11,7 @@
 
 !!! info "What's new — register v1.4 and v1.5, November 2026"
 
+    - **Capability combinations (v1.5)**: a new [page](arc_framework/capability-combinations.md) on risks that arise only when capabilities are held together, with a check that reads a system's capabilities and reports whether the lethal trifecta (untrusted content, sensitive data, and an outbound channel) is present; a new Level 0 control, CTRL-0097, requires breaking that combination; and a new risk, RISK-055, covers data exfiltration by agents that handle messages, such as email assistants
     - **Human approval as a floor (v1.5)**: human approval of business transactions outside pre-authorised limits, of sensitive official communications, and of deletions that cannot be undone is now Level 0, together with least privilege and checking that approvals remain real decisions; copyright guardrails and code linters move to Level 1; and each Level 0 control now matches its subject, so CVE scanning applies only where code runs, tool authentication covers every remote tool, and the memory-write controls concern persistent memory
     - **Risks apply where they arise**: multi-agent risks now apply only to systems in which more than one agent works on a task, including agents operated by other organisations, and the sandbox-escape risk only to systems that can execute code, so simpler systems no longer carry Level 0 controls that cannot apply to them; and a Level 0 control is waived when the capability or component it concerns is not present
     - **Readable by AI agents**: a [full-text register](arc_framework/register-full-text.md) with a link for every risk and control, and an [`llms.txt`](llms.txt) index for agents
@@ -28,7 +29,8 @@ On this website, you'll find all the resources you need to get started with unde
 - **[Framework Introduction](arc_framework/introduction.md)** — Design rationale, literature review, and theoretical foundation
 - **[Agentic System Elements](arc_framework/elements.md)** — Detailed examination of components, design, and capabilities
 - **[Capability Taxonomy](arc_framework/elements.md#capabilities)** — Cognitive, interaction, and operational capability categories with definitions
-- **[Risk Register](arc_framework/risk-register.md)** — 54 component, design, and capability-specific risks with their hazards and 94 recommended controls at three levels, filterable and searchable
+- **[Risk Register](arc_framework/risk-register.md)** — 55 component, design, and capability-specific risks with their hazards and 95 recommended controls at three levels, filterable and searchable
+- **[Capability Combinations](arc_framework/capability-combinations.md)** — Risks that arise only when capabilities are held together, and the check for the lethal trifecta
 - **[Crosswalks](arc_framework/crosswalks.md)** — Entry-level mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the Cyber Security Agency of Singapore's Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
 
 ### 🛠️ Implementation Guides

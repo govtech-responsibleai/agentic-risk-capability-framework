@@ -309,6 +309,7 @@ CTRL-0020:
   risks:
   - RISK-009
   - RISK-047
+  - RISK-055
   statement: Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions
   recommendations: Using the same LLM for both input processing and task execution creates vulnerability to prompt injection attacks embedded in user input. Deploy a separate LLM instance configured specifically for input sanitisation, with explicit instructions to extract only designated fields (e.g., name, email, query text) whilst ignoring any other content including embedded commands or meta-instructions. Configure this extraction LLM with a restrictive system prompt focused solely on structured data extraction and validation against expected schemas. Validate extracted fields against expected formats before passing them to the main agent LLM, and monitor extraction outputs for anomalies that might indicate injection attempts.
   references: null
@@ -965,6 +966,7 @@ CTRL-0062:
   - RISK-036
   - RISK-044
   - RISK-047
+  - RISK-055
   statement: Implement input guardrails to detect prompt injection and adversarial attacks
   recommendations: Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.
   references: null
@@ -1255,6 +1257,7 @@ CTRL-0082:
   risks:
   - RISK-043
   - RISK-047
+  - RISK-055
   statement: Do not grant agents access to personally identifiable or sensitive data unless strictly required
   recommendations: Agents with unnecessary access to PII or sensitive data create elevated risk of exposure, leakage, or misuse, particularly if agents are compromised or misuse their permissions. Apply the principle of least privilege by restricting agent access to databases, files, or systems containing PII or sensitive information unless explicitly required for the agent's designated functionality. Implement access controls that enforce these restrictions at the data layer, preventing agents from querying or reading sensitive datasets they should not access.
   references: null
@@ -1271,6 +1274,7 @@ CTRL-0083:
   risks:
   - RISK-044
   - RISK-047
+  - RISK-055
   statement: Disallow unknown or external files unless they have been scanned for threats
   recommendations: External files may contain maliciously crafted content designed to inject hidden instructions, manipulate agent behaviour, or introduce security threats when processed. Implement mandatory scanning for all unknown or external files before allowing agents to access them, using antivirus software, malware scanners, or specialised tools that detect prompt injection attempts embedded in file content.
   references: null
@@ -1331,6 +1335,7 @@ CTRL-0089:
   - RISK-037
   - RISK-047
   - RISK-049
+  - RISK-055
   statement: Enforce default-deny network egress for agent runtimes, allowing only approved destinations
   recommendations: Every exfiltration and every containment escape needs an outbound channel, and agents acquire new ones with each tool. Run agent runtimes behind an egress policy that denies all outbound connections by default and allows only named destinations required for the task, applied at the network layer (proxy, firewall, or sandbox policy) rather than in the prompt. Include browsing and API tools in the policy, block requests that carry data in URLs or headers to unapproved hosts, and validate at the egress boundary that any credential presented belongs to the deployment — an allowlisted API endpoint is still an exfiltration channel if the agent can use it with an attacker's account. Log and alert on denied connections; they are an early signal of injection or misbehaviour.
   references:
@@ -1352,6 +1357,7 @@ CTRL-0090:
   - RISK-036
   - RISK-044
   - RISK-047
+  - RISK-055
   statement: Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions
   recommendations: Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.
   references:
@@ -1474,3 +1480,24 @@ CTRL-0096:
     owasp_asi:
     - ASI05
     - ASI03
+CTRL-0097:
+  level: 0
+  risks:
+  - RISK-037
+  - RISK-044
+  - RISK-047
+  - RISK-055
+  statement: Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent
+  recommendations: "An agent that reads content from outside parties, can reach sensitive data, and can send data out can be turned into an exfiltration channel by a single injected instruction, and detection alone does not reliably stop this. Map, for each agent, where its inputs come from, what sensitive data it can reach, and every channel through which it can send data out, including messages, API calls, and URLs it can fetch or render. Where all three are present, break the combination: give the untrusted content to a separate agent that has no access to sensitive data and returns only structured values (see CTRL-0020 and CTRL-0090); remove the sensitive data the task does not need (see CTRL-0082); or restrict the outbound channel outside the agent, by limiting recipients and destinations to a fixed allowlist (see CTRL-0089) and requiring human approval for any message or call that carries data to a new recipient. Record which of the three is removed or gated for each agent, and recheck the map whenever a tool, data source, or channel is added. An agent that lacks any of the three does not need this control; record the waiver with evidence of which one is absent."
+  references:
+  - https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf
+  - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
+  crosswalks:
+    csa_addendum:
+    - '2.7'
+    - '2.9'
+    imda_mgf:
+    - 2.1.2
+    owasp_asi:
+    - ASI01
+    - ASI02
