@@ -21,6 +21,9 @@ Checks:
     crosswalk_references.yaml, and only frameworks that apply to that entry type;
     IDs must be quoted strings (an unquoted 2.10 is read by YAML as the number 2.1)
   - register.yaml carries a semantic version (MAJOR.MINOR.PATCH) and a release date
+  - combinations.yaml (if present): every combination names a defined control and risks that
+    carry it, and has at least two legs; every leg maps defined capabilities to the quoted
+    marks "yes" or "maybe", each with a note
   - warnings (non-fatal) for empty sources, missing recommendations, or missing crosswalks
 """
 
@@ -38,6 +41,8 @@ RISK_ID = re.compile(r'^RISK-\d{3}$')
 CTRL_ID = re.compile(r'^CTRL-\d{4}$')
 ELEMENT_ID = re.compile(r'^(CMP|DSN|CAP)-\d{2}$')
 HAZARD_ID = re.compile(r'^HZ-\d{2}$')
+COMBINATION_ID = re.compile(r'^[a-z][a-z0-9-]*$')
+MARKS = ('yes', 'maybe')
 SEMVER = re.compile(r'^\d+\.\d+\.\d+$')
 ISO_DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
 
@@ -72,6 +77,58 @@ def _check_crosswalks(entry_id, entry, entry_type, references, errors, warnings)
                 continue
             if ext_id not in {str(k) for k in ref['ids']}:
                 errors.append(f'{entry_id}: unknown {framework} ID "{ext_id}"')
+
+
+def _check_combinations(combinations, risks, controls, capabilities, errors):
+    """combinations.yaml: legs of capabilities that, held together, call for a control."""
+    if not isinstance(combinations, dict):
+        errors.append('combinations.yaml: must be a mapping of combination ID -> definition')
+        return
+    for combo_id, combo in combinations.items():
+        where = f'combinations.yaml {combo_id}'
+        if not COMBINATION_ID.match(str(combo_id)):
+            errors.append(f'{where}: malformed combination ID (use lower-case words joined by hyphens)')
+        if not isinstance(combo, dict):
+            errors.append(f'{where}: must be a mapping')
+            continue
+        for field in ('name', 'description', 'control', 'legs'):
+            if not combo.get(field):
+                errors.append(f'{where}: missing or empty field "{field}"')
+        control = combo.get('control')
+        if control and control not in controls:
+            errors.append(f'{where}: references undefined control {control}')
+        for risk_id in combo.get('risks') or []:
+            if risk_id not in risks:
+                errors.append(f'{where}: references undefined risk {risk_id}')
+            elif control and control not in (risks[risk_id].get('controls') or []):
+                errors.append(f'{where}: {risk_id} does not list the combination\'s control {control}')
+        legs = combo.get('legs') or {}
+        if not isinstance(legs, dict) or len(legs) < 2:
+            errors.append(f'{where}: legs must be a mapping of at least two legs')
+            continue
+        for leg_id, leg in legs.items():
+            leg_where = f'{where}, leg {leg_id}'
+            if not isinstance(leg, dict):
+                errors.append(f'{leg_where}: must be a mapping')
+                continue
+            for field in ('name', 'description', 'question', 'capabilities'):
+                if not leg.get(field):
+                    errors.append(f'{leg_where}: missing or empty field "{field}"')
+            marks = leg.get('capabilities') or {}
+            if not isinstance(marks, dict):
+                errors.append(f'{leg_where}: capabilities must be a mapping of capability ID -> mark and note')
+                continue
+            for cap_id, entry in marks.items():
+                if cap_id not in capabilities:
+                    errors.append(f'{leg_where}: "{cap_id}" is not a defined capability')
+                if not isinstance(entry, dict):
+                    errors.append(f'{leg_where}: {cap_id} must have a mark and a note')
+                    continue
+                if entry.get('mark') not in MARKS:
+                    errors.append(f'{leg_where}: {cap_id} mark {entry.get("mark")!r} must be the quoted string '
+                                  '"yes" or "maybe"')
+                if not entry.get('note'):
+                    errors.append(f'{leg_where}: {cap_id} has no note')
 
 
 def validate():
@@ -152,6 +209,9 @@ def validate():
         if not ctrl.get('recommendations'):
             warnings.append(f'{ctrl_id}: no recommendations text')
         _check_crosswalks(ctrl_id, ctrl, 'controls', references, errors, warnings)
+
+    if (DATA_DIR / 'combinations.yaml').exists():
+        _check_combinations(load('combinations.yaml'), risks, controls, load('capabilities.yaml'), errors)
 
     forward = {(r, c) for r, risk in risks.items() for c in (risk.get('controls') or [])}
     backward = {(r, c) for c, ctrl in controls.items() for r in (ctrl.get('risks') or [])}

@@ -11,14 +11,17 @@ for the website and nothing else:
 - arc_framework/register-full-text.md: every risk and control as plain text, one
   linkable section per entry, for readers and agents that don't run JavaScript
 - llms.txt: an index of the site for LLM agents (https://llmstxt.org)
+- arc_framework/capability-combinations.md: the page in docs/ of the same name, with its
+  `<!-- arc:... -->` markers replaced by tables generated from the register
 
-Neither is committed. MkDocs generates them at build time through
+None of the generated output is committed. MkDocs generates them at build time through
 scripts/mkdocs_hooks.py, so the site can never serve a stale copy. Run this
 script directly to validate and preview, or with --out DIR to write the files.
 """
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -29,11 +32,13 @@ import validate_risk_register  # noqa: E402
 
 # Define paths
 DATA_DIR = Path(__file__).parent.parent / 'arc-risk-register'
+DOCS_DIR = Path(__file__).parent.parent / 'docs'
 # Site paths (relative to docs/) of the generated files
 JSON_PATH = 'assets/risk_register_data.json'
 CROSSWALKS_PATH = 'arc_framework/crosswalks.md'
 FULL_TEXT_PATH = 'arc_framework/register-full-text.md'
 LLMS_TXT_PATH = 'llms.txt'
+COMBINATIONS_PATH = 'arc_framework/capability-combinations.md'
 SITE_URL = 'https://govtech-responsibleai.github.io/agentic-risk-capability-framework/'
 RAW_URL = 'https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework'
 
@@ -45,6 +50,11 @@ def load_yaml(filename):
     """Load a YAML file and return the data."""
     with open(DATA_DIR / filename, 'r') as f:
         return yaml.safe_load(f)
+
+def load_combinations():
+    """Capability combinations the register checks for (combinations.yaml), or {} if it has none."""
+    return load_yaml('combinations.yaml') if (DATA_DIR / 'combinations.yaml').exists() else {}
+
 
 def _crosswalk_labels(crosswalks, references):
     """Resolve crosswalk IDs to {framework: [{id, title}]} for display."""
@@ -225,6 +235,7 @@ def build_risk_register_data():
     output = {
         'risks': enriched_risks,
         'elements': list(elements.values()),
+        'combinations': load_combinations(),
         'crosswalk_references': {
             fw: {'title': ref['title'], 'url': ref['url'], 'version': ref.get('version', '')}
             for fw, ref in references.items()
@@ -351,6 +362,68 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
 
 
 
+MARK_LABELS = {'yes': 'Yes', 'maybe': 'Maybe'}
+
+
+def build_combinations_page(source, risks, controls, capabilities, components, design, combinations):
+    """Fill the generated tables into the hand-written Capability combinations page.
+
+    The page's prose lives in docs/; each `<!-- arc:NAME [ARGUMENT] -->` marker on a line of its own is
+    replaced by a table built from the register, so the page cannot disagree with the YAML.
+    """
+    names = {eid: e['name'] for group in (components, design, capabilities) for eid, e in group.items()}
+
+    def composite_risks(_):
+        rows = ['| Risk | Applies when the system has all of |', '| --- | --- |']
+        for rid, r in risks.items():
+            ids = r.get('element_ids', [])
+            if len(ids) > 1:
+                rows.append(f"| [{rid}](register-full-text.md#{rid}) {r['statement']} | "
+                            + ' + '.join(f'{names[e]} ({e})' for e in ids) + ' |')
+        return rows
+
+    def combination(combo_id):
+        if combo_id not in combinations:
+            raise RegisterInvalid(f'{COMBINATIONS_PATH}: unknown combination "{combo_id}"')
+        return combinations[combo_id]
+
+    def legs_table(combo_id):
+        legs = combination(combo_id)['legs']
+        rows = ['| Capability | ' + ' | '.join(leg['name'] for leg in legs.values()) + ' |',
+                '| --- |' + ' :---: |' * len(legs)]
+        for cap_id, cap in capabilities.items():
+            marks = [MARK_LABELS.get((leg['capabilities'].get(cap_id) or {}).get('mark'), '–') for leg in legs.values()]
+            rows.append(f"| {cap['name']} ({cap_id}) | " + ' | '.join(
+                f'**{m}**' if m == 'Yes' else m for m in marks) + ' |')
+        return rows
+
+    def legs_notes(combo_id):
+        rows = []
+        for leg in combination(combo_id)['legs'].values():
+            rows += [f"**{leg['name']}.** {leg['description']}", '']
+            rows += [f"- {capabilities[c]['name']} ({c}): {MARK_LABELS[e['mark']].lower()}. {e['note']}"
+                     for c, e in leg['capabilities'].items()]
+            rows.append('')
+        return rows[:-1]
+
+    def control(combo_id):
+        cid = combination(combo_id)['control']
+        c = controls[cid]
+        return [f"> **[{cid}](register-full-text.md#{cid}) ({LEVEL_LABELS[c['level']]}).** {c['statement']}."]
+
+    blocks = {'composite-risks': composite_risks, 'combination-legs': legs_table,
+              'combination-notes': legs_notes, 'combination-control': control}
+
+    def fill(match):
+        indent, name, arg = match.group(1), match.group(2), match.group(3)
+        if name not in blocks:
+            raise RegisterInvalid(f'{COMBINATIONS_PATH}: unknown marker "arc:{name}"')
+        return '\n'.join(indent + line if line else '' for line in blocks[name](arg))
+
+    # A marker may be indented (inside an admonition); the generated lines keep its indent
+    return re.sub(r'^( *)<!-- arc:([a-z-]+)(?: ([a-z0-9-]+))? -->$', fill, source, flags=re.M)
+
+
 def build_llms_txt(register):
     """Render llms.txt (https://llmstxt.org): an index of the site for LLM agents, pinned to the register version."""
     v = register['version']
@@ -369,6 +442,7 @@ ARC is meant to be adapted: an organisation contextualises the baseline register
 - [Introduction]({site}arc_framework/introduction/): motivation, the capability-based approach, and related work
 - [Elements]({site}arc_framework/elements/): definitions of the components, design elements, and twelve capabilities
 - [Risks]({site}arc_framework/risks/): failure modes and hazards
+- [Capability combinations]({site}arc_framework/capability-combinations/): risks that arise only when capabilities are held together, and the check for the lethal trifecta
 - [Controls]({site}arc_framework/controls/): what the control levels mean and when they apply
 - [Risk Register (full text)]({site}arc_framework/register-full-text/): every risk and control, one linkable section per entry
 
@@ -383,6 +457,7 @@ ARC is meant to be adapted: an organisation contextualises the baseline register
 
 - [risks.yaml]({raw}/risks.yaml) and [controls.yaml]({raw}/controls.yaml): the machine-readable register at v{v}
 - [capabilities.yaml]({raw}/capabilities.yaml), [components.yaml]({raw}/components.yaml), [design.yaml]({raw}/design.yaml), [hazards.yaml]({raw}/hazards.yaml): elements and hazard categories
+- [combinations.yaml]({raw}/combinations.yaml): which capabilities supply each leg of a checked combination
 - [Changelog]({site}arc_framework/changelog/): what changed in each version, and the versioning policy
 
 ## Optional
@@ -411,8 +486,15 @@ def generate():
         load_yaml('risks.yaml'), load_yaml('controls.yaml'), load_yaml('capabilities.yaml'),
         load_yaml('components.yaml'), load_yaml('design.yaml'), load_yaml('hazards.yaml'),
         load_yaml('crosswalk_references.yaml'), load_yaml('register.yaml'))
-    return {JSON_PATH: json.dumps(data, indent=2), CROSSWALKS_PATH: page, FULL_TEXT_PATH: full_text,
-            LLMS_TXT_PATH: build_llms_txt(load_yaml('register.yaml'))}, warnings
+    files = {JSON_PATH: json.dumps(data, indent=2), CROSSWALKS_PATH: page, FULL_TEXT_PATH: full_text,
+             LLMS_TXT_PATH: build_llms_txt(load_yaml('register.yaml'))}
+    combinations_source = DOCS_DIR / COMBINATIONS_PATH
+    if combinations_source.exists():
+        files[COMBINATIONS_PATH] = build_combinations_page(
+            combinations_source.read_text(), load_yaml('risks.yaml'), load_yaml('controls.yaml'),
+            load_yaml('capabilities.yaml'), load_yaml('components.yaml'), load_yaml('design.yaml'),
+            load_combinations())
+    return files, warnings
 
 
 def main():

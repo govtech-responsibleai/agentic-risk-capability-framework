@@ -45,6 +45,22 @@ List **every applicable risk**: all baseline risks (those arising only from comp
 | RISK-001 | | CMP-01 | | | | |
 | … | | | | | | |
 
+## 2a. Capability combinations
+
+Some risks arise only when a system holds several capabilities at once (see [Capability combinations](../arc_framework/capability-combinations.md)). Record the check for each combination the register defines. Register 1.5.0 defines one, the lethal trifecta. Count what persistent memory holds when answering for each leg.
+
+| Combination | Leg | Supplied by (capability, or "none") | Present in this system? (yes / no, with evidence) |
+| --- | --- | --- | --- |
+| Lethal trifecta | Untrusted content | | |
+| | Sensitive data | | |
+| | Outbound channel | | |
+
+| Field | Entry |
+| --- | --- |
+| Verdict (present / possible / not present) | |
+| If every leg is present: which leg is removed or gated for each agent, and how (CTRL-0097) | |
+| If a leg is absent: which one, and the evidence (CTRL-0097 is then *Waived — not applicable*) | |
+
 ## 3. Controls
 
 One row per control per risk, even where the same control addresses several risks. **Every Level 0 control of every applicable risk is listed with status *Implemented as-is*, or *Waived — not applicable* where the capability or component it concerns is not present in the system, with evidence of its absence.** Level 1 and 2 controls are listed for priority risks (and for any other risk where you choose to adopt them); if not adopted, record why.
