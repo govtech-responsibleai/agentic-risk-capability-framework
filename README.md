@@ -21,7 +21,7 @@ ARC starts from what an agent **can do**, not from a list of threats. Every agen
 | **Design** | agentic architecture, roles and access controls, monitoring and traceability | every system (the *baseline*) |
 | **Capabilities** | 12 capabilities, e.g. code execution, internet and search access, official communication, business transactions | systems that have them |
 
-Each risk arises from one or more elements, through one of three failure modes (agent failure, external manipulation, tool or resource malfunction), and results in safety or security hazards. A risk that lists several capabilities applies only when a system has all of them. Each risk maps to controls at three levels:
+Each risk arises from one or more elements, through one of six failure modes (agent error, agent misbehaviour, external manipulation, tool or resource malfunction, safeguard failure, misuse by the principal), and results in safety or security hazards. A risk that lists several capabilities applies only when a system has all of them. Each risk maps to controls at three levels:
 
 | Level | Meaning |
 | --- | --- |

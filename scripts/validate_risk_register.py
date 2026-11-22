@@ -38,7 +38,8 @@ import yaml
 
 DATA_DIR = Path(__file__).parent.parent / 'arc-risk-register'
 
-FAILURE_MODES = {'Agent Failure', 'External Manipulation', 'Tool or Resource Malfunction'}
+FAILURE_MODES = {'Agent Error', 'Agent Misbehaviour', 'External Manipulation', 'Tool or Resource Malfunction',
+                 'Safeguard Failure', 'Misuse by the Principal'}
 RISK_TYPES = {'Safety', 'Security'}
 RISK_ID = re.compile(r'^RISK-\d{3}$')
 CTRL_ID = re.compile(r'^CTRL-\d{4}$')
