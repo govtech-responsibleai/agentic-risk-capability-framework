@@ -89,6 +89,8 @@ One row per control per risk, even where the same control addresses several risk
 
 !!! note "Evidence"
 
+    Each control in the register names the evidence that shows it is in place and a test that shows it works. Start from those, and record what you actually have.
+
     Evidence is what an auditor or a future maintainer can check without asking you: a configuration file or policy in version control, a test report, a screenshot of a guardrail setting, a log query that shows the control firing. "Implemented" without evidence is a claim, not a control.
 
 ## 4. Residual risks

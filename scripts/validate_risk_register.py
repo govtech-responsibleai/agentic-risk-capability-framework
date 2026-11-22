@@ -19,6 +19,9 @@ Checks:
   - every risk lists at least one hazard from hazards.yaml, and the hazard types
     (Safety/Security) agree exactly with the risk's type
   - every control has a statement, a valid level (0/1/2), and at least one risk
+  - every control says where it is enforced (`enforcement`: one or two of prompt, model, harness,
+    infrastructure, organisation), who owns it (`owner`), when in the lifecycle it applies
+    (`phase`), what shows it is in place (`evidence`) and how to check that it works (`test`)
   - risk->control and control->risk mappings are exactly inverse-consistent
   - crosswalks (if present) reference frameworks and IDs defined in
     crosswalk_references.yaml, and only frameworks that apply to that entry type;
@@ -57,6 +60,9 @@ HAZARD_ID = re.compile(r'^HZ-\d{2}$')
 COMBINATION_ID = re.compile(r'^[a-z][a-z0-9-]*$')
 AUTHORITY = ('read', 'propose', 'act-with-approval', 'act-alone')   # least to most
 CONTEXT_ANSWERS = ('always', 'never', 'ask')
+ENFORCEMENT = ('prompt', 'model', 'harness', 'infrastructure', 'organisation')
+OWNERS = ('developer', 'platform', 'security', 'governance', 'business')
+PHASES = ('design', 'build', 'deploy', 'operate', 'retire')   # in lifecycle order
 MARKS = ('yes', 'maybe')
 SEMVER = re.compile(r'^\d+\.\d+\.\d+$')
 ISO_DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
@@ -297,6 +303,19 @@ def validate():
             for cap_id in condition.get('capabilities') or []:
                 if 'CAP-' not in str(cap_id) or cap_id not in elements:
                     errors.append(f'{where}: "{cap_id}" is not a capability')
+        enforcement = ctrl.get('enforcement')
+        if not isinstance(enforcement, list) or not 1 <= len(enforcement) <= 2 \
+                or any(e not in ENFORCEMENT for e in enforcement) or len(set(enforcement)) != len(enforcement):
+            errors.append(f'{ctrl_id}: enforcement must list one or two of {list(ENFORCEMENT)}, the main one first')
+        if ctrl.get('owner') not in OWNERS:
+            errors.append(f'{ctrl_id}: owner must be one of {list(OWNERS)}')
+        phase = ctrl.get('phase')
+        if not isinstance(phase, list) or not phase or any(x not in PHASES for x in phase) \
+                or phase != sorted(set(phase), key=PHASES.index):
+            errors.append(f'{ctrl_id}: phase must list lifecycle phases from {list(PHASES)}, in that order')
+        for field in ('evidence', 'test'):
+            if not isinstance(ctrl.get(field), str) or not ctrl[field].strip():
+                errors.append(f'{ctrl_id}: missing {field}')
         if not ctrl.get('risks'):
             errors.append(f'{ctrl_id}: not mapped to any risk')
         for risk_id in ctrl.get('risks') or []:

@@ -236,6 +236,11 @@ def build_risk_register_data():
                     'level_when': ctrl.get('level_when', []),
                     'statement': ctrl.get('statement', ''),
                     'recommendations': ctrl.get('recommendations', ''),
+                    'enforcement': ctrl.get('enforcement', []),
+                    'owner': ctrl.get('owner', ''),
+                    'phase': ctrl.get('phase', []),
+                    'evidence': ctrl.get('evidence', ''),
+                    'test': ctrl.get('test', ''),
                     'references': ctrl.get('references', []) if ctrl.get('references') else [],
                     'crosswalks': _crosswalk_labels(ctrl.get('crosswalks') or {}, references),
                 })
@@ -435,6 +440,11 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
             '',
             (c.get('recommendations') or '*No implementation guidance recorded.*').strip(),
         ]
+        if c.get('enforcement'):
+            lines += ['', f"**Enforced in:** {', '.join(c['enforcement'])} · **Owner:** {c.get('owner', '')} · "
+                          f"**Phase:** {', '.join(c.get('phase') or [])}",
+                      '', f"**Evidence that it is in place:** {c.get('evidence', '')}",
+                      '', f"**Test that it works:** {c.get('test', '')}"]
         if c.get('references'):
             lines += ['', '**References:** ' + ' · '.join(f'<{u}>' if str(u).startswith('http') else str(u) for u in c['references'])]
         cw = _crosswalk_line(c.get('crosswalks'), references)

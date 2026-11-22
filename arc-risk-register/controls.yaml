@@ -4,6 +4,14 @@ CTRL-0001:
   - RISK-001
   statement: Use only LLMs from verified and trusted model developers
   recommendations: Untrusted or unknown model developers may introduce backdoors, data exfiltration risks, or inconsistent safety guarantees that compromise your agentic system. Establish evaluation criteria to assess model provider trustworthiness before adoption, including verification of published model cards, transparent responsible disclosure policies, evidence of security audits, and documented data handling practices. Evaluate whether the provider has an established track record, active security team, and clear incident response procedures. Regularly reassess providers against these criteria as new information emerges or the threat landscape evolves.
+  enforcement:
+  - organisation
+  owner: governance
+  phase:
+  - design
+  - operate
+  evidence: The approved model provider register, with each provider's dated assessment against the trust criteria and the name of the assessor.
+  test: List every model endpoint the system calls in production and confirm each provider has a register entry assessed within the review period.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.ncsc.gov.uk/files/Guidelines-for-secure-AI-system-development.pdf"
@@ -24,6 +32,15 @@ CTRL-0002:
   - RISK-001
   statement: Obtain legally binding no-training and no-logging agreements from LLM API service providers
   recommendations: Without contractual protections, API providers may train models on your proprietary data or retain logs containing sensitive information, creating data leakage and compliance risks. Configure API settings to opt out of data logging and model training where available, and have your legal team review provider terms of service and data processing agreements to verify these protections are legally enforceable. Ensure alignment with your organisation's data governance and privacy requirements (e.g., GDPR, PDPA). Maintain records of these agreements and configurations for audit and compliance purposes.
+  enforcement:
+  - organisation
+  - infrastructure
+  owner: governance
+  phase:
+  - design
+  - deploy
+  evidence: The signed data processing agreement clause barring training on and retention of submitted data, and the provider account setting showing both switched off.
+  test: Open the provider console for the production API key and confirm training use and log retention are switched off, matching the contract clause.
   references:
   - "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
@@ -42,6 +59,14 @@ CTRL-0003:
   - RISK-001
   statement: Use only established and verified model loaders in production environments
   recommendations: Malicious or unvetted model loaders may execute arbitrary code during model deserialisation, potentially introducing backdoors or system vulnerabilities. Use well-maintained, community-vetted model loading libraries with active security support and regular updates. Examples include Hugging Face Transformers, vLLM, or official framework loaders (PyTorch, TensorFlow), whilst avoiding custom or unmaintained deserialisation code. Monitor for security advisories affecting your chosen loaders and apply patches promptly.
+  enforcement:
+  - infrastructure
+  owner: platform
+  phase:
+  - build
+  - operate
+  evidence: The model-serving image's dependency lock file naming the loader library and pinned version, checked against the approved loader list.
+  test: Scan the production serving image and confirm it holds only an approved loader, at a version with no open security advisory, and no custom deserialisation code.
   references:
   - "https://www.ncsc.gov.uk/files/Guidelines-for-secure-AI-system-development.pdf"
   - "https://huggingface.co/docs/hub/security-pickle"
@@ -63,6 +88,13 @@ CTRL-0004:
   - RISK-003
   statement: Review the LLM's system card to inform risk assessment and model selection
   recommendations: System cards provide essential information about model capabilities, limitations, known failure modes, and safety evaluations that directly inform deployment decisions. Obtain and review the model's system card (or model card) before deployment, paying particular attention to documented risks, benchmark performance on safety evaluations, and limitations relevant to your use case. Use this information to identify potential misalignment between model behaviour and your application requirements, and to inform additional safeguards or testing strategies. If a system card is unavailable or incomplete, consider this a red flag when assessing provider trustworthiness.
+  enforcement:
+  - organisation
+  owner: developer
+  phase:
+  - design
+  evidence: The model selection record citing the system card version reviewed and mapping each documented limitation to an entry in the system's risk assessment.
+  test: Pick three limitations from the current system card and confirm each has a matching safeguard or accepted-risk decision in the risk assessment.
   references:
   - "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
@@ -83,6 +115,15 @@ CTRL-0005:
   - RISK-003
   statement: Conduct structured evaluation of multiple LLMs for instruction-following, performance, and safety before deployment
   recommendations: Deploying an LLM without comparative evaluation risks selecting a model poorly suited to your use case, potentially resulting in safety issues, poor performance, or misaligned behaviour. Define evaluation criteria aligned with your application requirements (e.g., accuracy on domain-specific tasks, refusal of unsafe requests, consistency of outputs) and benchmark multiple candidate models against these criteria using representative test scenarios. Use both automated metrics and human evaluation to assess instruction-following quality, safety boundaries, and failure modes. Document evaluation results to support model selection decisions and establish baseline performance expectations for ongoing monitoring.
+  enforcement:
+  - organisation
+  - model
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The evaluation report scoring at least two candidate models on one test set for instruction-following, task performance and safety, with the selection decision.
+  test: Re-run the stored evaluation set against the deployed model version and confirm its scores fall within the tolerance recorded in the report.
   references:
   - "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
@@ -125,6 +166,15 @@ CTRL-0007:
   - RISK-050
   statement: Log all LLM inputs and outputs for regular review
   recommendations: Comprehensive logging enables post-incident analysis, safety monitoring, detection of adversarial inputs, and continuous improvement of LLM behaviour over time. Implement structured logging that captures all LLM inputs, outputs, timestamps, model versions, and relevant metadata (user ID, session ID, tool calls). Use a centralised logging system (e.g., ELK stack, Datadog, CloudWatch) with appropriate retention policies and access controls to protect sensitive data. Establish regular review processes—manual spot-checks or automated anomaly detection—to identify drift, unsafe outputs, or emerging failure patterns.
+  enforcement:
+  - harness
+  - infrastructure
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: A log query for one production session returning every model request and response with timestamp, model version, user identifier and session identifier.
+  test: Send a prompt containing a unique marker string and confirm the central log returns both that prompt and the model's reply within minutes.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.ncsc.gov.uk/blog-post/prompt-injection-is-not-sql-injection"
@@ -146,6 +196,15 @@ CTRL-0008:
   - RISK-022
   statement: Implement automated alerts when agent behaviour drifts from predefined thresholds
   recommendations: Behavioural drift may indicate model degradation, adversarial manipulation, or emergent unsafe patterns that require immediate investigation. Define baseline metrics for expected agent behaviour (e.g., tool usage patterns, response times, error rates, decision distributions) and establish acceptable variance thresholds based on your risk tolerance. Implement monitoring systems that continuously track these metrics and trigger alerts when deviations exceed thresholds, enabling rapid response to anomalies. Configure alerts to include sufficient diagnostic context (timestamp, affected sessions, deviation magnitude) and establish clear escalation procedures for investigating and remediating drift incidents.
+  enforcement:
+  - infrastructure
+  - organisation
+  owner: developer
+  phase:
+  - deploy
+  - operate
+  evidence: The alert rules in the monitoring system, each naming a behavioural metric, its baseline, its threshold and the escalation route.
+  test: Replay a staging session with ten times the baseline tool-call rate and confirm an alert fires naming the session and the size of the deviation.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
@@ -166,6 +225,15 @@ CTRL-0009:
   - RISK-054
   statement: Use only tool servers and APIs, including MCP servers, that implement robust authentication mechanisms in production environments
   recommendations: Weak or misconfigured authorisation on the servers and APIs that an agent's tools call can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Before deployment, verify that every remote tool endpoint authenticates its caller with a standard mechanism (for example OAuth 2.1, OAuth 2.0 with PKCE, or mutually authenticated TLS) and enforces per-client scopes, and reject endpoints that rely on hard-coded credentials, unscoped shared keys, or deprecated authentication methods; test the authorisation flows in a development environment to confirm them. For MCP servers, also verify per-client consent flows and redirect URI validation to prevent authorisation bypasses, and reject servers with insufficient session management. As of the 2026-07-28 MCP specification, verify additionally that the server implements RFC 9207 issuer identification (so a client can detect a substituted authorization server) and Client ID Metadata Documents in place of dynamic client registration, and prefer servers that support the Enterprise-Managed Authorization extension so that access is governed by your identity provider rather than by per-user ad-hoc consent. Treat servers still built on the pre-2026 stateful session model as needing review before production use.
+  enforcement:
+  - infrastructure
+  - organisation
+  owner: security
+  phase:
+  - build
+  - deploy
+  evidence: The tool endpoint inventory recording each remote server's authentication mechanism and per-client scopes, with the integration review that exercised its authorisation flow.
+  test: Call each production tool endpoint with no credential and with a credential scoped for a different client, and confirm both are refused.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   - https://blog.modelcontextprotocol.io/posts/2026-07-28/
@@ -187,6 +255,15 @@ CTRL-0010:
   - RISK-004
   statement: Use only MCP servers that validate credentials on every inbound request
   recommendations: Relying on session state or connection-based authentication without per-request validation creates vulnerability to session hijacking, token replay attacks, and unauthorised access after initial authentication. Verify that MCP servers implement stateless authentication by validating credentials (e.g., OAuth tokens, API keys) on every single request rather than caching authorisation decisions based on connection or session state. Test this behaviour by monitoring whether the server accepts requests with expired, revoked, or missing credentials after an initial successful authentication. Ensure the server responds with appropriate HTTP 401 errors when credentials are invalid, expired, or absent, forcing re-authentication rather than relying on stale authorisation state. The 2026-07-28 specification removes long-lived stateful sessions from the protocol core, making per-request validation the expected behaviour; treat a server whose authorization depends on session state as non-compliant.
+  enforcement:
+  - infrastructure
+  - organisation
+  owner: security
+  phase:
+  - build
+  - deploy
+  evidence: The MCP server assessment record containing captured responses to requests sent with expired, revoked and missing tokens after an initial successful login.
+  test: Authenticate to the MCP server, revoke the token, send another request on the same connection and confirm it returns HTTP 401.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   - https://blog.modelcontextprotocol.io/posts/2026-07-28/
@@ -205,6 +282,15 @@ CTRL-0011:
   - RISK-005
   statement: Limit token scopes to the minimum privileges required and avoid broad or wildcard scopes
   recommendations: Overly broad token scopes enable compromised or malicious actors to access resources beyond what is necessary for legitimate operations, amplifying the impact of security breaches. Define granular, task-specific scopes for each MCP server integration and request only the minimum permissions required for the intended functionality (e.g., "read:inventory" rather than "admin:*"). Review and document the justification for each requested scope during integration, and reject MCP servers that require unnecessarily broad permissions or fail to support fine-grained scope definitions. Periodically audit active token scopes to identify and revoke excessive permissions that may have accumulated over time.
+  enforcement:
+  - infrastructure
+  - organisation
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The OAuth client configuration listing each scope requested per tool integration with its justification, containing no wildcard or administrator scope.
+  test: Decode a token issued to the agent in production, confirm its scopes match the configured list, then call an out-of-scope operation and confirm refusal.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   crosswalks:
@@ -225,6 +311,15 @@ CTRL-0012:
   - RISK-005
   statement: Use only MCP servers that integrate with authorisation servers implementing per-client consent mechanisms
   recommendations: Without explicit per-client consent, a malicious or compromised client could abuse delegated permissions to access resources the user never intended to authorise for that specific application. Verify that MCP servers integrate with OAuth 2.1 authorisation servers that implement per-client consent flows, where users explicitly approve each client-permission combination rather than granting blanket permissions across all clients. The authorisation server should clearly identify the requesting client and display what data or actions are being requested during the consent flow. Ensure the authorisation server persists consent decisions and provides mechanisms for users to review and revoke previously granted permissions. With Client ID Metadata Documents (2026-07-28 specification), the authorization server identifies the client from its published metadata; check that consent screens name the client accurately, and use the Enterprise-Managed Authorization extension where a central identity provider should govern access on behalf of all users.
+  enforcement:
+  - infrastructure
+  - organisation
+  owner: security
+  phase:
+  - build
+  - deploy
+  evidence: A capture of the authorisation server's consent screen naming the client and the permissions requested, and of the page where users review and revoke grants.
+  test: Connect a second client under a user who has consented only to the first and confirm a fresh consent prompt appears before any access is granted.
   references:
   - https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization
   - https://aaronparecki.com/2025/11/25/1/mcp-authorization-spec-update
@@ -245,6 +340,15 @@ CTRL-0013:
   - RISK-048
   statement: Test all untested MCP servers in a sandboxed environment before deploying to production
   recommendations: Untested MCP servers may contain vulnerabilities, malicious code, or unexpected behaviours that could compromise your production systems or data. Deploy MCP servers first to an isolated sandbox environment (e.g., containerised test environment, separate network segment, or dedicated development infrastructure) to evaluate their security posture, behaviour, and reliability. Monitor server activity during testing for anomalous network connections, excessive resource consumption, unauthorised file access, or other suspicious behaviours. Only promote MCP servers to production after successful security review, functional testing, and verification that the server behaves as documented.
+  enforcement:
+  - organisation
+  - infrastructure
+  owner: developer
+  phase:
+  - build
+  - deploy
+  evidence: The sandbox test report for each MCP server, recording observed network connections, file access and resource use, with the promotion approval.
+  test: Add an MCP server with no sandbox test report to the production configuration and confirm the release review rejects it.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   crosswalks:
@@ -284,6 +388,15 @@ CTRL-0015:
   - RISK-048
   statement: Treat all tool metadata and outputs as untrusted input requiring validation
   recommendations: Tool metadata (descriptions, parameter names, schema definitions) can contain prompt injection attacks that manipulate agent behaviour even without tool invocation, whilst tool outputs may contain malicious content designed to compromise downstream systems. Validate and sanitise all tool metadata before exposing it to the LLM, treating tool descriptions with the same scrutiny as external user input and implementing content filtering to detect embedded instructions or adversarial prompts. Apply strict schema validation to tool outputs and sanitise responses before using them in prompts, displaying them to users, or passing them to other systems. Implement monitoring and logging of tool metadata and outputs to enable detection of injection attempts and post-incident analysis of compromised tool behaviour.
+  enforcement:
+  - harness
+  - model
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The tool-layer code that validates tool outputs against schemas and scans tool descriptions for embedded instructions, with its log of rejections.
+  test: Register a test tool whose description and output both carry an embedded instruction and confirm the description is flagged and the output rejected before reaching the model.
   references:
   - https://embracethered.com/blog/posts/2025/model-context-protocol-security-risks-and-exploits/
   - https://simonwillison.net/2025/Apr/9/mcp-prompt-injection/
@@ -307,6 +420,14 @@ CTRL-0016:
   - RISK-008
   statement: Define clearly the agent's role, scope, and non-goals in the system prompt
   recommendations: Ambiguous or missing role definitions allow agents to interpret requests too broadly, potentially executing actions outside intended boundaries or misunderstanding their authority and constraints. Explicitly define the agent's purpose, permitted actions, and operational boundaries in the system prompt, including clear statements about what the agent should not do or attempt. Document specific examples of in-scope and out-of-scope behaviours to reduce ambiguity and guide the agent's decision-making in edge cases. Regularly review and refine these definitions based on observed agent behaviour, ensuring role boundaries remain aligned with evolving use cases and risk tolerances.
+  enforcement:
+  - prompt
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The system prompt in version control, with sections stating the agent's role, permitted actions and non-goals, and examples of in-scope and out-of-scope requests.
+  test: Send ten requests that fall under the listed non-goals and confirm the agent declines each without calling a tool.
   references:
   - "https://www.ncsc.gov.uk/blogs/managing-the-cyber-risk-of-agentic-ai"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -327,6 +448,14 @@ CTRL-0017:
   - RISK-008
   statement: Define clear success criteria for the agent's tasks
   recommendations: Without explicit success criteria, agents may pursue task completion using inappropriate methods, over-optimise for partial objectives, or fail to recognise when they have achieved the intended outcome. Define measurable, verifiable success criteria for each task or category of tasks the agent performs, specifying both what constitutes successful completion and acceptable quality standards. Include criteria that address not just functional outcomes but also safety constraints, resource limits, and acceptable trade-offs. Regularly evaluate whether the agent's interpretation of success criteria aligns with intended outcomes and refine definitions to address observed gaps or misalignments.
+  enforcement:
+  - prompt
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The task instructions in version control stating measurable completion and quality criteria per task type, with matching acceptance checks in the evaluation suite.
+  test: Run the acceptance checks on a sample of completed tasks and confirm the agent's own report of success agrees with the check result.
   references:
   - "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentops01-bp01.html"
   - "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentsus01-bp05.html"
@@ -346,6 +475,15 @@ CTRL-0018:
   - RISK-008
   statement: Define default behaviour when the agent encounters ambiguous situations
   recommendations: Agents encountering ambiguous instructions without clear fallback behaviour may make incorrect assumptions, proceed with risky actions, or halt unexpectedly, reducing reliability and increasing safety risks. Establish a default policy for handling ambiguity that aligns with your risk tolerance, such as requesting human clarification, selecting the most conservative option, or declining to act until uncertainty is resolved. Document this policy in the system prompt and provide examples of ambiguous scenarios to guide agent decision-making. Monitor how often the agent invokes ambiguity handling mechanisms to identify areas where task definitions or instructions require clarification.
+  enforcement:
+  - prompt
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The system prompt section stating the default action under ambiguity with worked examples, and a dashboard counting how often the agent invokes it.
+  test: Give the agent an instruction with two conflicting readings and confirm it takes the stated default, such as asking for clarification, before any tool call.
   references:
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
@@ -365,6 +503,14 @@ CTRL-0019:
   - RISK-009
   statement: Keep untrusted inputs out of system instructions, and enclose any untrusted content given to the model in delimiters marked as data
   recommendations: Prompt injection attacks exploit LLMs' inability to distinguish between instructions and data, allowing malicious users to embed commands within input that override intended behaviour. Do not interpolate user input, retrieved content, or tool outputs into the system prompt or other instruction templates; fix the system prompt at build time and pass untrusted content to the model in the user or tool turns, where it carries less authority. Where untrusted content must be quoted, enclose it within clearly marked boundaries (e.g., XML tags or special markers) that are unlikely to appear naturally in the input, and instruct the LLM to treat delimited content as data rather than instructions. Neither measure is a complete defence, because the model can still follow instructions in untrusted content, so combine them with controls that do not depend on the model's compliance, such as a deterministic policy layer (CTRL-0090) and least privilege (CTRL-0029).
+  enforcement:
+  - harness
+  - prompt
+  owner: developer
+  phase:
+  - build
+  evidence: The prompt-assembly code showing a fixed system prompt with no interpolated variables and a wrapper that places untrusted content inside tagged data blocks.
+  test: Submit input containing the closing delimiter followed by an instruction and confirm the logged system prompt is unchanged and the input sits escaped inside its data block.
   references:
   - "https://www.ncsc.gov.uk/blog-post/prompt-injection-is-not-sql-injection"
   - "https://arxiv.org/abs/2403.14720"
@@ -386,6 +532,15 @@ CTRL-0020:
   - RISK-047
   statement: Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions
   recommendations: Using the same LLM for both input processing and task execution creates vulnerability to prompt injection attacks embedded in user input. Deploy a separate LLM instance configured specifically for input sanitisation, with explicit instructions to extract only designated fields (e.g., name, email, query text) whilst ignoring any other content including embedded commands or meta-instructions. Configure this extraction LLM with a restrictive system prompt focused solely on structured data extraction and validation against expected schemas. Validate extracted fields against expected formats before passing them to the main agent LLM, and monitor extraction outputs for anomalies that might indicate injection attempts.
+  enforcement:
+  - model
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The pipeline configuration showing a separate extraction model call, with its own restrictive prompt and output schema, placed before the main agent.
+  test: Submit an input with an instruction appended to a form field and confirm only schema-valid field values appear in the main agent's logged context.
   references:
   - "https://arxiv.org/abs/2506.08837"
   - "https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html"
@@ -407,6 +562,14 @@ CTRL-0021:
   - RISK-011
   statement: Implement allowlists and denylists to restrict what categories of information can be written to the agent's persistent memory
   recommendations: Unrestricted writes to persistent memory enable attackers to poison agent memory with malicious instructions, false information, or sensitive data that could compromise future agent behaviour or leak confidential information. Define explicit allowlists of permitted memory categories (e.g., user preferences, conversation context, task history) and denylists of forbidden content (e.g., credentials, system instructions, security policies, prompt overrides). Enforce these restrictions at the memory write interface, validating all write operations against the defined policies before persisting data.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The memory-write policy file listing permitted and forbidden content categories, and the write-interface code that checks every write against it.
+  test: Ask the agent to remember an API key and a new standing instruction and confirm both writes are refused and logged.
   references:
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
   - "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
@@ -427,6 +590,15 @@ CTRL-0022:
   - RISK-010
   statement: Implement content filtering on writes to persistent memory to detect and block known unsafe content patterns
   recommendations: Malicious actors may attempt to inject adversarial content into agent memory that bypasses category-based restrictions, such as jailbreak prompts, command injection templates, or social engineering content designed to manipulate future agent behaviour. Deploy content filtering mechanisms that scan all memory write operations for known unsafe patterns (e.g., jailbreak strings, tool invocation templates, prompt override attempts, phishing content) before persisting data. Implement filtering using prompt injection detectors (to detect jailbreak strings) or custom classifiers finetuned on specific risks (e.g. attempts to invoke tools maliciously).
+  enforcement:
+  - model
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The memory-write filter configuration naming the injection detector or classifier and its threshold, with the log of blocked writes.
+  test: Attempt to store a known jailbreak string and a tool-invocation template in memory and confirm the filter blocks both before they persist.
   references:
   - "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -448,6 +620,15 @@ CTRL-0023:
   - RISK-011
   statement: Log all modifications to persistent memory with comprehensive source metadata for audit purposes
   recommendations: Without detailed audit logs, detecting and investigating memory poisoning attacks becomes extremely difficult, preventing effective incident response and forensic analysis. Implement comprehensive logging for all memory write, update, and delete operations, capturing source metadata including timestamps, user or agent identity, session context, and the specific content being modified. Structure logs to enable correlation analysis, allowing security teams to trace how specific memory entries evolved over time and identify suspicious modification patterns. Store audit logs in a tamper-evident system separate from the agent's operational memory to prevent attackers from covering their tracks by deleting or modifying log entries.
+  enforcement:
+  - harness
+  - infrastructure
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: A memory audit log query for one entry returning every write, update and delete with timestamp, actor identity, session and changed content.
+  test: Create, edit and delete a memory entry and confirm three matching audit records exist in a store the agent's credentials cannot modify.
   references:
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
   - "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
@@ -473,6 +654,14 @@ CTRL-0024:
   - RISK-053
   statement: Define formal schemas for inter-agent messages and validate all messages against these schemas before processing
   recommendations: Unstructured or inadequately validated inter-agent messages create vulnerability to injection attacks, misinterpretation, and parsing errors that could compromise agent behaviour or cascade through multi-agent systems. Define explicit message schemas using formal specification languages (e.g., JSON Schema, Protobuf, OpenAPI) that specify required fields, data types, validation rules, and permitted value ranges for all agent-to-agent communications. Implement strict input validation that verifies all incoming messages conform to expected schemas, checking field presence, data types, value ranges, and structural integrity before processing message content. Reject messages that are incomplete, contain unexpected fields, violate type constraints, or include suspicious patterns, returning explicit error responses to the sending agent and logging validation failures to enable detection of compromised or malfunctioning agents.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The inter-agent message schemas in version control and the validator invoked at each agent's message entry point.
+  test: Send an agent a message with a missing required field and an undeclared extra field and confirm it returns an error and logs a validation failure.
   references:
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -496,6 +685,14 @@ CTRL-0025:
   - RISK-053
   statement: Ensure all inter-agent communications are encrypted in transit and prohibit plaintext channels
   recommendations: Unencrypted inter-agent communications expose sensitive data, credentials, and operational context to network-based attackers through eavesdropping or man-in-the-middle attacks. Ensure all agent-to-agent network communications use transport-layer encryption (minimum TLS 1.2, preferably TLS 1.3), including internal traffic within trusted network boundaries, as internal networks are increasingly targeted by sophisticated attackers. For protocol-based frameworks (e.g., A2A Protocol), verify that TLS is enabled by default; for application frameworks (e.g., LangGraph, CrewAI), configure deployment infrastructure to enforce HTTPS endpoints for all remote agent APIs. Configure agents to reject plaintext connections and verify certificates to prevent downgrade attacks or rogue agent impersonation, and regularly audit network traffic to detect agents attempting unencrypted communication.
+  enforcement:
+  - infrastructure
+  owner: platform
+  phase:
+  - build
+  - deploy
+  evidence: The service mesh or load balancer configuration requiring TLS 1.2 or higher on every agent endpoint, with plaintext listeners disabled.
+  test: Attempt a plaintext HTTP connection and a TLS 1.0 handshake to each agent endpoint and confirm both are refused.
   references:
   - https://a2aprotocol.ai/blog/2025-full-guide-a2a-protocol
   crosswalks:
@@ -517,6 +714,15 @@ CTRL-0026:
   - RISK-053
   statement: Require all agents to authenticate with verifiable, cryptographically signed identities before processing requests
   recommendations: Without strong agent authentication, attackers can impersonate legitimate agents to gain unauthorised access, inject malicious commands, or exfiltrate sensitive data from multi-agent systems. Implement cryptographic identity verification using mechanisms such as mutual TLS (mTLS), signed JWTs, or certificate-based authentication to ensure each agent presents verifiable credentials before processing its requests. Configure the authentication system to validate that credentials are properly signed by a trusted authority, have not expired, and belong to the claimed agent identity. Reject unauthenticated requests immediately and log authentication failures to detect potential impersonation attempts or compromised agents attempting to bypass security controls. Both the A2A Protocol and LangGraph provide native support for cryptographic agent authentication through mTLS, OAuth 2.0, and JWT-based identity verification.
+  enforcement:
+  - infrastructure
+  - harness
+  owner: platform
+  phase:
+  - build
+  - deploy
+  evidence: The mutual TLS or token-validation configuration on each agent endpoint naming the trusted issuer, with authentication failures visible in the log.
+  test: Send an agent requests carrying no credential, an expired token and a certificate from an untrusted authority, and confirm all three are rejected and logged.
   references:
   - https://developers.redhat.com/articles/2025/08/19/how-enhance-agent2agent-security
   - https://a2a-protocol.org/latest/topics/enterprise-ready/
@@ -541,6 +747,14 @@ CTRL-0027:
   - RISK-014
   statement: Implement circuit breakers to prevent cascading failures in multi-agent systems
   recommendations: Without circuit breakers, failures in one agent can cascade through multi-agent systems, causing widespread outages, resource exhaustion, or degraded performance across interconnected agents. Implement circuit breaker patterns that monitor agent interactions and automatically halt requests to failing agents when error rates, timeouts, or response times exceed predefined thresholds. Configure circuit breakers with appropriate timeout values, retry limits, and failure thresholds based on your system's tolerance for latency and error rates.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The circuit-breaker settings in the orchestration configuration giving failure threshold, timeout and retry limit for each agent-to-agent call.
+  test: Make one downstream agent return errors continuously and confirm callers stop sending it requests once the threshold is reached.
   references:
   - https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996
   crosswalks:
@@ -560,6 +774,15 @@ CTRL-0028:
   - RISK-051
   statement: Continuously monitor multi-agent systems for cascade failure indicators
   recommendations: Cascade failures can rapidly propagate through multi-agent systems, but early detection enables intervention before widespread system degradation occurs. Implement monitoring that tracks indicators of cascading failures including agent looping behaviour, repeated error patterns, diverging outputs across similar agents, and abnormal request rates between agents. Configure alerting thresholds that trigger when cascade indicators exceed acceptable levels, such as the same agent repeatedly calling the same endpoint, multiple agents simultaneously failing similar requests, or circular dependencies in agent communication patterns.
+  enforcement:
+  - infrastructure
+  - harness
+  owner: developer
+  phase:
+  - deploy
+  - operate
+  evidence: The dashboards and alert rules covering inter-agent request rates, repeated identical calls, simultaneous failures and circular call chains.
+  test: Set two agents calling each other in a loop in staging and confirm an alert naming both fires within the configured window.
   references:
   - https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996
   crosswalks:
@@ -580,6 +803,16 @@ CTRL-0029:
   - RISK-049
   statement: Grant agents only the minimum permissions required for their designated tasks
   recommendations: Excessive permissions enable compromised or malfunctioning agents to access sensitive resources, modify critical data, or perform actions beyond their intended scope, amplifying the impact of security breaches. Apply the principle of least privilege by defining granular permission sets for each agent based on its specific role and required operations, avoiding blanket administrative access or broad permission grants. Review agent permissions regularly to ensure they remain aligned with current responsibilities, revoking unnecessary access as agent roles evolve.
+  enforcement:
+  - infrastructure
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: Each agent's IAM policy and tool permission manifest, with every permission tied to a named task, and the latest access review record.
+  test: Using the agent's credentials, attempt an operation outside its role, such as reading another system's data store, and confirm it is denied.
   references:
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
   - "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
@@ -602,6 +835,15 @@ CTRL-0030:
   - RISK-016
   statement: Assign each agent a unique, verifiable identity with no shared credentials
   recommendations: "Shared credentials prevent accurate attribution of agent actions, making it impossible to identify which agent performed unauthorised activities or to revoke access for compromised agents without affecting legitimate ones. Assign each agent instance a unique identity (e.g., service account, API key, certificate) that can be independently tracked, audited, and revoked without impacting other agents. Prohibit credential sharing between agents even when they perform similar functions, as unique identities enable granular access control and forensic analysis of agent behaviour. Emerging agentic IAM platforms, such as Amazon Bedrock AgentCore Identity, can help to provide purpose-built identity management for AI agents. Concrete mechanisms now exist: SPIFFE/SPIRE workload identities with short rotation for agents and MCP servers, Microsoft Entra Agent ID (assigned to all new Copilot Studio agents since July 2026), and the IETF drafts for OAuth on-behalf-of delegation and transaction tokens that carry separate actor (agent) and principal (initiating human) claims; A2A v1.0 signed agent cards provide the equivalent for agent-to-agent interactions. Prefer identities that keep the delegating human visible in every token so that actions remain attributable."
+  enforcement:
+  - infrastructure
+  owner: platform
+  phase:
+  - build
+  - operate
+  - retire
+  evidence: The identity provider's list of agent service accounts or workload identities, showing one per agent instance and no key shared between two.
+  test: Revoke one agent's credential and confirm only that agent loses access, and that the audit log attributes its earlier actions to it alone.
   references:
   - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-overview.html
   - https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview
@@ -623,6 +865,15 @@ CTRL-0031:
   - RISK-015
   statement: Use only MCP servers that validate token provenance and prohibit unauthorised token passthrough
   recommendations: Token passthrough is an anti-pattern where MCP servers accept tokens from clients without validating they were properly issued to the server, enabling malicious actors to use the server as a proxy for data exfiltration with stolen tokens. Verify that MCP servers validate the provenance of all tokens they receive, ensuring tokens are intended for that specific server by checking audience claims and preventing tokens from being blindly forwarded to third-party services. Reject MCP servers that implement token passthrough patterns, as they compromise incident investigation, access controls, and auditing capabilities by obscuring the true source of requests. Since the 2026-07-28 specification, servers must validate the issuer of tokens they receive (RFC 9207) as well as the audience; reject servers that accept tokens from unexpected issuers or forward tokens they cannot prove were issued to them.
+  enforcement:
+  - infrastructure
+  - organisation
+  owner: security
+  phase:
+  - build
+  - deploy
+  evidence: The MCP server assessment record showing audience and issuer validation tested, alongside the server's token-validation settings.
+  test: Present the MCP server with a valid token issued for a different audience and one from an unexpected issuer and confirm both are rejected.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   - https://blog.modelcontextprotocol.io/posts/2026-07-28/
@@ -645,6 +896,14 @@ CTRL-0032:
   - RISK-018
   statement: Centralise observability data collection in a unified backend system
   recommendations: Distributed observability data across disconnected systems prevents effective analysis of multi-agent workflows, obscuring failure patterns, performance bottlenecks, and security incidents that span multiple agents. Centralise collection of logs, metrics, and traces from all agents into a unified observability backend using standards-compliant protocols (e.g., OpenTelemetry) to enable correlation analysis across the entire agentic system. Configure agents to emit structured telemetry with consistent identifiers (agent IDs, session IDs, request IDs) that enable tracing requests across agent boundaries and reconstructing complete workflow execution paths.
+  enforcement:
+  - infrastructure
+  owner: platform
+  phase:
+  - build
+  - deploy
+  evidence: The telemetry collector configuration showing every agent exporting logs, metrics and traces to one backend with shared agent, session and request identifiers.
+  test: Run a task that crosses two agents and confirm a single query on the request identifier returns the full trace from both.
   references:
   - "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -665,6 +924,15 @@ CTRL-0033:
   - RISK-017
   statement: Standardise trace attributes for agent operations using consistent semantic conventions
   recommendations: Inconsistent or ad-hoc telemetry labelling prevents effective correlation of agent activities across multi-agent systems, making it difficult to debug failures, analyse performance, or investigate security incidents. Define and enforce standard semantic conventions for trace attributes across all agents, including mandatory fields such as agent identity, tool name, operation type, session identifiers, and correlation IDs. Adopt existing observability standards where available (e.g., OpenTelemetry semantic conventions) to ensure compatibility with industry-standard analysis tools and reduce implementation effort. Document attribute naming conventions, permitted values, and usage guidelines, and implement validation to ensure agents emit telemetry conforming to the standardised schema.
+  enforcement:
+  - harness
+  - infrastructure
+  owner: platform
+  phase:
+  - design
+  - build
+  evidence: The published trace attribute schema listing mandatory fields and permitted values, and the pipeline check that validates emitted spans against it.
+  test: Emit a span lacking the agent identity and tool name attributes and confirm the validation check reports it as non-conforming.
   references:
   - "https://github.com/open-telemetry/semantic-conventions-genai"
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
@@ -685,6 +953,13 @@ CTRL-0034:
   - RISK-050
   statement: Conduct regular reviews of logs and traces to detect emergent issues in deployed agentic systems
   recommendations: Automated monitoring may miss subtle patterns, novel failure modes, or emergent behaviours that only become apparent through human analysis of observability data. Establish a regular cadence for manual review of logs, traces, and metrics from production agentic systems, focusing on identifying unusual patterns, unexpected agent interactions, or degrading performance trends that automated alerts might not detect. Assign responsibility for these reviews to teams with deep understanding of expected agent behaviour, empowering them to investigate anomalies and propose system improvements. Document findings from reviews and track identified issues to closure, using insights to refine monitoring rules, update agent implementations, or strengthen security controls based on observed real-world behaviour.
+  enforcement:
+  - organisation
+  owner: developer
+  phase:
+  - operate
+  evidence: The review records for the last three cycles, each listing the traces sampled, the anomalies found and the tracked issue raised for each.
+  test: Plant a known anomalous session in the logs before a scheduled review and confirm the review record reports it and raises an issue.
   references:
   - "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
@@ -705,6 +980,15 @@ CTRL-0035:
   - RISK-020
   statement: Require agents to decompose user goals into explicit sub-goals and validate necessity before proceeding
   recommendations: Agents that pursue goals without decomposition may execute unnecessary, excessive, or unintended actions that waste resources, violate constraints, or create unintended side effects. Configure planning agents to explicitly break down high-level user goals into discrete, verifiable sub-goals before executing any actions, and to validate that each sub-goal is necessary and sufficient for achieving the overall objective. Implement review mechanisms that require agents to justify the necessity of each sub-goal, either through automated reasoning checks or human approval for high-impact plans.
+  enforcement:
+  - prompt
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The planner instructions and plan schema requiring a justification for every sub-goal, with stored plans showing the field populated.
+  test: Give the agent a goal alongside an unnecessary but tempting side task and confirm the stored plan excludes it before any tool call.
   references:
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
@@ -725,6 +1009,14 @@ CTRL-0036:
   - RISK-019
   statement: Regularly evaluate and test planning behaviour under representative workloads and failure scenarios
   recommendations: Planning failures often emerge only under specific conditions, edge cases, or failure modes that may not be apparent during initial development or testing. Establish systematic testing programmes that evaluate agent planning behaviour across representative workloads, including normal scenarios, edge cases, adversarial inputs, and simulated failure conditions such as unavailable resources or degraded services. Document common planning pitfalls identified during testing (e.g., circular reasoning, goal abandonment, excessive retries) and implement targeted mitigations such as improved prompts, reasoning constraints, or circuit breakers. Continuously expand test scenarios based on observed production failures, ensuring the test suite evolves to cover newly discovered planning vulnerabilities.
+  enforcement:
+  - organisation
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The planning test suite in version control and its dated run reports covering normal workloads, edge cases and simulated tool or service failures.
+  test: Run the suite with one tool made unavailable and confirm the agent replans or stops within its retry limit instead of looping.
   references:
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
@@ -745,6 +1037,15 @@ CTRL-0037:
   - RISK-020
   statement: Require planning agents to include explicit safety constraints in all generated plans before execution
   recommendations: Plans generated without explicit safety constraints may inadvertently violate security policies, regulatory requirements, or operational boundaries, leading to dangerous or non-compliant agent behaviour. Configure planning agents to incorporate safety constraints and domain-specific restrictions directly into plan representations, making safety requirements explicit and verifiable rather than implicit assumptions. Examples of planning-level safety constraints include limiting plan complexity (maximum number of steps or tools), requiring verification steps before irreversible actions, prohibiting plans that access certain data categories or environments, mandating human review checkpoints for high-risk operations, and including rollback or recovery procedures for plans involving state changes.
+  enforcement:
+  - harness
+  - prompt
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The plan schema with mandatory fields for step limit, verification before irreversible steps and rollback, and the validator that rejects plans without them.
+  test: Submit a plan that exceeds the step limit and has no verification before an irreversible step and confirm the executor refuses to run it.
   references:
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
@@ -770,6 +1071,15 @@ CTRL-0038:
   - RISK-050
   statement: Conduct safety verification with domain-relevant stress tests and adversarial scenarios before deployment and on a regular cadence afterwards
   recommendations: Deploying agents without rigorous safety testing risks exposing users to harmful behaviours, security vulnerabilities, or compliance violations that only emerge under adversarial or edge-case conditions. Establish comprehensive pre-deployment testing that evaluates agent safety across domain-specific stress scenarios, including adversarial inputs designed to trigger unsafe behaviour, edge cases that challenge safety boundaries, and failure modes that test resilience under degraded conditions. Design test scenarios based on known risks in your domain (e.g., financial fraud attempts for banking agents, medical misinformation for healthcare agents, data exfiltration for enterprise assistants) and establish clear pass/fail criteria that must be met before deployment. Document test results, identified vulnerabilities, and implemented mitigations for future reference and regular review. Repeat the exercise on a fixed cadence and whenever the model, tools, or capabilities change - attacks evolve faster than deployments. Use established agent security and safety benchmarks (for example AgentDojo, Agent Security Bench, and AgentHarm) as a baseline and add scenarios drawn from your own incidents and from published ones.
+  enforcement:
+  - organisation
+  owner: developer
+  phase:
+  - build
+  - deploy
+  - operate
+  evidence: The dated safety test report listing domain stress scenarios, pass criteria, results, findings and mitigations, with a rerun after each model or tool change.
+  test: Run AgentDojo, AgentHarm and the system's own domain scenarios against the release candidate and confirm the results meet the recorded pass criteria.
   references:
   - https://arxiv.org/abs/2406.13352
   - https://arxiv.org/abs/2410.02644
@@ -793,6 +1103,14 @@ CTRL-0039:
   - RISK-053
   statement: Ensure each agent publishes standardised, machine-readable capability descriptors accessible to other agents
   recommendations: Without standardised capability descriptors, agents cannot reliably discover what other agents can do, leading to misrouted requests, capability mismatches, or failed inter-agent collaborations. Implement machine-readable capability descriptions for each agent using standardised formats such as A2A Agent Cards that declare available skills, required inputs, output formats, and operational constraints. Publish capability descriptors through discoverable endpoints (e.g., well-known URIs at `https://{domain}/.well-known/agent-card.json`) or centralised agent registries that other agents can query to determine if a target agent can fulfil specific requests. Maintain capability descriptors in sync with actual agent implementations, updating descriptors whenever agent capabilities change to prevent stale metadata from causing integration failures.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  - deploy
+  evidence: Each agent's card at its well-known address or registry entry, and the pipeline check comparing declared skills with the deployed code.
+  test: Fetch each agent card and call every declared skill with the stated inputs, confirming each responds in the declared output format.
   references:
   - https://a2a-protocol.org/latest/topics/agent-discovery/
   crosswalks:
@@ -815,6 +1133,15 @@ CTRL-0040:
   - RISK-053
   statement: Limit the scope of agent actions through predefined thresholds and baselines
   recommendations: Without action limits, agents may bypass controls by delegating excessive tasks, consuming unlimited resources, or spreading malicious activities across multiple operations to evade detection. Define quantitative thresholds that constrain agent behaviour, such as maximum number of tool calls per session, maximum number of agents that can be delegated to, maximum cost or resource consumption, or maximum data volume accessed. Implement runtime monitoring that tracks agent activity against these thresholds and halts execution when limits are exceeded. Examples include limiting an agent to 50 API calls per task or restricting delegation to no more than 3 sub-agents.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The runtime limits file giving maximum tool calls, delegated agents, spend and data volume per task, with log entries for halted runs.
+  test: Start a task that needs more tool calls than the configured maximum and confirm the run halts at the limit and records the reason.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
@@ -839,6 +1166,14 @@ CTRL-0041:
   - RISK-038
   statement: Provide comprehensive descriptions for each tool including intended use, required inputs, and potential outputs
   recommendations: Incomplete or ambiguous tool descriptions lead agents to misunderstand tool capabilities, misuse tools for unintended purposes, or select inappropriate tools for tasks, resulting in failures or unsafe behaviour. Document each tool with clear, comprehensive descriptions that specify the tool's intended purpose, required input parameters with data types and constraints, expected outputs and formats, and any preconditions or side effects. Include usage examples and common failure scenarios to guide agent decision-making and prevent misuse. Ensure tool descriptions are accurate, up-to-date, and written in language that LLMs can reliably interpret, avoiding ambiguity that might lead to incorrect tool selection or invocation.
+  enforcement:
+  - prompt
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The tool definitions in version control, each stating purpose, typed parameters with constraints, output format, side effects and a usage example.
+  test: Run a tool-selection evaluation over tasks with a known correct tool and confirm the agent picks it with valid arguments at the documented rate.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://modelcontextprotocol.io/specification/2025-06-18/server/tools"
@@ -870,6 +1205,16 @@ CTRL-0042:
   - RISK-052
   statement: Require explicit human confirmation before executing high-impact or irreversible tool actions
   recommendations: "Agents may incorrectly select or misuse high-impact tools, leading to irreversible damage such as data deletion, unauthorised financial transactions, or unintended system modifications. Implement mandatory human-in-the-loop approval workflows for tools that perform high-impact or irreversible actions, including sending external communications, executing financial transactions, deleting or modifying critical data, and making privileged configuration changes. Configure approval interfaces to clearly display the tool being invoked, the parameters being passed, and the expected outcome, enabling informed human decision-making. Ensure approval mechanisms cannot be bypassed by agents and maintain audit logs of all approval decisions, including who approved what action and when. Approval steps decay under volume: in one large deployment users approved about 93% of permission prompts. Pair this control with CTRL-0094 - measure approval and override rates, route routine actions to automated screening, and reserve human approval for genuinely uncertain or high-impact actions so that the approvals that remain are real decisions."
+  enforcement:
+  - harness
+  - organisation
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The tool registry marking each irreversible tool as confirmation-required, and the audit log recording who confirmed which tool call, with parameters and time.
+  test: Invoke a tool marked irreversible through the tool layer without a confirmation record and confirm the call is refused and logged.
   references:
   - https://www.anthropic.com/engineering/how-we-contain-claude
   crosswalks:
@@ -892,6 +1237,15 @@ CTRL-0043:
   - RISK-023
   statement: Log all tool selection decisions and invocations with comprehensive metadata
   recommendations: Without comprehensive tool invocation logs, diagnosing incorrect tool selection or misuse becomes extremely difficult, preventing effective debugging and post-incident analysis. Implement detailed logging for all tool selection decisions and invocations, capturing the tool name, input arguments, caller identity, authorisation outcome, timestamp, and resulting outputs or side effects. Structure logs to enable correlation between tool selection reasoning and actual outcomes, allowing investigation of why particular tools were chosen and whether they produced expected results.
+  enforcement:
+  - harness
+  - infrastructure
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: A log query for one session returning each tool call with tool name, arguments, caller identity, authorisation outcome, timestamp and result.
+  test: Trigger one permitted and one denied tool call and confirm both appear in the log with the correct authorisation outcome and the selection reasoning.
   references:
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -912,6 +1266,15 @@ CTRL-0044:
   - RISK-024
   statement: Implement output safety guardrails to detect and prevent generation of undesirable content
   recommendations: Agents may generate toxic, hateful, sexual, or otherwise inappropriate content that causes harm to users, violates organisational standards, or creates regulatory compliance issues. Deploy output safety guardrails that scan all agent-generated content before delivery to users, detecting categories of undesirable content such as hate speech, sexually explicit material, violent content, or self-harm promotion. Use content moderation APIs, classifiers, or LLM-based safety filters to evaluate outputs against defined safety policies, blocking or flagging content that violates established boundaries. Configure appropriate responses when unsafe content is detected, such as refusing to generate the output, requesting reformulation, or escalating to human review for edge cases.
+  enforcement:
+  - model
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The output guardrail configuration naming the moderation classifier, the blocked content categories and thresholds, with a log of blocked responses.
+  test: Run garak or promptfoo harmful-content probes and confirm hateful, sexual, violent and self-harm outputs are blocked before delivery at the documented rate.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
@@ -930,6 +1293,15 @@ CTRL-0045:
   - RISK-025
   statement: Implement input guardrails to detect and decline requests for specialised domain advice
   recommendations: Agents generating unqualified advice in specialised domains such as medical, financial, or legal matters may cause users to act on incorrect or inappropriate information, leading to serious harm or adverse outcomes. Deploy input guardrails that detect when user requests fall within specialised domains requiring professional expertise, such as medical diagnosis, financial investment advice, or legal counsel. Configure the system to decline these requests with appropriate messaging that explains why the agent cannot provide such advice and suggests consulting qualified professionals.
+  enforcement:
+  - model
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The input guardrail configuration listing the medical, legal and financial advice categories, the detector used and the referral message returned.
+  test: Send labelled requests for a diagnosis, an investment recommendation and legal counsel among benign controls and confirm only the advice requests are declined.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
@@ -948,6 +1320,15 @@ CTRL-0046:
   - RISK-026
   statement: Implement input guardrails to detect and decline requests for controversial content that violates organisational policies
   recommendations: Agents generating controversial or sensitive content such as political commentary or statements about competitors may create reputational damage, legal liability, or compliance violations for the organisation. Deploy input guardrails that detect requests for content on topics deemed controversial or sensitive according to organisational policies, such as political positions, religious commentary, competitive disparagement, or other restricted subjects. Define clear content policies that specify which topics or viewpoints the agent should avoid, and configure detection mechanisms to identify requests that would violate these boundaries. When controversial requests are detected, decline with messaging that explains the agent's content limitations whilst maintaining a respectful tone towards the user.
+  enforcement:
+  - model
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The organisation's restricted-topics policy and the guardrail configuration mapping each topic to a detection rule and refusal message.
+  test: Ask for a political endorsement and a disparaging comparison with a named competitor and confirm both are declined courteously while neutral factual questions pass.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
@@ -969,6 +1350,15 @@ CTRL-0047:
   - RISK-043
   statement: Implement output guardrails to detect and redact personally identifiable information
   recommendations: Agents may reproduce personally identifiable information from training data, memory, or prior interactions in their outputs, violating privacy obligations, exposing individuals to harm, or breaching data protection requirements such as GDPR or PDPA. Deploy output guardrails that scan all agent-generated content for PII categories including names, email addresses, phone numbers, identification numbers, financial account details, and other sensitive personal data before delivery to users. Use PII detection tools, pattern matching, or named entity recognition models to identify and redact or block outputs containing PII. Configure appropriate handling based on context — some PII may be acceptable if it belongs to the current user, whilst PII belonging to other individuals should be strictly prevented from disclosure.
+  enforcement:
+  - harness
+  - model
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The output filter configuration listing the personal data types detected and the action for each, with redaction counts in the guardrail log.
+  test: Prompt the agent to repeat a seeded record holding another person's identity number, phone number and email and confirm all three arrive redacted.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -988,6 +1378,15 @@ CTRL-0048:
   - RISK-028
   statement: Implement methods to reduce hallucination rates in agent outputs
   recommendations: Agents may generate inaccurate, fabricated, or unsupported information whilst presenting it as factual, misleading users and causing them to make incorrect decisions or lose trust in the system. Implement hallucination reduction techniques such as retrieval-augmented generation (RAG) that grounds agent responses in verified source documents, or citation requirements that force agents to reference specific sources for factual claims. Configure agents to acknowledge uncertainty when information cannot be verified rather than generating plausible-sounding but false content.
+  enforcement:
+  - harness
+  - prompt
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The retrieval pipeline configuration, the prompt requiring a cited source for each factual claim, and a groundedness evaluation report with the unsupported-claim rate.
+  test: Ask questions whose answers are absent from the source corpus and confirm the agent says it cannot verify them.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
@@ -1009,6 +1408,14 @@ CTRL-0049:
   - RISK-052
   statement: Implement UI/UX cues to communicate the risk of hallucination to users
   recommendations: Users may treat agent-generated content as completely reliable without recognising that LLMs can produce inaccurate or fabricated information presented as fact. Implement clear UI/UX indicators that remind users of hallucination risks, such as disclaimers on agent responses, visual cues distinguishing generated content from verified information, or warnings when agents make factual claims without citations. Consider contextual warnings that appear when agents discuss topics particularly prone to hallucination, such as recent events beyond the model's training data or highly specialised technical subjects.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The front-end code or screenshots of the response view showing the accuracy disclaimer and the visual marking of uncited generated content.
+  test: Open the production interface, ask a factual question and confirm the disclaimer is visible beside the answer without scrolling or clicking.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://genai.owasp.org/llmrisk/llm092025-misinformation/"
@@ -1027,6 +1434,14 @@ CTRL-0050:
   - RISK-028
   statement: Implement features enabling users to verify generated answers against source content
   recommendations: Without verification mechanisms, users cannot easily check whether agent-generated information is accurate or fabricated, increasing reliance on potentially hallucinated content. Provide built-in features that enable users to verify agent responses against original source materials, such as inline citations linking to specific documents or passages, source attribution showing which materials informed the response, or side-by-side views displaying retrieved content alongside generated summaries. Design verification features to minimise friction whilst maintaining effectiveness — users should be able to check sources with minimal effort rather than requiring extensive navigation or manual searching. For example, automatically highlight passages in source documents that support specific claims made by the agent, enabling rapid verification of factual statements.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The response payload schema carrying source identifiers and passage offsets, and the interface code that renders them as inline citations.
+  test: Ask a question answered by a known document and confirm each citation opens that document at the passage supporting the claim.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
@@ -1046,6 +1461,15 @@ CTRL-0051:
   - RISK-029
   statement: Implement input guardrails to detect and decline requests to generate copyrighted content
   recommendations: Agents may generate content that reproduces or closely resembles copyrighted material without authorisation, exposing the organisation to intellectual property infringement claims, legal liability, or licensing violations. Deploy input guardrails that detect requests asking the agent to reproduce copyrighted works such as song lyrics, book passages, proprietary code, or other protected content. Configure the system to decline these requests with appropriate messaging that explains copyright limitations and suggests legal alternatives such as summarisation, licensed access, or original creation. Note that copyright detection at the input stage may not catch all violations, as users might phrase requests in ways that obscure copyrighted content generation — tools such as Patronus AI's CopyrightCatcher can provide output-level copyright detection to complement input filtering.
+  enforcement:
+  - model
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The guardrail configuration containing the copyright-reproduction category, its detector and its refusal message, with a log of declined requests.
+  test: Request the full lyrics of a current chart song and a chapter of an in-copyright novel and confirm both are declined with a lawful alternative offered.
   references:
   - https://www.patronus.ai/blog/introducing-copyright-catcher
   crosswalks:
@@ -1062,6 +1486,14 @@ CTRL-0052:
   - RISK-030
   statement: Declare upfront that communications are generated by an AI system
   recommendations: Recipients misled about whether communications were generated by AI or authored by humans may form incorrect assumptions about accountability, intent, or authority, leading to trust issues or legal complications. Implement clear, prominent disclosures at the beginning of AI-generated communications stating that content was created by an automated system, using unambiguous language such as "This message was generated by an AI assistant" rather than vague phrases that might confuse recipients.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The outbound message template or sending code that inserts the AI-generated disclosure as the opening line of every agent communication.
+  test: Have the agent send a message after instructing it to omit any disclosure and confirm the delivered message still opens with the AI-generated statement.
   references:
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
   - "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-50"
@@ -1079,6 +1511,16 @@ CTRL-0053:
   - RISK-031
   statement: Require human approval for communications on sensitive matters
   recommendations: Agents making unsupported commitments, inaccurate assurances, or statements that exceed organisational capabilities in official communications may expose the organisation to reputational damage, legal liability, or unmet expectations. Implement mandatory human review and approval workflows for communications on sensitive matters including contractual commitments, financial promises, policy statements, regulatory responses, or public-facing announcements. Define clear criteria for what constitutes "sensitive matters" requiring approval, ensuring consistent application across the organisation. Enforce the approval in the sending path, so that the agent cannot dispatch a message in a sensitive category until it is approved; an instruction to the agent to seek approval is not enough. Pair this control with CTRL-0094 so that approvals remain real decisions.
+  enforcement:
+  - harness
+  - organisation
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The sensitive-category criteria, the sending-path rule that holds messages in those categories, and approval records naming approver, message and time.
+  test: Have the agent draft a message containing a contractual commitment and confirm it remains unsent until an authorised approver releases it.
   references:
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -1099,6 +1541,15 @@ CTRL-0054:
   - RISK-031
   statement: Limit agent communications to standard processes with predefined templates
   recommendations: Agents generating free-form communications may inadvertently make inaccurate promises or statements that exceed organisational authority or capabilities, creating legal and reputational risks. Restrict agent communications to standard, well-defined processes where approved communication templates exist, such as appointment confirmations, order status updates, or routine customer service responses. Design templates to include appropriate disclaimers, limit commitments to verified capabilities, and avoid language that could create unintended obligations. Review and approve all communication templates before deployment, ensuring they accurately reflect organisational policies and cannot be misinterpreted as making unauthorised commitments.
+  enforcement:
+  - harness
+  - organisation
+  owner: business
+  phase:
+  - design
+  - build
+  evidence: The library of approved communication templates with sign-off records, and the sending tool's configuration accepting only a template identifier and field values.
+  test: Ask the agent to send a free-form message promising a refund and confirm the sending tool rejects anything that is not an approved template.
   references:
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
   - "https://arxiv.org/abs/2506.08837"
@@ -1117,6 +1568,15 @@ CTRL-0055:
   - RISK-031
   statement: Provide alternative channels for users to clarify communications or provide feedback
   recommendations: When agents make inaccurate statements or commitments in communications, recipients need accessible mechanisms to seek clarification, report concerns, or correct misunderstandings before problems escalate. Establish clear alternative channels for recipients to contact human representatives when they have questions about AI-generated communications, such as dedicated email addresses, phone numbers, or contact forms prominently displayed in agent communications.
+  enforcement:
+  - organisation
+  - harness
+  owner: business
+  phase:
+  - design
+  - operate
+  evidence: The footer of the agent's message templates showing a staffed contact address or number, and the queue where enquiries from recipients are logged.
+  test: Reply to an agent-sent message through the published contact channel and confirm a human responds within the stated service time.
   references:
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
@@ -1135,6 +1595,16 @@ CTRL-0056:
   - RISK-032
   statement: Require explicit human confirmation before committing any business transaction outside limits that an accountable human has pre-authorised
   recommendations: Agents executing business transactions without proper authorisation may create unintended financial obligations, contractual commitments, or operational liabilities. Have an accountable human set the limits within which the agent may transact without confirmation — for example amounts, counterparties, transaction types, and frequency — and enforce those limits outside the agent, such as in the transaction controller (CTRL-0058) or payment gateway. Pause any transaction outside the limits, and every transaction where no limits have been set, immediately before it is initiated, presenting the transaction type, amount, counterparty, and consequences for review by the user on whose behalf the agent acts or by a designated approver. Require active consent, using an explicit "confirm" action rather than a dismissible notification or opt-out. Ensure confirmation cannot be bypassed by agents, and keep audit logs of all approvals, including timestamp, approver identity, and transaction details. Pair this control with CTRL-0094 so that confirmations remain real decisions.
+  enforcement:
+  - harness
+  - organisation
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The transaction limits signed by the accountable owner, their configuration in the transaction controller, and the confirmation log with approver identity and transaction details.
+  test: Propose a transaction above the pre-authorised amount and confirm the controller holds it until the user actively confirms the amount and counterparty.
   references:
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
   - "https://ap2-protocol.org/ap2/specification/"
@@ -1156,6 +1626,14 @@ CTRL-0057:
   - RISK-032
   statement: Require out-of-band confirmation when transaction risk signals are elevated
   recommendations: Transactions exhibiting elevated risk indicators may represent unauthorised or fraudulent activity requiring additional verification beyond standard confirmation. Implement out-of-band confirmation (e.g., SMS codes, email verification, authentication app approvals) when transactions exhibit risk signals such as unusual payees, amounts exceeding typical patterns, rapid transaction sequences, or first-time recipients.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The transaction controller's step-up rules listing the risk signals that trigger out-of-band confirmation and the channel used for each.
+  test: Propose a payment to a first-time payee at an unusual amount and confirm it stays pending until a code sent to the user's registered device is entered.
   references:
   - "https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html"
   - "https://www.mas.gov.sg/-/media/MAS/Regulations-and-Financial-Stability/Regulatory-and-Supervisory-Framework/Risk-Management/TRM-Guidelines-18-January-2021.pdf"
@@ -1176,6 +1654,15 @@ CTRL-0058:
   - RISK-033
   statement: Restrict agents to proposing transactions whilst using a separate transaction controller for execution
   recommendations: Allowing agents direct access to transaction credentials creates risk of credential leakage through prompt injection, logging, or model outputs. Implement architectural separation where agents propose transactions but a dedicated non-LLM transaction controller handles authentication, authorisation, and execution. Ensure agents never receive or handle credentials directly, passing only transaction proposals through secure interfaces.
+  enforcement:
+  - harness
+  - infrastructure
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The architecture diagram and secrets manager access policy showing payment credentials readable only by the non-LLM transaction controller, never by the agent runtime.
+  test: From the agent runtime, try to read the payment credential and to call the payment API directly and confirm both attempts fail.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.ncsc.gov.uk/blogs/managing-the-cyber-risk-of-agentic-ai"
@@ -1196,6 +1683,15 @@ CTRL-0059:
   - RISK-032
   statement: Apply fraud detection models or heuristics to agent-proposed transactions
   recommendations: Compromised or manipulated agents may propose fraudulent transactions that bypass standard user confirmation by appearing legitimate to users but serving malicious purposes. Implement fraud detection systems that analyse agent-proposed transactions for suspicious patterns such as unusual amounts, unfamiliar recipients, rapid transaction sequences, or deviations from historical behaviour. Configure fraud detection to operate independently of the agent, using rule-based heuristics or machine learning models trained on legitimate and fraudulent transaction patterns.
+  enforcement:
+  - harness
+  - model
+  owner: security
+  phase:
+  - build
+  - operate
+  evidence: The fraud rule set or model version applied to agent-proposed transactions, with a log of scored transactions and those held.
+  test: Submit a rapid series of proposals to an unfamiliar recipient at unusual amounts and confirm they are scored as suspicious and held before execution.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.mas.gov.sg/-/media/MAS/Regulations-and-Financial-Stability/Regulatory-and-Supervisory-Framework/Risk-Management/TRM-Guidelines-18-January-2021.pdf"
@@ -1216,6 +1712,13 @@ CTRL-0060:
   - RISK-047
   statement: Implement escape filtering before incorporating web content into prompts
   recommendations: Malicious websites may embed hidden instructions or manipulative prompts in their content designed to hijack agent behaviour when retrieved and processed. Implement escape filtering that sanitises web content before incorporating it into agent prompts, removing or neutralising potential injection attacks such as hidden instructions, delimiter manipulation attempts, or prompt override commands.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  evidence: The web-content sanitiser in the retrieval code and its unit tests covering hidden text, delimiter strings and override phrases.
+  test: Retrieve a test page containing hidden-text instructions and the prompt's own delimiter tokens and confirm both are stripped or escaped in the logged prompt.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -1235,6 +1738,14 @@ CTRL-0061:
   - RISK-034
   statement: Use structured retrieval APIs for web searches rather than web scraping
   recommendations: Web scraping exposes agents to arbitrary web content including malicious HTML, scripts, and embedded instructions that may be crafted to inject prompts or manipulate agent behaviour. Use structured retrieval APIs such as search engine APIs, knowledge bases, or curated data sources that provide pre-processed, sanitised content rather than raw web pages. Structured APIs typically return controlled formats (JSON, XML) containing extracted information without rendering full web content, reducing exposure to injection vectors embedded in HTML, CSS, or JavaScript.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The tool manifest showing web search bound to a named search API returning structured results, with no raw page-fetch tool registered.
+  test: Run a web search task and confirm the logged tool result holds structured fields from the search API and no raw HTML or scripts.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://cheatsheetseries.owasp.org/cheatsheets/MCP_Security_Cheat_Sheet.html"
@@ -1255,6 +1766,15 @@ CTRL-0062:
   - RISK-047
   statement: Implement input guardrails to detect prompt injection and adversarial attacks
   recommendations: Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.
+  enforcement:
+  - model
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The injection detector's configuration naming the classifier, its threshold and the input channels it screens, with a log of flagged inputs.
+  test: Run garak or PyRIT injection probes through user input, uploaded files and retrieved web content and confirm detections meet the documented rate.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
@@ -1274,6 +1794,14 @@ CTRL-0063:
   - RISK-035
   statement: Prioritise search results from verified, high-quality domains
   recommendations: Agents retrieving information from unreliable or low-quality websites may present inaccurate, outdated, or biased content to users, leading to misinformed decisions. Configure search and retrieval systems to prioritise results from verified, authoritative sources such as government domains (.gov), educational institutions (.edu), established news organisations, and recognised industry authorities.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The search tool configuration listing preferred and excluded domains and the ranking rule that applies them.
+  test: Run a query where a low-quality site outranks an official source in raw results and confirm the agent's retrieved set leads with the official source.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -1292,6 +1820,16 @@ CTRL-0064:
   - RISK-036
   statement: Limit computer use to accessing only safe and trusted resources
   recommendations: Agents with unrestricted computer access may encounter malicious content on untrusted websites, documents, or applications that embed hidden instructions designed to manipulate agent behaviour. Restrict computer use capabilities to accessing only pre-approved, safe resources such as internal applications, trusted websites on allowlists, or sandboxed environments isolated from sensitive systems. Define clear boundaries for what resources agents may access and enforce these restrictions through technical controls such as network filtering, application allowlisting, or containerisation.
+  enforcement:
+  - infrastructure
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  - deploy
+  evidence: The computer-use environment's site and application allowlist, the proxy or container policy enforcing it, and the blocked-request log.
+  test: Direct the computer-use agent to a site outside the allowlist and to open an unlisted application and confirm both are blocked and logged.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool"
@@ -1315,6 +1853,16 @@ CTRL-0065:
   - RISK-051
   statement: Ensure every agent can be immediately paused or terminated by its operators
   recommendations: "Agents may begin executing unintended actions - through prompt injection, runaway loops, containment gaps, or goal-directed misbehaviour - that require immediate human intervention. Provide an interruption mechanism for every deployed agent, not only those operating computer interfaces: a pause and terminate control reachable by operators at all times, which halts tool calls and outbound actions immediately, revokes or suspends the agent's credentials, and preserves state and logs for review. Test that the mechanism works under load and cannot be disabled or delayed by the agent itself, and make emergency revocation of a specific tool, credential, or agent possible across all deployments."
+  enforcement:
+  - harness
+  - infrastructure
+  owner: platform
+  phase:
+  - build
+  - deploy
+  - operate
+  evidence: The operator console's pause and terminate control, its runbook, and drill records showing the time from command to halted tool calls.
+  test: Trigger the stop control while the agent is mid-task under load and confirm tool calls cease, its credentials are suspended and its state and logs remain.
   references:
   - "https://www.ncsc.gov.uk/blogs/managing-the-cyber-risk-of-agentic-ai"
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
@@ -1335,6 +1883,14 @@ CTRL-0066:
   - RISK-037
   statement: Ensure "take over" mode is activated when entering sensitive data
   recommendations: Agents operating computer interfaces may inadvertently view, process, or expose sensitive data such as passwords, API keys, or personally identifiable information displayed on screens or in applications. Implement "take over" mode that pauses agent operation and requires direct human control when sensitive data entry is required, preventing agents from observing or handling credentials and other confidential information.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The computer-use harness rule that detects password, payment and identity fields and hands control to the human, with take-over events logged.
+  test: Steer the agent to a login page and confirm it pauses for the human to type the password and captures no screenshot or keystrokes meanwhile.
   references:
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
   - "https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool"
@@ -1352,6 +1908,13 @@ CTRL-0067:
   - RISK-038
   statement: Ensure proper documentation of programmatic interfaces for agent use
   recommendations: Agents interacting with poorly documented or unfamiliar programmatic interfaces may misinterpret interface semantics, invoke operations incorrectly, or produce unintended effects. Provide comprehensive, LLM-readable documentation for all programmatic interfaces agents may interact with, including clear descriptions of available operations, required parameters with data types and constraints, expected responses, and common error conditions.
+  enforcement:
+  - prompt
+  owner: developer
+  phase:
+  - build
+  evidence: The interface specification supplied to the agent for each API, listing operations, typed parameters, expected responses and error conditions.
+  test: Set the agent tasks that exercise each documented operation and one error condition and confirm its calls are well formed and errors handled as documented.
   references:
   - "https://modelcontextprotocol.io/specification/2025-06-18/server/tools"
   - "https://www.anthropic.com/engineering/writing-tools-for-agents"
@@ -1371,6 +1934,13 @@ CTRL-0068:
   - RISK-039
   statement: Use code linters to screen generated code for bad practices and poor syntax
   recommendations: Agents may generate code containing bad practices, anti-patterns, unused variables, or syntax errors that reduce code quality, introduce bugs, or create maintainability issues. Implement automated code linting that analyses all agent-generated code before execution or deployment, using tools such as Pylint, ESLint, or language-specific linters configured with appropriate rule sets. Configure linters to detect common issues including syntax errors, unused variables, deprecated functions, security anti-patterns, and violations of coding standards. Reject code that fails linting checks or present warnings to users for review before proceeding.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  evidence: The linter rule set in version control, its hook in the code-execution path, and lint results stored with each generated snippet.
+  test: Have the agent produce code with a syntax error and an unused variable and confirm the linter rejects it or shows the warnings before execution.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf"
@@ -1392,6 +1962,15 @@ CTRL-0069:
   - RISK-049
   statement: Run agent-generated code only in isolated compute environments with network access blocked by default
   recommendations: Agent-generated code may contain vulnerabilities, bugs, or malicious logic that could compromise systems, leak data, exfiltrate information, or establish unauthorised network connections. Implement virtual isolation for all agent-generated code execution using containerised environments (e.g., Docker), virtual machines, or dedicated sandboxes that limit access to sensitive resources, networks, and data. Configure default-deny network policies that block all inbound and outbound network connections unless explicitly required and authorised for specific use cases. When network access is necessary, enforce allowlists restricting connections to known-safe endpoints such as internal APIs or approved external services.
+  enforcement:
+  - infrastructure
+  owner: platform
+  phase:
+  - design
+  - build
+  - deploy
+  evidence: The code-execution sandbox definition showing no host mounts, dropped privileges and a default-deny network policy listing any permitted endpoints.
+  test: Have the agent run code that opens a connection to an external host and reads a host file path and confirm both fail inside the sandbox.
   references:
   - "https://www.ncsc.gov.uk/blogs/managing-the-cyber-risk-of-agentic-ai"
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
@@ -1414,6 +1993,15 @@ CTRL-0070:
   - RISK-040
   statement: Review all agent-generated code before execution
   recommendations: Agent-generated code may contain security vulnerabilities, logic errors, or malicious instructions that could compromise systems if executed without review. Implement mandatory human review workflows for all code generated by agents before execution, including source code, scripts, configuration files, and command sequences. Configure review processes to present code with sufficient context for reviewers to assess safety and correctness, including the agent's reasoning for generating the code and its intended purpose.
+  enforcement:
+  - harness
+  - organisation
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The execution gate setting that requires reviewer approval per code artefact, and review records giving reviewer, code hash and decision.
+  test: Have the agent generate a script and try to run it unreviewed, and confirm execution is blocked until a reviewer approves that exact code.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
@@ -1435,6 +2023,14 @@ CTRL-0071:
   - RISK-040
   statement: Use static code analysers to detect security vulnerabilities and code quality issues
   recommendations: Agent-generated code may contain security vulnerabilities, code smells, or quality issues that manual review might miss. Deploy static code analysis tools (e.g., Bandit for Python, SonarQube, Semgrep) that automatically scan agent-generated code for security vulnerabilities, coding standard violations, and quality issues before execution. Configure analysers to detect common vulnerability patterns such as SQL injection, command injection, path traversal, insecure cryptography, and hard-coded credentials. Block or flag code that fails security scans, requiring remediation before proceeding with execution or deployment.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The static analysis rule set and blocking severity in the execution pipeline, with a scan report attached to each generated code artefact.
+  test: Run CyberSecEval insecure-code prompts through the agent and confirm the analyser flags the vulnerable outputs and blocks their execution.
   references:
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
   - "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
@@ -1455,6 +2051,15 @@ CTRL-0072:
   - RISK-040
   statement: Monitor runtime and memory consumption of agent-generated code
   recommendations: Agent-generated code may contain inefficient implementations, infinite loops, or memory leaks that degrade system performance or exhaust resources. Implement runtime monitoring that tracks execution time, memory consumption, CPU usage, and other resource metrics for all agent-generated code during execution. Configure alerts that trigger when code exceeds predefined resource thresholds, such as maximum execution time, memory limits, or CPU usage, enabling automatic termination of runaway processes.
+  enforcement:
+  - infrastructure
+  - harness
+  owner: platform
+  phase:
+  - build
+  - operate
+  evidence: The sandbox limits for execution time, memory and CPU, the alert rule attached to them, and records of terminated runs.
+  test: Run agent-generated code containing an infinite loop and an unbounded memory allocation and confirm each is terminated at its limit and an alert is raised.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -1474,6 +2079,14 @@ CTRL-0073:
   - RISK-040
   statement: Create a denylist of commands that agents are not permitted to execute
   recommendations: Agents may generate code that invokes dangerous or destructive commands capable of compromising systems, deleting data, or establishing unauthorised network connections. Implement command denylists that explicitly prohibit execution of dangerous operations such as system shutdown commands, file deletion utilities, network scanning tools, or privileged system calls. Enforce denylists at the execution layer, preventing blocked commands from running even if agents generate code containing them. Regularly review and update denylists based on observed agent behaviour, emerging security threats, and identified misuse patterns.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The command denylist file in version control, the execution-layer hook that checks each command against it, and its log of blocked commands.
+  test: Have the agent attempt a denylisted command, such as a recursive delete, in plain and obfuscated forms and confirm both are blocked.
   references:
   - "https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -1493,6 +2106,14 @@ CTRL-0074:
   - RISK-040
   statement: Conduct CVE scanning and block execution of code with High or Critical vulnerabilities
   recommendations: Agent-generated code may inadvertently include dependencies or libraries containing known security vulnerabilities that could be exploited to compromise systems. Implement automated CVE scanning that analyses all dependencies, libraries, and packages used by agent-generated code before execution, checking against vulnerability databases such as the National Vulnerability Database. Configure scanning to block execution when High or Critical severity CVEs are detected, requiring remediation such as dependency updates or vulnerability patches before proceeding.
+  enforcement:
+  - harness
+  owner: security
+  phase:
+  - build
+  - operate
+  evidence: The dependency scanner configuration with its High and Critical blocking threshold, and scan results recorded for each execution request.
+  test: Have the agent write code that imports a package version with a known Critical CVE and confirm execution is blocked with the CVE cited.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
@@ -1514,6 +2135,16 @@ CTRL-0075:
   - RISK-041
   statement: Do not grant write access to agents unless strictly necessary
   recommendations: Agents with unnecessary write access may inadvertently modify, overwrite, or delete critical files or data, leading to data loss, corruption, or operational disruption. Apply the principle of least privilege by granting write access only when explicitly required for the agent's intended functionality, defaulting to read-only access for all other operations. Implement granular access controls that restrict write permissions to specific directories, databases, or resources that the agent legitimately needs to modify. Regularly review agent permissions to ensure write access remains justified and revoke unnecessary permissions as agent responsibilities evolve.
+  enforcement:
+  - infrastructure
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The agent's database grants and storage policies showing read-only access by default, with each write permission scoped to a named resource and justified.
+  test: Using the agent's credentials, attempt a write to a table or directory outside its listed write scope and confirm it is denied.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
@@ -1535,6 +2166,16 @@ CTRL-0076:
   - RISK-041
   statement: Require human approval for destructive changes to databases, tables, or files that cannot be readily undone
   recommendations: Destructive operations such as deleting files, dropping database tables, or overwriting critical data can cause irreversible damage if executed without proper authorisation. Require human approval for every destructive operation that cannot be readily undone, including DROP and TRUNCATE statements, DELETE or UPDATE queries that are not narrowly filtered, bulk file deletions, and any deletion or overwrite in a store without versioning, soft-delete, or point-in-time recovery (see CTRL-0077). Changes that can be reverted from version control or soft-delete, such as edits to files in a version-controlled working copy, may proceed without approval. Enforce the approval in the tool or database permission layer rather than by instructing the agent to ask first, because an instruction in the agent's context can be ignored or lost.
+  enforcement:
+  - harness
+  - organisation
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The tool or database permission rules marking DROP, TRUNCATE, unfiltered DELETE or UPDATE and bulk file deletion as approval-required, with approval records.
+  test: Have the agent issue a DROP TABLE and an unfiltered DELETE in staging and confirm neither runs until a human approves it.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
@@ -1556,6 +2197,14 @@ CTRL-0077:
   - RISK-041
   statement: Enable versioning or soft-delete for managed object stores to allow recovery from accidental modifications
   recommendations: Even with access controls and approval workflows, agents may occasionally execute unintended destructive operations due to misunderstandings, bugs, or edge cases. Implement versioning or soft-delete mechanisms for file stores, object storage, and databases that preserve previous versions of data when modifications occur, enabling recovery from accidental overwrites or deletions.
+  enforcement:
+  - infrastructure
+  owner: platform
+  phase:
+  - build
+  - deploy
+  evidence: The storage and database settings showing versioning, soft-delete or point-in-time recovery enabled, with retention period, on every store the agent can write to.
+  test: Overwrite and delete a test object with the agent's credentials, restore the earlier version and confirm its contents match the original.
   references:
   - "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html"
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
@@ -1576,6 +2225,15 @@ CTRL-0078:
   - RISK-042
   statement: Enforce throttling or rate limits on agent-initiated database operations
   recommendations: Agents executing database operations without constraints may issue excessive queries that overwhelm database resources, degrade performance for other users, or cause service outages. Implement throttling mechanisms that limit the frequency and volume of agent-initiated database operations, such as maximum queries per second, maximum concurrent connections, or query timeout limits. Monitor database load patterns to detect agents approaching or exceeding rate limits, using this data to refine throttling policies or investigate agents with excessive query behaviour.
+  enforcement:
+  - harness
+  - infrastructure
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The settings on the agent's database role or query tool giving maximum queries per second, concurrent connections and statement timeout.
+  test: Drive the agent's query tool above the configured rate and submit a long-running query, and confirm excess calls are throttled and the query times out.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -1596,6 +2254,13 @@ CTRL-0079:
   - RISK-042
   statement: Validate agent-generated database queries for efficiency before execution against production databases
   recommendations: Agents may generate inefficient database queries such as full table scans, missing indexes, or SELECT * operations that consume excessive resources and degrade database performance. Implement automated query validation that analyses agent-generated queries before execution, checking for common efficiency issues including lack of appropriate indexes, overly broad selections, missing WHERE clauses on large tables, or N+1 query patterns.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  evidence: "The query validator in the database tool, its rules for missing WHERE clauses, SELECT * and unindexed scans, and its log of rejected queries."
+  test: "Submit an unfiltered SELECT * on a large table through the agent's query tool and confirm it is rejected before reaching the production database."
   references:
   - "https://www.postgresql.org/docs/current/using-explain.html"
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
@@ -1614,6 +2279,14 @@ CTRL-0080:
   - RISK-042
   statement: Implement caching mechanisms to reduce repetitive database queries by agents
   recommendations: Agents repeatedly querying the same or similar data create unnecessary database load, consuming resources that could be avoided through intelligent caching. Implement caching layers (e.g., Redis, Memcached, in-memory caches) that store frequently accessed data, allowing agents to retrieve cached results rather than repeatedly querying databases for identical information.
+  enforcement:
+  - harness
+  - infrastructure
+  owner: developer
+  phase:
+  - build
+  evidence: The cache configuration for the agent's data tools showing key design and expiry times, and the dashboard of cache hit rate.
+  test: Issue the same query twice through the agent and confirm the second is served from the cache with no new database query logged.
   references:
   - "https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside"
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
@@ -1630,6 +2303,15 @@ CTRL-0081:
   - RISK-043
   statement: Implement input guardrails to detect personally identifiable information in data accessed by agents
   recommendations: Agents accessing files or databases containing PII may inadvertently expose sensitive personal information through outputs, logs, or downstream processing without appropriate safeguards. Deploy input guardrails that scan data retrieved from files, databases, or other sources for PII categories including names, email addresses, phone numbers, identification numbers, and financial information before agents process it. When PII is detected, trigger protective measures such as flagging the data as sensitive to the agent, applying stricter output filtering, requiring additional access authorisation, or activating enhanced logging to track how the sensitive data is used.
+  enforcement:
+  - harness
+  - model
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The retrieval-path scanner's configuration listing personal data types and the protective action each triggers, with detection events in the log.
+  test: Have the agent read a seeded file holding identity numbers and bank details and confirm the content is tagged sensitive and stricter output filtering applies.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/"
@@ -1649,6 +2331,15 @@ CTRL-0082:
   - RISK-047
   statement: Do not grant agents access to personally identifiable or sensitive data unless strictly required
   recommendations: Agents with unnecessary access to PII or sensitive data create elevated risk of exposure, leakage, or misuse, particularly if agents are compromised or misuse their permissions. Apply the principle of least privilege by restricting agent access to databases, files, or systems containing PII or sensitive information unless explicitly required for the agent's designated functionality. Implement access controls that enforce these restrictions at the data layer, preventing agents from querying or reading sensitive datasets they should not access.
+  enforcement:
+  - infrastructure
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The agent identity's data-access grants set against the data classification register, showing no grant on personal or sensitive datasets without a recorded justification.
+  test: Using the agent's credentials, query a dataset classified as personal data that its task does not need and confirm the data layer denies it.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf"
@@ -1672,6 +2363,15 @@ CTRL-0083:
   - RISK-047
   statement: Disallow unknown or external files unless they have been scanned for threats
   recommendations: External files may contain maliciously crafted content designed to inject hidden instructions, manipulate agent behaviour, or introduce security threats when processed. Implement mandatory scanning for all unknown or external files before allowing agents to access them, using antivirus software, malware scanners, or specialised tools that detect prompt injection attempts embedded in file content.
+  enforcement:
+  - harness
+  - infrastructure
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The file-intake pipeline configuration showing the malware and injection scanners every external file passes, with a scan verdict stored per file hash.
+  test: Upload a standard antivirus test file and a document carrying hidden instructions and confirm neither becomes readable by the agent.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html"
@@ -1693,6 +2393,15 @@ CTRL-0084:
   - RISK-045
   statement: Set minimum and maximum limits on what agents can modify within system resources
   recommendations: Agents with unrestricted ability to modify system configurations may make inappropriate changes that degrade performance, compromise security, or cause service disruptions. Define and enforce quantitative boundaries on agent-initiated configuration changes, such as minimum and maximum values for resource allocations (CPU, memory, storage), rate limits, timeout values, or scaling parameters.
+  enforcement:
+  - harness
+  - infrastructure
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The policy file bounding agent-initiated changes, with minimum and maximum values for CPU, memory, storage, scaling, timeouts and rate limits.
+  test: Have the agent request a scale-up above the maximum and a timeout below the minimum and confirm both changes are rejected and logged.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://kubernetes.io/docs/concepts/policy/limit-range/"
@@ -1711,6 +2420,14 @@ CTRL-0085:
   - RISK-045
   statement: Log system health metrics and implement automated alerts for abnormal conditions
   recommendations: Misconfigurations by agents may not cause immediate visible failures but instead gradually degrade system health, performance, or stability over time. Implement comprehensive logging of system health metrics including resource utilisation, error rates, response times, and performance indicators that reflect the impact of configuration changes. Configure automated alerting that triggers when metrics deviate from expected baselines or exceed acceptable thresholds.
+  enforcement:
+  - infrastructure
+  owner: platform
+  phase:
+  - deploy
+  - operate
+  evidence: The dashboards and alert rules for resource utilisation, error rate and response time on systems the agent administers, each with a stated baseline.
+  test: Apply a configuration change in staging that degrades response time and confirm an alert fires and the change appears in the alert's timeline.
   references:
   - "https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/"
   - "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
@@ -1730,6 +2447,14 @@ CTRL-0086:
   - RISK-046
   statement: Limit the number of concurrent queries to external systems by agents
   recommendations: Agents making unlimited concurrent queries to external systems may overwhelm those systems, trigger rate limiting or blocking, or exhaust connection pools and network resources. Implement concurrency limits that restrict the maximum number of simultaneous queries an agent can issue to external systems, such as APIs, web services, or remote databases. Configure limits appropriate to external system capacity and rate limit policies, ensuring agents operate within acceptable thresholds whilst maintaining functionality.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - build
+  - operate
+  evidence: The tool layer's concurrency settings giving the maximum simultaneous requests per external system and the queueing or back-off behaviour.
+  test: Prompt the agent to issue fifty parallel calls to one external API and confirm in-flight requests never exceed the configured maximum.
   references:
   - "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
   - "https://api-security.owasp.org/editions/2023/en/0xa4-unrestricted-resource-consumption"
@@ -1752,6 +2477,15 @@ CTRL-0089:
   - RISK-049
   statement: Enforce default-deny network egress for agent runtimes, allowing only approved destinations
   recommendations: Every exfiltration and every containment escape needs an outbound channel, and agents acquire new ones with each tool. Run agent runtimes behind an egress policy that denies all outbound connections by default and allows only named destinations required for the task, applied at the network layer (proxy, firewall, or sandbox policy) rather than in the prompt. Include browsing and API tools in the policy, block requests that carry data in URLs or headers to unapproved hosts, and validate at the egress boundary that any credential presented belongs to the deployment — an allowlisted API endpoint is still an exfiltration channel if the agent can use it with an attacker's account. Log and alert on denied connections; they are an early signal of injection or misbehaviour.
+  enforcement:
+  - infrastructure
+  owner: platform
+  phase:
+  - design
+  - deploy
+  - operate
+  evidence: The egress proxy or firewall rule set for the agent runtime showing default deny and the named permitted destinations, with alerts on denied connections.
+  test: From inside the agent runtime, request an unlisted host and call a permitted API with another account's key, and confirm both are refused and alerted.
   references:
   - https://www.anthropic.com/engineering/how-we-contain-claude
   - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
@@ -1776,6 +2510,14 @@ CTRL-0090:
   - RISK-047
   statement: Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions
   recommendations: Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.
+  enforcement:
+  - harness
+  owner: developer
+  phase:
+  - design
+  - build
+  evidence: The policy engine's rules in version control stating which tools accept data carrying each trust label, and its log of denied tool calls.
+  test: Run AgentDojo with the policy layer enabled and confirm instructions injected into tool outputs trigger no privileged tool call.
   references:
   - https://arxiv.org/abs/2503.18813
   - https://arxiv.org/abs/2504.11703
@@ -1799,6 +2541,16 @@ CTRL-0091:
   - RISK-048
   statement: Require verified provenance for tools, skills, and dependencies, and re-verify them on every update
   recommendations: "Treat tools, MCP servers, agent skills or plug-ins, prompt templates, and packages as supply chain artefacts. Install them only from vetted registries, pin them by version and content hash, verify signatures or attestations where available, and keep an inventory (an AI bill of materials) of what each agent can load. Because approval does not survive an update, re-verify hashes and signatures at load time and diff tool definitions against the approved version so a silently changed server is detected before it runs. Do not let agents install unpinned dependencies autonomously, scan new packages for typosquatting and known vulnerabilities, and keep a way to revoke a specific tool or skill across all deployments quickly. Before adopting a tool server, skill or package, assess who publishes it: whether the code is public, how the publisher handles security disclosures, and whether it is actively maintained."
+  enforcement:
+  - harness
+  - organisation
+  owner: security
+  phase:
+  - build
+  - deploy
+  - operate
+  evidence: The lock file pinning every tool, skill, MCP server and package by version and content hash, and the AI bill of materials per agent.
+  test: Alter a tool's description on a test server after approval and confirm the load-time hash check refuses the tool and raises an alert.
   references:
   - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
   - https://morphisec.com/mcp-attack-chain/
@@ -1819,6 +2571,15 @@ CTRL-0092:
   - RISK-049
   statement: Contain evaluations and red-team exercises so that agents cannot reach real systems, credentials, or people
   recommendations: Treat every evaluation, benchmark run, and red-team exercise as a deployment with its own containment. Use synthetic or replica targets rather than production systems, issue no production credentials or real accounts, isolate the network with default-deny egress, and prohibit out-of-scope tactics such as contacting real people or third-party infrastructure explicitly in the task specification rather than assuming the agent will infer them. Monitor runs in real time with the ability to halt them, and review anomalous traffic (for example anonymising networks or unexpected destinations) immediately. Agents have breached third-party infrastructure from inside an evaluation and socially engineered real maintainers during cyber testing; design containment for a capable adversary, not a compliant one.
+  enforcement:
+  - infrastructure
+  - organisation
+  owner: security
+  phase:
+  - build
+  - operate
+  evidence: The evaluation environment definition showing replica targets, test-only credentials and default-deny egress, and the task specification's list of prohibited tactics.
+  test: From inside an evaluation run, attempt to reach a production hostname and an external site and confirm both are blocked and the run monitor alerts.
   references:
   - https://openai.com/index/hugging-face-model-evaluation-security-incident/
   - https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing
@@ -1841,6 +2602,15 @@ CTRL-0093:
   - RISK-051
   statement: Monitor agents for deceptive and collusive behaviour using an independent monitor
   recommendations: Behaviour that is goal-directed against oversight will not show up as an error. Deploy an independent monitor - a separate model, classifier, or rule set that the monitored agents cannot influence - that compares actions taken with the plan declared, flags edits to an agent's own history or logs, unexplained credential sharing, communication through channels other than the sanctioned ones, and coordination between agents that were not asked to coordinate. Keep monitor logs tamper-evident and separate from agent-writable storage, and treat monitor alerts as incidents that pause the affected agents pending human review. Red-team the monitor itself so that its blind spots are known.
+  enforcement:
+  - model
+  - harness
+  owner: security
+  phase:
+  - build
+  - operate
+  evidence: The monitor's deployment configuration showing credentials and log storage separate from the monitored agents, its detection rules and its alert history.
+  test: Run a red-team agent that declares one plan, carries out another and edits its own log, and confirm the monitor flags both and pauses the agent.
   references:
   - https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing
   - https://arxiv.org/abs/2502.14143
@@ -1865,6 +2635,14 @@ CTRL-0094:
   - RISK-052
   statement: Measure the quality of human oversight and redesign approval steps that have become rubber stamps
   recommendations: 'A human approval step is only a control while the human is actually deciding. Instrument approval workflows: track approval rates, response times, and override rates per user and per action type, and audit random samples of approved actions. Approval rates near 100% or response times of seconds indicate that the step has stopped working. Respond by routing only genuinely uncertain or high-impact actions to humans, screening routine ones automatically, presenting the context needed to decide (what will change, why the agent chose it, what it would cost to reverse), and training overseers on the agent''s failure modes. Report oversight metrics alongside the agent''s other operating metrics so that erosion is visible to the governance team.'
+  enforcement:
+  - organisation
+  - harness
+  owner: governance
+  phase:
+  - operate
+  evidence: The oversight metrics report giving approval rate, response time and override rate per approver and action type, with results of sampled approval audits.
+  test: Seed the approval queue with a clearly wrong action and confirm the approver rejects it and the outcome appears in the oversight report.
   references:
   - https://www.anthropic.com/engineering/how-we-contain-claude
   - https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf
@@ -1883,6 +2661,16 @@ CTRL-0095:
   - RISK-053
   statement: Apply due diligence and technical bounds to third-party agents before delegating to them or transacting with them
   recommendations: An external agent is a supplier whose behaviour you cannot inspect. Before integration, obtain contractual commitments on data handling, retention, and change notification, and evidence of the provider's testing and security practices. Technically, give each third-party agent its own scoped, short-lived credentials bound to the specific tasks delegated, exchange only the data those tasks require through validated schemas, log every exchange on your side, and keep the ability to cut the integration off immediately. Verify the agent's identity on each interaction (signed agent cards, mutual TLS) so that a lookalike cannot take its place, and review its behaviour and outputs periodically as its provider updates it.
+  enforcement:
+  - organisation
+  - infrastructure
+  owner: governance
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The third-party agent's contract clauses on data handling, retention and change notification, its scoped short-lived credential configuration, and the local log of exchanges.
+  test: Present an agent card with an invalid signature and confirm delegation is refused, then revoke the real agent's credential and confirm exchanges stop at once.
   references:
   - https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf
   - https://a2a-protocol.org/latest/topics/enterprise-ready/
@@ -1904,6 +2692,15 @@ CTRL-0096:
   - RISK-054
   statement: Harden agent frameworks and runtimes before exposing them, and patch framework vulnerabilities promptly
   recommendations: Do not run an agent framework with its defaults on any reachable network. Before exposure, enable authentication on every control interface, bind local services to loopback rather than all interfaces, validate origins on WebSocket and browser-facing endpoints, disable or replace unsafe deserialisation of persisted state and checkpoints, remove default credentials, and run the agent as an unprivileged user. Track security advisories for the frameworks and SDKs in use and treat agent-framework vulnerabilities as high priority for patching, because an agent runtime typically holds the credentials of everything it can act on. Include these checks in the deployment baseline so that a new agent cannot go live unhardened.
+  enforcement:
+  - infrastructure
+  - organisation
+  owner: platform
+  phase:
+  - deploy
+  - operate
+  evidence: The deployment baseline check covering control-interface authentication, loopback binding, origin validation and unprivileged execution, and the framework patch log with advisory dates.
+  test: Scan the deployed runtime from another network segment and confirm no control interface answers without authentication and no default credential works.
   references:
   - https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now
   - https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html
@@ -1927,6 +2724,16 @@ CTRL-0097:
   - RISK-047
   statement: Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent
   recommendations: "An agent that reads content from outside parties, can reach sensitive data, and can send data out can be turned into an exfiltration channel by a single injected instruction, and detection alone does not reliably stop this. Map, for each agent, where its inputs come from, what sensitive data it can reach, and every channel through which it can send data out, including messages, API calls, and URLs it can fetch or render. Where all three are present, break the combination: give the untrusted content to a separate agent that has no access to sensitive data and returns only structured values (see CTRL-0020 and CTRL-0090); remove the sensitive data the task does not need (see CTRL-0082); or restrict the outbound channel outside the agent, by limiting recipients and destinations to a fixed allowlist (see CTRL-0089) and requiring human approval for any message or call that carries data to a new recipient. Record which of the three is removed or gated for each agent, and recheck the map whenever a tool, data source, or channel is added. An agent that lacks any of the three does not need this control; record the waiver with evidence of which one is absent."
+  enforcement:
+  - harness
+  - organisation
+  owner: developer
+  phase:
+  - design
+  - build
+  - operate
+  evidence: The per-agent map of untrusted inputs, reachable sensitive data and outbound channels, recording which of the three is removed or gated, dated after the latest tool change.
+  test: Plant an instruction in content the agent reads telling it to send a seeded secret to a new recipient and confirm the secret never leaves.
   references:
   - https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf
   - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/

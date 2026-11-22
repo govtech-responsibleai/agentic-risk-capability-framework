@@ -103,8 +103,8 @@ Ask the user these questions. If you can't reach them, choose a sensible default
 
 For each control in scope, follow these steps.
 
-1. Read its guidance with `ARC show CTRL-xxxx`, or use `assess --detail --format json`.
-2. Search the codebase for an existing implementation, and record the evidence: file paths, configuration, or tests.
+1. Read its guidance with `ARC show CTRL-xxxx`, or use `assess --detail --format json`. Each control also says where it is enforced, who normally owns it, what evidence shows it is in place, and how to test that it works.
+2. Search the codebase for an existing implementation, and record the evidence: file paths, configuration, or tests. Look for the evidence the control names. Where the control is enforced only in the prompt and the control's own enforcement point is the harness or the infrastructure, record it as not implemented: an instruction is not a gate.
 3. Fill in the template's Controls table:
    - **Status:** as-is, adapted, not adopted, or waived — not applicable.
    - **Implementation:** what is done, where, and with what thresholds. For a control that isn't in place yet, write "Not implemented", followed by the specific change you propose and how to test it.

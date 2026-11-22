@@ -50,3 +50,11 @@ controls:
       - EXA-RISK-001
       statement: Match a case to an applicant on a verified identity, never on name or reference number alone
       recommendations: "Bind every case lookup to the identity that the applicant authenticated with, and enforce this in the tool that queries the case system, not in the prompt."
+      enforcement:
+      - harness
+      owner: developer
+      phase:
+      - design
+      - build
+      evidence: "The case-lookup tool's code, showing that the applicant identity comes from the authenticated session and is not a parameter the agent can set."
+      test: "Sign in as one applicant, ask for another applicant's case by name and reference number, and confirm that nothing is returned."
