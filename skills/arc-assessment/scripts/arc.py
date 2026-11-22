@@ -501,6 +501,20 @@ def effective_level(control, profile):
     return level
 
 
+def combination_rules(reg):
+    """The register's combination rules as {rule_id: rule}, each with `legs`: {role_id: role}.
+
+    Register 2.0 keeps shared `roles` and `rules` that name them; register 1.5 kept the legs inside each
+    combination. Both are returned in the one shape.
+    """
+    data = reg.get("combinations") or {}
+    if "rules" not in data:
+        return {rule_id: rule for rule_id, rule in data.items() if isinstance(rule, dict) and rule.get("legs")}
+    roles = data.get("roles") or {}
+    return {rule_id: {**rule, "legs": {r: roles[r] for r in rule.get("roles") or [] if r in roles}}
+            for rule_id, rule in (data.get("rules") or {}).items()}
+
+
 def applicable_risks(reg, present, profile=None):
     """Risks that apply to a system with the given capabilities and conditional components.
 
@@ -511,9 +525,14 @@ def applicable_risks(reg, present, profile=None):
     """
     elements = element_index(reg)
     selected = set(present)
+    verdicts = {c["id"]: c["verdict"] for c in combination_checks(reg, present, profile)}
     baseline, single, combination = [], [], []
     for rid, r in reg["risks"].items():
         if r.get("superseded_by") or below_authority(r, profile):
+            continue
+        if r.get("combination"):   # arises from a rule, and applies unless the rule is ruled out
+            if verdicts.get(r["combination"], "not present") != "not present":
+                combination.append(rid)
             continue
         ids = risk_elements(r)
         needed = {e for e in ids if is_chosen(elements.get(e, {}))}
@@ -541,8 +560,10 @@ def risk_record(reg, rid, elements, detail=False, profile=None):
         "id": rid,
         "statement": r.get("statement", ""),
         "description": (r.get("description") or "").strip(),
-        "elements": [f"{elements[e]['kind']}: {elements[e]['name']} ({e})" if e in elements else e
-                     for e in risk_elements(r)],
+        "elements": ([f"Combination: {combination_rules(reg).get(r['combination'], {}).get('name', r['combination'])}"]
+                     if r.get("combination") else
+                     [f"{elements[e]['kind']}: {elements[e]['name']} ({e})" if e in elements else e
+                      for e in risk_elements(r)]),
         "failure_mode": r.get("failure_mode", ""),
         "type": r.get("type", []),
         "hazards": [f"{hazards[h]['name']} ({h})" if h in hazards else h for h in r.get("hazards", []) or []],
@@ -550,37 +571,57 @@ def risk_record(reg, rid, elements, detail=False, profile=None):
     }
 
 
-def combination_checks(reg, capabilities):
-    """Check the system's capabilities against each combination the register defines (combinations.yaml).
+def combination_checks(reg, capabilities, profile=None):
+    """Check the system's capabilities against each combination rule the register defines.
 
-    Each combination has legs; a capability supplies a leg always ("yes") or only in some deployments
-    ("maybe"). The combination is present when every leg has a "yes" capability, possible when every leg
-    is supplied but at least one only by "maybe" capabilities, and not present otherwise. The verdict
-    decides whether the combination's control is implemented or waived; it does not change which risks apply.
+    A rule names roles that must all be supplied. A capability supplies a role always ("yes") or only in
+    some deployments ("maybe"), and some only from a certain authority upwards. The rule is present when
+    every role has a "yes" capability, possible when every role is supplied but at least one only by
+    "maybe" capabilities, and not present otherwise. A rule that is present or possible brings its risks
+    into scope; its control is implemented unless the assessor shows that a role is absent.
     """
     elements = element_index(reg)
-    applicable = [rid for group in applicable_risks(reg, capabilities) for rid in group]
+
+    def supplies(cap, entry):
+        used = (profile or {}).get(cap, {}).get("authority")
+        minimum = entry.get("min_authority")
+        return not (used and minimum) or AUTHORITY.index(used) >= AUTHORITY.index(minimum)
+
     out = []
-    for combo_id, combo in (reg.get("combinations") or {}).items():
+    for rule_id, rule in combination_rules(reg).items():
         legs = []
-        for leg_id, leg in (combo.get("legs") or {}).items():
+        for leg_id, leg in rule["legs"].items():
             marks = leg.get("capabilities") or {}
             suppliers = [{"id": c, "name": elements.get(c, {}).get("name", ""), "mark": marks[c].get("mark"),
-                          "note": marks[c].get("note", "")} for c in capabilities if c in marks]
+                          "note": marks[c].get("note", "")}
+                         for c in capabilities if c in marks and supplies(c, marks[c])]
             status = "yes" if any(s["mark"] == "yes" for s in suppliers) else ("maybe" if suppliers else "none")
             legs.append({"id": leg_id, "name": leg.get("name", leg_id), "description": leg.get("description", ""),
                          "question": leg.get("question", ""), "status": status, "capabilities": suppliers})
         statuses = [leg["status"] for leg in legs]
         verdict = ("not present" if "none" in statuses or not legs
                    else "present" if all(s == "yes" for s in statuses) else "possible")
-        cid = combo.get("control")
+        cid = rule.get("control")
         control = reg["controls"].get(cid) or {}
         out.append({
-            "id": combo_id, "name": combo.get("name", combo_id), "description": combo.get("description", ""),
-            "verdict": verdict, "legs": legs,
+            "id": rule_id, "name": rule.get("name", rule_id), "description": rule.get("description", ""),
+            "verdict": verdict, "legs": legs, "risks": rule.get("risks") or [],
             "control": {"id": cid, "level": control.get("level"), "statement": control.get("statement", "")},
-            "control_listed_by": [rid for rid in applicable if cid in (reg["risks"][rid].get("controls") or [])],
         })
+    return out
+
+
+def implied_capabilities(reg, capabilities):
+    """Capabilities the system has not declared but that its declared ones give it (`implies`)."""
+    elements = element_index(reg)
+    out = []
+    for cap in capabilities:
+        for other, entry in ((reg.get("combinations") or {}).get("implies") or {}).get(cap, {}).items():
+            if other in capabilities:
+                continue
+            out.append({"from": cap, "from_name": elements.get(cap, {}).get("name", ""), "capability": other,
+                        "name": elements.get(other, {}).get("name", "") if other != "any" else "any capability",
+                        "mark": entry.get("mark"), "note": entry.get("note", "")})
     return out
 
 
@@ -599,7 +640,7 @@ def combination_advice(check):
     else:
         advice = (f"No capability of this system supplies {' or '.join(missing)}. Where {cid} is listed, record it "
                   "as waived — not applicable, with this as the evidence.")
-    if check["verdict"] != "not present" and not check["control_listed_by"]:
+    if check["verdict"] != "not present" and not check.get("control_listed_by", True):
         advice += (f" None of this system's applicable risks lists {cid} in this register version, so record it "
                    "with the combination check.")
     return advice
@@ -716,7 +757,11 @@ def cmd_assess(reg, source, args):
     level0 = rollup(lambda rid, c: c["level"] == 0)
     in_scope = rollup(lambda rid, c: c["level"] == 0 or rid in priority) if priority is not None else None
 
-    combinations = combination_checks(reg, caps)
+    combinations = combination_checks(reg, caps, profile)
+    for check in combinations:
+        check["control_listed_by"] = [rid for rid in applicable
+                                      if check["control"]["id"] in (reg["risks"][rid].get("controls") or [])]
+    implied = implied_capabilities(reg, caps)
     v = reg["register"].get("version")
     if args.format == "json":
         out = {"register_version": v, "source": source, "capabilities": caps, "components": components,
@@ -728,7 +773,8 @@ def cmd_assess(reg, source, args):
                "risks": {"baseline": [records[r] for r in baseline], "capability": [records[r] for r in single],
                          "combination": [records[r] for r in combination]},
                "level0_controls": [{"id": k, **val} for k, val in level0.items()],
-               "combinations": [{**c, "advice": combination_advice(c)} for c in combinations]}
+               "combinations": [{**c, "advice": combination_advice(c)} for c in combinations],
+               "implied_capabilities": implied}
         if in_scope is not None:
             out["priority_risks"] = priority
             out["controls_in_scope"] = [{"id": k, **val} for k, val in in_scope.items()]
@@ -771,6 +817,14 @@ def cmd_assess(reg, source, args):
                     print(f"  - Guidance: {c['recommendations']}")
             print()
 
+    if implied:
+        print("## Capabilities this system may also have\n")
+        print("Some capabilities give a system others, whether or not they were declared. For each one below, add "
+              "it to --capabilities and assess again, or record the evidence that it does not apply.\n")
+        for i in implied:
+            print(f"- {i['from']} {i['from_name']} gives {i['capability']} {i['name']} ({i['mark']}): {i['note']}")
+        print()
+
     if combinations:
         print("## Capability combinations\n")
         print("Some capabilities create a risk only when a system holds them together. This check uses the "
@@ -812,7 +866,11 @@ def cmd_show(reg, source, args):
     out = []
     for raw_id in args.ids:
         eid = raw_id.upper()
-        if eid in reg["risks"]:
+        retired = (reg["risks"].get(eid) or reg["controls"].get(eid) or {}).get("superseded_by")
+        if retired:
+            out.append({"id": eid, "statement": (reg["risks"].get(eid) or reg["controls"][eid]).get("statement", ""),
+                        "superseded_by": retired})
+        elif eid in reg["risks"]:
             out.append({**risk_record(reg, eid, elements, detail=True), "sources": reg["risks"][eid].get("sources", [])})
         elif eid in reg["controls"]:
             c = reg["controls"][eid]
@@ -821,7 +879,8 @@ def cmd_show(reg, source, args):
                         "references": c.get("references") or []})
         elif eid in elements:
             e = elements[eid]
-            out.append({**e, "risks": [rid for rid, r in reg["risks"].items() if eid in risk_elements(r)]})
+            out.append({**e, "risks": [rid for rid, r in reg["risks"].items()
+                                       if eid in risk_elements(r) and not r.get("superseded_by")]})
         else:
             raise ArcError(f"{raw_id} is not a risk, control or element in this register")
     if args.format == "json":
@@ -829,6 +888,10 @@ def cmd_show(reg, source, args):
                          indent=2, default=str))
         return
     for e in out:
+        if "superseded_by" in e:
+            print(f"## {e['id']} · {e['statement']}\n\nRetired. Superseded by {e['superseded_by']}; "
+                  f"run `arc.py show {e['superseded_by']}`.\n")
+            continue
         if "kind" in e:
             print(f"## {e['id']} · {e['name']} ({e['kind']}{', ' + e['category'] if e['category'] else ''})\n\n"
                   f"{e['description']}\n\nRisks arising from it: {', '.join(e['risks']) or 'none'}")

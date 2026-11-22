@@ -1,108 +1,157 @@
-# Capability combinations that the ARC register checks for.
+# Capability combinations: risks that arise only when a system holds certain capabilities together.
 #
-# A combination is a set of legs. A capability supplies a leg always (mark "yes") or only in some
-# deployments (mark "maybe"; its note says when). For a system with a given set of capabilities:
+# roles    What a capability can contribute to a combination. A capability supplies a role always
+#          (mark "yes") or only in some deployments (mark "maybe"; its note says when). A mark may
+#          state the least authority at which the capability supplies the role (min_authority).
+# rules    A rule names the roles that must all be supplied. For a given system a rule is
+#            present      every role is supplied by a capability marked "yes"
+#            possible     every role is supplied, at least one only by capabilities marked "maybe";
+#                         the assessor answers the note for each
+#            not present  at least one role is supplied by none of the system's capabilities
+#          A rule that is present or possible brings its risks into scope, and its control must be
+#          implemented unless the assessor shows that a role is absent.
+# implies  Capabilities that give a system other capabilities, whether or not they were declared.
+#          The assessor adds each implied capability, or records why it does not apply.
 #
-#   present      every leg is supplied by at least one capability marked "yes"
-#   possible     every leg is supplied, but at least one only by capabilities marked "maybe";
-#                the assessor answers the note for each such leg
-#   not present  at least one leg is supplied by none of the system's capabilities
-#
-# The verdict decides whether the combination's control is implemented or waived. It does not
-# change which risks apply. Components are not part of the mapping: persistent memory can carry
-# untrusted content or sensitive data from one session into another, so count it when answering.
-#
+# Components are not part of the role mapping: persistent memory can carry untrusted content or
+# sensitive data from one session into another, so count it when answering.
 # Marks must be the quoted strings "yes" and "maybe" (an unquoted yes is read by YAML as a boolean).
 
-lethal-trifecta:
-  name: Lethal trifecta
-  description: "An agent that reads untrusted content, can reach sensitive data, and can send data out can be turned into an exfiltration channel by a single injected instruction. No one of the three creates the exposure; the three together do."
-  control: CTRL-0097
-  risks:
-  - RISK-047
-  - RISK-055
-  sources:
-  - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
-  - https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf
-  legs:
-    untrusted-content:
-      name: Untrusted content
-      description: "Content that someone outside the organisation's control can write reaches the agent."
-      question: "Can anyone outside your organisation's control write content that this system reads?"
-      capabilities:
-        CAP-02:
-          mark: "maybe"
-          note: "Yes if it takes output from agents that other parties operate, or from agents that read untrusted content themselves."
-        CAP-04:
-          mark: "maybe"
-          note: "Yes if its users are members of the public, or can upload or paste documents, images, or audio that someone else wrote."
-        CAP-05:
-          mark: "maybe"
-          note: "Yes if it also reads replies or other inbound messages on the channels it sends through."
-        CAP-07:
-          mark: "yes"
-          note: "Web pages and search results can be written by anyone."
-        CAP-08:
-          mark: "yes"
-          note: "Whatever appears on screen reaches the agent, including web pages, emails, and documents written by others."
-        CAP-09:
-          mark: "maybe"
-          note: "Yes if any API, queue, or mailbox it reads carries content from outside parties, such as inbound email, support tickets, form submissions, or webhooks."
-        CAP-10:
-          mark: "maybe"
-          note: "Yes if it runs or reads code, packages, or repositories that outside parties can change."
-        CAP-11:
-          mark: "maybe"
-          note: "Yes if any file or data store it reads holds content from outside parties, such as uploads, shared drives, or records created from customer input."
-    sensitive-data:
-      name: Sensitive data
-      description: "The agent can read data that would cause harm if it left the organisation, such as personal data, credentials, or confidential records."
-      question: "Can this system read anything your organisation would not publish?"
-      capabilities:
-        CAP-06:
-          mark: "maybe"
-          note: "Yes if it holds payment credentials, or can read account, order, or customer records."
-        CAP-08:
-          mark: "yes"
-          note: "It can see whatever the signed-in user can open on the machine."
-        CAP-09:
-          mark: "maybe"
-          note: "Yes if any API it can call returns personal, confidential, or credential data."
-        CAP-11:
-          mark: "yes"
-          note: "It reads the organisation's files, databases, or knowledge bases."
-        CAP-12:
-          mark: "yes"
-          note: "System administration reaches configuration, credentials, and logs."
-    outbound-channel:
-      name: Outbound channel
-      description: "The agent can cause data to reach a destination outside the organisation's control."
-      question: "Can this system cause data to reach a destination your organisation does not control?"
-      capabilities:
-        CAP-02:
-          mark: "maybe"
-          note: "Yes if it can pass data to an agent that another party operates, or to an agent that has an outbound channel of its own."
-        CAP-04:
-          mark: "maybe"
-          note: "Yes if its output is shown to people outside the organisation, or is rendered in a way that loads external images or links."
-        CAP-05:
-          mark: "yes"
-          note: "It sends messages to people outside the organisation."
-        CAP-06:
-          mark: "yes"
-          note: "Transactions carry data to external parties in payment references, order details, and booking fields."
-        CAP-07:
-          mark: "yes"
-          note: "Any request to a web address can carry data in the URL or the query."
-        CAP-08:
-          mark: "yes"
-          note: "It can use any application on the machine that sends data, including the browser and the mail client."
-        CAP-09:
-          mark: "maybe"
-          note: "Yes if any API it can call writes to a system outside the organisation, or accepts a destination that the agent chooses."
-        CAP-10:
-          mark: "maybe"
-          note: "Yes if the environment its code runs in can make network requests."
-        CAP-12:
-          mark: "maybe"
-          note: "Yes if it can change network, sharing, or access settings so that data becomes reachable from outside."
+roles:
+  untrusted-content:
+    name: Untrusted content
+    description: "Content that someone outside the organisation's control can write reaches the agent."
+    question: "Can anyone outside your organisation's control write content that this system reads?"
+    capabilities:
+      CAP-02:
+        mark: "maybe"
+        note: "Yes if it takes output from agents that other parties operate, or from agents that read untrusted content themselves."
+      CAP-04:
+        mark: "maybe"
+        note: "Yes if its users are members of the public, or can upload or paste documents, images, or audio that someone else wrote."
+      CAP-05:
+        mark: "maybe"
+        note: "Yes if it also reads replies or other inbound messages on the channels it sends through."
+      CAP-07:
+        mark: "yes"
+        note: "Web pages and search results can be written by anyone."
+      CAP-08:
+        mark: "yes"
+        note: "Whatever appears on screen reaches the agent, including web pages, emails, and documents written by others."
+      CAP-09:
+        mark: "maybe"
+        note: "Yes if any API, queue, or mailbox it reads carries content from outside parties, such as inbound email, support tickets, form submissions, or webhooks."
+      CAP-10:
+        mark: "maybe"
+        note: "Yes if it runs or reads code, packages, or repositories that outside parties can change."
+      CAP-11:
+        mark: "maybe"
+        note: "Yes if any file or data store it reads holds content from outside parties, such as uploads, shared drives, or records created from customer input."
+  sensitive-data:
+    name: Sensitive data
+    description: "The agent can read data that would cause harm if it left the organisation, such as personal data, credentials, or confidential records."
+    question: "Can this system read anything your organisation would not publish?"
+    capabilities:
+      CAP-06:
+        mark: "maybe"
+        note: "Yes if it holds payment credentials, or can read account, order, or customer records."
+      CAP-08:
+        mark: "yes"
+        note: "It can see whatever the signed-in user can open on the machine."
+      CAP-09:
+        mark: "maybe"
+        note: "Yes if any API it can call returns personal, confidential, or credential data."
+      CAP-11:
+        mark: "yes"
+        note: "It reads the organisation's files, databases, or knowledge bases."
+      CAP-12:
+        mark: "yes"
+        note: "System administration reaches configuration, credentials, and logs."
+  outbound-channel:
+    name: Outbound channel
+    description: "The agent can cause data to reach a destination outside the organisation's control."
+    question: "Can this system cause data to reach a destination your organisation does not control?"
+    capabilities:
+      CAP-02:
+        mark: "maybe"
+        note: "Yes if it can pass data to an agent that another party operates, or to an agent that has an outbound channel of its own."
+      CAP-04:
+        mark: "maybe"
+        note: "Yes if its output is shown to people outside the organisation, or is rendered in a way that loads external images or links."
+      CAP-05:
+        mark: "yes"
+        min_authority: act-with-approval
+        note: "It sends messages to people outside the organisation."
+      CAP-06:
+        mark: "yes"
+        min_authority: act-with-approval
+        note: "Transactions carry data to external parties in payment references, order details, and booking fields."
+      CAP-07:
+        mark: "yes"
+        note: "Any request to a web address can carry data in the URL or the query."
+      CAP-08:
+        mark: "yes"
+        note: "It can use any application on the machine that sends data, including the browser and the mail client."
+      CAP-09:
+        mark: "maybe"
+        note: "Yes if any API it can call writes to a system outside the organisation, or accepts a destination that the agent chooses."
+      CAP-10:
+        mark: "maybe"
+        min_authority: act-with-approval
+        note: "Yes if the environment its code runs in can make network requests."
+      CAP-12:
+        mark: "maybe"
+        min_authority: act-with-approval
+        note: "Yes if it can change network, sharing, or access settings so that data becomes reachable from outside."
+
+rules:
+  lethal-trifecta:
+    name: Lethal trifecta
+    mechanism: flow
+    description: "An agent that reads untrusted content, can reach sensitive data, and can send data out can be turned into an exfiltration channel by a single injected instruction. No one of the three creates the exposure; the three together do."
+    roles:
+    - untrusted-content
+    - sensitive-data
+    - outbound-channel
+    control: CTRL-0097
+    risks:
+    - RISK-047
+    sources:
+    - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
+    - https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf
+
+implies:
+  CAP-02:
+    any:
+      mark: "maybe"
+      note: "The system has every capability held by an agent it can delegate to, including agents that another party operates. List those agents and their capabilities."
+  CAP-08:
+    CAP-07:
+      mark: "maybe"
+      note: "Yes if a browser is installed on the machine it operates."
+    CAP-09:
+      mark: "maybe"
+      note: "Yes if the machine has applications or a terminal that call other systems."
+    CAP-10:
+      mark: "maybe"
+      note: "Yes if it can open a terminal, a code editor, or any application that runs scripts."
+    CAP-11:
+      mark: "yes"
+      note: "It can open, change, and delete whatever files the signed-in user can."
+    CAP-12:
+      mark: "maybe"
+      note: "Yes if the signed-in user can change system settings or access controls."
+  CAP-10:
+    CAP-09:
+      mark: "maybe"
+      note: "Yes unless the environment its code runs in blocks network access."
+    CAP-11:
+      mark: "yes"
+      note: "Code can read and write whatever files the account it runs under can."
+    CAP-12:
+      mark: "maybe"
+      note: "Yes if credentials for infrastructure, deployment, or administration are within reach of the code it runs."
+  CAP-12:
+    CAP-11:
+      mark: "maybe"
+      note: "Yes if it can grant itself access to data stores it was not given."

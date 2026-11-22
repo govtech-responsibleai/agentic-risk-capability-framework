@@ -29,9 +29,13 @@ Checks:
     (always, never, or ask); a risk's `min_authority` names one of its own capabilities and a
     level that capability offers; a control's `level_when` lists stricter levels and the
     context in which each applies
-  - combinations.yaml (if present): every combination names a defined control and risks that
-    carry it, and has at least two legs; every leg maps defined capabilities to the quoted
-    marks "yes" or "maybe", each with a note
+  - combinations.yaml (if present): every role maps defined capabilities to the quoted marks
+    "yes" or "maybe", each with a note; every rule names at least one defined role, a defined
+    control, and risks that carry that control and name the rule in their `combination` field;
+    `implies` maps a capability to the capabilities it gives a system
+  - a risk arises either from elements (`element_ids`) or from a combination rule (`combination`)
+  - a retired entry carries `superseded_by`, naming a live entry of the same kind, and is no longer
+    linked to controls or risks
   - warnings (non-fatal) for empty sources, missing recommendations, or missing crosswalks
 """
 
@@ -90,56 +94,70 @@ def _check_crosswalks(entry_id, entry, entry_type, references, errors, warnings)
                 errors.append(f'{entry_id}: unknown {framework} ID "{ext_id}"')
 
 
-def _check_combinations(combinations, risks, controls, capabilities, errors):
-    """combinations.yaml: legs of capabilities that, held together, call for a control."""
-    if not isinstance(combinations, dict):
-        errors.append('combinations.yaml: must be a mapping of combination ID -> definition')
+def _check_marks(where, marks, capabilities, errors, allow_any=False):
+    if not isinstance(marks, dict) or not marks:
+        errors.append(f'{where}: must map capability IDs to a mark and a note')
         return
-    for combo_id, combo in combinations.items():
-        where = f'combinations.yaml {combo_id}'
-        if not COMBINATION_ID.match(str(combo_id)):
-            errors.append(f'{where}: malformed combination ID (use lower-case words joined by hyphens)')
-        if not isinstance(combo, dict):
+    for cap_id, entry in marks.items():
+        if cap_id not in capabilities and not (allow_any and cap_id == 'any'):
+            errors.append(f'{where}: "{cap_id}" is not a defined capability')
+        if not isinstance(entry, dict):
+            errors.append(f'{where}: {cap_id} must have a mark and a note')
+            continue
+        if entry.get('mark') not in MARKS:
+            errors.append(f'{where}: {cap_id} mark {entry.get("mark")!r} must be the quoted string "yes" or "maybe"')
+        if not entry.get('note'):
+            errors.append(f'{where}: {cap_id} has no note')
+        minimum = entry.get('min_authority')
+        if minimum is not None and minimum not in (capabilities.get(cap_id, {}).get('authority') or []):
+            errors.append(f'{where}: min_authority {minimum!r} is not an authority level of {cap_id}')
+
+
+def _check_combinations(combinations, risks, controls, capabilities, errors):
+    """combinations.yaml: roles, the rules that combine them, and the capabilities that imply others."""
+    if not isinstance(combinations, dict) or not isinstance(combinations.get('rules'), dict):
+        errors.append('combinations.yaml: must have `roles` and `rules` mappings')
+        return
+    roles = combinations.get('roles') or {}
+    for role_id, role in roles.items():
+        where = f'combinations.yaml role {role_id}'
+        if not COMBINATION_ID.match(str(role_id)):
+            errors.append(f'{where}: malformed ID (use lower-case words joined by hyphens)')
+        if not isinstance(role, dict):
             errors.append(f'{where}: must be a mapping')
             continue
-        for field in ('name', 'description', 'control', 'legs'):
-            if not combo.get(field):
+        for field in ('name', 'description', 'question'):
+            if not role.get(field):
                 errors.append(f'{where}: missing or empty field "{field}"')
-        control = combo.get('control')
-        if control and control not in controls:
-            errors.append(f'{where}: references undefined control {control}')
-        for risk_id in combo.get('risks') or []:
-            if risk_id not in risks:
-                errors.append(f'{where}: references undefined risk {risk_id}')
-            elif control and control not in (risks[risk_id].get('controls') or []):
-                errors.append(f'{where}: {risk_id} does not list the combination\'s control {control}')
-        legs = combo.get('legs') or {}
-        if not isinstance(legs, dict) or len(legs) < 2:
-            errors.append(f'{where}: legs must be a mapping of at least two legs')
+        _check_marks(where, role.get('capabilities'), capabilities, errors)
+    for rule_id, rule in combinations['rules'].items():
+        where = f'combinations.yaml rule {rule_id}'
+        if not COMBINATION_ID.match(str(rule_id)):
+            errors.append(f'{where}: malformed ID (use lower-case words joined by hyphens)')
+        if not isinstance(rule, dict):
+            errors.append(f'{where}: must be a mapping')
             continue
-        for leg_id, leg in legs.items():
-            leg_where = f'{where}, leg {leg_id}'
-            if not isinstance(leg, dict):
-                errors.append(f'{leg_where}: must be a mapping')
+        for field in ('name', 'description', 'roles', 'control'):
+            if not rule.get(field):
+                errors.append(f'{where}: missing or empty field "{field}"')
+        for role_id in rule.get('roles') or []:
+            if role_id not in roles:
+                errors.append(f'{where}: role "{role_id}" is not defined')
+        control = rule.get('control')
+        if control and (control not in controls or controls[control].get('superseded_by')):
+            errors.append(f'{where}: references undefined or retired control {control}')
+        for risk_id in rule.get('risks') or []:
+            if risk_id not in risks or risks[risk_id].get('superseded_by'):
+                errors.append(f'{where}: references undefined or retired risk {risk_id}')
                 continue
-            for field in ('name', 'description', 'question', 'capabilities'):
-                if not leg.get(field):
-                    errors.append(f'{leg_where}: missing or empty field "{field}"')
-            marks = leg.get('capabilities') or {}
-            if not isinstance(marks, dict):
-                errors.append(f'{leg_where}: capabilities must be a mapping of capability ID -> mark and note')
-                continue
-            for cap_id, entry in marks.items():
-                if cap_id not in capabilities:
-                    errors.append(f'{leg_where}: "{cap_id}" is not a defined capability')
-                if not isinstance(entry, dict):
-                    errors.append(f'{leg_where}: {cap_id} must have a mark and a note')
-                    continue
-                if entry.get('mark') not in MARKS:
-                    errors.append(f'{leg_where}: {cap_id} mark {entry.get("mark")!r} must be the quoted string '
-                                  '"yes" or "maybe"')
-                if not entry.get('note'):
-                    errors.append(f'{leg_where}: {cap_id} has no note')
+            if control and control not in (risks[risk_id].get('controls') or []):
+                errors.append(f"{where}: {risk_id} does not list the rule's control {control}")
+            if risks[risk_id].get('combination') != rule_id:
+                errors.append(f'{where}: {risk_id} must name this rule in its `combination` field')
+    for cap_id, implied in (combinations.get('implies') or {}).items():
+        if cap_id not in capabilities:
+            errors.append(f'combinations.yaml implies: "{cap_id}" is not a defined capability')
+        _check_marks(f'combinations.yaml implies {cap_id}', implied, capabilities, errors, allow_any=True)
 
 
 def validate():
@@ -182,10 +200,30 @@ def validate():
         if hazard.get('type') not in RISK_TYPES:
             errors.append(f'{hazard_id}: hazard type must be one of {sorted(RISK_TYPES)}')
 
+    combinations = load('combinations.yaml') if (DATA_DIR / 'combinations.yaml').exists() else {}
+    rules = (combinations or {}).get('rules') or {}
+
     for risk_id, risk in risks.items():
         if not RISK_ID.match(risk_id):
             errors.append(f'{risk_id}: malformed risk ID')
-        for field in ('statement', 'description', 'element_ids', 'failure_mode', 'type', 'hazards', 'controls'):
+        if 'superseded_by' in risk:   # retired: kept so that old citations resolve, and nothing else
+            target = risks.get(risk['superseded_by'])
+            if target is None or target.get('superseded_by'):
+                errors.append(f'{risk_id}: superseded_by must name a live risk (got {risk["superseded_by"]!r})')
+            if risk.get('controls'):
+                errors.append(f'{risk_id}: a retired risk lists no controls')
+            if not risk.get('statement'):
+                errors.append(f'{risk_id}: missing statement')
+            continue
+        origin = 'combination' if 'combination' in risk else 'element_ids'
+        if 'combination' in risk:
+            if risk.get('element_ids'):
+                errors.append(f'{risk_id}: arises from a combination rule, so it lists no element_ids')
+            if risk['combination'] not in rules:
+                errors.append(f'{risk_id}: combination "{risk["combination"]}" is not a rule in combinations.yaml')
+            elif risk_id not in (rules[risk['combination']].get('risks') or []):
+                errors.append(f'{risk_id}: rule "{risk["combination"]}" does not list this risk')
+        for field in ('statement', 'description', origin, 'failure_mode', 'type', 'hazards', 'controls'):
             if not risk.get(field):
                 errors.append(f'{risk_id}: missing or empty field "{field}"')
         element_ids = risk.get('element_ids') or []
@@ -221,6 +259,8 @@ def validate():
         for ctrl_id in risk.get('controls') or []:
             if ctrl_id not in controls:
                 errors.append(f'{risk_id}: references undefined control {ctrl_id}')
+            elif controls[ctrl_id].get('superseded_by'):
+                errors.append(f'{risk_id}: lists retired control {ctrl_id}; use {controls[ctrl_id]["superseded_by"]}')
         if not risk.get('sources'):
             warnings.append(f'{risk_id}: no sources listed')
         _check_crosswalks(risk_id, risk, 'risks', references, errors, warnings)
@@ -228,6 +268,15 @@ def validate():
     for ctrl_id, ctrl in controls.items():
         if not CTRL_ID.match(ctrl_id):
             errors.append(f'{ctrl_id}: malformed control ID')
+        if 'superseded_by' in ctrl:   # retired
+            target = controls.get(ctrl['superseded_by'])
+            if target is None or target.get('superseded_by'):
+                errors.append(f'{ctrl_id}: superseded_by must name a live control (got {ctrl["superseded_by"]!r})')
+            if ctrl.get('risks'):
+                errors.append(f'{ctrl_id}: a retired control is linked to no risks')
+            if not ctrl.get('statement'):
+                errors.append(f'{ctrl_id}: missing statement')
+            continue
         if not ctrl.get('statement'):
             errors.append(f'{ctrl_id}: missing statement')
         if ctrl.get('level') not in (0, 1, 2):
@@ -253,12 +302,14 @@ def validate():
         for risk_id in ctrl.get('risks') or []:
             if risk_id not in risks:
                 errors.append(f'{ctrl_id}: references undefined risk {risk_id}')
+            elif risks[risk_id].get('superseded_by'):
+                errors.append(f'{ctrl_id}: lists retired risk {risk_id}; use {risks[risk_id]["superseded_by"]}')
         if not ctrl.get('recommendations'):
             warnings.append(f'{ctrl_id}: no recommendations text')
         _check_crosswalks(ctrl_id, ctrl, 'controls', references, errors, warnings)
 
     if (DATA_DIR / 'combinations.yaml').exists():
-        _check_combinations(load('combinations.yaml'), risks, controls, load('capabilities.yaml'), errors)
+        _check_combinations(combinations, risks, controls, load('capabilities.yaml'), errors)
 
     forward = {(r, c) for r, risk in risks.items() for c in (risk.get('controls') or [])}
     backward = {(r, c) for c, ctrl in controls.items() for r in (ctrl.get('risks') or [])}

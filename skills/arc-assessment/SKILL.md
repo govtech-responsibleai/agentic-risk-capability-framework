@@ -81,7 +81,8 @@ Ask the user these questions. If you can't reach them, choose a sensible default
    - baseline risks, which come from the components and design elements that every agentic system has;
    - risks from each capability and each conditional component that is present;
    - risks from combinations of elements, which apply only when all of their elements are present.
-2. Read the "Capability combinations" section of the output. Some risks arise only when a system holds several capabilities at once, and the script reports a verdict for each combination the register defines (the [lethal trifecta](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/capability-combinations/) in register 1.5):
+2. Read the "Capabilities this system may also have" section of the output, if there is one. Code execution, computer use, system management and delegation can give a system capabilities that were not declared. For each line, check the code and the environment: add the capability and run `assess` again, or record the evidence that it does not apply (for example, a sandbox with no network access and no credentials in reach).
+3. Read the "Capability combinations" section of the output. Some risks arise only when a system holds several capabilities at once, and the script reports a verdict for each combination rule the register defines (the [lethal trifecta](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/capability-combinations/) in register 2.0). A rule that is present or possible brings its risk into the list above:
    - **present:** every leg is supplied by a capability. The combination's control must be implemented.
    - **possible:** at least one leg depends on how the system is deployed. Answer each note marked "maybe" from the code and configuration, with file paths as evidence, and state whether the leg is present.
    - **not present:** no capability supplies one of the legs.
@@ -90,9 +91,9 @@ Ask the user these questions. If you can't reach them, choose a sensible default
    - The script sees capabilities only. Persistent memory can carry untrusted content or sensitive data from one session into another, so count what memory holds.
    - In a multi-agent system, record which agent holds each leg.
    - Record the verdict and your answers in the template's Section 2a. If the register has no combinations file, the script prints no such section; say so in the assessment and skip Section 2a.
-3. For each applicable risk, describe in one or two sentences how it would arise in this system, naming the components or code paths involved.
-4. Score impact and likelihood on the scales from "Before you start", with a reason for each score. Mark as *priority* the risks that meet the threshold.
-5. Run `assess` again with `--priority <priority risk IDs>`. Its "Controls in scope" section lists each control once, with the risks it addresses:
+4. For each applicable risk, describe in one or two sentences how it would arise in this system, naming the components or code paths involved.
+5. Score impact and likelihood on the scales from "Before you start", with a reason for each score. Mark as *priority* the risks that meet the threshold.
+6. Run `assess` again with `--priority <priority risk IDs>`. Its "Controls in scope" section lists each control once, with the risks it addresses:
    - the Level 0 controls of every applicable risk;
    - the Level 1 and 2 controls of the priority risks.
 

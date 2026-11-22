@@ -56,7 +56,13 @@ List **every applicable risk**: all baseline risks (those arising only from comp
 
 ## 2a. Capability combinations
 
-Some risks arise only when a system holds several capabilities at once (see [Capability combinations](../arc_framework/capability-combinations.md)). Record the check for each combination the register defines. Register 1.5.0 defines one, the lethal trifecta. Count what persistent memory holds when answering for each leg.
+Some risks arise only when a system holds several capabilities at once (see [Capability combinations](../arc_framework/capability-combinations.md)). Record the check for each combination rule the register defines. Register 2.0.0 defines one, the lethal trifecta. Count what persistent memory holds when answering for each leg.
+
+First record the capabilities that the declared ones give the system. Code Execution, Computer Use, System Management and Agent Delegation can each give a system capabilities that were not declared.
+
+| Declared capability | Implied capability | Added to Section 1, or evidence that it does not apply |
+| --- | --- | --- |
+| | | |
 
 | Combination | Leg | Supplied by (capability, or "none") | Present in this system? (yes / no, with evidence) |
 | --- | --- | --- | --- |

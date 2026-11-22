@@ -72,7 +72,33 @@ def load_data() -> Register:
             st.error(f"Register file is empty: {path}")
             return _EMPTY
         loaded[name] = data
+
+    # Retired entries (superseded_by) stay in the register so old citations resolve; the app ignores them
+    for name in ("risks", "controls"):
+        loaded[name] = {k: v for k, v in loaded[name].items() if not v.get("superseded_by")}
     return tuple(loaded[name] for name in REGISTER_FILES)  # type: ignore[return-value]
+
+
+@st.cache_data
+def load_combination_rules() -> Dict[str, Dict[str, Any]]:
+    """Combination rules from combinations.yaml: {rule_id: {"name": ..., "roles": [capability IDs per role]}}.
+
+    A risk can arise from a rule instead of from elements. The rule applies when the selected
+    capabilities can between them fill every role it names. Empty if the register has no rules.
+    """
+    path = os.path.join(get_register_dir(), "combinations.yaml")
+    try:
+        data = _load_yaml(path)
+    except (FileNotFoundError, yaml.YAMLError):
+        return {}
+    roles = data.get("roles") or {}
+    return {
+        rule_id: {
+            "name": rule.get("name", rule_id),
+            "roles": [set((roles.get(r) or {}).get("capabilities") or {}) for r in rule.get("roles") or []],
+        }
+        for rule_id, rule in (data.get("rules") or {}).items()
+    }
 
 
 @st.cache_data
@@ -110,8 +136,11 @@ def risk_element_ids(risk: Dict[str, Any]) -> List[str]:
 def is_baseline_risk(risk: Dict[str, Any]) -> bool:
     """Component and design risks apply to every agentic system.
 
-    A risk is baseline when none of its elements is a capability.
+    A risk is baseline when none of its elements is a capability. A risk that arises from a
+    combination rule depends on the capabilities selected, so it is never baseline.
     """
+    if risk.get("combination"):
+        return False
     return not any(element_kind(eid) == "capability" for eid in risk_element_ids(risk))
 
 
@@ -141,6 +170,9 @@ def describe_risk_element(risk: Dict[str, Any], capabilities: Dict[str, Any],
 
     A composite risk lists all its elements joined with ' + '.
     """
+    if risk.get("combination"):
+        rule = load_combination_rules().get(risk["combination"], {})
+        return f"Combination: {rule.get('name', risk['combination'])}"
     labels = [_describe_element(eid, capabilities, components, design) for eid in risk_element_ids(risk)]
     return " + ".join(labels) if labels else "Unknown element"
 
@@ -156,6 +188,11 @@ def get_applicable_risk_ids(risks: Dict[str, Any], selected_capabilities: List[s
     capability = []
     for rid, r in risks.items():
         if is_baseline_risk(r):
+            continue
+        if r.get("combination"):
+            rule = load_combination_rules().get(r["combination"])
+            if rule and rule["roles"] and all(role & selected for role in rule["roles"]):
+                capability.append(rid)
             continue
         needed = {eid for eid in risk_element_ids(r) if element_kind(eid) == "capability"}
         # A composite risk arises from the combination of its capabilities, so all must be present
