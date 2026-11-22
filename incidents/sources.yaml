@@ -1,0 +1,60 @@
+# Upstream sources for the ARC incident file. ARC keeps a curated, mapped selection of cases;
+# these are where the leads come from. A source with a `harvest` entry is read by
+# scripts/harvest_incidents.py; the others are checked by hand at each quarterly review.
+# Keys are used in a case's `external_ids` and in triage-log.yaml.
+
+awesome-ai-agent-attacks:
+  name: Awesome AI Agent Attacks
+  url: https://github.com/webpro255/awesome-ai-agent-attacks
+  maintained_by: David Grice and contributors (community project)
+  licence: MIT
+  covers: A dated timeline of attacks on, through, and by AI agents, with sources. Several new entries a week.
+  caution: Includes attackers' use of agents against other targets, which is outside the incident file's scope.
+  harvest:
+    format: markdown-timeline
+    urls:
+    - https://raw.githubusercontent.com/webpro255/awesome-ai-agent-attacks/main/README.md
+    archive_links: incidents/[0-9A-Za-z-]+\.md
+
+genai-incidents:
+  name: GenAI and Agentic AI Security Incidents
+  url: https://github.com/emmanuelgjr/genai_incidents
+  maintained_by: Emmanuel Guilherme Junior and contributors (community project)
+  licence: CC BY 4.0 (data)
+  covers: An aggregate of the AI Incident Database, the OECD AI Incidents and Hazards Monitor, AIAAIC, AVID, MITRE ATLAS case studies, and CVE and GHSA records, mapped to the OWASP lists, NIST AI RMF and MITRE ATLAS.
+  caution: Most records are not about agentic systems, and its OWASP mappings are automated for most records. Use it for leads and upstream IDs, and open the primary source before recording a case.
+  harvest:
+    format: genai-incidents-json
+    urls:
+    - https://raw.githubusercontent.com/emmanuelgjr/genai_incidents/main/data/incidents.min.json
+
+aiid:
+  name: AI Incident Database
+  url: https://incidentdatabase.ai
+  maintained_by: Responsible AI Collaborative
+  covers: Harms and near-harms from deployed AI systems, with an editorial process. Reached through genai-incidents; its quarterly round-ups are read by hand.
+
+owasp-roundups:
+  name: OWASP GenAI Security Project exploit round-ups
+  url: https://genai.owasp.org/tag/blog/
+  maintained_by: OWASP GenAI Security Project
+  covers: A selection of major incidents and exploit disclosures each quarter, mapped to the OWASP Top 10 lists. Read by hand.
+
+arc-review-2026-11:
+  name: ARC register review, November 2026
+  url: https://govtech-responsibleai.github.io/agentic-risk-capability-framework/
+  maintained_by: GovTech Singapore
+  covers: The 69 incidents, vulnerabilities and research findings collected for the register review of 19 November 2026.
+
+arc-search-2026-11:
+  name: ARC incident search, November 2026
+  url: https://govtech-responsibleai.github.io/agentic-risk-capability-framework/
+  maintained_by: GovTech Singapore
+  covers: Web searches run on 23 November 2026 for agent failures that security trackers tend to miss, such as mistakes with no attacker, transactions, official communications, privacy, and dependence on providers.
+
+agent-incident-registry:
+  name: Agent Incident Registry
+  url: https://air.enkryptai.com
+  maintained_by: Enkrypt AI
+  licence: All rights reserved; the registry asks to be contacted before its data is reused
+  covers: About 600 agent-specific records, separating events with realised harm from disclosures and research. Not used in this file until its licence allows it.

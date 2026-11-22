@@ -36,3 +36,11 @@ An [MkDocs hook](https://www.mkdocs.org/user-guide/configuration/#hooks) registe
 - `mkdocs serve` reloads when anything in `arc-risk-register/` or `scripts/` changes (`watch:` in `mkdocs.yml`).
 
 The output paths are in `.gitignore`, except the Capability combinations page, whose prose is committed in `docs/` and whose tables are filled in at build time. A generated file replaces a file of the same path in `docs/`.
+
+## Incident file scripts
+
+Three scripts work on the [incident file](../incidents/README.md), a curated list of cases mapped to the register:
+
+- `validate_incidents.py` checks `incidents/*.yaml` against the register. CI runs it.
+- `incident_coverage.py` prints which cases the register does not describe, grouped by theme, and which risks have no case.
+- `harvest_incidents.py --cache DIR` lists new leads from the upstream trackers that publish machine-readable data.
