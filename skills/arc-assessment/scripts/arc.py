@@ -4,8 +4,10 @@
 Fetches the register YAML from the official repository at a release tag (the
 latest release unless --version is given), or reads an organisation's own
 contextualised register with --register (a local directory or a base URL with
-the same file layout as arc-risk-register/). Uses PyYAML if installed and a
-built-in parser for the register's YAML otherwise.
+the same file layout as arc-risk-register/). With --overlay it applies an
+organisation's overlay file on top: the organisation keeps only its own changes,
+and the overlay names the register version it was written against. Uses PyYAML
+if installed and a built-in parser for the register's YAML otherwise.
 
 Commands:
   elements                       components, design elements and capabilities, with definitions
@@ -24,6 +26,7 @@ Examples:
   python3 arc.py assess --capabilities CAP-03,CAP-07,CAP-11
   python3 arc.py --version 1.5.0 assess --capabilities CAP-03,CAP-07 --priority RISK-034,RISK-044 --format json
   python3 arc.py --register ./our-arc-register assess --capabilities CAP-02,CAP-06
+  python3 arc.py --overlay ./our-overlay.yaml assess --capabilities CAP-02,CAP-06
 
 Context:
   A capability that acts on the world is used at an authority level: read, propose (a person carries
@@ -39,6 +42,7 @@ Environment:
 """
 
 import argparse
+import copy
 import datetime
 import http.client
 import json
@@ -365,7 +369,29 @@ def resolve_official_ref(version):
 
 
 def load_register(args):
-    """Return (register dict, human-readable source, git ref of the official release or None)."""
+    """Return (register dict, human-readable source, git ref of the official release or None).
+
+    With --overlay, the base is the official register of the version the overlay names (or the
+    register given with --register), and the overlay is applied on top of it.
+    """
+    overlay = read_overlay(args.overlay) if getattr(args, "overlay", None) else None
+    if overlay and not args.register:
+        base = str(overlay["overlay"]["base"])
+        if args.version and args.version.lstrip("v") != base:
+            warn(f"the overlay was written against register {base}; applying it to {args.version} as asked")
+        else:
+            args.version = base
+    data, source, ref = load_base_register(args)
+    if overlay:
+        data, notes = apply_overlay(data, overlay)
+        for note in notes:
+            warn(note)
+        meta = overlay["overlay"]
+        source = f"{meta.get('name', 'overlay')} {meta.get('version', '')}".strip() + f", applied to {source}"
+    return data, source, ref
+
+
+def load_base_register(args):
     data = {}
     if args.register:
         src = args.register
@@ -422,6 +448,126 @@ def load_register(args):
 
 
 # ---------------------------------------------------------------- register logic
+
+# ---------------------------------------------------------------- overlays
+
+NAMESPACED_ID = re.compile(r"^[A-Z][A-Z0-9]{1,7}-(RISK-\d{3}|CTRL-\d{4}|CAP-\d{2})$")
+OVERLAY_SECTIONS = ("capabilities", "risks", "controls")
+
+
+def apply_overlay(reg, overlay):
+    """An organisation's effective register: the base register with its overlay applied by ID.
+
+    An overlay can add entries (with a namespaced ID such as ORG-RISK-001), change fields of existing
+    entries, and remove entries it does not use. Everything it does not mention is inherited from the
+    base, so a new base version reaches the organisation without a merge. Returns (register, notes);
+    raises ArcError listing every problem if the overlay cannot be applied.
+    """
+    reg = copy.deepcopy(reg)
+    problems, notes, unlinked = [], [], set()
+    part = lambda name, op: ((overlay.get(name) or {}).get(op) or {})
+
+    for name in OVERLAY_SECTIONS:
+        for eid, entry in part(name, "add").items():
+            if not NAMESPACED_ID.match(str(eid)):
+                problems.append(f"{eid}: an entry added by an overlay needs a namespaced ID, such as ORG-RISK-001")
+            elif eid in reg[name]:
+                problems.append(f"{eid}: already exists")
+            else:
+                reg[name][eid] = {**(entry or {}), "overlay": "added"}
+
+    for name in OVERLAY_SECTIONS:
+        for eid, changes in part(name, "change").items():
+            base = reg[name].get(eid)
+            if base is None or base.get("superseded_by"):
+                problems.append(f"{eid}: the overlay changes it, but it is not in the base register"
+                                + (f" (retired; see {base['superseded_by']})" if base else ""))
+                continue
+            for field, value in (changes or {}).items():
+                if field.endswith("_append"):
+                    target = field[:-len("_append")]
+                    base[target] = f"{str(base.get(target) or '').rstrip()} {str(value).strip()}".strip()
+                elif field in ("add_controls", "add_risks"):
+                    key = field[len("add_"):]
+                    base[key] = list(dict.fromkeys((base.get(key) or []) + list(value or [])))
+                elif field in ("remove_controls", "remove_risks"):
+                    key = field[len("remove_"):]
+                    base[key] = [x for x in base.get(key) or [] if x not in (value or [])]
+                    unlinked |= {(eid, x) if name == "risks" else (x, eid) for x in value or []}
+                elif field == "level" and name == "controls" and base.get("level") == 0 and value != 0:
+                    problems.append(f"{eid}: an overlay cannot lower a Level 0 control")
+                else:
+                    base[field] = value
+            base["overlay"] = "changed"
+
+    removed = {name: part(name, "remove") for name in OVERLAY_SECTIONS}
+    for name, items in removed.items():
+        for eid in items:
+            if eid not in reg[name]:
+                problems.append(f"{eid}: the overlay removes it, but it is not in the base register")
+            else:
+                del reg[name][eid]
+
+    # A capability the organisation does not use takes its risks, and its part in any combination, with it
+    for rid, r in list(reg["risks"].items()):
+        gone = [e for e in risk_elements(r) if e in removed["capabilities"]]
+        if gone:
+            del reg["risks"][rid]
+            notes.append(f"{rid} is left out because the overlay removes {', '.join(gone)}")
+    combinations = reg.get("combinations") or {}
+    for role in (combinations.get("roles") or {}).values():
+        for cap in removed["capabilities"]:
+            (role.get("capabilities") or {}).pop(cap, None)
+    for cap in removed["capabilities"]:
+        (combinations.get("implies") or {}).pop(cap, None)
+    for implied in (combinations.get("implies") or {}).values():
+        for cap in removed["capabilities"]:
+            implied.pop(cap, None)
+
+    # Risks and controls point at each other; make both directions agree after the changes
+    risks = {r: v for r, v in reg["risks"].items() if not v.get("superseded_by")}
+    controls = {c: v for c, v in reg["controls"].items() if not v.get("superseded_by")}
+    for rid, r in risks.items():
+        for cid in r.get("controls") or []:
+            if cid not in controls and cid not in removed["controls"]:
+                problems.append(f"{rid}: lists {cid}, which does not exist")
+    for cid, c in controls.items():
+        for rid in c.get("risks") or []:
+            if rid not in risks and rid not in removed["risks"] and rid not in reg["risks"] \
+                    and not any(note.startswith(rid + " ") for note in notes):
+                problems.append(f"{cid}: lists {rid}, which does not exist")
+    links = ({(r, c) for r, v in risks.items() for c in v.get("controls") or [] if c in controls}
+             | {(r, c) for c, v in controls.items() for r in v.get("risks") or [] if r in risks}) - unlinked
+    for rid, r in risks.items():
+        mine = [c for c in r.get("controls") or [] if (rid, c) in links]
+        r["controls"] = mine + sorted(c for (x, c) in links if x == rid and c not in mine)
+        if not r["controls"]:
+            problems.append(f"{rid}: no controls are left for this risk; remove the risk as well, or keep a control")
+    for cid, c in controls.items():
+        mine = [r for r in c.get("risks") or [] if (r, cid) in links]
+        c["risks"] = mine + sorted(r for (r, x) in links if x == cid and r not in mine)
+        if not c["risks"]:
+            del reg["controls"][cid]
+            notes.append(f"{cid} is left out because none of its risks remain")
+    for rule_id, rule in (combinations.get("rules") or {}).items():
+        rule["risks"] = [r for r in rule.get("risks") or [] if r in reg["risks"]]
+        if rule.get("control") not in reg["controls"]:
+            problems.append(f"combination rule {rule_id}: its control {rule.get('control')} is no longer in the register")
+
+    if problems:
+        raise ArcError("the overlay cannot be applied:\n  - " + "\n  - ".join(problems))
+    meta = overlay.get("overlay") or {}
+    reg["register"] = {**reg["register"], "overlay": {k: meta[k] for k in ("name", "version", "base") if k in meta}}
+    return reg, notes
+
+
+def read_overlay(path):
+    overlay = load_yaml_text(Path(path).read_text(), path) or {}
+    if not isinstance(overlay.get("overlay"), dict) or not overlay["overlay"].get("base"):
+        raise ArcError(f"{path}: an overlay starts with `overlay:` giving its name, version and `base`, "
+                       "the ARC register version it was written against")
+    return overlay
+
 
 def element_index(reg):
     idx = {}
@@ -553,6 +699,8 @@ def risk_record(reg, rid, elements, detail=False, profile=None):
             rec = {"id": cid, "level": effective_level(c, profile), "statement": c.get("statement", "")}
             if rec["level"] != c.get("level"):
                 rec["level_outside_this_context"] = c.get("level")
+            if c.get("provided_by"):   # an overlay marks controls that a shared platform implements
+                rec["provided_by"] = c["provided_by"]
             if detail:
                 rec["recommendations"] = (c.get("recommendations") or "").strip()
             controls.append(rec)
@@ -812,7 +960,9 @@ def cmd_assess(reg, source, args):
             for c in rec["controls"]:
                 raised = (f"; Level {c['level_outside_this_context']} outside this context"
                           if "level_outside_this_context" in c else "")
-                print(f"- {c['id']} [{LEVELS.get(c['level'], c['level'])}{raised}] {c['statement']}")
+                print(f"- {c['id']} [{LEVELS.get(c['level'], c['level'])}{raised}] {c['statement']}"
+                      + (f" (provided by {c['provided_by'].get('platform', 'a shared platform')})"
+                         if c.get("provided_by") else ""))
                 if args.detail and c.get("recommendations"):
                     print(f"  - Guidance: {c['recommendations']}")
             print()
@@ -954,6 +1104,8 @@ def main(argv=None):
     parser.add_argument("--version", help="official register version to use, e.g. 1.5.0 (default: latest release)")
     parser.add_argument("--register", help="an organisation's own register: a directory or base URL with the "
                                            "same file layout as arc-risk-register/")
+    parser.add_argument("--overlay", help="an organisation's overlay file, applied to the official register of the "
+                                          "version it names (or to --register)")
     parser.add_argument("--refresh", action="store_true", help="re-download cached release files")
     fmt = argparse.ArgumentParser(add_help=False)
     fmt.add_argument("--format", choices=("md", "json"), default="md", help="output format (default: md)")

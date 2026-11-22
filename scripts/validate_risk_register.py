@@ -50,9 +50,9 @@ DATA_DIR = Path(__file__).parent.parent / 'arc-risk-register'
 FAILURE_MODES = {'Agent Error', 'Agent Misbehaviour', 'External Manipulation', 'Tool or Resource Malfunction',
                  'Safeguard Failure', 'Misuse by the Principal'}
 RISK_TYPES = {'Safety', 'Security'}
-RISK_ID = re.compile(r'^RISK-\d{3}$')
-CTRL_ID = re.compile(r'^CTRL-\d{4}$')
-ELEMENT_ID = re.compile(r'^(CMP|DSN|CAP)-\d{2}$')
+RISK_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?RISK-\d{3}$')     # an overlay's own entries carry a namespace: ORG-RISK-001
+CTRL_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?CTRL-\d{4}$')
+ELEMENT_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?(CMP|DSN|CAP)-\d{2}$')
 HAZARD_ID = re.compile(r'^HZ-\d{2}$')
 COMBINATION_ID = re.compile(r'^[a-z][a-z0-9-]*$')
 AUTHORITY = ('read', 'propose', 'act-with-approval', 'act-alone')   # least to most
@@ -180,12 +180,12 @@ def validate():
         if not ELEMENT_ID.match(element_id):
             errors.append(f'{element_id}: malformed element ID')
         if 'present_when' in element:
-            if element_id.startswith('CAP-'):
+            if 'CAP-' in element_id:
                 errors.append(f'{element_id}: capabilities are chosen per system and may not carry present_when')
             elif not isinstance(element['present_when'], str) or not element['present_when'].strip():
                 errors.append(f'{element_id}: present_when must be a sentence saying when a system has this element')
         if any(k in element for k in ('authority', 'irreversible', 'external')):
-            if not element_id.startswith('CAP-'):
+            if 'CAP-' not in element_id:
                 errors.append(f'{element_id}: only capabilities carry authority, irreversible and external')
             levels = element.get('authority')
             if not isinstance(levels, list) or not levels or any(a not in AUTHORITY for a in levels) \
@@ -295,7 +295,7 @@ def validate():
                 if field in condition and not isinstance(condition[field], bool):
                     errors.append(f'{where}: {field} must be true or false')
             for cap_id in condition.get('capabilities') or []:
-                if not str(cap_id).startswith('CAP-') or cap_id not in elements:
+                if 'CAP-' not in str(cap_id) or cap_id not in elements:
                     errors.append(f'{where}: "{cap_id}" is not a capability')
         if not ctrl.get('risks'):
             errors.append(f'{ctrl_id}: not mapped to any risk')

@@ -32,7 +32,7 @@ ARC template                                          # the assessment template 
 
 Ask the user these questions. If you can't reach them, choose a sensible default and record the assumption in the assessment's overview.
 
-1. **Does the organisation have its own contextualised ARC register?** ARC is meant to be adapted by each organisation. If one exists, use it with `--register <directory or base URL>` (same file layout as the official `arc-risk-register/`). If it has its own assessment template, use `ARC template --file <path>`.
+1. **Does the organisation have its own contextualised ARC register?** ARC is meant to be adapted by each organisation. If it keeps an **overlay** (one file holding only its changes), use `--overlay <file>`: the script applies it to the official register of the version the overlay names. If it keeps a full register, use `--register <directory or base URL>` (same file layout as the official `arc-risk-register/`). If it has its own assessment template, use `ARC template --file <path>`.
 2. **What are the organisation's relevance threshold and scoring scales?** These are set by its governance team. If there are none, use ARC's [five-point impact and likelihood scales](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/implementation/for-governance-teams/#step-4-define-relevance-criteria), and ask the user to choose a threshold.
 3. **Where should the assessment be saved?** The default is `docs/arc-assessment.md`.
 
@@ -116,6 +116,7 @@ For each control in scope, follow these steps.
    - **Level 0:** adopted as-is. The template expects every Level 0 control to be implemented before sign-off.
      - A Level 0 control is waived only when the capability or component it concerns is not present in the system, for example a control on MCP servers in a system that uses none, or on persistent memory in a system that keeps nothing beyond a session. Record it as *Waived — not applicable*, with the evidence that the capability or component is absent.
      - A combination's control, such as CTRL-0097 for the lethal trifecta, follows the verdict from Step 2. If every leg is present, it must be implemented: record which leg is removed or gated for each agent, and how. If a leg is absent, record it as *Waived — not applicable*, naming the absent leg and the evidence.
+     - A control marked "provided by" a platform is implemented by that platform for every system on it. Confirm that this system runs on the platform, record the platform's evidence, and do not re-implement the control.
      - Any other Level 0 control that isn't implemented is a blocker for the governance team. List these blockers at the top of your summary.
    - **Level 1:** adopted or adapted, or not adopted with a documented rationale.
    - **Level 2:** considered according to the system's risk.

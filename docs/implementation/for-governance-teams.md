@@ -123,6 +123,57 @@ Not all risks are equally relevant across systems and use cases. Relevance crite
     - **Threshold:** Impact ≥ 4 AND Likelihood ≥ 3 OR Impact ≥ 5 (regardless of likelihood)
     - **Rationale:** Maximize innovation speed; acceptable to have incidents on internal systems
 
+### Keeping your version as an overlay
+
+Steps 1 to 4 change the register: you add capabilities and risks, reword descriptions, tighten or restate controls, and drop what you do not use. Do not make these changes in a copy of the register. A copy starts to drift the day ARC releases a new version, and merging the two by hand is slow and error-prone.
+
+Keep an **overlay** instead: one file that holds only your changes, each tied to an entry by its ID. Everything the overlay does not mention is inherited from the ARC register of the version it names.
+
+```yaml
+overlay:
+  name: Example Agency ARC register
+  version: "0.1.0"
+  base: "2.0.0"            # the ARC register version this was written against
+
+capabilities:
+  remove:
+    CAP-08: "The agency does not permit agents to operate a desktop."
+
+risks:
+  change:
+    RISK-043:
+      description_append: "For the agency, this includes case files classified Confidential and above."
+  add:
+    EXA-RISK-001:           # your own entries carry your prefix
+      statement: Disclosure of case information to the wrong applicant
+      # ... the same fields as any risk
+
+controls:
+  change:
+    CTRL-0081:
+      level: 0              # stricter than the base
+    CTRL-0007:
+      provided_by:          # implemented once, by a shared platform
+        platform: Agency agent platform
+        evidence: "The platform's logging configuration."
+```
+
+An overlay can:
+
+| Operation | What it does | Rules |
+| --- | --- | --- |
+| `add` | Adds a capability, risk or control of your own | The ID carries your prefix, such as `EXA-RISK-001`, so it cannot collide with a future ARC entry |
+| `change` | Replaces a field of an existing entry, or extends it with `description_append`, `recommendations_append`, `add_controls`, `remove_controls` | A Level 0 control cannot be lowered |
+| `remove` | Leaves out a capability, risk or control you do not use, with the reason | Removing a capability removes the risks that need it. A risk must keep at least one control |
+| `provided_by` | Marks a control as implemented by a shared platform, with a pointer to the evidence | Teams on that platform inherit the control and do not re-implement it |
+
+Two tools read an overlay:
+
+- `python scripts/apply_overlay.py --overlay your-overlay.yaml --out your-register/` writes your effective register in the same layout as the ARC register, and validates it with the same checks.
+- The [assessment skill](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills) takes `--overlay your-overlay.yaml` directly.
+
+When ARC releases a new version, change `base` and apply the overlay again. Anything you changed or removed that no longer exists upstream is reported as an error for you to resolve, and everything else arrives without a merge. A [worked example](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/blob/main/examples/overlay/example-agency.yaml) is in the repository.
+
 ### Step 5: Pilot with Real Systems and Gather Feedback
 
 Before rolling out the contextualised framework organisation-wide, validate it with 2-3 pilot systems representing different use cases, complexity levels, and business units. These pilot applications test whether your relevance thresholds are appropriately calibrated, reveal whether control recommendations are practical, and identify where documentation or guidance needs clarification.
