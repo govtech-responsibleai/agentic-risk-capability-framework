@@ -26,7 +26,7 @@ Other fields met this problem long before agents did. Auditors use [segregation-
 | --- | --- | --- | --- |
 | **Flow** | A capability that reads, and one that writes somewhere with a different level of trust | Internal data pasted into a web search; web content saved into official records | The lethal trifecta rule |
 | **Reach beyond the declared list** | Code Execution, Computer Use, System Management or Agent Delegation, with anything else | An agent with code execution and network access can call any API, whether or not that capability was declared | [Capabilities that give a system others](#capabilities-that-give-a-system-others) |
-| **Both sides of a check** | The capability to do something, and the capability to change what checks it | An agent that writes code and also deploys it, or that acts and can also edit its own logs | Not yet a rule |
+| **Both sides of a check** | The capability to do something, and the capability to change what checks it | An agent that writes code and also deploys it, or that acts and can also edit its own logs | The [oversight within reach](#oversight-within-reach) rule, for an agent's own oversight |
 | **Loops** | A capability that writes where another reads | Instructions planted in memory or in a file are read back in a later session | Covered for persistent memory by the [Memory component](elements.md#components); not yet a rule |
 
 The first mechanism has been studied most. The lethal trifecta, Meta's [Agents Rule of Two](https://ai.meta.com/blog/practical-ai-agent-security/) and information-flow defences such as [CaMeL](https://arxiv.org/abs/2503.18813) all address it. The second matters most to a framework like ARC, which assumes that the list of capabilities bounds what a system can do. Four capabilities break that assumption, because they produce or borrow other capabilities.
@@ -47,7 +47,7 @@ A rule that is present or possible brings its risks into scope, and its control 
 
 <!-- arc:composite-risks -->
 
-Register 2.0 has one rule, the lethal trifecta.
+Register 2.0 has two rules: the lethal trifecta, and oversight within reach.
 
 ## The lethal trifecta
 
@@ -118,6 +118,22 @@ The verdicts below assume the most cautious context for each capability.
 | Agentic coding assistant | CAP-01, 02, 03, 04, 10, 11 | **Possible** | File and Data Management supplies sensitive data. Untrusted content depends on whether it reads repositories or packages that others can change. An outbound channel depends on whether its code runs with network access |
 | Agentic call assistant | CAP-01, 02, 04, 06, 09, 11 | **Possible** | File and Data Management supplies sensitive data, and Business Transactions supplies an outbound channel. Untrusted content depends on what its callers and the systems it reads can put in front of it |
 
+## Oversight within reach
+
+The second rule is the simplest case of holding both sides of a check: an agent that can change the logs, monitors, permissions, approval settings, or configuration that are meant to constrain it. Agents have done this in pursuit of a task, with no attacker involved, and have been made to do it by injected content. The rule has one role.
+
+<!-- arc:combination-legs oversight-within-reach -->
+
+??? note "When each capability supplies the role"
+
+    <!-- arc:combination-notes oversight-within-reach -->
+
+When the rule is present or possible, [RISK-062](register-full-text.md#RISK-062) is in scope and this control applies:
+
+<!-- arc:combination-control oversight-within-reach -->
+
+A capability used only to read does not supply the role. The control is met when no identity, tool, or code path the agent has can write to what governs it, which is something to check for code execution and computer use as well as for the agent's named tools.
+
 ## Capabilities that give a system others
 
 ARC assesses a system by the capabilities it declares. Four capabilities can give a system more than was declared: code can call anything its environment lets it reach, a computer-use agent can open any application, an administrator can grant itself access, and a delegating agent borrows what its delegates can do. Controls placed on the agent's named tools do not bind what it does by these routes.
@@ -134,7 +150,7 @@ For each row that applies to a system, either add the implied capability to the 
 
 ## Limits
 
-- **One rule so far.** Register 2.0 has a rule for the lethal trifecta only. The mechanism of holding both sides of a check, and loops other than persistent memory, are described above but have no rule yet.
+- **Two rules so far.** Register 2.0 has rules for the lethal trifecta and for an agent's reach over its own oversight. Other pairings of a capability with the check on it, such as writing code and deploying it, and loops other than persistent memory, are described above but have no rule yet.
 - **Capabilities are coarse.** Internet and Search Access covers reading pages and posting to them. Many systems will therefore get a verdict of Possible, and the notes turn that verdict into questions that evidence can answer.
 - **Implied capabilities are reported, not added.** The check lists the capabilities a system probably also has. It leaves the decision to the assessor, who adds them or records why they do not apply.
 - **Design time only.** The check reads what a system can do, not what it does in a given session. [CTRL-0090](register-full-text.md#CTRL-0090) covers enforcement at run time.

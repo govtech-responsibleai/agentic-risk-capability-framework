@@ -104,6 +104,27 @@ roles:
         min_authority: act-with-approval
         note: "Yes if it can change network, sharing, or access settings so that data becomes reachable from outside."
 
+  own-safeguards:
+    name: Its own safeguards
+    description: "The agent can change the logs, monitors, permissions, approval settings, or configuration that are meant to constrain it."
+    question: "Can any identity, tool, or code path the agent has write to what governs the agent itself?"
+    capabilities:
+      CAP-08:
+        mark: "maybe"
+        note: "Yes if it can open the settings of the application or platform that runs it."
+      CAP-10:
+        mark: "maybe"
+        min_authority: act-with-approval
+        note: "Yes if code it runs can reach the files, services, or settings that hold its permissions, approvals, logs, or monitors."
+      CAP-11:
+        mark: "maybe"
+        min_authority: act-with-approval
+        note: "Yes if its write access covers its own instruction, configuration, or log files."
+      CAP-12:
+        mark: "yes"
+        min_authority: act-with-approval
+        note: "It manages access controls, monitoring, and configuration, which can include its own."
+
 rules:
   lethal-trifecta:
     name: Lethal trifecta
@@ -119,6 +140,19 @@ rules:
     sources:
     - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
     - https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf
+
+  oversight-within-reach:
+    name: Oversight within reach
+    mechanism: both-sides-of-a-check
+    description: "An agent that can change the logs, monitors, permissions, or approvals that govern it holds both sides of a check. It can remove the check in pursuit of its task, or be told to by injected content."
+    roles:
+    - own-safeguards
+    control: CTRL-0101
+    risks:
+    - RISK-062
+    sources:
+    - https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/
+    - https://metr.org/blog/2026-10-22-red-teaming-openai-agent-monitoring/
 
 implies:
   CAP-02:

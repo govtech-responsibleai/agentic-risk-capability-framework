@@ -56,7 +56,7 @@ List **every applicable risk**: all baseline risks (those arising only from comp
 
 ## 2a. Capability combinations
 
-Some risks arise only when a system holds several capabilities at once (see [Capability combinations](../arc_framework/capability-combinations.md)). Record the check for each combination rule the register defines. Register 2.0.0 defines one, the lethal trifecta. Count what persistent memory holds when answering for each leg.
+Some risks arise only when a system holds several capabilities at once (see [Capability combinations](../arc_framework/capability-combinations.md)). Record the check for each combination rule the register defines. Register 2.0.0 defines two: the lethal trifecta, and oversight within reach. Count what persistent memory holds when answering for each leg.
 
 First record the capabilities that the declared ones give the system. Code Execution, Computer Use, System Management and Agent Delegation can each give a system capabilities that were not declared.
 
@@ -69,12 +69,15 @@ First record the capabilities that the declared ones give the system. Code Execu
 | Lethal trifecta | Untrusted content | | |
 | | Sensitive data | | |
 | | Outbound channel | | |
+| Oversight within reach | Its own safeguards | | |
 
 | Field | Entry |
 | --- | --- |
-| Verdict (present / possible / not present) | |
+| Lethal trifecta: verdict (present / possible / not present) | |
 | If every leg is present: which leg is removed or gated for each agent, and how (CTRL-0097) | |
 | If a leg is absent: which one, and the evidence (CTRL-0097 is then *Waived — not applicable*) | |
+| Oversight within reach: verdict | |
+| If present: how the agent is kept from writing to its own instructions, configuration, permissions, logs and monitors (CTRL-0101) | |
 
 ## 3. Controls
 
