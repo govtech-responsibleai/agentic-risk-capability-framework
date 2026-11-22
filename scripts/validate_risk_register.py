@@ -24,6 +24,11 @@ Checks:
     crosswalk_references.yaml, and only frameworks that apply to that entry type;
     IDs must be quoted strings (an unquoted 2.10 is read by YAML as the number 2.1)
   - register.yaml carries a semantic version (MAJOR.MINOR.PATCH) and a release date
+  - context: a capability may list the `authority` levels it can be used at (read, propose,
+    act-with-approval, act-alone) and say whether its effects are `irreversible` and `external`
+    (always, never, or ask); a risk's `min_authority` names one of its own capabilities and a
+    level that capability offers; a control's `level_when` lists stricter levels and the
+    context in which each applies
   - combinations.yaml (if present): every combination names a defined control and risks that
     carry it, and has at least two legs; every leg maps defined capabilities to the quoted
     marks "yes" or "maybe", each with a note
@@ -46,6 +51,8 @@ CTRL_ID = re.compile(r'^CTRL-\d{4}$')
 ELEMENT_ID = re.compile(r'^(CMP|DSN|CAP)-\d{2}$')
 HAZARD_ID = re.compile(r'^HZ-\d{2}$')
 COMBINATION_ID = re.compile(r'^[a-z][a-z0-9-]*$')
+AUTHORITY = ('read', 'propose', 'act-with-approval', 'act-alone')   # least to most
+CONTEXT_ANSWERS = ('always', 'never', 'ask')
 MARKS = ('yes', 'maybe')
 SEMVER = re.compile(r'^\d+\.\d+\.\d+$')
 ISO_DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
@@ -159,6 +166,16 @@ def validate():
                 errors.append(f'{element_id}: capabilities are chosen per system and may not carry present_when')
             elif not isinstance(element['present_when'], str) or not element['present_when'].strip():
                 errors.append(f'{element_id}: present_when must be a sentence saying when a system has this element')
+        if any(k in element for k in ('authority', 'irreversible', 'external')):
+            if not element_id.startswith('CAP-'):
+                errors.append(f'{element_id}: only capabilities carry authority, irreversible and external')
+            levels = element.get('authority')
+            if not isinstance(levels, list) or not levels or any(a not in AUTHORITY for a in levels) \
+                    or levels != sorted(levels, key=AUTHORITY.index):
+                errors.append(f'{element_id}: authority must list levels from {list(AUTHORITY)}, least first')
+            for field in ('irreversible', 'external'):
+                if element.get(field) not in CONTEXT_ANSWERS:
+                    errors.append(f'{element_id}: {field} must be one of {list(CONTEXT_ANSWERS)}')
     for hazard_id, hazard in hazards.items():
         if not HAZARD_ID.match(hazard_id):
             errors.append(f'{hazard_id}: malformed hazard ID')
@@ -180,6 +197,11 @@ def validate():
         for element_id in element_ids:
             if element_id not in elements:
                 errors.append(f'{risk_id}: unknown element "{element_id}" in element_ids')
+        for cap_id, minimum in (risk.get('min_authority') or {}).items():
+            if cap_id not in element_ids:
+                errors.append(f'{risk_id}: min_authority names {cap_id}, which is not one of its elements')
+            elif minimum not in (elements.get(cap_id, {}).get('authority') or []):
+                errors.append(f'{risk_id}: min_authority {minimum!r} is not an authority level of {cap_id}')
         if risk.get('failure_mode') and risk['failure_mode'] not in FAILURE_MODES:
             errors.append(f'{risk_id}: unknown failure_mode "{risk["failure_mode"]}"')
         for t in risk.get('type') or []:
@@ -210,6 +232,22 @@ def validate():
             errors.append(f'{ctrl_id}: missing statement')
         if ctrl.get('level') not in (0, 1, 2):
             errors.append(f'{ctrl_id}: level must be 0, 1, or 2 (got {ctrl.get("level")!r})')
+        for i, condition in enumerate(ctrl.get('level_when') or [], 1):
+            where = f'{ctrl_id}: level_when entry {i}'
+            if not isinstance(condition, dict) or condition.get('level') not in (0, 1, 2) \
+                    or not condition['level'] < (ctrl.get('level') if ctrl.get('level') in (0, 1, 2) else 3):
+                errors.append(f'{where} must give a level stricter than the control\'s own')
+                continue
+            if not any(k in condition for k in ('authority', 'irreversible', 'external')):
+                errors.append(f'{where} must state a context: authority, irreversible or external')
+            if 'authority' in condition and condition['authority'] not in AUTHORITY:
+                errors.append(f'{where}: authority must be one of {list(AUTHORITY)}')
+            for field in ('irreversible', 'external'):
+                if field in condition and not isinstance(condition[field], bool):
+                    errors.append(f'{where}: {field} must be true or false')
+            for cap_id in condition.get('capabilities') or []:
+                if not str(cap_id).startswith('CAP-') or cap_id not in elements:
+                    errors.append(f'{where}: "{cap_id}" is not a capability')
         if not ctrl.get('risks'):
             errors.append(f'{ctrl_id}: not mapped to any risk')
         for risk_id in ctrl.get('risks') or []:

@@ -69,8 +69,12 @@ def test_applicability_matches_register_rules():
     everything = assess(sorted(chosen))
     listed = {r["id"] for g in everything["risks"].values() for r in g}
     assert listed == set(risks), set(risks) ^ listed
+    # ...at the level each control has in the most cautious context, which is what an unstated context means
+    reg = _register()
+    cautious = arc.build_profile(reg, sorted(e for e in chosen if e.startswith("CAP-")))
     level0 = {c["id"] for c in everything["level0_controls"]}
-    assert level0 == {c for c, v in controls.items() if v["level"] == 0 and set(v["risks"]) & listed}
+    assert level0 == {c for c, v in controls.items()
+                      if arc.effective_level(v, cautious) == 0 and set(v["risks"]) & listed}
 
 
 def test_conditional_components():
@@ -90,6 +94,57 @@ def test_conditional_components():
         assert "not a conditional component" in str(e)
     else:
         raise AssertionError("CMP-01 is always present and should be rejected by --components")
+
+
+def test_context_changes_applicability_and_levels():
+    """Authority, reversibility and reach: a risk can need a minimum authority, and a control can be stricter in context."""
+    risks = yaml.safe_load((REGISTER / "risks.yaml").read_text())
+    controls = yaml.safe_load((REGISTER / "controls.yaml").read_text())
+    capabilities = yaml.safe_load((REGISTER / "capabilities.yaml").read_text())
+    order = arc.AUTHORITY
+
+    def run_json(*argv):
+        return json.loads(run("--register", str(REGISTER), "assess", *argv, "--format", "json"))
+
+    # A risk that needs a minimum authority is left out below it, and only below it
+    gated = {r: v["min_authority"] for r, v in risks.items() if v.get("min_authority")}
+    assert gated, "the register should gate at least one risk on authority"
+    for rid, need in gated.items():
+        (cap, minimum), = need.items()
+        others = [e for e in risks[rid]["element_ids"] if e.startswith("CAP-") and e != cap]
+        for level in capabilities[cap]["authority"]:
+            out = run_json("--capabilities", ",".join([f"{cap}={level}"] + others))
+            listed = {r["id"] for g in out["risks"].values() for r in g}
+            assert (rid in listed) == (order.index(level) >= order.index(minimum)), (rid, level)
+            assert (rid in {b["id"] for b in out["below_authority"]}) == (rid not in listed), (rid, level)
+
+    # A control with level_when is stricter only in that context
+    raised = {c: v for c, v in controls.items() if v.get("level_when")}
+    assert raised, "the register should raise at least one control's level in context"
+    reg = _register()
+    for cid, control in raised.items():
+        calm = arc.build_profile(reg, ["CAP-11"], {"CAP-11": "read"}, reversible=["CAP-11"], internal=["CAP-11"])
+        assert arc.effective_level(control, calm) == control["level"], cid
+        assert arc.effective_level(control, arc.build_profile(reg, ["CAP-09"])) < control["level"], cid
+
+    # Unstated context is the most cautious; a profile file says the same thing as the flags
+    assert run_json("--capabilities", "CAP-11")["context"]["CAP-11"] == \
+        {"authority": "act-alone", "irreversible": True, "external": True}
+    with tempfile.TemporaryDirectory() as tmp:
+        profile = Path(tmp) / "system.yaml"
+        profile.write_text("capabilities:\n  CAP-06: {authority: act-with-approval}\n"
+                           "  CAP-11: {authority: read, external: false}\ncomponents: [CMP-04]\n")
+        from_file = run_json("--profile", str(profile))
+    from_flags = run_json("--capabilities", "CAP-06=act-with-approval,CAP-11=read", "--internal", "CAP-11",
+                          "--components", "CMP-04")
+    assert from_file == from_flags
+    assert from_file["context"]["CAP-11"] == {"authority": "read", "irreversible": False, "external": False}
+    try:
+        run("--register", str(REGISTER), "assess", "--capabilities", "CAP-05=read")
+    except SystemExit as e:
+        assert "can be used at" in str(e)
+    else:
+        raise AssertionError("CAP-05 has no read level")
 
 
 def test_show_and_elements():
@@ -143,8 +198,9 @@ def test_priority_lists_controls_in_scope():
     priority = ["RISK-034"]
     out = json.loads(run("--register", str(REGISTER), "assess", "--capabilities", ",".join(caps),
                          "--priority", ",".join(priority), "--format", "json"))
+    profile = arc.build_profile(_register(), caps)
     expected = {c for rid in applicable for c in risks[rid]["controls"]
-                if controls[c]["level"] == 0 or rid in priority}
+                if arc.effective_level(controls[c], profile) == 0 or rid in priority}
     assert {c["id"] for c in out["controls_in_scope"]} == expected
     assert len(out["controls_in_scope"]) == len(expected), "each control in scope should appear once"
 
@@ -236,6 +292,7 @@ def test_template_is_plain_markdown():
 if __name__ == "__main__":
     test_applicability_matches_register_rules()
     test_conditional_components()
+    test_context_changes_applicability_and_levels()
     test_show_and_elements()
     test_organisation_register_with_single_element_id()
     test_builtin_yaml_parser_matches_pyyaml()

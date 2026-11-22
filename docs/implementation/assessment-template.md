@@ -21,20 +21,22 @@
 
 Capabilities are system-level: if any agent has one, the system has it. Include read-only functions.
 
-| Capability | Present? | Which agent / tool provides it | Human approval required before acting? |
-| --- | --- | --- | --- |
-| CAP-01 Planning and Goal Management | | | |
-| CAP-02 Agent Delegation | | | |
-| CAP-03 Tool Use | | | |
-| CAP-04 Multimodal Understanding and Generation | | | |
-| CAP-05 Official Communication | | | |
-| CAP-06 Business Transactions | | | |
-| CAP-07 Internet and Search Access | | | |
-| CAP-08 Computer Use | | | |
-| CAP-09 Other Programmatic Interfaces | | | |
-| CAP-10 Code Execution | | | |
-| CAP-11 File and Data Management | | | |
-| CAP-12 System Management | | | |
+For each capability that acts on the world, record how the system uses it (see [Context](../arc_framework/elements.md#context-how-a-capability-is-used)). **Authority** is the highest of: read, propose, act with approval, act alone. Leave a context cell blank only where it is marked n/a. A blank is read as the most cautious answer.
+
+| Capability | Present? | Authority | Irreversible effects? | Effects outside the organisation? | Which agent / tool provides it | Evidence |
+| --- | --- | --- | --- | --- | --- | --- |
+| CAP-01 Planning and Goal Management | | n/a | n/a | n/a | | |
+| CAP-02 Agent Delegation | | n/a | n/a | n/a | | |
+| CAP-03 Tool Use | | n/a | n/a | n/a | | |
+| CAP-04 Multimodal Understanding and Generation | | n/a | n/a | n/a | | |
+| CAP-05 Official Communication | | | always | always | | |
+| CAP-06 Business Transactions | | | | always | | |
+| CAP-07 Internet and Search Access | | read | never | always | | |
+| CAP-08 Computer Use | | | | | | |
+| CAP-09 Other Programmatic Interfaces | | | | | | |
+| CAP-10 Code Execution | | | | | | |
+| CAP-11 File and Data Management | | | | | | |
+| CAP-12 System Management | | | | | | |
 
 **Conditional components.** Most components and design elements are present in every agentic system. Two components are conditional. Record whether the system has each one; its risks apply only if it does.
 

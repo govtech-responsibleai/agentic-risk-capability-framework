@@ -21,39 +21,87 @@ CAP-04:
 CAP-05:
   name: "Official Communication"
   category: "Interaction"
-  description: "The capability to autonomously compose, finalize, and dispatch authoritative communications that formally and legally represent an organization to external parties (e.g. customers, partners, regulators, courts, or media) via approved channels and formats, without prior human review or approval, thereby creating potential legal, regulatory, or reputational obligations. This includes sending legally binding correspondence, publishing official statements or press releases, and responding to external inquiries using the organisation's identity."
+  description: The capability to compose, finalise, and dispatch authoritative communications that formally and legally represent an organization to external parties (e.g. customers, partners, regulators, courts, or media) via approved channels and formats, thereby creating potential legal, regulatory, or reputational obligations. This includes sending legally binding correspondence, publishing official statements or press releases, and responding to external inquiries using the organisation's identity. A system has this capability whether a person sends what the agent drafts, approves each message before it goes, or lets the agent send by itself; that difference is recorded as the capability's authority.
+  authority:
+  - propose
+  - act-with-approval
+  - act-alone
+  irreversible: always
+  external: always
 
 CAP-06:
   name: "Business Transactions"
   category: "Interaction"
-  description: "The capability to autonomously initiate, authorise, and execute binding business transactions with external parties - such as payments, purchases, reservations, or service commitments - within predefined authorisation limits, resulting in real financial, contractual, or operational obligations for the organization. This includes processing payments or refunds, placing orders or subscriptions, booking services or reservations, and accepting or triggering contractual commitments on behalf of the organization."
+  description: The capability to initiate, authorise, and execute binding business transactions with external parties - such as payments, purchases, reservations, or service commitments - resulting in real financial, contractual, or operational obligations for the organization. This includes processing payments or refunds, placing orders or subscriptions, booking services or reservations, and accepting or triggering contractual commitments on behalf of the organization. A system has this capability whether a person completes the transactions the agent prepares, approves each one, or lets the agent transact by itself within limits set in advance; that difference is recorded as the capability's authority.
+  authority:
+  - propose
+  - act-with-approval
+  - act-alone
+  irreversible: ask
+  external: always
 
 CAP-07:
   name: "Internet and Search Access"
   category: "Interaction"
   description: "The capability to autonomously access, browse, search, and retrieve information from the Internet to augment the LLM's static training knowledge with external and up-to-date sources in support of task execution and response generation. This includes issuing search queries, following and parsing web pages, extracting relevant facts or documents, and aggregating information from multiple online sources."
+  authority:
+  - read
+  irreversible: never
+  external: always
 
 CAP-08:
   name: "Computer Use"
   category: "Interaction"
   description: "The capability to directly operate a computer’s graphical user interface on behalf of the user, enabling the agent to navigate applications and execute tasks through mouse, keyboard, and window-based interactions. This includes moving the cursor, clicking buttons, entering text, using keyboard shortcuts, switching between windows and applications, and navigating files and menus within the operating system environment."
+  authority:
+  - act-with-approval
+  - act-alone
+  irreversible: ask
+  external: ask
 
 CAP-09:
   name: "Other Programmatic Interfaces"
   category: "Interaction"
   description: "The capability to interact with external systems through non-graphical, programmatic interfaces, such as APIs, SDKs, and backend services, to exchange data or trigger actions as part of task execution. This includes calling REST or GraphQL APIs, invoking cloud services, publishing or consuming messages from queues or event streams, and performing operations such as code pushes, data updates, or system integrations across enterprise platforms. This includes sending and receiving email, chat, or other messages through an API or mail protocol, including when those messages are also Official Communication (CAP-05)."
+  authority:
+  - read
+  - propose
+  - act-with-approval
+  - act-alone
+  irreversible: ask
+  external: ask
 
 CAP-10:
   name: "Code Execution"
   category: "Operational"
   description: "The capability to write, execute, and debug code in various programming languages to automate tasks or solve computational problems. This includes implementing algorithms, writing scripts, compiling and running code, debugging errors, and integrating with external systems through APIs or backend services."
+  authority:
+  - propose
+  - act-with-approval
+  - act-alone
+  irreversible: ask
+  external: ask
 
 CAP-11:
   name: "File and Data Management"
   category: "Operational"
   description: "The capability to manage the full lifecycle of files and data by creating, reading, modifying, organizing, converting, querying, and updating information across both unstructured artifacts (e.g. documents, spreadsheets, media files) and structured data stores (e.g. SQL/NoSQL databases, data warehouses, vector or embedding stores) in support of operational tasks. This includes ingesting and transforming datasets, generating or updating files, maintaining directory or schema structures, executing database queries or updates, and storing or retrieving embeddings or derived data products."
+  authority:
+  - read
+  - propose
+  - act-with-approval
+  - act-alone
+  irreversible: ask
+  external: ask
 
 CAP-12:
   name: "System Management"
   category: "Operational"
   description: "The capability to directly manage and configure technical systems and infrastructure by adjusting system settings, controlling computing resources, and administering operational environments across on-premise or cloud platforms. This includes monitoring system health and performance, managing authentication credentials and access controls, provisioning or scaling compute and storage resources, configuring operating system or runtime parameters, and applying system-level optimisations to support reliable operation."
+  authority:
+  - read
+  - propose
+  - act-with-approval
+  - act-alone
+  irreversible: ask
+  external: ask
