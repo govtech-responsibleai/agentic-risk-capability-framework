@@ -28,6 +28,11 @@ RISK-001:
     - ASI04
     owasp_agentic_threats:
     - T17
+    mitre_atlas:
+    - AML.T0010.003
+    - AML.T0115.001
+    - AML.T0018.000
+    - AML.T0020
 RISK-002:
   statement: Insufficient alignment of LLM behaviour
   description: This risk arises when an LLM's learned objectives and behaviors do
@@ -59,6 +64,7 @@ RISK-002:
     - ASI10
     owasp_agentic_threats:
     - T7
+    mitre_atlas: []
 RISK-003:
   statement: Insufficient LLM capability and reliability
   description: This risk arises when an LLM lacks sufficient capability, robustness,
@@ -89,6 +95,7 @@ RISK-003:
     - ASI08
     owasp_agentic_threats:
     - T5
+    mitre_atlas: []
 RISK-004:
   statement: Weak tool authentication and authorisation controls
   description: This risk arises when tools connected to an agent lack robust authentication
@@ -119,6 +126,9 @@ RISK-004:
     owasp_agentic_threats:
     - T3
     - T2
+    mitre_atlas:
+    - AML.T0053
+    - AML.T0091.000
 RISK-005:
   statement: Lack of proper role-based access control for tools
   description: This risk arises when tools exposed to an agent do not enforce clear,
@@ -143,6 +153,8 @@ RISK-005:
     - ASI03
     owasp_agentic_threats:
     - T3
+    mitre_atlas:
+    - AML.T0053
 RISK-006:
   statement: Tool poisoning by malicious actors
   description: This risk arises when a tool server or agent that another party builds or operates describes itself in a way that manipulates the agent that connects to it. Instructions can be hidden in tool descriptions, parameter schemas, or agent cards; a tool can imitate or shadow a trusted one; and a definition can change after it was approved. The agent reads these descriptions as part of its instructions, so it may follow them even when the tool is never called. As a result, the agent may unknowingly execute malicious actions, leak sensitive information, or produce manipulated outputs that undermine system integrity and trust.
@@ -170,6 +182,9 @@ RISK-006:
     owasp_agentic_threats:
     - T17
     - T2
+    mitre_atlas:
+    - AML.T0110
+    - AML.T0011.002
 RISK-007:
   statement: Lack of input sanitisation
   description: This risk arises when inputs passed from the agent to tools are not
@@ -198,6 +213,9 @@ RISK-007:
     owasp_agentic_threats:
     - T2
     - T11
+    mitre_atlas:
+    - AML.T0053
+    - AML.T0050
 RISK-008:
   statement: Vague or underspecified instructions
   description: This risk arises when instructions provided to an LLM are ambiguous,
@@ -225,6 +243,7 @@ RISK-008:
     - ASI01
     owasp_agentic_threats:
     - T6
+    mitre_atlas: []
 RISK-009:
   statement: Unsanitised inputs in system instructions
   description: This risk arises when untrusted or user-controlled inputs are incorporated
@@ -252,6 +271,8 @@ RISK-009:
     - ASI01
     owasp_agentic_threats:
     - T6
+    mitre_atlas:
+    - AML.T0051
 RISK-010:
   statement: Poisoned memory
   description: This risk arises when the memory component of an agentic system is
@@ -281,6 +302,9 @@ RISK-010:
     - ASI06
     owasp_agentic_threats:
     - T1
+    mitre_atlas:
+    - AML.T0080.000
+    - AML.T0070
 RISK-011:
   statement: Sensitive data leakage across memory contexts
   description: This risk arises when the memory component retains or exposes sensitive
@@ -309,6 +333,7 @@ RISK-011:
     owasp_agentic_threats:
     - T1
     - T3
+    mitre_atlas: []
 RISK-012:
   statement: Cascading errors in multi-agent architectures
   description: This risk arises when errors or misjudgements produced by one agent
@@ -338,6 +363,7 @@ RISK-012:
     - ASI08
     owasp_agentic_threats:
     - T5
+    mitre_atlas: []
 RISK-013:
   statement: Man-in-the-middle attacks between agents
   description: This risk arises when communication channels between agents are insufficiently
@@ -365,6 +391,8 @@ RISK-013:
     owasp_agentic_threats:
     - T12
     - T9
+    mitre_atlas:
+    - AML.T0073
 RISK-014:
   statement: Feedback loops and runaway agent behaviour
   description: This risk arises when an agent repeatedly acts on its own outputs, or
@@ -397,6 +425,7 @@ RISK-014:
     owasp_agentic_threats:
     - T5
     - T4
+    mitre_atlas: []
 RISK-015:
   statement: Overly permissive roles and permissions
   description: This risk arises when agents are granted roles or permissions that
@@ -421,6 +450,8 @@ RISK-015:
     - ASI03
     owasp_agentic_threats:
     - T3
+    mitre_atlas:
+    - AML.T0053
 RISK-016:
   statement: Unauthorised privilege escalation
   description: This risk arises when agents are able to gain elevated roles or permissions
@@ -446,6 +477,9 @@ RISK-016:
     - ASI03
     owasp_agentic_threats:
     - T3
+    mitre_atlas:
+    - AML.T0053
+    - AML.T0117
 RISK-017:
   statement: Delayed failure detection due to limited monitoring
   description: This risk arises when monitoring systems provide insufficient visibility
@@ -471,6 +505,7 @@ RISK-017:
     - ASI08
     owasp_agentic_threats:
     - T8
+    mitre_atlas: []
 RISK-018:
   statement: Inability to audit failures due to missing decision traces
   description: This risk arises when monitoring systems do not capture sufficient
@@ -496,6 +531,7 @@ RISK-018:
     - ASI10
     owasp_agentic_threats:
     - T8
+    mitre_atlas: []
 RISK-019:
   statement: Generating plans that fail to meet the user's requirements
   description: This risk arises when an agent generates plans or goals that do not
@@ -523,6 +559,7 @@ RISK-019:
     - ASI01
     owasp_agentic_threats:
     - T6
+    mitre_atlas: []
 RISK-020:
   statement: Generating plans that overlook safety implications
   description: This risk arises when an agent generates plans or goals without adequately
@@ -550,6 +587,7 @@ RISK-020:
     - ASI01
     owasp_agentic_threats:
     - T7
+    mitre_atlas: []
 RISK-021:
   statement: Incorrect task delegation between agents
   description: This risk arises when an agent assigns tasks to other agents that do
@@ -576,6 +614,7 @@ RISK-021:
     - ASI08
     owasp_agentic_threats:
     - T3
+    mitre_atlas: []
 RISK-022:
   statement: Malicious or manipulative use of delegated agents
   description: This risk arises when an agent deliberately assigns tasks to other
@@ -608,6 +647,9 @@ RISK-022:
     owasp_agentic_threats:
     - T13
     - T14
+    mitre_atlas:
+    - AML.T0118.001
+    - AML.T0143
 RISK-023:
   statement: Incorrect tool selection or misuse
   description: This risk arises when an agent selects an inappropriate tool or applies
@@ -634,6 +676,7 @@ RISK-023:
     - ASI02
     owasp_agentic_threats:
     - T2
+    mitre_atlas: []
 RISK-024:
   statement: Generation of undesirable content
   description: This risk arises when an agent generates text, images, audio, or other
@@ -655,6 +698,7 @@ RISK-024:
   crosswalks:
     owasp_asi: []
     owasp_agentic_threats: []
+    mitre_atlas: []
 RISK-025:
   statement: Generation of unqualified advice in specialised domains
   description: This risk arises when an agent generates advice or guidance in specialised
@@ -675,6 +719,7 @@ RISK-025:
   crosswalks:
     owasp_asi: []
     owasp_agentic_threats: []
+    mitre_atlas: []
 RISK-026:
   statement: Generation of controversial or sensitive content
   description: This risk arises when an agent generates content related to sensitive
@@ -697,6 +742,7 @@ RISK-026:
   crosswalks:
     owasp_asi: []
     owasp_agentic_threats: []
+    mitre_atlas: []
 RISK-027:
   statement: Regurgitating personally identifiable information
   description: This risk arises when an agent reproduces personally identifiable information
@@ -721,6 +767,7 @@ RISK-027:
     - ASI06
     owasp_agentic_threats:
     - T1
+    mitre_atlas: []
 RISK-028:
   statement: Generation of non-factual or hallucinated content
   description: This risk arises when an agent generates information that is inaccurate,
@@ -745,6 +792,7 @@ RISK-028:
     - ASI08
     owasp_agentic_threats:
     - T5
+    mitre_atlas: []
 RISK-029:
   statement: Generation of copyrighted content
   description: This risk arises when an agent generates content that reproduces or
@@ -765,6 +813,7 @@ RISK-029:
   crosswalks:
     owasp_asi: []
     owasp_agentic_threats: []
+    mitre_atlas: []
 RISK-030:
   statement: Misrepresentation of authorship
   description: This risk arises when recipients are misled about whether an official
@@ -787,6 +836,7 @@ RISK-030:
     - ASI09
     owasp_agentic_threats:
     - T15
+    mitre_atlas: []
 RISK-031:
   statement: Inaccurate promises or statements in official communications
   description: This risk arises when an agent makes commitments, assurances, or public
@@ -813,6 +863,7 @@ RISK-031:
     - ASI09
     owasp_agentic_threats:
     - T15
+    mitre_atlas: []
 RISK-032:
   statement: Unauthorised execution of business transactions
   description: This risk arises when an agent initiates, authorises, or executes business
@@ -846,6 +897,7 @@ RISK-032:
     owasp_agentic_threats:
     - T2
     - T6
+    mitre_atlas: []
 RISK-033:
   statement: Leakage of transaction credentials
   description: This risk arises when credentials, tokens, or sensitive authentication
@@ -872,6 +924,9 @@ RISK-033:
     - ASI03
     owasp_agentic_threats:
     - T3
+    mitre_atlas:
+    - AML.T0083
+    - AML.T0055
 RISK-034:
   statement: Prompt injection via malicious websites
   description: This risk arises when an agent retrieves or processes content from
@@ -901,6 +956,9 @@ RISK-034:
     - ASI01
     owasp_agentic_threats:
     - T6
+    mitre_atlas:
+    - AML.T0051.001
+    - AML.T0078
 RISK-035:
   statement: Unreliable information or websites
   description: This risk arises when an agent retrieves and presents information from
@@ -924,6 +982,7 @@ RISK-035:
     - ASI06
     owasp_agentic_threats:
     - T5
+    mitre_atlas: []
 RISK-036:
   statement: Prompt injection risks through computer use
   description: This risk arises when an agent interacts with graphical user interfaces
@@ -955,6 +1014,9 @@ RISK-036:
     - ASI01
     owasp_agentic_threats:
     - T6
+    mitre_atlas:
+    - AML.T0100
+    - AML.T0051.001
 RISK-037:
   statement: Exposure of sensitive data
   description: This risk arises when an agent operating a computer interface accesses
@@ -983,6 +1045,7 @@ RISK-037:
     - ASI02
     owasp_agentic_threats:
     - T2
+    mitre_atlas: []
 RISK-038:
   statement: Incorrect use of unfamiliar programmatic interfaces
   description: This risk arises when an agent interacts with programmatic interfaces
@@ -1010,6 +1073,7 @@ RISK-038:
     - ASI02
     owasp_agentic_threats:
     - T2
+    mitre_atlas: []
 RISK-039:
   statement: Production or execution of poor or ineffective code
   description: This risk arises when an agent generates or executes code that is incorrect,
@@ -1038,6 +1102,7 @@ RISK-039:
     - ASI05
     owasp_agentic_threats:
     - T11
+    mitre_atlas: []
 RISK-040:
   statement: Production or execution of vulnerable or malicious code
   description: This risk arises when an agent executes code that contains security
@@ -1067,6 +1132,10 @@ RISK-040:
     - ASI05
     owasp_agentic_threats:
     - T11
+    mitre_atlas:
+    - AML.T0050
+    - AML.T0011.001
+    - AML.T0060
 RISK-041:
   statement: Unintended overwriting or deletion of files or data
   description: This risk arises when an agent modifies, overwrites, or deletes files,
@@ -1094,6 +1163,7 @@ RISK-041:
     - ASI02
     owasp_agentic_threats:
     - T2
+    mitre_atlas: []
 RISK-042:
   statement: Database overload due to inefficient data operations
   description: This risk arises when an agent issues poorly optimised, excessively
@@ -1118,6 +1188,7 @@ RISK-042:
     - ASI02
     owasp_agentic_threats:
     - T4
+    mitre_atlas: []
 RISK-043:
   statement: Exposure of sensitive data through file or database access
   description: This risk arises when an agent accesses, processes, or outputs personally
@@ -1144,6 +1215,7 @@ RISK-043:
     owasp_agentic_threats:
     - T2
     - T3
+    mitre_atlas: []
 RISK-044:
   statement: Prompt injection via malicious files or data
   description: This risk arises when an agent ingests or processes maliciously crafted
@@ -1175,6 +1247,10 @@ RISK-044:
     owasp_agentic_threats:
     - T6
     - T1
+    mitre_atlas:
+    - AML.T0051.001
+    - AML.T0099
+    - AML.T0070
 RISK-045:
   statement: Misconfiguration of system resources
   description: This risk arises when an agent incorrectly configures system settings,
@@ -1203,6 +1279,7 @@ RISK-045:
     - ASI08
     owasp_agentic_threats:
     - T2
+    mitre_atlas: []
 RISK-046:
   statement: System overload due to inefficient or excessive operations
   description: This risk arises when an agent issues poorly optimised, excessively
@@ -1226,6 +1303,7 @@ RISK-046:
     - ASI02
     owasp_agentic_threats:
     - T4
+    mitre_atlas: []
 RISK-047:
   statement: Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel
   description: This risk arises when an agent that takes in untrusted content (web pages, files, inbound email, chat, support tickets, form submissions, or API responses) also holds access to sensitive data and has any outbound channel, such as browsing, API calls, messages, or tool calls that carry data in URLs. Instructions injected through the content can then direct the agent to send data out through a legitimate channel, for example by fetching an attacker's URL with data in it, by replying or forwarding to an attacker's address, or by posting to a shared channel. Each capability may be individually controlled; the exposure comes from their combination, and the way in and the way out can be the same channel. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by EchoLeak, where a single crafted email led Microsoft 365 Copilot to send internal data to an attacker, and ForcedLeak, where instructions in a web-form submission led Salesforce Agentforce to exfiltrate CRM records.
@@ -1257,6 +1335,12 @@ RISK-047:
     owasp_agentic_threats:
     - T6
     - T2
+    mitre_atlas:
+    - AML.T0051.001
+    - AML.T0078
+    - AML.T0085
+    - AML.T0086
+    - AML.T0077
 RISK-048:
   statement: Compromise through the tool, skill, and dependency supply chain
   description: This risk arises when the tools, MCP servers, agent "skills" or plug-ins, prompt templates, and software packages an agent relies on are obtained through registries, marketplaces, package managers, or update channels that an attacker can seed, tamper with, or silently change after approval (the "rug pull"). Unlike the poisoning of a specific tool (RISK-006), the vector is the distribution channel itself, and agents increasingly perform installs and updates autonomously. As a result, malicious code or instructions reach production with the trust of a vetted dependency, as with the postmark-mcp backdoor, the mcp-remote remote-code-execution flaw, and marketplaces found to carry large numbers of malicious skills.
@@ -1282,6 +1366,11 @@ RISK-048:
     - ASI04
     owasp_agentic_threats:
     - T17
+    mitre_atlas:
+    - AML.T0010.005
+    - AML.T0010.001
+    - AML.T0115.002
+    - AML.T0109
 RISK-049:
   statement: Escape from evaluation or sandbox containment onto live systems
   description: 'This risk arises when an agent that can execute code, operating in what is intended to be a contained setting — an evaluation, a red-team exercise, or a sandboxed task — reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.'
@@ -1317,6 +1406,10 @@ RISK-049:
     owasp_agentic_threats:
     - T13
     - T7
+    mitre_atlas:
+    - AML.T0117
+    - AML.T0122
+    - AML.T0105
 RISK-050:
   statement: Deceptive behaviour toward overseers
   description: This risk arises when an agent pursuing an objective misrepresents what it has done or found, edits or obscures its own history or logs, or socially engineers the humans overseeing it in order to obtain approval or avoid intervention. Unlike an error, the behaviour is goal-directed and can look legitimate step by step, so the evidence needed to detect it may have been altered by the agent itself. As a result, oversight based on the agent's own reports provides false assurance, and unsanctioned actions proceed under the appearance of compliance.
@@ -1344,6 +1437,9 @@ RISK-050:
     - ASI09
     owasp_agentic_threats:
     - T7
+    mitre_atlas:
+    - AML.T0138
+    - AML.T0073
 RISK-051:
   statement: Unsanctioned coordination between agents
   description: This risk arises when agents in a multi-agent system coordinate through channels or in ways that no operator sanctioned — sharing credentials, leaving each other messages in shared stores, using side channels, or dividing up a task so that each agent's actions look acceptable while the combined outcome is not. Coordination can emerge from shared objectives without any explicit instruction, and standard per-agent monitoring does not see it. As a result, the system as a whole pursues outcomes that would have been blocked had a single agent attempted them.
@@ -1374,6 +1470,9 @@ RISK-051:
     owasp_agentic_threats:
     - T13
     - T12
+    mitre_atlas:
+    - AML.T0118
+    - AML.T0118.000
 RISK-052:
   statement: Automation bias and erosion of human oversight
   description: 'This risk arises when human approval steps stop providing meaningful review: overseers approve by default under volume (one large deployment measured users approving around 93% of permission prompts), lack the context or expertise to evaluate what the agent proposes, or use interfaces designed for speed rather than scrutiny. Controls that assume a considered human decision then give false assurance, and adversaries can exploit the trust users place in fluent, confident agents. As a result, high-impact actions proceed with nominal rather than actual oversight.'
@@ -1400,6 +1499,9 @@ RISK-052:
     - ASI09
     owasp_agentic_threats:
     - T10
+    mitre_atlas:
+    - AML.T0067
+    - AML.T0046
 RISK-053:
   statement: Dependence on third-party agents as counterparties or delegates
   description: This risk arises when tasks are delegated to, or transactions conducted with, agents provided or operated by external parties — SaaS agents, partner agents reached through protocols such as A2A — whose instructions, tools, data handling, and updates are outside the organisation's control. Delegated work may be performed unsafely, data shared with the agent may be retained or reused, and behaviour can change without notice. As a result, the organisation carries the consequences of failures it cannot observe or govern directly.
@@ -1430,6 +1532,7 @@ RISK-053:
     - ASI07
     owasp_agentic_threats:
     - T13
+    mitre_atlas: []
 RISK-054:
   statement: Insecure default configuration of agent frameworks and runtimes
   description: This risk arises when the frameworks and runtimes an agent is built on ship with insecure defaults — authentication disabled, services listening on all interfaces, permissive origin checks on local control channels, unsafe deserialisation of persisted state, or default credentials — and deployers inherit them unchanged. As a result, any reachable attacker can drive the agent and use the credentials and tools it holds, as shown by a one-click remote-code-execution flaw in a widely installed open-source agent and a chain of deserialisation flaws in agent orchestration frameworks.
@@ -1455,6 +1558,10 @@ RISK-054:
     owasp_agentic_threats:
     - T3
     - T11
+    mitre_atlas:
+    - AML.T0132
+    - AML.T0049
+    - AML.T0083
 RISK-055:
   statement: Data exfiltration through message and API channels
   superseded_by: RISK-047

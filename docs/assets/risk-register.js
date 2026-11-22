@@ -86,7 +86,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         owasp_asi: 'OWASP ASI',
         owasp_agentic_threats: 'OWASP threat',
         csa_addendum: 'CSA Addendum',
-        imda_mgf: 'IMDA MGF'
+        imda_mgf: 'IMDA MGF',
+        mitre_atlas: 'MITRE ATLAS',
+        fiveeyes_agentic: 'Five Eyes'
     };
     function crosswalkBadges(crosswalks) {
         if (!crosswalks) return '';

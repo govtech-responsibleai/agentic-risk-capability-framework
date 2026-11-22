@@ -85,3 +85,88 @@ imda_mgf:
     "2.3.3": Continuously monitor and test when deploying
     "2.4.2": Users who interact with agents (transparency, disclosure, escalation)
     "2.4.3": Users who integrate agents
+
+mitre_atlas:
+  title: MITRE ATLAS (Adversarial Threat Landscape for AI Systems)
+  url: https://atlas.mitre.org/
+  version: "2026.10 (28 October 2026)"
+  applies_to: [risks]
+  ids:
+    "AML.T0010.001": "Supply Chain Compromise: Software"
+    "AML.T0010.003": "Supply Chain Compromise: Model Repository"
+    "AML.T0010.005": "Supply Chain Compromise: AI Agent Tool"
+    "AML.T0011.001": "User Execution: Malicious Package"
+    "AML.T0011.002": "User Execution: Poisoned AI Agent Tool"
+    "AML.T0018.000": "Manipulate AI Model: Poison AI Model"
+    "AML.T0020": "Training Data Poisoning"
+    "AML.T0046": "Spamming AI System with Chaff Data"
+    "AML.T0049": "Exploit Public-Facing Application"
+    "AML.T0050": "Command and Scripting Interpreter"
+    "AML.T0051": "LLM Prompt Injection"
+    "AML.T0051.001": "LLM Prompt Injection: Indirect"
+    "AML.T0053": "AI Agent Tool Invocation"
+    "AML.T0055": "Unsecured Credentials"
+    "AML.T0060": "Publish Hallucinated Entities"
+    "AML.T0067": "LLM Trusted Output Components Manipulation"
+    "AML.T0070": "RAG Poisoning"
+    "AML.T0073": "Impersonation"
+    "AML.T0077": "LLM Response Rendering"
+    "AML.T0078": "Drive-by Compromise"
+    "AML.T0080.000": "AI Agent Context Poisoning: Memory"
+    "AML.T0083": "Credentials from AI Agent Configuration"
+    "AML.T0085": "Data from AI Services"
+    "AML.T0086": "Exfiltration via AI Agent Tool Invocation"
+    "AML.T0091.000": "Use Alternate Authentication Material: Application Access Token"
+    "AML.T0093": "Prompt Infiltration via Public-Facing Application"
+    "AML.T0099": "AI Agent Tool Data Poisoning"
+    "AML.T0100": "AI Agent Clickbait"
+    "AML.T0105": "Escape to Host"
+    "AML.T0109": "AI Supply Chain Rug Pull"
+    "AML.T0110": "AI Agent Tool Poisoning"
+    "AML.T0115.001": "Publish Poisoned AI Artifacts: Models"
+    "AML.T0115.002": "Publish Poisoned AI Artifacts: AI Agent Tools"
+    "AML.T0117": "Autonomous Attack-Path Adaptation"
+    "AML.T0118": "Autonomous AI Agent Communication"
+    "AML.T0118.000": "Autonomous AI Agent Communication: Communication via Shared Artifacts"
+    "AML.T0118.001": "Autonomous AI Agent Communication: Direct Agent Communication"
+    "AML.T0122": "Exploitation of Remote Services"
+    "AML.T0132": "Misconfigured or Publicly Exposed AI Services"
+    "AML.T0138": "Indicator Removal"
+    "AML.T0143": "LLM Prompt Propagation"
+
+fiveeyes_agentic:
+  title: ASD's ACSC, CISA, NSA, Cyber Centre, NCSC-NZ and NCSC-UK – Careful adoption of agentic AI services
+  url: https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services
+  version: "May 2026 (published 1 May 2026)"
+  applies_to: [controls]
+  # The guidance does not number its practice areas. These IDs are ARC's: a prefix for the part of the
+  # document (DS designing, DV developing, DP deploying, OP operating, FR future risks, AA appendix A)
+  # and the practice area's position within it.
+  ids:
+    "DS1": "Designing secure agents – Controlled context"
+    "DS2": "Designing secure agents – Oversight mechanisms"
+    "DS3": "Designing secure agents – Identity management"
+    "DS4": "Designing secure agents – Defence in depth"
+    "DV1": "Developing secure agents – Comprehensive testing"
+    "DV2": "Developing secure agents – Appropriate evaluation"
+    "DV3": "Developing secure agents – Input management"
+    "DV4": "Developing secure agents – Red teaming"
+    "DV5": "Developing secure agents – Resilience"
+    "DV6": "Developing secure agents – Accountability"
+    "DV7": "Developing secure agents – Manage third-party components"
+    "DP1": "Deploying agents securely – Threat modelling"
+    "DP2": "Deploying agents securely – Governance"
+    "DP3": "Deploying agents securely – Progressive deployment"
+    "DP4": "Deploying agents securely – Secure by default"
+    "DP5": "Deploying agents securely – Guardrails and constraints"
+    "DP6": "Deploying agents securely – Isolation"
+    "OP1": "Operating agents securely – Monitoring and auditing"
+    "OP2": "Operating agents securely – Validate outputs"
+    "OP3": "Operating agents securely – Human in the loop"
+    "OP4": "Operating agents securely – Performance monitoring"
+    "OP5": "Operating agents securely – Privileges and authentication"
+    "FR1": "Defend against future risks – Expand threat intelligence through collaboration"
+    "FR2": "Defend against future risks – Develop robust, agent-specific evaluations"
+    "FR3": "Defend against future risks – Leverage system-theoretic approaches to analyse security"
+    "AA1": "Appendix A, prerequisites – Design"
+    "AA2": "Appendix A, prerequisites – Development"

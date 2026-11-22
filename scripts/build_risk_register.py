@@ -82,6 +82,8 @@ FRAMEWORK_SHORT = {
     'owasp_agentic_threats': 'OWASP threat',
     'csa_addendum': 'CSA Addendum',
     'imda_mgf': 'IMDA MGF',
+    'mitre_atlas': 'MITRE ATLAS',
+    'fiveeyes_agentic': 'Five Eyes guidance',
 }
 
 
@@ -129,30 +131,34 @@ def build_crosswalks_page(risks, controls, references, register):
         '    controversial, or copyrighted content) have no counterpart in OWASP\'s security-focused agentic',
         '    taxonomy, and are deliberately left unmapped rather than forced. CSA Addendum control 1.1 (conduct a',
         '    risk assessment) is the assessment process that the ARC methodology itself implements, so no single',
-        '    ARC control corresponds to it.',
+        '    ARC control corresponds to it. MITRE ATLAS catalogues what adversaries do, so risks that involve no',
+        '    adversary, such as plain errors, hallucination and overload, are not mapped to it; only the ATLAS',
+        '    techniques that an ARC risk maps to are listed. The Five Eyes guidance does not number its practice',
+        '    areas, so the IDs shown for it are ARC\'s own: a prefix for the part of the document and the',
+        '    practice area\'s position within it.',
         '',
     ]
-    sections = [
-        ('owasp_asi', risks, 'ARC risks'),
-        ('owasp_agentic_threats', risks, 'ARC risks'),
-        ('csa_addendum', controls, 'ARC controls'),
-        ('imda_mgf', controls, 'ARC controls'),
-    ]
+    # One table per framework and the kind of entry it maps to, in the order the references are listed
+    sections = [(fw, section, label) for fw, ref in references.items()
+                for kind, section, label in (('risks', risks, 'ARC risks'), ('controls', controls, 'ARC controls'))
+                if kind in (ref.get('applies_to') or [])]
     for fw, section, label in sections:
         ref = references[fw]
-        lines += ['', f"## {ref['title']} → {label}", '', f"| {FRAMEWORK_SHORT[fw]} | {label} |", '| --- | --- |']
+        short = FRAMEWORK_SHORT.get(fw, fw)
+        lines += ['', f"## {ref['title']} → {label}", '', f"| {short} | {label} |", '| --- | --- |']
         table = entries_for(section, fw)
         for ext_id, title in ref['ids'].items():
             lines.append(f"| **{ext_id}** {title} | {cell(table[str(ext_id)])} |")
-    # Reverse direction: per ARC entry
-    lines += ['', '## ARC risks → external frameworks', '', '| ARC risk | OWASP ASI | OWASP threats |', '| --- | --- | --- |']
-    for rid, r in risks.items():
-        cw = r.get('crosswalks') or {}
-        lines.append(f"| **{rid}** {r['statement']} | {', '.join(map(str, cw.get('owasp_asi', []))) or '—'} | {', '.join(map(str, cw.get('owasp_agentic_threats', []))) or '—'} |")
-    lines += ['', '## ARC controls → external frameworks', '', '| ARC control | CSA Addendum | IMDA MGF | OWASP ASI |', '| --- | --- | --- | --- |']
-    for cid, c in controls.items():
-        cw = c.get('crosswalks') or {}
-        lines.append(f"| **{cid}** {c['statement']} | {', '.join(map(str, cw.get('csa_addendum', []))) or '—'} | {', '.join(map(str, cw.get('imda_mgf', []))) or '—'} | {', '.join(map(str, cw.get('owasp_asi', []))) or '—'} |")
+    # Reverse direction: per ARC entry, one column per framework that maps to that kind of entry
+    for kind, section, label in (('risks', risks, 'ARC risk'), ('controls', controls, 'ARC control')):
+        frameworks = [fw for fw, ref in references.items() if kind in (ref.get('applies_to') or [])]
+        lines += ['', f'## ARC {kind} → external frameworks', '',
+                  f'| {label} | ' + ' | '.join(FRAMEWORK_SHORT.get(fw, fw) for fw in frameworks) + ' |',
+                  '| --- |' + ' --- |' * len(frameworks)]
+        for entry_id, entry in section.items():
+            cw = entry.get('crosswalks') or {}
+            lines.append(f"| **{entry_id}** {entry['statement']} | "
+                         + ' | '.join(', '.join(map(str, cw.get(fw, []))) or '—' for fw in frameworks) + ' |')
     return '\n'.join(lines) + '\n'
 
 
@@ -560,7 +566,7 @@ ARC is meant to be adapted: an organisation contextualises the baseline register
 
 ## Optional
 
-- [Crosswalks]({site}arc_framework/crosswalks/): mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the CSA Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
+- [Crosswalks]({site}arc_framework/crosswalks/): mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, MITRE ATLAS, the CSA Securing Agentic AI Addendum, IMDA's Model AI Governance Framework for Agentic AI, and the Five Eyes guidance on agentic AI
 - [Paper](https://arxiv.org/abs/2512.22211): "With Great Capabilities Come Great Responsibilities", IASEAI'26 main track
 - [ARCvisor]({site}resources/#arcvisor): an assistant that walks a team through an assessment
 - [ARC assessment skill](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills): an Agent Skill that lets a coding agent assess the system it is building with ARC
