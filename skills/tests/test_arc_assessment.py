@@ -244,7 +244,7 @@ def test_combination_check():
         ("CAP-01", "CAP-02", "CAP-03", "CAP-04", "CAP-10", "CAP-11"): "possible",   # coding assistant
         ("CAP-01", "CAP-02", "CAP-04", "CAP-06", "CAP-09", "CAP-11"): "possible",   # call assistant
         ("CAP-04", "CAP-05", "CAP-09", "CAP-11"): "possible",                       # email agent
-        ("CAP-07", "CAP-12"): "present",                                            # no composite risk covered this in 1.5
+        ("CAP-07", "CAP-12"): "present",                                            # no composite risk covered this in 1.3
     }
     for subset, verdict in examples.items():
         assert trifecta(arc.combination_checks(reg, list(subset)))["verdict"] == verdict, subset
@@ -283,7 +283,7 @@ def test_combination_check():
 
 
 def test_register_without_combinations():
-    """Releases before 1.5.0 and organisation registers may have no combinations.yaml."""
+    """Older registers and organisation registers may have no combinations.yaml."""
     with tempfile.TemporaryDirectory() as tmp:
         org = Path(tmp) / "org-register"
         shutil.copytree(REGISTER, org)

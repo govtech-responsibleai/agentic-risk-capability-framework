@@ -63,7 +63,7 @@ except ImportError:
 REPO_RAW = "https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework"
 SITE = "https://govtech-responsibleai.github.io/agentic-risk-capability-framework/"
 REGISTER_FILES = ("register", "risks", "controls", "capabilities", "components", "design", "hazards")
-OPTIONAL_FILES = ("combinations",)  # added in register 1.5.0; older releases and organisation registers may lack them
+OPTIONAL_FILES = ("combinations",)  # older registers and organisation registers may lack them
 TEMPLATE_PATH = "docs/implementation/assessment-template.md"
 LEVELS = {0: "Level 0 · Cardinal", 1: "Level 1 · Standard", 2: "Level 2 · Best Practice"}
 AUTHORITY = ("read", "propose", "act-with-approval", "act-alone")  # least to most
@@ -650,7 +650,7 @@ def effective_level(control, profile):
 def combination_rules(reg):
     """The register's combination rules as {rule_id: rule}, each with `legs`: {role_id: role}.
 
-    Register 2.0 keeps shared `roles` and `rules` that name them; register 1.5 kept the legs inside each
+    Register 2.0 keeps shared `roles` and `rules` that name them; register 1.3 kept the legs inside each
     combination. Both are returned in the one shape.
     """
     data = reg.get("combinations") or {}
