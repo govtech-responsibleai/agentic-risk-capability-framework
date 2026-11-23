@@ -12,6 +12,9 @@ CTRL-0001:
     - 2.3.1
     owasp_asi:
     - ASI04
+    fiveeyes_agentic:
+    - DV7
+    - AA2
 CTRL-0002:
   level: 0
   risks:
@@ -26,6 +29,7 @@ CTRL-0002:
     - 2.2.1
     owasp_asi:
     - ASI04
+    fiveeyes_agentic: []
 CTRL-0003:
   level: 1
   risks:
@@ -40,6 +44,9 @@ CTRL-0003:
     owasp_asi:
     - ASI04
     - ASI05
+    fiveeyes_agentic:
+    - DV7
+    - AA2
 CTRL-0004:
   level: 2
   risks:
@@ -55,6 +62,8 @@ CTRL-0004:
     - 2.1.1
     owasp_asi:
     - ASI10
+    fiveeyes_agentic:
+    - AA2
 CTRL-0005:
   level: 1
   risks:
@@ -71,6 +80,8 @@ CTRL-0005:
     - 2.3.2
     owasp_asi:
     - ASI10
+    fiveeyes_agentic:
+    - DV2
 CTRL-0006:
   level: 1
   risks:
@@ -92,6 +103,9 @@ CTRL-0006:
     owasp_asi:
     - ASI01
     - ASI09
+    fiveeyes_agentic:
+    - DS2
+    - OP3
 CTRL-0007:
   level: 0
   risks:
@@ -109,6 +123,9 @@ CTRL-0007:
     - 2.3.3
     owasp_asi:
     - ASI08
+    fiveeyes_agentic:
+    - DV6
+    - OP1
 CTRL-0008:
   level: 1
   risks:
@@ -124,6 +141,8 @@ CTRL-0008:
     - 2.3.3
     owasp_asi:
     - ASI10
+    fiveeyes_agentic:
+    - OP1
 CTRL-0009:
   level: 0
   risks:
@@ -143,6 +162,9 @@ CTRL-0009:
     owasp_asi:
     - ASI03
     - ASI04
+    fiveeyes_agentic:
+    - DS3
+    - AA1
 CTRL-0010:
   level: 1
   risks:
@@ -159,6 +181,8 @@ CTRL-0010:
     - 2.1.2
     owasp_asi:
     - ASI03
+    fiveeyes_agentic:
+    - OP5
 CTRL-0011:
   level: 0
   risks:
@@ -175,6 +199,10 @@ CTRL-0011:
     - 2.1.2
     owasp_asi:
     - ASI03
+    fiveeyes_agentic:
+    - DS3
+    - OP5
+    - AA1
 CTRL-0012:
   level: 2
   risks:
@@ -193,6 +221,7 @@ CTRL-0012:
     - 2.1.2
     owasp_asi:
     - ASI03
+    fiveeyes_agentic: []
 CTRL-0013:
   level: 0
   risks:
@@ -209,6 +238,9 @@ CTRL-0013:
     - 2.3.2
     owasp_asi:
     - ASI04
+    fiveeyes_agentic:
+    - DV7
+    - DV4
 CTRL-0014:
   level: 0
   risks:
@@ -226,6 +258,9 @@ CTRL-0014:
     - 2.3.1
     owasp_asi:
     - ASI04
+    fiveeyes_agentic:
+    - DV7
+    - AA2
 CTRL-0015:
   level: 1
   risks:
@@ -247,6 +282,10 @@ CTRL-0015:
     owasp_asi:
     - ASI02
     - ASI04
+    fiveeyes_agentic:
+    - OP2
+    - DV3
+    - DS4
 CTRL-0016:
   level: 0
   risks:
@@ -261,6 +300,9 @@ CTRL-0016:
     - 2.1.2
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DP5
+    - DS1
 CTRL-0017:
   level: 1
   risks:
@@ -276,6 +318,8 @@ CTRL-0017:
     - 2.1.2
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DP5
 CTRL-0018:
   level: 2
   risks:
@@ -290,6 +334,8 @@ CTRL-0018:
     - 2.3.1
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DP4
 CTRL-0019:
   level: 0
   risks:
@@ -304,6 +350,9 @@ CTRL-0019:
     - 2.3.1
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DS1
+    - DV3
 CTRL-0020:
   level: 2
   risks:
@@ -320,6 +369,9 @@ CTRL-0020:
     - 2.3.1
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DV3
+    - DS4
 CTRL-0021:
   level: 0
   risks:
@@ -336,6 +388,8 @@ CTRL-0021:
     - 2.3.1
     owasp_asi:
     - ASI06
+    fiveeyes_agentic:
+    - DP5
 CTRL-0022:
   level: 1
   risks:
@@ -350,6 +404,9 @@ CTRL-0022:
     - 2.3.1
     owasp_asi:
     - ASI06
+    fiveeyes_agentic:
+    - DV3
+    - DP5
 CTRL-0023:
   level: 2
   risks:
@@ -366,6 +423,10 @@ CTRL-0023:
     owasp_asi:
     - ASI06
     - ASI08
+    fiveeyes_agentic:
+    - DV6
+    - OP1
+    - DP6
 CTRL-0024:
   level: 0
   risks:
@@ -384,6 +445,9 @@ CTRL-0024:
     - 2.3.1
     owasp_asi:
     - ASI07
+    fiveeyes_agentic:
+    - AA1
+    - DS4
 CTRL-0025:
   level: 1
   risks:
@@ -402,6 +466,9 @@ CTRL-0025:
     - 2.3.1
     owasp_asi:
     - ASI07
+    fiveeyes_agentic:
+    - DS3
+    - AA1
 CTRL-0026:
   level: 1
   risks:
@@ -423,6 +490,9 @@ CTRL-0026:
     owasp_asi:
     - ASI03
     - ASI07
+    fiveeyes_agentic:
+    - DS3
+    - OP5
 CTRL-0027:
   level: 1
   risks:
@@ -440,6 +510,9 @@ CTRL-0027:
     - 2.3.3
     owasp_asi:
     - ASI08
+    fiveeyes_agentic:
+    - DV5
+    - DP4
 CTRL-0028:
   level: 0
   risks:
@@ -456,6 +529,8 @@ CTRL-0028:
     - 2.3.3
     owasp_asi:
     - ASI08
+    fiveeyes_agentic:
+    - OP1
 CTRL-0029:
   level: 0
   risks:
@@ -473,6 +548,10 @@ CTRL-0029:
     - 2.1.2
     owasp_asi:
     - ASI03
+    fiveeyes_agentic:
+    - DS3
+    - OP5
+    - AA1
 CTRL-0030:
   level: 1
   risks:
@@ -492,6 +571,9 @@ CTRL-0030:
     - 2.1.2
     owasp_asi:
     - ASI03
+    fiveeyes_agentic:
+    - DS3
+    - AA1
 CTRL-0031:
   level: 1
   risks:
@@ -509,6 +591,8 @@ CTRL-0031:
     - 2.1.2
     owasp_asi:
     - ASI03
+    fiveeyes_agentic:
+    - OP5
 CTRL-0032:
   level: 0
   risks:
@@ -526,6 +610,9 @@ CTRL-0032:
     - 2.3.3
     owasp_asi:
     - ASI08
+    fiveeyes_agentic:
+    - DV6
+    - OP1
 CTRL-0033:
   level: 1
   risks:
@@ -540,6 +627,8 @@ CTRL-0033:
     - 2.3.3
     owasp_asi:
     - ASI08
+    fiveeyes_agentic:
+    - DV6
 CTRL-0034:
   level: 0
   risks:
@@ -555,6 +644,8 @@ CTRL-0034:
     - 2.3.3
     owasp_asi:
     - ASI08
+    fiveeyes_agentic:
+    - OP1
 CTRL-0035:
   level: 2
   risks:
@@ -570,6 +661,9 @@ CTRL-0035:
     - 2.3.1
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DS2
+    - DP5
 CTRL-0036:
   level: 1
   risks:
@@ -584,6 +678,9 @@ CTRL-0036:
     - 2.3.2
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DV2
+    - DV4
 CTRL-0037:
   level: 1
   risks:
@@ -600,6 +697,9 @@ CTRL-0037:
     owasp_asi:
     - ASI01
     - ASI10
+    fiveeyes_agentic:
+    - DP5
+    - DS2
 CTRL-0038:
   level: 0
   risks:
@@ -621,6 +721,10 @@ CTRL-0038:
     owasp_asi:
     - ASI01
     - ASI10
+    fiveeyes_agentic:
+    - DV4
+    - DV2
+    - OP1
 CTRL-0039:
   level: 1
   risks:
@@ -638,6 +742,9 @@ CTRL-0039:
     - 2.3.1
     owasp_asi:
     - ASI07
+    fiveeyes_agentic:
+    - DS3
+    - DV7
 CTRL-0040:
   level: 0
   risks:
@@ -657,6 +764,9 @@ CTRL-0040:
     owasp_asi:
     - ASI02
     - ASI08
+    fiveeyes_agentic:
+    - OP4
+    - DP5
 CTRL-0041:
   level: 0
   risks:
@@ -673,6 +783,9 @@ CTRL-0041:
     - 2.3.1
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DV7
+    - OP2
 CTRL-0042:
   level: 1
   level_when:
@@ -695,6 +808,9 @@ CTRL-0042:
     owasp_asi:
     - ASI02
     - ASI09
+    fiveeyes_agentic:
+    - DS2
+    - OP3
 CTRL-0043:
   level: 1
   level_when:
@@ -712,6 +828,9 @@ CTRL-0043:
     - 2.3.3
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DV7
+    - OP1
 CTRL-0044:
   level: 1
   risks:
@@ -725,6 +844,8 @@ CTRL-0044:
     imda_mgf:
     - 2.3.1
     owasp_asi: []
+    fiveeyes_agentic:
+    - DP5
 CTRL-0045:
   level: 1
   risks:
@@ -738,6 +859,8 @@ CTRL-0045:
     imda_mgf:
     - 2.3.1
     owasp_asi: []
+    fiveeyes_agentic:
+    - DP5
 CTRL-0046:
   level: 1
   risks:
@@ -751,6 +874,8 @@ CTRL-0046:
     imda_mgf:
     - 2.3.1
     owasp_asi: []
+    fiveeyes_agentic:
+    - DP5
 CTRL-0047:
   level: 0
   risks:
@@ -767,6 +892,9 @@ CTRL-0047:
     imda_mgf:
     - 2.3.1
     owasp_asi: []
+    fiveeyes_agentic:
+    - DV5
+    - DP5
 CTRL-0048:
   level: 2
   risks:
@@ -781,6 +909,9 @@ CTRL-0048:
     - 2.3.1
     owasp_asi:
     - ASI08
+    fiveeyes_agentic:
+    - DS1
+    - DV6
 CTRL-0049:
   level: 0
   risks:
@@ -796,6 +927,7 @@ CTRL-0049:
     - 2.4.2
     owasp_asi:
     - ASI09
+    fiveeyes_agentic: []
 CTRL-0050:
   level: 1
   risks:
@@ -810,6 +942,8 @@ CTRL-0050:
     - 2.4.2
     owasp_asi:
     - ASI09
+    fiveeyes_agentic:
+    - DV6
 CTRL-0051:
   level: 1
   risks:
@@ -824,6 +958,8 @@ CTRL-0051:
     imda_mgf:
     - 2.3.1
     owasp_asi: []
+    fiveeyes_agentic:
+    - DP5
 CTRL-0052:
   level: 2
   risks:
@@ -837,6 +973,7 @@ CTRL-0052:
     - 2.4.2
     owasp_asi:
     - ASI09
+    fiveeyes_agentic: []
 CTRL-0053:
   level: 0
   risks:
@@ -851,6 +988,9 @@ CTRL-0053:
     - 2.2.2
     owasp_asi:
     - ASI09
+    fiveeyes_agentic:
+    - OP3
+    - DS2
 CTRL-0054:
   level: 1
   risks:
@@ -865,6 +1005,8 @@ CTRL-0054:
     - 2.1.2
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DP5
 CTRL-0055:
   level: 1
   risks:
@@ -879,6 +1021,7 @@ CTRL-0055:
     - 2.4.2
     owasp_asi:
     - ASI09
+    fiveeyes_agentic: []
 CTRL-0056:
   level: 0
   risks:
@@ -894,6 +1037,9 @@ CTRL-0056:
     owasp_asi:
     - ASI09
     - ASI02
+    fiveeyes_agentic:
+    - OP3
+    - DS2
 CTRL-0057:
   level: 2
   risks:
@@ -908,6 +1054,8 @@ CTRL-0057:
     - 2.2.2
     owasp_asi:
     - ASI09
+    fiveeyes_agentic:
+    - OP3
 CTRL-0058:
   level: 0
   risks:
@@ -923,6 +1071,9 @@ CTRL-0058:
     - 2.1.2
     owasp_asi:
     - ASI03
+    fiveeyes_agentic:
+    - DV7
+    - DS4
 CTRL-0059:
   level: 2
   risks:
@@ -937,6 +1088,9 @@ CTRL-0059:
     - 2.3.3
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DP5
+    - OP1
 CTRL-0060:
   level: 1
   risks:
@@ -952,6 +1106,8 @@ CTRL-0060:
     - 2.3.1
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DV3
 CTRL-0061:
   level: 1
   risks:
@@ -966,6 +1122,7 @@ CTRL-0061:
     - 2.1.2
     owasp_asi:
     - ASI01
+    fiveeyes_agentic: []
 CTRL-0062:
   level: 0
   risks:
@@ -983,6 +1140,8 @@ CTRL-0062:
     - 2.3.1
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DV3
 CTRL-0063:
   level: 1
   risks:
@@ -997,6 +1156,8 @@ CTRL-0063:
     - 2.3.1
     owasp_asi:
     - ASI06
+    fiveeyes_agentic:
+    - DS1
 CTRL-0064:
   level: 1
   risks:
@@ -1011,6 +1172,9 @@ CTRL-0064:
     - 2.1.2
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DP6
+    - DP5
 CTRL-0065:
   level: 0
   risks:
@@ -1028,6 +1192,9 @@ CTRL-0065:
     - 2.3.3
     owasp_asi:
     - ASI10
+    fiveeyes_agentic:
+    - DS2
+    - DV5
 CTRL-0066:
   level: 0
   risks:
@@ -1041,6 +1208,8 @@ CTRL-0066:
     - 2.3.1
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DS2
 CTRL-0067:
   level: 0
   risks:
@@ -1055,6 +1224,8 @@ CTRL-0067:
     - 2.3.1
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DV7
 CTRL-0068:
   level: 1
   risks:
@@ -1069,6 +1240,8 @@ CTRL-0068:
     - 2.3.1
     owasp_asi:
     - ASI05
+    fiveeyes_agentic:
+    - OP2
 CTRL-0069:
   level: 0
   risks:
@@ -1086,6 +1259,9 @@ CTRL-0069:
     - 2.1.2
     owasp_asi:
     - ASI05
+    fiveeyes_agentic:
+    - DP6
+    - AA1
 CTRL-0070:
   level: 1
   risks:
@@ -1102,6 +1278,8 @@ CTRL-0070:
     - 2.2.2
     owasp_asi:
     - ASI05
+    fiveeyes_agentic:
+    - OP3
 CTRL-0071:
   level: 0
   risks:
@@ -1117,6 +1295,8 @@ CTRL-0071:
     - 2.3.1
     owasp_asi:
     - ASI05
+    fiveeyes_agentic:
+    - OP2
 CTRL-0072:
   level: 1
   risks:
@@ -1132,6 +1312,8 @@ CTRL-0072:
     - 2.3.3
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - OP4
 CTRL-0073:
   level: 0
   risks:
@@ -1146,6 +1328,8 @@ CTRL-0073:
     - 2.1.2
     owasp_asi:
     - ASI05
+    fiveeyes_agentic:
+    - DP5
 CTRL-0074:
   level: 0
   risks:
@@ -1161,6 +1345,9 @@ CTRL-0074:
     owasp_asi:
     - ASI04
     - ASI05
+    fiveeyes_agentic:
+    - DV7
+    - AA2
 CTRL-0075:
   level: 1
   risks:
@@ -1175,6 +1362,10 @@ CTRL-0075:
     - 2.1.2
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DS3
+    - OP5
+    - AA1
 CTRL-0076:
   level: 0
   risks:
@@ -1190,6 +1381,9 @@ CTRL-0076:
     owasp_asi:
     - ASI02
     - ASI09
+    fiveeyes_agentic:
+    - OP3
+    - DS2
 CTRL-0077:
   level: 0
   risks:
@@ -1204,6 +1398,9 @@ CTRL-0077:
     - 2.1.2
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DS2
+    - DV5
 CTRL-0078:
   level: 0
   risks:
@@ -1218,6 +1415,9 @@ CTRL-0078:
     - 2.1.2
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - OP4
+    - AA1
 CTRL-0079:
   level: 2
   risks:
@@ -1232,6 +1432,8 @@ CTRL-0079:
     - 2.3.3
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - OP4
 CTRL-0080:
   level: 2
   risks:
@@ -1245,6 +1447,7 @@ CTRL-0080:
     imda_mgf: []
     owasp_asi:
     - ASI02
+    fiveeyes_agentic: []
 CTRL-0081:
   level: 1
   risks:
@@ -1258,6 +1461,8 @@ CTRL-0081:
     imda_mgf:
     - 2.3.1
     owasp_asi: []
+    fiveeyes_agentic:
+    - DV5
 CTRL-0082:
   level: 2
   risks:
@@ -1274,6 +1479,10 @@ CTRL-0082:
     - 2.1.2
     owasp_asi:
     - ASI03
+    fiveeyes_agentic:
+    - DS3
+    - OP5
+    - AA1
 CTRL-0083:
   level: 0
   risks:
@@ -1291,6 +1500,8 @@ CTRL-0083:
     owasp_asi:
     - ASI01
     - ASI04
+    fiveeyes_agentic:
+    - DV3
 CTRL-0084:
   level: 0
   risks:
@@ -1305,6 +1516,8 @@ CTRL-0084:
     - 2.1.2
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DP5
 CTRL-0085:
   level: 0
   risks:
@@ -1319,6 +1532,8 @@ CTRL-0085:
     - 2.3.3
     owasp_asi:
     - ASI08
+    fiveeyes_agentic:
+    - OP1
 CTRL-0086:
   level: 0
   risks:
@@ -1333,6 +1548,9 @@ CTRL-0086:
     - 2.1.2
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - OP4
+    - AA1
 CTRL-0089:
   level: 0
   risks:
@@ -1352,6 +1570,9 @@ CTRL-0089:
     - 2.1.2
     owasp_asi:
     - ASI02
+    fiveeyes_agentic:
+    - DP6
+    - DV5
 CTRL-0090:
   level: 1
   risks:
@@ -1374,6 +1595,10 @@ CTRL-0090:
     - 2.3.1
     owasp_asi:
     - ASI01
+    fiveeyes_agentic:
+    - DP5
+    - DS4
+    - OP5
 CTRL-0091:
   level: 0
   risks:
@@ -1392,6 +1617,9 @@ CTRL-0091:
     - 2.3.1
     owasp_asi:
     - ASI04
+    fiveeyes_agentic:
+    - DV7
+    - AA2
 CTRL-0092:
   level: 0
   risks:
@@ -1409,6 +1637,9 @@ CTRL-0092:
     - 2.3.2
     owasp_asi:
     - ASI10
+    fiveeyes_agentic:
+    - DV4
+    - DP6
 CTRL-0093:
   level: 2
   risks:
@@ -1428,6 +1659,10 @@ CTRL-0093:
     - 2.3.3
     owasp_asi:
     - ASI10
+    fiveeyes_agentic:
+    - OP1
+    - DP6
+    - AA1
 CTRL-0094:
   level: 0
   risks:
@@ -1447,6 +1682,8 @@ CTRL-0094:
     - 2.2.2
     owasp_asi:
     - ASI09
+    fiveeyes_agentic:
+    - OP3
 CTRL-0095:
   level: 1
   risks:
@@ -1464,6 +1701,10 @@ CTRL-0095:
     - 2.2.1
     owasp_asi:
     - ASI04
+    fiveeyes_agentic:
+    - DV7
+    - DS3
+    - AA1
 CTRL-0096:
   level: 0
   risks:
@@ -1482,6 +1723,9 @@ CTRL-0096:
     owasp_asi:
     - ASI05
     - ASI03
+    fiveeyes_agentic:
+    - AA1
+    - DV7
 CTRL-0097:
   level: 0
   risks:
@@ -1502,3 +1746,7 @@ CTRL-0097:
     owasp_asi:
     - ASI01
     - ASI02
+    fiveeyes_agentic:
+    - DS4
+    - DV7
+    - DV5
