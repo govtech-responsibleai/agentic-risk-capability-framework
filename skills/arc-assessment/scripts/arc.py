@@ -18,7 +18,7 @@ Commands:
 Examples:
   python3 arc.py elements
   python3 arc.py assess --capabilities CAP-03,CAP-07,CAP-11
-  python3 arc.py --version 1.5.0 assess --capabilities CAP-03,CAP-07 --priority RISK-034,RISK-044 --format json
+  python3 arc.py --version 1.3.0 assess --capabilities CAP-03,CAP-07 --priority RISK-034,RISK-044 --format json
   python3 arc.py --register ./our-arc-register assess --capabilities CAP-02,CAP-06
 
 Environment:
@@ -47,7 +47,7 @@ except ImportError:
 REPO_RAW = "https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework"
 SITE = "https://govtech-responsibleai.github.io/agentic-risk-capability-framework/"
 REGISTER_FILES = ("register", "risks", "controls", "capabilities", "components", "design", "hazards")
-OPTIONAL_FILES = ("combinations",)  # added in register 1.5.0; older releases and organisation registers may lack them
+OPTIONAL_FILES = ("combinations",)  # older registers and organisation registers may lack them
 TEMPLATE_PATH = "docs/implementation/assessment-template.md"
 LEVELS = {0: "Level 0 · Cardinal", 1: "Level 1 · Standard", 2: "Level 2 · Best Practice"}
 
@@ -737,7 +737,7 @@ def cmd_template(reg, source, args, ref):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--version", help="official register version to use, e.g. 1.5.0 (default: latest release)")
+    parser.add_argument("--version", help="official register version to use, e.g. 1.3.0 (default: latest release)")
     parser.add_argument("--register", help="an organisation's own register: a directory or base URL with the "
                                            "same file layout as arc-risk-register/")
     parser.add_argument("--refresh", action="store_true", help="re-download cached release files")

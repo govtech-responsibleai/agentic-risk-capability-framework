@@ -30,7 +30,7 @@ Other fields met this problem long before agents did. Auditors use [segregation-
 
 **A control that breaks the combination.** Each checked combination has a control. The verdict of the check decides whether that control must be implemented or can be waived. The check does not add or remove risks.
 
-Register 1.5 checks one combination, the lethal trifecta.
+Register 1.3 checks one combination, the lethal trifecta.
 
 ## The lethal trifecta
 
@@ -107,7 +107,7 @@ These are the systems from the [guide for AI developers](../implementation/for-a
 
 ## Limits
 
-- **One combination.** Register 1.5 checks the lethal trifecta only. Capabilities combine in other ways too, for example when code execution gives an agent abilities that its tool list does not show. These are being studied for version 2.0.
+- **One combination.** Register 1.3 checks the lethal trifecta only. Capabilities combine in other ways too, for example when code execution gives an agent abilities that its tool list does not show. These are being studied for version 2.0.
 - **Capabilities are coarse.** Internet and Search Access covers reading pages and posting to them. Many systems will therefore get a verdict of Possible, and the notes turn that verdict into questions that evidence can answer.
 - **Composite risks need every element.** RISK-047 covers the trifecta through web access, and RISK-055 covers it through messages and APIs. Other routes, such as Computer Use alone, are caught by the check and not by a composite risk. Rules of the form "any capability that supplies this leg" are planned for version 2.0.
 - **Design time only.** The check reads what a system can do, not what it does in a given session. [CTRL-0090](register-full-text.md#CTRL-0090) covers enforcement at run time.

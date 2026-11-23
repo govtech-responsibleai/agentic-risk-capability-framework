@@ -164,7 +164,7 @@ def test_combination_check():
 
 
 def test_register_without_combinations():
-    """Releases before 1.5.0 and organisation registers may have no combinations.yaml."""
+    """Older registers and organisation registers may have no combinations.yaml."""
     with tempfile.TemporaryDirectory() as tmp:
         org = Path(tmp) / "org-register"
         shutil.copytree(REGISTER, org)
