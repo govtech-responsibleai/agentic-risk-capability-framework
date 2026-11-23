@@ -54,6 +54,20 @@ Next, we categorise the control into three levels based on its criticality:
 
     A Level 0 control is mandatory for every system in which its risk is **applicable** — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, **never waives a Level 0 control**: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. A Level 0 control is **waived only when the capability or component it concerns is not present** in the system — for example, a control on MCP servers in a system that uses none, on agent-generated code in a system that generates none, or on persistent memory in a system that keeps nothing beyond a session. Record the waiver with evidence that the capability or component is absent. This is the single definition of the levels; the implementation guides restate it.
 
+!!! info "What each control records"
+
+    Besides its statement, level and guidance, every control in the register says:
+
+    | Field | Meaning |
+    | --- | --- |
+    | **Enforced in** | Where the control bites: the *prompt* (instructions the model may not follow), the *model* or a model-based component, the *harness* (the code around the model, such as the tool layer and approval gates), the *infrastructure* beneath the agent (network, identity, sandboxes, storage, logging), or the *organisation* (people and process). One or two, the main one first |
+    | **Owner** | The role that normally implements and maintains it: developer, platform, security, governance or business |
+    | **Phase** | When in the lifecycle it is put in place or exercised: design, build, deploy, operate, retire |
+    | **Evidence** | The artefact a reviewer can inspect to see that the control is in place |
+    | **Test** | How to check that it works, as an action with an expected result |
+
+    A control enforced only in the prompt is the weakest kind, because the model may not comply. A control enforced in the harness or the infrastructure can often be provided once by a shared platform; an organisation's [overlay](../implementation/for-governance-teams.md#keeping-your-version-as-an-overlay) marks those.
+
 !!! info "Levels that depend on context"
 
     A control's level can be stricter when a capability is used with more authority. The register states this on the control (`level_when`). In register 2.0:

@@ -703,6 +703,7 @@ def risk_record(reg, rid, elements, detail=False, profile=None):
                 rec["provided_by"] = c["provided_by"]
             if detail:
                 rec["recommendations"] = (c.get("recommendations") or "").strip()
+                rec.update({k: c[k] for k in ("enforcement", "owner", "phase", "evidence", "test") if c.get(k)})
             controls.append(rec)
     return {
         "id": rid,
@@ -965,6 +966,9 @@ def cmd_assess(reg, source, args):
                          if c.get("provided_by") else ""))
                 if args.detail and c.get("recommendations"):
                     print(f"  - Guidance: {c['recommendations']}")
+                if args.detail and c.get("evidence"):
+                    print(f"  - Evidence that it is in place: {c['evidence']}")
+                    print(f"  - Test that it works: {c['test']}")
             print()
 
     if implied:
@@ -1026,7 +1030,9 @@ def cmd_show(reg, source, args):
             c = reg["controls"][eid]
             out.append({"id": eid, "level": c.get("level"), "statement": c.get("statement", ""),
                         "recommendations": (c.get("recommendations") or "").strip(), "risks": c.get("risks", []),
-                        "references": c.get("references") or []})
+                        "references": c.get("references") or [],
+                        **{k: c[k] for k in ("enforcement", "owner", "phase", "evidence", "test", "provided_by")
+                           if c.get(k)}})
         elif eid in elements:
             e = elements[eid]
             out.append({**e, "risks": [rid for rid, r in reg["risks"].items()
@@ -1055,6 +1061,13 @@ def cmd_show(reg, source, args):
         else:
             print(f"## {e['id']} · {e['statement']}\n\n{LEVELS.get(e['level'], e['level'])} · Mitigates: "
                   f"{', '.join(e['risks'])}\n\n{e['recommendations'] or '(no guidance recorded)'}")
+            if e.get("enforcement"):
+                print(f"\nEnforced in: {', '.join(e['enforcement'])} · Owner: {e.get('owner', '')} · "
+                      f"Phase: {', '.join(e.get('phase') or [])}")
+            if e.get("evidence"):
+                print(f"\nEvidence that it is in place: {e['evidence']}\n\nTest that it works: {e['test']}")
+            if e.get("provided_by"):
+                print(f"\nProvided by: {e['provided_by'].get('platform', '')}. {e['provided_by'].get('evidence', '')}")
             if e["references"]:
                 print("\nReferences: " + ", ".join(map(str, e["references"])))
         print()
