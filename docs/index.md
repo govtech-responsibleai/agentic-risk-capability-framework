@@ -9,7 +9,7 @@
 - Technical control specifications with risk-to-control mappings
 - An implementation methodology for organisational adoption and per-system assessment
 
-!!! info "What's new — register v1.5, November 2026"
+!!! info "What's new — register v1.3, November 2026"
 
     - **Capability combinations**: a new [page](arc_framework/capability-combinations.md) on risks that arise only when capabilities are held together, with a check that reads a system's capabilities and reports whether the lethal trifecta (untrusted content, sensitive data, and an outbound channel) is present; a new Level 0 control, CTRL-0097, requires breaking that combination; and a new risk, RISK-055, covers data exfiltration by agents that handle messages, such as email assistants
     - **One rule for Level 0**: a Level 0 control applies wherever its risk is applicable, whatever the risk's impact and likelihood score, and is waived only when the capability or component it concerns is not present; each Level 0 control now matches its subject, so CVE scanning applies only where code runs, tool authentication covers every remote tool, and the memory-write controls concern persistent memory

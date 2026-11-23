@@ -18,12 +18,11 @@ Rules that hold across versions:
 
 - **IDs are never reused.** A retired or merged entry keeps its ID and gains a `superseded_by` pointer, so assessments and citations written against an older version remain resolvable.
 - Each release to the `main` branch is tagged `v<version>` on GitHub; the register YAML for any version can be retrieved from the tag.
-- To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.5.0.* followed by the site URL.
+- To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.3.0.* followed by the site URL.
 
-## 1.5.0 — November 2026 { #v1-5-0 }
+## 1.3.0 — November 2026 { #v1-3-0 }
 
-<a id="v1-4-0"></a><a id="v1-3-0"></a>
-The November 2026 update, described here as a single change from 1.2.0. It reached the site in steps: 1.3.0 and 1.4.0 on 20 November, with the content of 1.2.0, and 1.5.0 on 23 November. The tags `v1.3.0` and `v1.4.0` remain, so an assessment pinned to either still resolves. New assessments should use 1.5.0.
+The November 2026 update, described as the change from 1.2.0, and the first release whose version number appears on the site. It includes the content of 1.2.0, which was not published separately. Interim builds of this release were on the site from 20 November, labelled 1.3.0 and 1.4.0; this is the final 1.3.0 and replaces them.
 
 The update corrects the register and makes it checkable, makes each risk apply only to systems that have the elements it arises from, settles what Level 0 means and which controls belong there, and adds a first check for capabilities that are dangerous together.
 

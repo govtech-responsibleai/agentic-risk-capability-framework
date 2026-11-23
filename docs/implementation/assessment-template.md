@@ -13,7 +13,7 @@
 | Deployment context (internal / external; pilot / production; jurisdiction; sector) | |
 | Agents and architecture (single agent / multi-agent; orchestration pattern; protocols such as MCP, A2A) | |
 | Autonomy: which actions run without a human in the loop | |
-| Register version assessed against | e.g. `1.5.0` (see the [changelog](../arc_framework/changelog.md)) |
+| Register version assessed against | e.g. `1.3.0` (see the [changelog](../arc_framework/changelog.md)) |
 | Organisation's relevance threshold | e.g. Impact ≥ 3 AND Likelihood ≥ 3, OR Impact ≥ 4 |
 | Assessment date; assessor; reviewer | |
 
@@ -38,7 +38,7 @@ Capabilities are system-level: if any agent has one, the system has it. Include 
 
 ## 2. Applicable risks
 
-List **every applicable risk**: all baseline risks (those arising only from components CMP-01 to CMP-04 and design elements DSN-01 to DSN-03 — 20 in register 1.5.0), each capability risk for a capability marked present, and each composite risk whose capabilities are *all* present. Score each; a risk is a **priority** when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.
+List **every applicable risk**: all baseline risks (those arising only from components CMP-01 to CMP-04 and design elements DSN-01 to DSN-03 — 20 in register 1.3.0), each capability risk for a capability marked present, and each composite risk whose capabilities are *all* present. Score each; a risk is a **priority** when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.
 
 | Risk ID | Statement | Element(s) | Contextualised description (how it would materialise here) | Impact (1–5) | Likelihood (1–5) | Priority? |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -47,7 +47,7 @@ List **every applicable risk**: all baseline risks (those arising only from comp
 
 ## 2a. Capability combinations
 
-Some risks arise only when a system holds several capabilities at once (see [Capability combinations](../arc_framework/capability-combinations.md)). Record the check for each combination the register defines. Register 1.5.0 defines one, the lethal trifecta. Count what persistent memory holds when answering for each leg.
+Some risks arise only when a system holds several capabilities at once (see [Capability combinations](../arc_framework/capability-combinations.md)). Record the check for each combination the register defines. Register 1.3.0 defines one, the lethal trifecta. Count what persistent memory holds when answering for each leg.
 
 | Combination | Leg | Supplied by (capability, or "none") | Present in this system? (yes / no, with evidence) |
 | --- | --- | --- | --- |
