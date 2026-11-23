@@ -64,7 +64,8 @@ ENFORCEMENT = ('prompt', 'model', 'harness', 'infrastructure', 'organisation')
 OWNERS = ('developer', 'platform', 'security', 'governance', 'business')
 PHASES = ('design', 'build', 'deploy', 'operate', 'retire')   # in lifecycle order
 MARKS = ('yes', 'maybe')
-SEMVER = re.compile(r'^\d+\.\d+\.\d+$')
+# MAJOR.MINOR.PATCH, with an optional pre-release label for a draft published for review (2.0.0-draft.1)
+SEMVER = re.compile(r'^\d+\.\d+\.\d+(-[a-z]+\.\d+)?$')
 ISO_DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
 
 
@@ -178,7 +179,7 @@ def validate():
     register = load('register.yaml') or {}
 
     if not SEMVER.match(str(register.get('version', ''))):
-        errors.append(f'register.yaml: version must be MAJOR.MINOR.PATCH (got {register.get("version")!r})')
+        errors.append(f'register.yaml: version must be MAJOR.MINOR.PATCH, optionally with a pre-release label such as -draft.1 (got {register.get("version")!r})')
     if not ISO_DATE.match(str(register.get('released', ''))):
         errors.append(f'register.yaml: released must be an ISO date YYYY-MM-DD (got {register.get("released")!r})')
 

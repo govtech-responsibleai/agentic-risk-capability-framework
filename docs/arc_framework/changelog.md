@@ -18,6 +18,7 @@ Rules that hold across versions:
 
 - **IDs are never reused.** A retired or merged entry keeps its ID and gains a `superseded_by` pointer, so assessments and citations written against an older version remain resolvable.
 - Each release to the `main` branch is tagged `v<version>` on GitHub; the register YAML for any version can be retrieved from the tag.
+- A draft published for review carries a pre-release label, such as `2.0.0-draft.1`. It is not a release, and should not be cited or adopted.
 - To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v2.0.0.* followed by the site URL.
 
 ## 2.0.0 — in preparation { #v2-0-0 }
