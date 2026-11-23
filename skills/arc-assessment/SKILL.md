@@ -81,7 +81,7 @@ Ask the user these questions. If you can't reach them, choose a sensible default
    - baseline risks, which come from the components and design elements that every agentic system has;
    - risks from each capability and each conditional component that is present;
    - risks from combinations of elements, which apply only when all of their elements are present.
-2. Read the "Capability combinations" section of the output. Some risks arise only when a system holds several capabilities at once, and the script reports a verdict for each combination the register defines (the [lethal trifecta](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/capability-combinations/) in register 1.5):
+2. Read the "Capability combinations" section of the output. Some risks arise only when a system holds several capabilities at once, and the script reports a verdict for each combination the register defines (the [lethal trifecta](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/capability-combinations/) in register 1.3):
    - **present:** every leg is supplied by a capability. The combination's control must be implemented.
    - **possible:** at least one leg depends on how the system is deployed. Answer each note marked "maybe" from the code and configuration, with file paths as evidence, and state whether the leg is present.
    - **not present:** no capability supplies one of the legs.
