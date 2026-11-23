@@ -22,7 +22,7 @@ Rules that hold across versions:
 
 ## 1.3.0 — November 2026 { #v1-3-0 }
 
-The November 2026 update, described as the change from 1.2.0, and the first release whose version number appears on the site. It includes the content of 1.2.0, which was not published separately. Interim builds of this release were on the site from 20 November, labelled 1.3.0 and 1.4.0; this is the final 1.3.0 and replaces them.
+The November 2026 update, described as the change from 1.2.0, and the first release whose version number appears on the site. It includes the content of 1.2.0, which was not published separately.
 
 The update corrects the register and makes it checkable, makes each risk apply only to systems that have the elements it arises from, settles what Level 0 means and which controls belong there, and adds a first check for capabilities that are dangerous together.
 
