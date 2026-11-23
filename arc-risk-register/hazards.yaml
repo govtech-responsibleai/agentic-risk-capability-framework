@@ -37,3 +37,11 @@ HZ-09:
   name: "Misrepresentation"
   type: "Safety"
   description: "Dissemination of wrong or inaccurate information, misleading claims about authorship or authority, or cascading failures from uncorrected errors, leading to loss of trust."
+HZ-10:
+  name: "Financial or contractual loss"
+  type: "Safety"
+  description: "Money lost, or obligations created that the organisation did not intend: wrong or unauthorised payments, purchases, refunds, or commitments, and costs run up by the agent's own activity."
+HZ-11:
+  name: "Harm to third parties"
+  type: "Safety"
+  description: "Damage to the systems, data, property, or reputation of people or organisations outside the deployment, caused by what the agent does."

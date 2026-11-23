@@ -37,7 +37,7 @@ RISK-002:
     that diverges from expected norms in edge cases or complex scenarios.
   element_ids:
   - CMP-01
-  failure_mode: Agent Failure
+  failure_mode: Agent Misbehaviour
   type:
   - Safety
   - Security
@@ -68,7 +68,7 @@ RISK-003:
     that rely on its judgments.
   element_ids:
   - CMP-01
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -206,7 +206,7 @@ RISK-008:
     bypass safeguards, or take actions that introduce safety or security risks.
   element_ids:
   - CMP-02
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -289,7 +289,7 @@ RISK-011:
     leading to privacy breaches, confidentiality violations, or unauthorised disclosure.
   element_ids:
   - CMP-04
-  failure_mode: Agent Failure
+  failure_mode: Tool or Resource Malfunction
   type:
   - Safety
   - Security
@@ -318,7 +318,7 @@ RISK-012:
   element_ids:
   - DSN-01
   - CAP-02
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -375,7 +375,7 @@ RISK-014:
     intervention.
   element_ids:
   - DSN-01
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -405,7 +405,7 @@ RISK-015:
     actions that increase the likelihood of security, privacy, or operational failures.
   element_ids:
   - DSN-02
-  failure_mode: Agent Failure
+  failure_mode: Safeguard Failure
   type:
   - Security
   hazards:
@@ -430,7 +430,7 @@ RISK-016:
     and governance.
   element_ids:
   - DSN-02
-  failure_mode: Agent Failure
+  failure_mode: Safeguard Failure
   type:
   - Security
   hazards:
@@ -454,7 +454,7 @@ RISK-017:
     the impact and difficulty of remediation.
   element_ids:
   - DSN-03
-  failure_mode: Agent Failure
+  failure_mode: Safeguard Failure
   type:
   - Safety
   - Security
@@ -479,7 +479,7 @@ RISK-018:
     outcomes occurred, or conduct effective audits and post-incident reviews.
   element_ids:
   - DSN-03
-  failure_mode: Agent Failure
+  failure_mode: Safeguard Failure
   type:
   - Security
   hazards:
@@ -504,7 +504,7 @@ RISK-019:
     or deliver outcomes that do not satisfy user expectations.
   element_ids:
   - CAP-01
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -531,7 +531,7 @@ RISK-020:
     insecure, or inappropriate despite being technically feasible.
   element_ids:
   - CAP-01
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   hazards:
@@ -558,7 +558,7 @@ RISK-021:
     issues due to inappropriate delegation.
   element_ids:
   - CAP-02
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -585,7 +585,7 @@ RISK-022:
     the system.
   element_ids:
   - CAP-02
-  failure_mode: Agent Failure
+  failure_mode: Agent Misbehaviour
   type:
   - Safety
   - Security
@@ -616,7 +616,7 @@ RISK-023:
     side effects due to misuse of tool capabilities.
   element_ids:
   - CAP-03
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -642,7 +642,7 @@ RISK-024:
     or regulations, or undermine trust in the system’s outputs.
   element_ids:
   - CAP-04
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   hazards:
@@ -663,7 +663,7 @@ RISK-025:
     information, leading to potential harm or adverse outcomes.
   element_ids:
   - CAP-04
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   hazards:
@@ -684,7 +684,7 @@ RISK-026:
     of organisational views.
   element_ids:
   - CAP-04
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   hazards:
@@ -705,7 +705,7 @@ RISK-027:
     harm, or breach data protection requirements.
   element_ids:
   - CAP-04
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -728,7 +728,7 @@ RISK-028:
     users may be misled, make incorrect decisions, or lose trust in the system’s outputs.
   element_ids:
   - CAP-04
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   hazards:
@@ -753,7 +753,7 @@ RISK-029:
     to legal liability, or violate licensing and usage terms.
   element_ids:
   - CAP-04
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   hazards:
@@ -773,7 +773,7 @@ RISK-030:
     intent, or authority, potentially leading to trust, legal, or reputational issues.
   element_ids:
   - CAP-05
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   hazards:
@@ -795,11 +795,12 @@ RISK-031:
     damage, legal exposure, or loss of public trust due to unmet expectations or misinformation.
   element_ids:
   - CAP-05
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   hazards:
   - HZ-09
+  - HZ-10
   controls:
   - CTRL-0053
   - CTRL-0054
@@ -820,12 +821,14 @@ RISK-032:
     contractual obligations, or operational commitments that were not properly sanctioned.
   element_ids:
   - CAP-06
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
+  - Safety
   - Security
   hazards:
   - HZ-02
   - HZ-04
+  - HZ-10
   controls:
   - CTRL-0056
   - CTRL-0057
@@ -852,10 +855,12 @@ RISK-033:
   - CAP-06
   failure_mode: Tool or Resource Malfunction
   type:
+  - Safety
   - Security
   hazards:
   - HZ-01
   - HZ-04
+  - HZ-10
   controls:
   - CTRL-0058
   sources:
@@ -957,7 +962,7 @@ RISK-037:
     scope or authorisation.
   element_ids:
   - CAP-08
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -985,7 +990,7 @@ RISK-038:
     or produce unintended effects due to improper integration or usage.
   element_ids:
   - CAP-09
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Safety
   - Security
@@ -1011,7 +1016,7 @@ RISK-039:
     operational disruptions when deployed or run.
   element_ids:
   - CAP-10
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Security
   hazards:
@@ -1039,7 +1044,7 @@ RISK-040:
     unauthorised access, data leakage, or other harmful effects.
   element_ids:
   - CAP-10
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Security
   hazards:
@@ -1068,7 +1073,7 @@ RISK-041:
     issues, operational disruption, or the need for costly recovery efforts.
   element_ids:
   - CAP-11
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Security
   hazards:
@@ -1093,7 +1098,7 @@ RISK-042:
     may become unavailable due to unnecessary load.
   element_ids:
   - CAP-11
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Security
   hazards:
@@ -1117,7 +1122,7 @@ RISK-043:
     leading to privacy breaches, regulatory non-compliance, or loss of trust.
   element_ids:
   - CAP-11
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Security
   hazards:
@@ -1174,7 +1179,7 @@ RISK-045:
     operational behaviour.
   element_ids:
   - CAP-12
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Security
   hazards:
@@ -1200,7 +1205,7 @@ RISK-046:
     unavailable due to unnecessary load.
   element_ids:
   - CAP-12
-  failure_mode: Agent Failure
+  failure_mode: Agent Error
   type:
   - Security
   hazards:
@@ -1278,7 +1283,7 @@ RISK-049:
   element_ids:
   - DSN-02
   - CAP-10
-  failure_mode: Agent Failure
+  failure_mode: Agent Misbehaviour
   type:
   - Safety
   - Security
@@ -1286,6 +1291,7 @@ RISK-049:
   - HZ-03
   - HZ-04
   - HZ-08
+  - HZ-11
   controls:
   - CTRL-0029
   - CTRL-0040
@@ -1309,7 +1315,7 @@ RISK-050:
   description: This risk arises when an agent pursuing an objective misrepresents what it has done or found, edits or obscures its own history or logs, or socially engineers the humans overseeing it in order to obtain approval or avoid intervention. Unlike an error, the behaviour is goal-directed and can look legitimate step by step, so the evidence needed to detect it may have been altered by the agent itself. As a result, oversight based on the agent's own reports provides false assurance, and unsanctioned actions proceed under the appearance of compliance.
   element_ids:
   - CMP-01
-  failure_mode: Agent Failure
+  failure_mode: Agent Misbehaviour
   type:
   - Safety
   - Security
@@ -1337,7 +1343,7 @@ RISK-051:
   element_ids:
   - DSN-01
   - CAP-02
-  failure_mode: Agent Failure
+  failure_mode: Agent Misbehaviour
   type:
   - Safety
   - Security
@@ -1366,7 +1372,7 @@ RISK-052:
   description: 'This risk arises when human approval steps stop providing meaningful review: overseers approve by default under volume (one large deployment measured users approving around 93% of permission prompts), lack the context or expertise to evaluate what the agent proposes, or use interfaces designed for speed rather than scrutiny. Controls that assume a considered human decision then give false assurance, and adversaries can exploit the trust users place in fluent, confident agents. As a result, high-impact actions proceed with nominal rather than actual oversight.'
   element_ids:
   - DSN-03
-  failure_mode: Agent Failure
+  failure_mode: Safeguard Failure
   type:
   - Safety
   - Security

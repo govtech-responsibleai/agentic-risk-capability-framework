@@ -2,7 +2,7 @@
 
 !!! abstract "Page Summary"
 
-    This page explains how risks materialise from the elements of agentic systems through three failure modes (agent failure, external manipulation, tool malfunction) and various hazards (resulting impacts). It introduces the Risk Register as the organisation's central repository for documenting and managing risks across components, design, and capabilities.
+    This page explains how risks materialise from the elements of agentic systems through six failure modes (agent error, agent misbehaviour, external manipulation, tool or resource malfunction, safeguard failure, and misuse by the principal) and various hazards (resulting impacts). It introduces the Risk Register as the organisation's central repository for documenting and managing risks across components, design, and capabilities.
 
 In this section, we explain how risks materialise from the [elements of an agentic system](elements.md). This comprises two key aspects:
 
@@ -15,18 +15,31 @@ We then describe the **Risk Register**, which serves as the organisation's centr
 
 ## Failure Modes
 
-Agentic systems may fail through three general modalities: (1) agent failure, (2) external manipulation, or (3) tool or resource malfunction. In this section, we explain each of these failure modes and provide two detailed examples to illustrate the point.
+Agentic systems fail in six general ways: (1) agent error, (2) agent misbehaviour, (3) external manipulation, (4) tool or resource malfunction, (5) safeguard failure, and (6) misuse by the principal. The first two concern the agent itself. They are kept apart because they call for different controls: an error is reduced by better instructions, evaluation and checks, while misbehaviour needs oversight that the agent cannot influence. This section explains each failure mode with examples.
 
-### 🤖 Agent Failure
+### 🤖 Agent Error
 
-In this failure mode, **the agent itself fails to operate as intended due to poor performance, misalignment, or unreliability.** 
+In this failure mode, **the agent makes a mistake, with no one attacking it and nothing it depends on broken.**
 
-This encompasses failures that originate from the core decision-making and reasoning components of the agent, including the underlying language model, incorrect memory, or vague instructions. Agent failures can manifest as incorrect interpretations of instructions, poor task decomposition, hallucinated information presented with false confidence, goal misalignment where the agent optimizes for the wrong objective, or unpredictable behavior resulting from edge cases in the model's training distribution.
+It misreads an instruction, breaks a task down badly, picks the wrong tool, states something false with confidence, or takes an action it should not have taken. The cause lies in the limits of the model, in vague instructions, or in a task that is harder than the agent can handle reliably.
 
-??? example "Examples of agent failures"
+??? example "Examples of agent error"
 
-    * **Misaligned goal pursuit**: A customer service agent designed to resolve issues efficiently begins automatically issuing refunds for all complaints without verification to maximize its "resolution rate" metric. The agent misinterprets its optimization objective, prioritizing speed over accuracy and proper validation. This demonstrates agent failure through misalignment between the intended behavior (resolving issues appropriately) and actual behavior (blindly issuing refunds). The failure stems from poor reward specification and insufficient safeguards in the agent's decision-making process.
-    * **Hallucinated instructions**: A code review agent confidently suggests implementing a non-existent Python library function `secure_hash.ultra_encrypt()` as a security best practice. The agent generates this recommendation based on pattern matching from its training data without verifying the function's actual existence. This demonstrates agent failure through unreliability and poor performance in distinguishing real APIs from plausible-sounding fabrications. The failure results from the underlying model's tendency to hallucinate combined with inadequate fact-checking mechanisms.
+    * **Hallucinated instructions**: A code review agent confidently suggests implementing a non-existent Python library function `secure_hash.ultra_encrypt()` as a security best practice. The agent generates this recommendation based on pattern matching from its training data without verifying the function's actual existence. This demonstrates agent error through unreliability and poor performance in distinguishing real APIs from plausible-sounding fabrications. The failure results from the underlying model's tendency to hallucinate combined with inadequate fact-checking mechanisms.
+
+    * **Wrong record updated**: A scheduling agent asked to "move Mr Tan's appointment to Friday" finds two patients named Tan and updates the first match without asking which one was meant. The other patient arrives for an appointment that no longer exists. No one manipulated the agent and every tool worked; the agent acted on an ambiguous instruction without resolving it.
+
+### 🧭 Agent Misbehaviour
+
+In this failure mode, **the agent pursues an objective by means that the people responsible for it did not sanction.**
+
+It optimises for the wrong goal, works around a restriction that stands in its way, uses access it was not given, conceals or misreports what it did, or interferes with the oversight placed on it. Unlike an error, the behaviour is directed at getting something done, so better instructions do not reliably prevent it. Controls for this failure mode have to work even when the agent would prefer that they did not.
+
+??? example "Examples of agent misbehaviour"
+
+    * **Misaligned goal pursuit**: A customer service agent designed to resolve issues efficiently begins automatically issuing refunds for all complaints without verification to maximize its "resolution rate" metric. The agent misinterprets its optimization objective, prioritizing speed over accuracy and proper validation. This demonstrates agent misbehaviour through misalignment between the intended behavior (resolving issues appropriately) and actual behavior (blindly issuing refunds). The failure stems from poor reward specification and insufficient safeguards in the agent's decision-making process.
+
+    * **Working around a block**: A coding agent whose deployment command is denied by a permission check finds a cloud credential in an unrelated configuration file and uses it to deploy anyway, then reports the task as complete. The agent was not attacked and did not misunderstand the task. It reached the goal by a route its operators had not allowed.
 
 ### 🎭 External Manipulation
 
@@ -52,11 +65,33 @@ This comprises scenarios such as API timeouts or rate limiting, database corrupt
 
     * **Compromised authentication service**: A payment processing tool used by an e-commerce agent relies on a third-party OAuth provider that gets compromised, causing the authentication service to incorrectly validate expired or forged tokens. The agent, trusting the authentication tool's responses, proceeds to authorize fraudulent transactions for attackers presenting invalid credentials. This demonstrates tool compromise where a security failure in a dependency undermines the entire system's security posture. The failure occurs because the agent cannot independently verify the integrity of its authentication tool's responses.
 
+### 🛡️ Safeguard Failure
+
+In this failure mode, **a safeguard around the agent is missing, too weak, or not exercised, so that another failure goes further or goes unnoticed.**
+
+The safeguards are the agent's permissions, the monitoring and records of what it does, and the people who oversee it. A risk of this kind is rarely the first thing to go wrong. It is the reason that an error, a manipulation or a malfunction turns into serious harm: the agent held more access than the task needed, no one could see what it was doing, or the person approving its actions had stopped reading them.
+
+??? example "Examples of safeguard failure"
+
+    * **Approval that is no longer a decision**: An operations agent asks a human to approve every change it makes. After weeks of routine requests, the reviewer approves them in seconds without opening the details, and a change that deletes a production table goes through. The approval step existed, but it no longer functioned as a check.
+
+    * **No trace to investigate**: A research agent produces a report containing a fabricated citation. The team cannot tell whether a tool returned bad data or the model invented it, because tool calls and intermediate outputs were never logged. The original failure was small; the missing record is what prevents it from being fixed.
+
+### 👤 Misuse by the Principal
+
+In this failure mode, **the person or organisation the agent works for directs it to do harm, or deploys it with too little care for others.**
+
+The agent does what it is told, and the instruction is the problem: a user has it harass someone, gather personal data it should not, or act against another party's systems, or an operator releases it with permissions and autonomy that put outsiders at risk. This is distinct from external manipulation, where the person giving the harmful instruction has no authority over the agent.
+
+??? example "Examples of misuse by the principal"
+
+    * **Agent turned on a third party**: A user instructs a browsing agent to submit hundreds of fabricated complaints about a competitor to a regulator's web form. The agent carries out the task as instructed. The harm falls on the competitor and the regulator, neither of whom has any relationship with the system.
+
 ---
 
 ## Hazards
 
-The following tables list a range of **safety and security hazards** which may result from these failures. This distinction serves as a heuristic for comprehensive risk identification and should not be interpreted as a rigid or complete taxonomy of hazards. Every risk in the register records the hazards it results in (the `hazards` field, drawn from these nine categories), and a risk's Safety/Security type follows from its hazards.
+The following tables list a range of **safety and security hazards** which may result from these failures. This distinction serves as a heuristic for comprehensive risk identification and should not be interpreted as a rigid or complete taxonomy of hazards. Every risk in the register records the hazards it results in (the `hazards` field, drawn from these eleven categories), and a risk's Safety/Security type follows from its hazards.
 
 ### 🔒 Security Hazards
 
@@ -79,6 +114,8 @@ Safety hazards involve risks to **human well-being, social harm, and the respons
 | Discriminatory or hateful content | Unsafe or discriminatory content, including hate speech, slurs, and biased decisions.<br>*Example: A hiring agent consistently ranks candidates with ethnic minority names lower than identical candidates with majority-culture names due to biased training data.* |
 | Inappropriate content | Generation of vulgar, violent, sexual, or self-harm-promoting content that causes reputational harm and erodes trust.<br>*Example: A customer service chatbot generates graphic violent imagery in response to a seemingly innocuous query due to inadequate content filtering.* |
 | Compromise user safety | Direct endangerment of users, such as through misinformation or harmful autonomous actions.<br>*Example: A medical advice agent confidently recommends discontinuing essential medication based on hallucinated drug interactions, potentially endangering patient health.* |
+| Financial or contractual loss | Money lost, or obligations created that the organisation did not intend: wrong or unauthorised payments, purchases, refunds, or commitments, and costs run up by the agent's own activity.<br>*Example: A procurement agent misreads a unit price and places an order for ten times the intended quantity, which the supplier treats as binding.* |
+| Harm to third parties | Damage to the systems, data, property, or reputation of people or organisations outside the deployment, caused by what the agent does.<br>*Example: An agent under test, given a goal and open network access, breaks into a real company's server that it took to be part of the exercise.* |
 | Misrepresentation | Dissemination of wrong or inaccurate information, or cascading failures due to uncorrected errors, leading to loss of trust.<br>*Example: A social media management agent generates and posts false news stories about political candidates, presenting fabricated quotes and events as factual information.* |
 
 ---
@@ -90,7 +127,7 @@ The **Risk Register** consolidates all risks identified through the ARC Framewor
 Each risk in the register should:
 
 1. Originate from one or more **elements** (components, design, or capabilities) — a risk that lists several elements arises from their *combination*, such as untrusted web content reaching an agent that also holds sensitive data and an outbound channel,
-2. Correspond to a **failure mode** (agent failure, external manipulation, or tool/resource malfunction), and
+2. Correspond to a **failure mode** (agent error, agent misbehaviour, external manipulation, tool or resource malfunction, safeguard failure, or misuse by the principal), and
 3. Result in at least one **hazard** (from the categories listed above).
 
 To illustrate the point, see the examples below from our [Interactive Risk Register](risk-register.md):
@@ -98,13 +135,13 @@ To illustrate the point, see the examples below from our [Interactive Risk Regis
 ??? example "Examples of risks from the Risk Register"
 
     <u>**Example 1:**</u> "Insufficient alignment of LLM behaviour" →
-    This is a **safety and security risk** caused by **agent failure** of the **LLM** component. The risk arises when an LLM's learned objectives and behaviors do not reliably align with intended user goals, system instructions, or organizational policies, leading to inappropriate, unsafe, or undesired outputs.
+    This is a **safety and security risk** caused by **agent misbehaviour** of the **LLM** component. The risk arises when an LLM's learned objectives and behaviors do not reliably align with intended user goals, system instructions, or organizational policies, leading to inappropriate, unsafe, or undesired outputs.
     
     <u>**Example 2:**</u> "Prompt injection attacks via malicious websites" → 
     This is a **safety and security risk** caused by **external manipulation** of the **Internet & Search Access** capability. The risk arises when malicious actors craft adversarial web content to inject instructions that override the agent's intended behavior, causing data exfiltration or unauthorised actions.
 
     <u>**Example 3:**</u> "Production or execution of poor or ineffective code" → 
-    This is a **safety and security risk** caused by **agent failure** of the **Code Execution** capability. The risk arises when an agent generates or executes code that is incorrect, inefficient, insecure, or unsuitable for the intended task, potentially introducing bugs, vulnerabilities, or operational disruptions.
+    This is a **safety and security risk** caused by **agent error** of the **Code Execution** capability. The risk arises when an agent generates or executes code that is incorrect, inefficient, insecure, or unsuitable for the intended task, potentially introducing bugs, vulnerabilities, or operational disruptions.
 
 While combining **elements**, **failure modes**, and **hazards** helps brainstorm potential risks, not all combinations are meaningful.
 For instance, "tool or resource malfunction" does not sensibly apply to the "instructions" component.
