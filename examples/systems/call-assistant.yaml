@@ -1,0 +1,19 @@
+# The Agentic Call Assistant from the developer guide (Example 3). Four agents answer customer
+# calls, look up customer records, and create or change bookings without staff approval. Bookings
+# are recoverable for 30 days. It calls the organisation's own booking and CRM APIs.
+name: Agentic call assistant
+capabilities:
+  CAP-01: {}
+  CAP-02: {}
+  CAP-04: {}
+  CAP-06:
+    authority: act-alone
+    irreversible: false
+  CAP-09:
+    authority: act-alone
+    irreversible: false
+    external: false
+  CAP-11:
+    authority: read
+    external: false
+components: []

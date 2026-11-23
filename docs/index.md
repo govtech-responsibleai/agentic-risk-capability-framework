@@ -9,7 +9,20 @@
 - Technical control specifications with risk-to-control mappings
 - An implementation methodology for organisational adoption and per-system assessment
 
-!!! info "What's new — register v1.3, November 2026"
+!!! info "What's new — register v2.0 (draft)"
+
+    Version 2.0 changes the model. An assessment or a contextualised register written against 1.x needs migrating; the [changelog](arc_framework/changelog.md#v2-0-0) says how.
+
+    - **How a capability is used**: each capability that acts on the world is recorded with its [authority, reversibility and reach](arc_framework/elements.md#context-how-a-capability-is-used), so an assistant that drafts a payment and an agent that pays by itself no longer get the same risks and controls
+    - **Protocols** is a fifth component, for connections to tool servers and agents that another party builds or operates; it and Memory are conditional, so their risks apply only to systems that have them
+    - **Combination rules** bring a risk into scope whenever a system's capabilities can complete a [dangerous combination](arc_framework/capability-combinations.md), whichever capabilities supply the parts
+    - **Six failure modes**, separating an agent's mistakes from goal-directed misbehaviour, and adding safeguard failure and misuse by the principal
+    - **Twelve new risks**, written from a curated file of 366 incidents, covering instruction files, agent credentials, provider dependence, agents that work around their limits, and more
+    - **Every control** says where it is enforced, who owns it, what evidence shows it is in place and how to test it, and cites its sources
+    - **Overlays** let an organisation keep its own version as one file of changes
+    - **Two more crosswalks**: MITRE ATLAS and the Five Eyes guidance on agentic AI
+
+!!! info "Earlier — register v1.3, November 2026"
 
     - **Capability combinations**: a new [page](arc_framework/capability-combinations.md) on risks that arise only when capabilities are held together, with a check that reads a system's capabilities and reports whether the lethal trifecta (untrusted content, sensitive data, and an outbound channel) is present; a new Level 0 control, CTRL-0097, requires breaking that combination; and a new risk, RISK-055, covers data exfiltration by agents that handle messages, such as email assistants
     - **One rule for Level 0**: a Level 0 control applies wherever its risk is applicable, whatever the risk's impact and likelihood score, and is waived only when the capability or component it concerns is not present; each Level 0 control now matches its subject, so CVE scanning applies only where code runs, tool authentication covers every remote tool, and the memory-write controls concern persistent memory
@@ -30,7 +43,7 @@ On this website, you'll find all the resources you need to get started with unde
 - **[Framework Introduction](arc_framework/introduction.md)** — Design rationale, literature review, and theoretical foundation
 - **[Agentic System Elements](arc_framework/elements.md)** — Detailed examination of components, design, and capabilities
 - **[Capability Taxonomy](arc_framework/elements.md#capabilities)** — Cognitive, interaction, and operational capability categories with definitions
-- **[Risk Register](arc_framework/risk-register.md)** — 55 component, design, and capability-specific risks with their hazards and 95 recommended controls at three levels, filterable and searchable
+- **[Risk Register](arc_framework/risk-register.md)** — 66 component, design, capability and combination risks with their hazards and 103 recommended controls at three levels, filterable and searchable
 - **[Capability Combinations](arc_framework/capability-combinations.md)** — Risks that arise only when capabilities are held together, and the check for the lethal trifecta
 - **[Crosswalks](arc_framework/crosswalks.md)** — Entry-level mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the Cyber Security Agency of Singapore's Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
 

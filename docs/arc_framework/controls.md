@@ -52,7 +52,16 @@ Next, we categorise the control into three levels based on its criticality:
 
 !!! info "When does a Level 0 control apply?"
 
-    A Level 0 control is mandatory for every system in which its risk is **applicable** — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, **never waives a Level 0 control**: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. A Level 0 control is **waived only when the capability or component it concerns is not present** in the system — for example, a control on MCP servers in a system that uses none, on agent-generated code in a system that generates none, or on persistent memory in a system that keeps nothing beyond a session. Record the waiver with evidence that the capability or component is absent. This is the single definition of the levels; the implementation guides restate it.
+    A Level 0 control is mandatory for every system in which its risk is **applicable**. A risk is applicable when what it arises from is present:
+
+    - a **baseline** risk arises only from components and design elements that every agentic system has, so it always applies;
+    - a risk that arises from a **conditional component** (Memory, Protocols) applies when the system has that component;
+    - a **capability** risk applies when the system has the capability, and, where the risk states a minimum authority, uses it at that authority or above;
+    - a risk that arises from a **combination rule** applies when the rule is present or possible for the system's capabilities.
+
+    Impact and likelihood scoring, which organisations use to prioritise effort, **never waives a Level 0 control**: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only.
+
+    Most of what used to need a waiver is now decided by the rules above. A Level 0 control can still be **waived when the specific thing it concerns is not present** in the system, for example a control on agent-generated code in a system that generates none, or the control of a combination rule when the assessor shows that one of its roles is absent. Record the waiver with the evidence. This is the single definition of the levels; the implementation guides restate it.
 
 !!! info "What each control records"
 
@@ -87,7 +96,7 @@ Next, we categorise the control into three levels based on its criticality:
     2. **CTRL-0061** [Level 1] Use structured retrieval APIs for web searches rather than web scraping → *reduces exposure to malicious web content and injection vectors*
     3. **CTRL-0062** [Level 0] Implement input guardrails to detect prompt injection and adversarial attacks → *reduces likelihood of prompt injection attack succeeding*
 
-Our [Interactive Risk Register](risk-register.md) provides **recommended controls** for each of the 54 documented risks to help organizations get started.
+Our [Interactive Risk Register](risk-register.md) provides **recommended controls** for each of the 66 documented risks to help organizations get started.
 
 ---
 

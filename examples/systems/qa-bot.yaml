@@ -1,0 +1,7 @@
+# A question-answering assistant. It answers staff questions in conversation from what the model
+# knows and what is put in its prompt. It has no tools that act, keeps nothing between sessions,
+# and connects to no outside tool servers or agents.
+name: Question-answering bot
+capabilities:
+  CAP-04: {}
+components: []

@@ -18,11 +18,27 @@ Rules that hold across versions:
 
 - **IDs are never reused.** A retired or merged entry keeps its ID and gains a `superseded_by` pointer, so assessments and citations written against an older version remain resolvable.
 - Each release to the `main` branch is tagged `v<version>` on GitHub; the register YAML for any version can be retrieved from the tag.
-- To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.3.0.* followed by the site URL.
+- A draft published for review carries a pre-release label, such as `2.0.0-draft.1`. It is not a release, and should not be cited or adopted.
+- To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v2.0.0.* followed by the site URL.
 
 ## 2.0.0 — in preparation { #v2-0-0 }
 
 Version 2.0 changes the model, so an assessment or a contextualised register written against 1.x needs migrating. This section is a draft and grows as the changes are agreed.
+
+**Migrating an assessment from 1.x**
+
+1. Record whether the system has each conditional component: Memory (it keeps information beyond a session) and Protocols (it connects to another party's tool servers or agents). Their risks apply only if it does.
+2. Record how each capability is used: its authority, and whether its effects are irreversible or external. This step is optional. If you skip it, the most cautious case is assumed and nothing drops out.
+3. Check the capabilities that the declared ones bring with them, then run the two combination rules.
+4. Replace retired entries: RISK-055 with RISK-047, CTRL-0006 with CTRL-0042, and CTRL-0014 with CTRL-0091.
+5. Assess the twelve new risks, RISK-056 to RISK-067, that apply.
+6. Use the new failure-mode names if your records quote them: "Agent Failure" is now Agent Error, Agent Misbehaviour or Safeguard Failure.
+
+**Migrating a contextualised register from 1.x**
+
+Rewrite it as an [overlay](../implementation/for-governance-teams.md#keeping-your-version-as-an-overlay) on 2.0.0: one file holding only your changes. Entries of your own take a namespaced ID. A register that still uses the single `element_id` field from before 1.3 can be read by the assessment skill, but not by the validator.
+
+**What changed**
 
 - **Protocols is a component.** CMP-05 covers the standard interfaces, such as MCP and A2A, through which a system connects to tools, services and agents that another party builds or operates, in either direction. This follows the Cyber Security Agency of Singapore's addendum and IMDA's framework, which both list protocols as a component, with a narrower definition: a function or API wrapper that the system's own team writes is a tool, not a protocol connection. RISK-006 (tool poisoning) now arises from Protocols, and its description covers hidden instructions in tool descriptions and agent cards, shadowing, and definitions that change after approval. RISK-053 (third-party agents) now requires both Protocols and Agent Delegation.
 - **Conditional components.** A component can state when a system has it (`present_when`). Memory is present when the system keeps information beyond a single session or shares it across users or tasks; Protocols when another party's tool server or agent is connected through an agent protocol. The risks of a conditional component apply only to systems that have it. This replaces the 1.3.0 practice of listing those risks for every system and waiving their Level 0 controls one by one. A system without persistent memory or outside connections now has 17 baseline risks, down from 20.
