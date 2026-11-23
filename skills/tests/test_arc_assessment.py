@@ -303,6 +303,47 @@ def test_site_check_matches_script():
     assert json.loads(result.stdout) == [arc.combination_checks(reg, s)[0]["verdict"] for s in subsets]
 
 
+def test_overlay():
+    """An organisation's overlay is applied to the base register by ID, and what it does not mention is inherited."""
+    reg = _register()
+    example = REPO / "examples" / "overlay" / "example-agency.yaml"
+    overlay = arc.read_overlay(str(example))
+    effective, notes = arc.apply_overlay(reg, overlay)
+
+    assert reg["controls"]["CTRL-0081"]["level"] == 1 and "CAP-08" in reg["capabilities"], "the base must not change"
+    assert "CAP-08" not in effective["capabilities"]
+    assert not any("CAP-08" in (r.get("element_ids") or []) for r in effective["risks"].values())
+    assert any(n.startswith("RISK-036 ") for n in notes)
+    assert effective["controls"]["CTRL-0081"]["level"] == 0 and effective["controls"]["CTRL-0081"]["overlay"] == "changed"
+    assert effective["risks"]["RISK-043"]["description"].startswith(reg["risks"]["RISK-043"]["description"].strip())
+    assert effective["risks"]["RISK-043"]["description"].endswith("data management policy.")
+    assert effective["controls"]["CTRL-0007"]["provided_by"]["platform"] == "Agency agent platform"
+    assert effective["risks"]["EXA-RISK-001"]["overlay"] == "added"
+    assert "EXA-RISK-001" in effective["controls"]["CTRL-0047"]["risks"], "links are made in both directions"
+    assert effective["risks"]["RISK-001"] == reg["risks"]["RISK-001"], "unmentioned entries are inherited unchanged"
+    forward = {(r, c) for r, v in effective["risks"].items() for c in v.get("controls") or []}
+    backward = {(r, c) for c, v in effective["controls"].items() for r in v.get("risks") or []}
+    assert forward == backward
+
+    out = json.loads(run("--register", str(REGISTER), "--overlay", str(example), "assess",
+                         "--capabilities", "CAP-04,CAP-11", "--format", "json"))
+    assert "Example Agency ARC register" in out["source"]
+    assert "EXA-RISK-001" in {r["id"] for r in out["risks"]["capability"]}
+
+    def refused(changes, expect):
+        try:
+            arc.apply_overlay(reg, {"overlay": {"base": "2.0.0"}, **changes})
+        except arc.ArcError as e:
+            assert expect in str(e), str(e)
+        else:
+            raise AssertionError(f"expected the overlay to be refused: {expect}")
+    refused({"controls": {"change": {"CTRL-0062": {"level": 1}}}}, "cannot lower a Level 0 control")
+    refused({"risks": {"add": {"RISK-900": {"statement": "x"}}}}, "namespaced ID")
+    refused({"controls": {"remove": {"CTRL-0016": "x", "CTRL-0017": "x", "CTRL-0018": "x"}}}, "no controls are left")
+    refused({"risks": {"change": {"RISK-055": {"description_append": "x"}}}}, "retired")
+    refused({"controls": {"remove": {"CTRL-0097": "x"}}}, "combination rule")
+
+
 def test_template_is_plain_markdown():
     page = (REPO / "docs" / "implementation" / "assessment-template.md").read_text()
     plain = arc.plain_markdown(page)
@@ -323,5 +364,6 @@ if __name__ == "__main__":
     test_combination_check()
     test_register_without_combinations()
     test_site_check_matches_script()
+    test_overlay()
     test_template_is_plain_markdown()
     print("ALL PASSED")

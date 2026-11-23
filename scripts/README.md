@@ -27,6 +27,14 @@ python scripts/build_risk_register.py
 python scripts/build_risk_register.py --out /tmp/arc-site-data
 ```
 
+## `apply_overlay.py`
+
+Applies an organisation's overlay to the register and writes the effective register to a directory, validated with the same checks. The overlay format is described in [For governance teams](../docs/implementation/for-governance-teams.md#keeping-your-version-as-an-overlay), and `examples/overlay/example-agency.yaml` is a worked example.
+
+```bash
+python scripts/apply_overlay.py --overlay examples/overlay/example-agency.yaml --out /tmp/example-register
+```
+
 ## `mkdocs_hooks.py`
 
 An [MkDocs hook](https://www.mkdocs.org/user-guide/configuration/#hooks) registered in `mkdocs.yml`. On every `mkdocs build` and every `mkdocs serve` rebuild it calls `build_risk_register.generate()` and adds the files to the site in memory. As a result:

@@ -1,0 +1,52 @@
+# A worked example of an ARC overlay, for a fictional agency. It is not a recommendation.
+#
+# An overlay holds only what an organisation changes. Everything it does not mention is
+# inherited from the ARC register of the version named in `base`.
+#
+#   python scripts/apply_overlay.py --overlay examples/overlay/example-agency.yaml --out /tmp/example-register
+#   python skills/arc-assessment/scripts/arc.py --overlay examples/overlay/example-agency.yaml assess --capabilities CAP-04,CAP-11
+
+overlay:
+  name: Example Agency ARC register
+  version: "0.1.0"
+  base: "2.0.0"
+
+capabilities:
+  remove:
+    CAP-08: "The agency does not permit agents to operate a desktop. Its risks and controls are left out."
+
+risks:
+  change:
+    RISK-043:
+      description_append: "For the agency, this includes case files classified Confidential and above, which may not leave the agency's network under its data management policy."
+  add:
+    EXA-RISK-001:
+      statement: Disclosure of case information to the wrong applicant
+      description: "This risk arises when an agent that answers applicants' questions about their cases retrieves or summarises another applicant's case, because cases are matched on name or reference number alone. As a result, personal and case information is disclosed to someone with no right to it, and the agency must report a data breach."
+      element_ids:
+      - CAP-11
+      failure_mode: Agent Error
+      type:
+      - Security
+      hazards:
+      - HZ-01
+      controls:
+      - CTRL-0047
+      - EXA-CTRL-0001
+
+controls:
+  change:
+    CTRL-0007:
+      recommendations_append: "In the agency, logs go to the central logging service and are kept for one year."
+      provided_by:
+        platform: Agency agent platform
+        evidence: "The platform's logging configuration, which applies to every agent deployed on it."
+    CTRL-0081:
+      level: 0
+  add:
+    EXA-CTRL-0001:
+      level: 0
+      risks:
+      - EXA-RISK-001
+      statement: Match a case to an applicant on a verified identity, never on name or reference number alone
+      recommendations: "Bind every case lookup to the identity that the applicant authenticated with, and enforce this in the tool that queries the case system, not in the prompt."
