@@ -1,6 +1,6 @@
 # Agentic Risk & Capability (ARC) Framework
 
-> A technical governance framework from GovTech Singapore for identifying, assessing, and mitigating safety and security risks in agentic AI systems. ARC derives a system's risks from its components, design, and capabilities, and maps each risk to technical controls. Risk register version 1.4.0.
+> A technical governance framework from GovTech Singapore for identifying, assessing, and mitigating safety and security risks in agentic AI systems. ARC derives a system's risks from its components, design, and capabilities, and maps each risk to technical controls. Risk register version 1.3.0.
 
 ARC describes an agentic system by three kinds of element: components (LLM, instructions, tools, memory), design (agentic architecture, roles and access controls, monitoring and traceability), and twelve capabilities, such as code execution, internet and search access, official communication, and business transactions. Each risk in the register arises from one or more elements through one of three failure modes, results in safety or security hazards, and is mapped to controls at Level 0 (cardinal), Level 1 (standard), or Level 2 (best practice).
 
@@ -11,6 +11,7 @@ ARC is meant to be adapted: an organisation contextualises the baseline register
 - [Introduction](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/introduction/): motivation, the capability-based approach, and related work
 - [Elements](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/elements/): definitions of the components, design elements, and twelve capabilities
 - [Risks](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/risks/): failure modes and hazards
+- [Capability combinations](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/capability-combinations/): risks that arise only when capabilities are held together, and the check for the lethal trifecta
 - [Controls](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/controls/): what the control levels mean and when they apply
 - [Risk Register (full text)](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/register-full-text/): every risk and control, one linkable section per entry
 
@@ -23,8 +24,9 @@ ARC is meant to be adapted: an organisation contextualises the baseline register
 
 ## Register data
 
-- [risks.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/risks.yaml) and [controls.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/controls.yaml): the machine-readable register at v1.4.0
-- [capabilities.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/capabilities.yaml), [components.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/components.yaml), [design.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/design.yaml), [hazards.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.4.0/arc-risk-register/hazards.yaml): elements and hazard categories
+- [risks.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.3.0/arc-risk-register/risks.yaml) and [controls.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.3.0/arc-risk-register/controls.yaml): the machine-readable register at v1.3.0
+- [capabilities.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.3.0/arc-risk-register/capabilities.yaml), [components.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.3.0/arc-risk-register/components.yaml), [design.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.3.0/arc-risk-register/design.yaml), [hazards.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.3.0/arc-risk-register/hazards.yaml): elements and hazard categories
+- [combinations.yaml](https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework/v1.3.0/arc-risk-register/combinations.yaml): which capabilities supply each leg of a checked combination
 - [Changelog](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/changelog/): what changed in each version, and the versioning policy
 
 ## Optional

@@ -1,0 +1,1447 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A technical governance framework for identifying, assessing, and mitigating safety and security risks in agentic AI systems, from GovTech Singapore.">
+      
+      
+        <meta name="author" content="GovTech AI Practice">
+      
+      
+        <link rel="canonical" href="https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/capability-combinations/">
+      
+      
+        <link rel="prev" href="../risks/">
+      
+      
+        <link rel="next" href="../controls/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Capability combinations - Agentic Risk & Capability Framework</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_materialize.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-VDHLWLGZ1W"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-VDHLWLGZ1W",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-VDHLWLGZ1W",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capability-combinations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agentic Risk &amp; Capability Framework" class="md-header__button md-logo" aria-label="Agentic Risk & Capability Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm3.08 15L12 14.15 8.93 16l.81-3.5-2.71-2.34 3.58-.31L12 6.55l1.39 3.29 3.58.31-2.71 2.35z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agentic Risk & Capability Framework
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capability combinations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  ARC Framework
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../implementation/" class="md-tabs__link">
+          
+  
+  
+  Implementation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../resources/" class="md-tabs__link">
+          
+  
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agentic Risk &amp; Capability Framework" class="md-nav__button md-logo" aria-label="Agentic Risk & Capability Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm3.08 15L12 14.15 8.93 16l.81-3.5-2.71-2.34 3.58-.31L12 6.55l1.39 3.29 3.58.31-2.71 2.35z"/></svg>
+
+    </a>
+    Agentic Risk & Capability Framework
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    ARC Framework
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            ARC Framework
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Agentic Risk &amp; Capability Framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Elements of agentic systems
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Risks of agentic systems
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-combinations-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why combinations matter
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-arc-builds-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      What ARC builds in
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-lethal-trifecta" class="md-nav__link">
+    <span class="md-ellipsis">
+      The lethal trifecta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The lethal trifecta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#which-capabilities-supply-each-leg" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which capabilities supply each leg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-verdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      The verdict
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Try it
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worked examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-check-in-an-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the check in an assessment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limits
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controls for agentic systems
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../risk-register/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Interactive Risk Register
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../register-full-text/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Risk Register (full text)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crosswalks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Crosswalks to other frameworks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Implementation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Implementation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementing ARC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/for-governance-teams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    For Governance Teams
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/for-ai-developers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    For AI Developers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation/assessment-template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Assessment Template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="capability-combinations">Capability combinations</h1>
+<!-- The tables marked "arc:" below are filled in from arc-risk-register/*.yaml when the site is built (scripts/build_risk_register.py). Edit the YAML, not the tables. -->
+
+<div class="admonition abstract">
+<p class="admonition-title">Page Summary</p>
+<p>Some risks belong to no single capability. They arise only when a system holds several capabilities at once. This page explains how ARC handles them: composite risks in the register, a check that reads a system's capabilities and reports whether a dangerous combination is present, and a control that breaks the combination. The lethal trifecta is the worked example.</p>
+</div>
+<h2 id="why-combinations-matter">Why combinations matter</h2>
+<p>ARC assesses a system one element at a time. Each <a href="../elements/">capability</a> brings its own risks, and each risk has its own controls. That works when the risks are independent of each other.</p>
+<p>Some are not. Consider three agents:</p>
+<ul>
+<li>An agent that only browses the web can be misled by what it reads, but it holds nothing worth stealing.</li>
+<li>An agent that only reads internal files holds sensitive data, but no outsider can give it instructions.</li>
+<li>An agent that does both can be told by a web page to open a file and send its contents to an address the attacker chose.</li>
+</ul>
+<p>The third agent has a risk that neither of the first two has. Each of its capabilities can be well controlled on its own terms, so an assessment that looks at one capability at a time can pass a system that is exposed.</p>
+<p>Other fields met this problem long before agents did. Auditors use <a href="https://www.isaca.org/resources/isaca-journal/issues/2016/volume-3/implementing-segregation-of-duties-a-practical-experience-based-on-best-practices">segregation-of-duties matrices</a> to find duties that no one person should hold together. Security researchers wrote <a href="https://doi.org/10.1145/1653662.1653691">rules for dangerous combinations of app permissions</a> on mobile phones. Cloud security tools flag <a href="https://docs.cloud.google.com/security-command-center/docs/toxic-combinations-overview">"toxic combinations"</a> of findings that are minor alone. ARC applies the same idea to the capabilities of an agentic system.</p>
+<h2 id="what-arc-builds-in">What ARC builds in</h2>
+<p><strong>Composite risks.</strong> A risk in the register can list more than one element, and it applies only when the system has all of them. Components and design elements are present in every agentic system, so a composite risk that lists one of them depends on its capabilities alone. The register has these composite risks:</p>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Applies when the system has all of</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../register-full-text/#RISK-012">RISK-012</a> Cascading errors in multi-agent architectures</td>
+<td>Agentic Architecture (DSN-01) + Agent Delegation (CAP-02)</td>
+</tr>
+<tr>
+<td><a href="../register-full-text/#RISK-013">RISK-013</a> Man-in-the-middle attacks between agents</td>
+<td>Agentic Architecture (DSN-01) + Agent Delegation (CAP-02)</td>
+</tr>
+<tr>
+<td><a href="../register-full-text/#RISK-047">RISK-047</a> Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel</td>
+<td>Internet and Search Access (CAP-07) + File and Data Management (CAP-11)</td>
+</tr>
+<tr>
+<td><a href="../register-full-text/#RISK-049">RISK-049</a> Escape from evaluation or sandbox containment onto live systems</td>
+<td>Roles and Access Controls (DSN-02) + Code Execution (CAP-10)</td>
+</tr>
+<tr>
+<td><a href="../register-full-text/#RISK-051">RISK-051</a> Unsanctioned coordination between agents</td>
+<td>Agentic Architecture (DSN-01) + Agent Delegation (CAP-02)</td>
+</tr>
+<tr>
+<td><a href="../register-full-text/#RISK-055">RISK-055</a> Data exfiltration through message and API channels</td>
+<td>Other Programmatic Interfaces (CAP-09) + File and Data Management (CAP-11)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A combination check.</strong> A composite risk names specific elements, so it cannot say "any capability that can send data out". The check fills that gap. For each combination ARC checks, the register records which capabilities can supply each part of it, and the check reports whether a system's capabilities complete the combination. The data is in <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/blob/main/arc-risk-register/combinations.yaml"><code>combinations.yaml</code></a>, next to the risks and controls.</p>
+<p><strong>A control that breaks the combination.</strong> Each checked combination has a control. The verdict of the check decides whether that control must be implemented or can be waived. The check does not add or remove risks.</p>
+<p>Register 1.3 checks one combination, the lethal trifecta.</p>
+<h2 id="the-lethal-trifecta">The lethal trifecta</h2>
+<p>An agent holds the lethal trifecta, a term coined by <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">Simon Willison</a>, when it has all three of the following:</p>
+<ol>
+<li><strong>Untrusted content.</strong> Content that someone outside the organisation's control can write reaches the agent.</li>
+<li><strong>Sensitive data.</strong> The agent can read data that would cause harm if it left the organisation.</li>
+<li><strong>An outbound channel.</strong> The agent can cause data to reach a destination outside the organisation's control.</li>
+</ol>
+<p>LLMs cannot reliably tell instructions from data, so text in a web page, an email, or a document can direct an agent that reads it. With all three legs in place, one injected instruction is enough. The agent reads the sensitive data and sends it out through a channel it is allowed to use. No control is bypassed, because every step is something the agent is permitted to do.</p>
+<p>This has happened. In <a href="https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability">EchoLeak</a>, a single crafted email led Microsoft 365 Copilot to send internal data to an attacker. In <a href="https://www.varonis.com/blog/forcedleak">ForcedLeak</a>, instructions in a web-form submission led Salesforce Agentforce to send out customer records. The Frontier Model Forum's <a href="https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf">brief on agent security</a> recommends that, in higher-risk uses, no agent hold all three. Meta's <a href="https://ai.meta.com/blog/practical-ai-agent-security/">Agents Rule of Two</a> gives similar advice.</p>
+<h3 id="which-capabilities-supply-each-leg">Which capabilities supply each leg</h3>
+<p>A capability can supply a leg wherever it is present, or only in some deployments.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th style="text-align: center;">Untrusted content</th>
+<th style="text-align: center;">Sensitive data</th>
+<th style="text-align: center;">Outbound channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planning and Goal Management (CAP-01)</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+</tr>
+<tr>
+<td>Agent Delegation (CAP-02)</td>
+<td style="text-align: center;">Maybe</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">Maybe</td>
+</tr>
+<tr>
+<td>Tool Use (CAP-03)</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+</tr>
+<tr>
+<td>Multimodal Understanding and Generation (CAP-04)</td>
+<td style="text-align: center;">Maybe</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">Maybe</td>
+</tr>
+<tr>
+<td>Official Communication (CAP-05)</td>
+<td style="text-align: center;">Maybe</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;"><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Business Transactions (CAP-06)</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">Maybe</td>
+<td style="text-align: center;"><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Internet and Search Access (CAP-07)</td>
+<td style="text-align: center;"><strong>Yes</strong></td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;"><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Computer Use (CAP-08)</td>
+<td style="text-align: center;"><strong>Yes</strong></td>
+<td style="text-align: center;"><strong>Yes</strong></td>
+<td style="text-align: center;"><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Other Programmatic Interfaces (CAP-09)</td>
+<td style="text-align: center;">Maybe</td>
+<td style="text-align: center;">Maybe</td>
+<td style="text-align: center;">Maybe</td>
+</tr>
+<tr>
+<td>Code Execution (CAP-10)</td>
+<td style="text-align: center;">Maybe</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">Maybe</td>
+</tr>
+<tr>
+<td>File and Data Management (CAP-11)</td>
+<td style="text-align: center;">Maybe</td>
+<td style="text-align: center;"><strong>Yes</strong></td>
+<td style="text-align: center;">–</td>
+</tr>
+<tr>
+<td>System Management (CAP-12)</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;"><strong>Yes</strong></td>
+<td style="text-align: center;">Maybe</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Yes</strong> means the capability supplies the leg wherever it is present. <strong>Maybe</strong> means it depends on the deployment, and the notes below say when. Planning and Goal Management and Tool Use supply no leg by themselves.</p>
+<details class="note">
+<summary>When each capability supplies a leg</summary>
+<p><strong>Untrusted content.</strong> Content that someone outside the organisation's control can write reaches the agent.</p>
+<ul>
+<li>Agent Delegation (CAP-02): maybe. Yes if it takes output from agents that other parties operate, or from agents that read untrusted content themselves.</li>
+<li>Multimodal Understanding and Generation (CAP-04): maybe. Yes if its users are members of the public, or can upload or paste documents, images, or audio that someone else wrote.</li>
+<li>Official Communication (CAP-05): maybe. Yes if it also reads replies or other inbound messages on the channels it sends through.</li>
+<li>Internet and Search Access (CAP-07): yes. Web pages and search results can be written by anyone.</li>
+<li>Computer Use (CAP-08): yes. Whatever appears on screen reaches the agent, including web pages, emails, and documents written by others.</li>
+<li>Other Programmatic Interfaces (CAP-09): maybe. Yes if any API, queue, or mailbox it reads carries content from outside parties, such as inbound email, support tickets, form submissions, or webhooks.</li>
+<li>Code Execution (CAP-10): maybe. Yes if it runs or reads code, packages, or repositories that outside parties can change.</li>
+<li>File and Data Management (CAP-11): maybe. Yes if any file or data store it reads holds content from outside parties, such as uploads, shared drives, or records created from customer input.</li>
+</ul>
+<p><strong>Sensitive data.</strong> The agent can read data that would cause harm if it left the organisation, such as personal data, credentials, or confidential records.</p>
+<ul>
+<li>Business Transactions (CAP-06): maybe. Yes if it holds payment credentials, or can read account, order, or customer records.</li>
+<li>Computer Use (CAP-08): yes. It can see whatever the signed-in user can open on the machine.</li>
+<li>Other Programmatic Interfaces (CAP-09): maybe. Yes if any API it can call returns personal, confidential, or credential data.</li>
+<li>File and Data Management (CAP-11): yes. It reads the organisation's files, databases, or knowledge bases.</li>
+<li>System Management (CAP-12): yes. System administration reaches configuration, credentials, and logs.</li>
+</ul>
+<p><strong>Outbound channel.</strong> The agent can cause data to reach a destination outside the organisation's control.</p>
+<ul>
+<li>Agent Delegation (CAP-02): maybe. Yes if it can pass data to an agent that another party operates, or to an agent that has an outbound channel of its own.</li>
+<li>Multimodal Understanding and Generation (CAP-04): maybe. Yes if its output is shown to people outside the organisation, or is rendered in a way that loads external images or links.</li>
+<li>Official Communication (CAP-05): yes. It sends messages to people outside the organisation.</li>
+<li>Business Transactions (CAP-06): yes. Transactions carry data to external parties in payment references, order details, and booking fields.</li>
+<li>Internet and Search Access (CAP-07): yes. Any request to a web address can carry data in the URL or the query.</li>
+<li>Computer Use (CAP-08): yes. It can use any application on the machine that sends data, including the browser and the mail client.</li>
+<li>Other Programmatic Interfaces (CAP-09): maybe. Yes if any API it can call writes to a system outside the organisation, or accepts a destination that the agent chooses.</li>
+<li>Code Execution (CAP-10): maybe. Yes if the environment its code runs in can make network requests.</li>
+<li>System Management (CAP-12): maybe. Yes if it can change network, sharing, or access settings so that data becomes reachable from outside.</li>
+</ul>
+</details>
+<p>Components are not in the table. Persistent <a href="../elements/">memory</a> can carry untrusted content or sensitive data from one session into a later one, so count what memory holds when you answer for each leg.</p>
+<h3 id="the-verdict">The verdict</h3>
+<table>
+<thead>
+<tr>
+<th>Verdict</th>
+<th>When</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Present</strong></td>
+<td>Every leg is supplied by a capability marked Yes</td>
+<td>Implement the control below</td>
+</tr>
+<tr>
+<td><strong>Possible</strong></td>
+<td>Every leg is supplied, but at least one only by capabilities marked Maybe</td>
+<td>Answer the note for each of those capabilities from the system's code and configuration. If every leg is confirmed, implement the control. If a leg is absent, waive the control and record the evidence</td>
+</tr>
+<tr>
+<td><strong>Not present</strong></td>
+<td>At least one leg is supplied by no capability</td>
+<td>Waive the control wherever it is listed, and record which leg is absent</td>
+</tr>
+</tbody>
+</table>
+<p>The control is:</p>
+<blockquote>
+<p><strong><a href="../register-full-text/#CTRL-0097">CTRL-0097</a> (Level 0 · Cardinal).</strong> Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent.</p>
+</blockquote>
+<p>It is a <a href="../controls/#control-levels">Level 0 control</a>. Scoring does not waive it. It is waived only when a leg is absent, in the same way that any Level 0 control is waived when the capability or component it concerns is not present.</p>
+<p>There are three ways to break the combination:</p>
+<ul>
+<li><strong>Split the agent.</strong> Give the untrusted content to a separate agent that has no access to sensitive data and returns only structured values.</li>
+<li><strong>Remove the data.</strong> Take away the sensitive data that the task does not need.</li>
+<li><strong>Gate the channel.</strong> Restrict the outbound channel outside the agent. Limit recipients and destinations to a fixed allowlist, and require human approval for any message or call that carries data to a new recipient.</li>
+</ul>
+<p>The verdict describes the system as a whole. The control applies to each agent, so in a multi-agent system, record which agent holds each leg. Splitting the legs across agents satisfies the control only if the agent that reads untrusted content cannot pass free text to the agent that holds the data or the channel.</p>
+<h3 id="try-it">Try it</h3>
+<p>Tick the capabilities your system has. The check runs in your browser, and nothing is sent anywhere.</p>
+<div id="arc-combination-check" data-combination="lethal-trifecta">
+<noscript>The interactive check needs JavaScript. The table above gives the same information.</noscript>
+</div>
+
+<h3 id="worked-examples">Worked examples</h3>
+<p>These are the systems from the <a href="../../implementation/for-ai-developers/#application-examples">guide for AI developers</a>, with a simple question-answering bot for comparison.</p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Capabilities</th>
+<th>Verdict</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Question-answering bot</td>
+<td>CAP-04</td>
+<td><strong>Not present</strong></td>
+<td>Nothing supplies sensitive data</td>
+</tr>
+<tr>
+<td>Agentic fact checker</td>
+<td>CAP-01, 02, 03, 04, 07, 11</td>
+<td><strong>Present</strong></td>
+<td>Internet and Search Access supplies untrusted content and an outbound channel; File and Data Management supplies sensitive data</td>
+</tr>
+<tr>
+<td>Agentic coding assistant</td>
+<td>CAP-01, 02, 03, 04, 10, 11</td>
+<td><strong>Possible</strong></td>
+<td>File and Data Management supplies sensitive data. Untrusted content depends on whether it reads repositories or packages that others can change. An outbound channel depends on whether its code runs with network access</td>
+</tr>
+<tr>
+<td>Agentic call assistant</td>
+<td>CAP-01, 02, 04, 06, 09, 11</td>
+<td><strong>Possible</strong></td>
+<td>File and Data Management supplies sensitive data, and Business Transactions supplies an outbound channel. Untrusted content depends on what its callers and the systems it reads can put in front of it</td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-the-check-in-an-assessment">Using the check in an assessment</h2>
+<ul>
+<li><strong>In the developer guide:</strong> the check is part of <a href="../../implementation/for-ai-developers/#step-2-evaluate-risks">Step 2</a>, after the applicable risks are listed.</li>
+<li><strong>In the assessment template:</strong> <a href="../../implementation/assessment-template/#2a-capability-combinations">Section 2a</a> records the verdict, the answer for each leg, and how the combination is broken.</li>
+<li><strong>With a coding agent:</strong> the <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills">ARC assessment skill</a> runs the check. <code>arc.py assess</code> prints the verdict and the notes to answer for the capabilities given.</li>
+</ul>
+<h2 id="limits">Limits</h2>
+<ul>
+<li><strong>One combination.</strong> Register 1.3 checks the lethal trifecta only. Capabilities combine in other ways too, for example when code execution gives an agent abilities that its tool list does not show. These are being studied for version 2.0.</li>
+<li><strong>Capabilities are coarse.</strong> Internet and Search Access covers reading pages and posting to them. Many systems will therefore get a verdict of Possible, and the notes turn that verdict into questions that evidence can answer.</li>
+<li><strong>Composite risks need every element.</strong> RISK-047 covers the trifecta through web access, and RISK-055 covers it through messages and APIs. Other routes, such as Computer Use alone, are caught by the check and not by a composite risk. Rules of the form "any capability that supplies this leg" are planned for version 2.0.</li>
+<li><strong>Design time only.</strong> The check reads what a system can do, not what it does in a given session. <a href="../register-full-text/#CTRL-0090">CTRL-0090</a> covers enforcement at run time.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://forms.gle/KoXecxDuPHf8izP2A" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../risks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Risks of agentic systems">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Risks of agentic systems
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../controls/" class="md-footer__link md-footer__link--next" aria-label="Next: Controls for agentic systems">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Controls for agentic systems
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      GovTech Singapore
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/orgs/govtech-responsibleai/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/govtech-singapore" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/GovTechSG" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["toc.integrate", "toc.follow", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.sections", "navigation.footer", "navigation.path", "navigation.expand"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+        <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+      
+        <script src="../../assets/risk-register.js"></script>
+      
+        <script src="../../assets/combination-check.js"></script>
+      
+    
+  </body>
+</html>

@@ -568,6 +568,29 @@
   
   
     <li class="md-nav__item">
+      <a href="arc_framework/capability-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="arc_framework/controls/" class="md-nav__link">
         
   
@@ -931,13 +954,17 @@
 <li>An implementation methodology for organisational adoption and per-system assessment</li>
 </ul>
 <div class="admonition info">
-<p class="admonition-title">What's new — register v1.4, November 2026</p>
+<p class="admonition-title">What's new — register v1.3, November 2026</p>
 <ul>
-<li><strong>Risks apply where they arise</strong>: multi-agent risks now apply only to systems in which more than one agent works on a task, including agents operated by other organisations, and the sandbox-escape risk only to systems that can execute code, so simpler systems no longer carry Level 0 controls that cannot apply to them; and a Level 0 control is waived when the capability or component it concerns is not present</li>
+<li><strong>Capability combinations</strong>: a new <a href="arc_framework/capability-combinations/">page</a> on risks that arise only when capabilities are held together, with a check that reads a system's capabilities and reports whether the lethal trifecta (untrusted content, sensitive data, and an outbound channel) is present; a new Level 0 control, CTRL-0097, requires breaking that combination; and a new risk, RISK-055, covers data exfiltration by agents that handle messages, such as email assistants</li>
+<li><strong>One rule for Level 0</strong>: a Level 0 control applies wherever its risk is applicable, whatever the risk's impact and likelihood score, and is waived only when the capability or component it concerns is not present; each Level 0 control now matches its subject, so CVE scanning applies only where code runs, tool authentication covers every remote tool, and the memory-write controls concern persistent memory</li>
+<li><strong>Human approval as a floor</strong>: human approval of business transactions outside pre-authorised limits, of sensitive official communications, and of deletions that cannot be undone is now Level 0, together with least privilege and checking that approvals remain real decisions; copyright guardrails and code linters move to Level 1</li>
+<li><strong>Risks apply where they arise</strong>: multi-agent risks now apply only to systems in which more than one agent works on a task, including agents operated by other organisations, and the sandbox-escape risk only to systems that can execute code, so simpler systems no longer carry Level 0 controls that cannot apply to them</li>
+<li><strong>New risks, hazards and crosswalks</strong>: eight risks and eight controls from the 2026 evidence base, including the first risk that arises from a combination of elements; the hazards each risk results in; and crosswalks to the <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP Top 10 for Agentic Applications</a>, OWASP's agentic threat taxonomy, the <a href="https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/">CSA Securing Agentic AI Addendum</a>, and <a href="https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf">IMDA's Model AI Governance Framework for Agentic AI</a></li>
+<li><strong>A corrected, versioned register</strong>: the links between controls and risks were checked and corrected, and the register now carries a version that can be cited and pinned; every change is in the <a href="arc_framework/changelog/">Changelog</a></li>
 <li><strong>Readable by AI agents</strong>: a <a href="arc_framework/register-full-text/">full-text register</a> with a link for every risk and control, and an <a href="llms.txt"><code>llms.txt</code></a> index for agents</li>
 <li><strong>ARC assessment skill</strong>: an <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills">Agent Skill</a> that lets a coding agent assess the system it is building against the register</li>
 </ul>
-<p>Register v1.3 (November 2026) corrected and validated the register; defined Level 0 controls as unwaivable wherever their risk applies; introduced risks that arise from a combination of elements; added crosswalks to the <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP Top 10 for Agentic Applications</a>, OWASP's agentic threat taxonomy, the <a href="https://www.csa.gov.sg/resources/publications/addendum-on-securing-ai-systems/">CSA Securing Agentic AI Addendum</a>, and <a href="https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf">IMDA's Model AI Governance Framework for Agentic AI</a>; added eight risks and eight controls from the 2026 evidence base; and recorded the hazards each risk results in. Each change is listed by version in the <a href="arc_framework/changelog/">Changelog</a>.</p>
 <p>Earlier (December 2025): the <a href="arc_framework/introduction/">introduction</a> with design rationale and literature review, the unified <a href="arc_framework/elements/">Elements</a> page, the <a href="arc_framework/risk-register/">interactive register</a>, the <a href="resources/#arcvisor">ARCvisor</a> tool, and the two technical papers in <a href="resources/">Resources</a>.</p>
 </div>
 <h2 id="navigation">Navigation</h2>
@@ -947,7 +974,8 @@
 <li><strong><a href="arc_framework/introduction/">Framework Introduction</a></strong> — Design rationale, literature review, and theoretical foundation</li>
 <li><strong><a href="arc_framework/elements/">Agentic System Elements</a></strong> — Detailed examination of components, design, and capabilities</li>
 <li><strong><a href="arc_framework/elements/#capabilities">Capability Taxonomy</a></strong> — Cognitive, interaction, and operational capability categories with definitions</li>
-<li><strong><a href="arc_framework/risk-register/">Risk Register</a></strong> — 54 component, design, and capability-specific risks with their hazards and 94 recommended controls at three levels, filterable and searchable</li>
+<li><strong><a href="arc_framework/risk-register/">Risk Register</a></strong> — 55 component, design, and capability-specific risks with their hazards and 95 recommended controls at three levels, filterable and searchable</li>
+<li><strong><a href="arc_framework/capability-combinations/">Capability Combinations</a></strong> — Risks that arise only when capabilities are held together, and the check for the lethal trifecta</li>
 <li><strong><a href="arc_framework/crosswalks/">Crosswalks</a></strong> — Entry-level mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the Cyber Security Agency of Singapore's Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI</li>
 </ul>
 <h3 id="implementation-guides">🛠️ Implementation Guides</h3>
@@ -1175,6 +1203,8 @@
         <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
       
         <script src="assets/risk-register.js"></script>
+      
+        <script src="assets/combination-check.js"></script>
       
     
   </body>

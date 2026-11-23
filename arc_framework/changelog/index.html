@@ -459,6 +459,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../capability-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../controls/" class="md-nav__link">
         
   
@@ -610,20 +633,80 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#v1-4-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.4.0 — November 2026
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#v1-3-0" class="md-nav__link">
     <span class="md-ellipsis">
       1.3.0 — November 2026
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="1.3.0 — November 2026">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-corrected-and-validated-register" class="md-nav__link">
+    <span class="md-ellipsis">
+      A corrected and validated register
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risks-apply-where-they-arise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Risks apply where they arise
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-level-0-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Level 0 means
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-controls-are-level-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which controls are Level 0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capability-combinations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capability combinations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#site-and-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Site and tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-register-in-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      The register in numbers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -954,27 +1037,57 @@
 <ul>
 <li><strong>IDs are never reused.</strong> A retired or merged entry keeps its ID and gains a <code>superseded_by</code> pointer, so assessments and citations written against an older version remain resolvable.</li>
 <li>Each release to the <code>main</code> branch is tagged <code>v&lt;version&gt;</code> on GitHub; the register YAML for any version can be retrieved from the tag.</li>
-<li>To cite a specific version: <em>GovTech Singapore (2026). Agentic Risk &amp; Capability Framework, risk register v1.4.0.</em> followed by the site URL.</li>
+<li>To cite a specific version: <em>GovTech Singapore (2026). Agentic Risk &amp; Capability Framework, risk register v1.3.0.</em> followed by the site URL.</li>
 </ul>
-<h2 id="v1-4-0">1.4.0 — November 2026</h2>
-<p>Applicability: a risk should apply only to systems that have the elements it arises from.</p>
+<h2 id="v1-3-0">1.3.0 — November 2026</h2>
+<p>The November 2026 update, described as the change from 1.2.0, and the first release whose version number appears on the site. It includes the content of 1.2.0, which was not published separately. Interim builds of this release were on the site from 20 November, labelled 1.3.0 and 1.4.0; this is the final 1.3.0 and replaces them.</p>
+<p>The update corrects the register and makes it checkable, makes each risk apply only to systems that have the elements it arises from, settles what Level 0 means and which controls belong there, and adds a first check for capabilities that are dangerous together.</p>
+<h3 id="a-corrected-and-validated-register">A corrected and validated register</h3>
+<ul>
+<li><strong>Data integrity.</strong> Crosswalk IDs are quoted strings; an unquoted <code>2.10</code> had been read as <code>2.1</code>, mis-mapping three controls to the wrong CSA Addendum section. The validator now rejects non-string IDs.</li>
+<li><strong>Mappings corrected.</strong> Twelve controls were attached to the wrong risk or missing from an obvious one (circuit breakers not on cascading errors; least privilege not on overly permissive roles; fraud detection on credential leakage instead of unauthorised transactions; and others).</li>
+<li><strong>Hazards recorded.</strong> Every risk lists the hazards it results in (<code>hazards.yaml</code>, nine categories); a risk's Safety/Security type must agree with its hazards. The register page can be filtered by hazard.</li>
+<li><strong>Versioned.</strong> The register carries a version (<code>register.yaml</code>), and each release is tagged, so a specific version can be cited or pinned.</li>
+</ul>
+<h3 id="risks-apply-where-they-arise">Risks apply where they arise</h3>
 <ul>
 <li><strong>Multi-agent risks need Agent Delegation.</strong> RISK-012 (cascading errors), RISK-013 (man-in-the-middle attacks between agents) and RISK-051 (unsanctioned coordination) now arise from the agentic architecture (DSN-01) <em>together with</em> Agent Delegation (CAP-02), so a single-agent system no longer carries them or their multi-agent controls. Agent Delegation now states that it covers workflows with fixed hand-offs and agents operated by other parties, including counterparties, so these risks apply across organisational boundaries too.</li>
 <li><strong>Runaway behaviour covers single agents.</strong> RISK-014 stays a baseline risk, rewritten to include an agent acting on its own outputs without bound. It now carries CTRL-0040 (action thresholds) instead of CTRL-0028 (multi-agent cascade monitoring), which stays on RISK-012 and RISK-051, so every system keeps the kill switch (CTRL-0065) and action limits. The agentic architecture element (DSN-01) now includes a single agent's plan–act–observe loop.</li>
 <li><strong>Sandbox escape needs Code Execution.</strong> RISK-049 (escape from evaluation or sandbox containment) now arises from roles and access controls (DSN-02) <em>together with</em> Code Execution (CAP-10), the path in every incident it cites, so systems that cannot run code no longer carry code sandboxing (CTRL-0069) or contained evaluations (CTRL-0092) through it. Default-deny egress (CTRL-0089) is now also attached to RISK-037 (exposure of sensitive data through computer use), so computer-use agents keep it.</li>
-<li><strong>Level 0 waived when its subject is absent.</strong> A Level 0 control still applies to every applicable risk whatever its score, but is waived when the capability or component it concerns is not present in the system (for example, MCP-server controls in a system that uses no MCP servers). The assessment records the waiver with evidence; the <a href="../../implementation/assessment-template/">Assessment Template</a> gains a <em>Waived — not applicable</em> status and keeps one row per control per risk.</li>
-<li><strong>Site and tools.</strong> A <a href="../register-full-text/">full-text register</a> with a link for every risk and control, and an <code>llms.txt</code> index, make the site readable by AI agents; the site's register JSON and generated pages are now built from the YAML at build time rather than committed. The <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills">ARC assessment skill</a> lets a coding agent assess the system it is building against the register.</li>
-<li>Register: 54 risks and 94 controls (unchanged); baseline risks 24 → 20. Systems with Agent Delegation and Code Execution carry the same risks and Level 0 controls as before; a single-agent Q&amp;A system goes from 26 Level 0 controls to 21.</li>
 </ul>
-<h2 id="v1-3-0">1.3.0 — November 2026</h2>
-<p>Consolidation release: no change to the framework's model. Published to the site together with 1.2.0.</p>
+<h3 id="what-level-0-means">What Level 0 means</h3>
 <ul>
-<li><strong>Data integrity.</strong> Crosswalk IDs are quoted strings; an unquoted <code>2.10</code> had been read as <code>2.1</code>, mis-mapping three controls to the wrong CSA Addendum section. The validator now rejects non-string IDs.</li>
-<li><strong>Mappings corrected.</strong> Twelve controls were attached to the wrong risk or missing from an obvious one (circuit breakers not on cascading errors; least privilege not on overly permissive roles; fraud detection on credential leakage instead of unauthorised transactions; and others). 23 links added, 4 moved.</li>
-<li><strong>Hazards recorded.</strong> Every risk lists the hazards it results in (<code>hazards.yaml</code>, nine categories); a risk's Safety/Security type must agree with its hazards. The register page can be filtered by hazard.</li>
-<li><strong>Level 0 applicability stated once.</strong> A Level 0 control attaches to every risk whose elements are present, regardless of impact/likelihood score; scoring governs Levels 1 and 2. The developer guide's worked examples were corrected to follow this.</li>
+<li><strong>One rule.</strong> A Level 0 control applies to every system in which its risk is applicable, whatever the risk's impact and likelihood score; scoring governs Levels 1 and 2. It is waived only when the capability or component it concerns is not present in the system (for example, MCP-server controls in a system that uses no MCP servers), and the assessment records the waiver with evidence. The rule is stated once, on the <a href="../controls/#control-levels">Controls</a> page. The developer guide's worked examples follow it, and the <a href="../../implementation/assessment-template/">Assessment Template</a> has a <em>Waived — not applicable</em> status and keeps one row per control per risk.</li>
+<li><strong>Each Level 0 control matches its subject.</strong> A Level 0 control now names the capability or component it concerns, so the waiver can be decided from the register. The next three entries are the main cases.</li>
+<li><strong>Tool authentication covers every remote tool.</strong> CTRL-0009 now requires robust authentication on all tool servers and APIs, including MCP servers, so RISK-004 (weak tool authentication) keeps an authentication control in systems that use no MCP servers. Its MCP-specific requirements are unchanged. CTRL-0010 and CTRL-0013 remain specific to MCP servers.</li>
+<li><strong>CVE scanning stays with code execution.</strong> CTRL-0074 (CVE-scan agent-generated code and block High or Critical vulnerabilities) is now attached only to RISK-040 (vulnerable or malicious code). It is removed from RISK-048 (supply-chain compromise) and RISK-054 (insecure framework defaults), which are already covered by CTRL-0091 (verified provenance, including vulnerability scanning of new packages) and CTRL-0096 (runtime hardening and timely patching).</li>
+<li><strong>Working and persistent memory.</strong> The Memory component (CMP-04) now distinguishes working memory, which every agent has, from persistent memory, which keeps information beyond a single session or shares it across users or tasks. The memory-write controls CTRL-0021, CTRL-0022 and CTRL-0023 now concern persistent memory, so a system that keeps nothing beyond a session records CTRL-0021 as waived, with evidence. RISK-010 (poisoned memory) and RISK-011 (leakage across memory contexts) are unchanged.</li>
+</ul>
+<h3 id="which-controls-are-level-0">Which controls are Level 0</h3>
+<ul>
+<li><strong>Human approval for transactions, official communications and deletion is Level 0.</strong> CTRL-0056 now requires explicit human confirmation for any business transaction outside limits that an accountable human has pre-authorised, and for every transaction where no limits are set; it was narrowed from "any business transaction" to agree with Business Transactions (CAP-06), which transacts autonomously within limits. CTRL-0058 (agents propose transactions; a separate controller executes them) is Level 0, giving RISK-033 (leakage of transaction credentials) its first Level 0 control. CTRL-0053 (human approval for communications on sensitive matters) is Level 0, and its guidance now requires the approval to be enforced in the sending path. CTRL-0076 now requires human approval for destructive changes that cannot be readily undone; changes recoverable through version control or soft-delete (CTRL-0077) may proceed without it.</li>
+<li><strong>Approvals must stay real decisions.</strong> CTRL-0094 (measure the quality of human oversight) is Level 0 and is now attached to RISK-031, RISK-032 and RISK-041 as well as RISK-052. A system with no human approval steps records it as waived.</li>
+<li><strong>Least privilege is Level 0.</strong> CTRL-0029 now applies to every system, giving RISK-015 (overly permissive roles) its first Level 0 control.</li>
+<li><strong>Detector-only and code-quality controls leave Level 0.</strong> CTRL-0051 (copyright input guardrails) and CTRL-0068 (code linters) move to Level 1. RISK-039 keeps code sandboxing and static analysis at Level 0; RISK-029 (copyrighted content) is now left to scoring.</li>
+<li><strong>Untrusted input kept out of system instructions.</strong> CTRL-0019 stays Level 0 but now requires keeping untrusted inputs out of system instructions, with delimiters as a second measure, instead of relying on delimiters and the model's compliance alone.</li>
+</ul>
+<h3 id="capability-combinations">Capability combinations</h3>
+<ul>
+<li><strong>Capability combinations and the lethal trifecta.</strong> A new page, <a href="../capability-combinations/">Capability combinations</a>, explains risks that arise only when capabilities are held together. The register now records, in <code>combinations.yaml</code>, which capabilities supply each leg of the lethal trifecta: untrusted content, sensitive data, and an outbound channel. A check reads a system's capabilities and reports the combination as present, possible, or not present. The check is on the page, in the <a href="../../implementation/assessment-template/#2a-capability-combinations">assessment template</a>, and in the ARC assessment skill. The verdict decides whether the new control is implemented or waived; it does not change which risks apply.</li>
+<li><strong>A control that breaks the trifecta.</strong> CTRL-0097 (Level 0) requires that no one agent hold untrusted content, sensitive data, and an unrestricted outbound channel at once: remove one, or gate the outbound channel outside the agent. It is attached to RISK-037, RISK-044, RISK-047 and RISK-055, and is waived, with evidence, when one of the three is absent.</li>
+<li><strong>Exfiltration through messages.</strong> RISK-047 applied only to systems with both Internet and Search Access and File and Data Management, so an email or ticketing agent was missed. RISK-055 (data exfiltration through message and API channels) covers the same combination for systems with Other Programmatic Interfaces (CAP-09) and File and Data Management (CAP-11). CAP-09's definition now states that it includes sending and receiving email, chat, and other messages through an API or mail protocol.</li>
+</ul>
+<h3 id="site-and-tools">Site and tools</h3>
+<ul>
+<li><strong>Readable by AI agents.</strong> A <a href="../register-full-text/">full-text register</a> with a link for every risk and control, and an <code>llms.txt</code> index, make the site readable by AI agents. The site's register JSON and generated pages are now built from the YAML at build time rather than committed.</li>
+<li><strong>ARC assessment skill.</strong> The <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/skills">ARC assessment skill</a> lets a coding agent assess the system it is building against the register.</li>
 <li><strong>ARCvisor follows the Level 0 rule.</strong> It lists every Level 0 control for every applicable risk, not only for risks above the scoring thresholds, and Level 0 entries start blank instead of defaulting to "I accept all residual risk"; the export flags any left undescribed. The model for each step is now one setting (<code>ARCVISOR_MODEL</code>).</li>
-<li><strong>Site.</strong> The December-2025 comparison page was retired in favour of the generated Crosswalks; an <a href="../../implementation/assessment-template/">Assessment Template</a> and a contributing guide were added; the register now carries a version.</li>
+<li><strong>Site.</strong> The December-2025 comparison page was retired in favour of the generated Crosswalks, and an <a href="../../implementation/assessment-template/">Assessment Template</a> and a contributing guide were added.</li>
+</ul>
+<h3 id="the-register-in-numbers">The register in numbers</h3>
+<ul>
+<li>Register: 54 → 55 risks and 94 → 95 controls; Level 0 controls 39 → 44; risks with no Level 0 control 15 → 9; baseline risks 24 → 20. Between controls and existing risks, 31 links were added and 7 removed.</li>
+<li>Applicable risks and Level 0 controls, before waivers: a single-agent Q&amp;A system has 26 and 21; the developer guide's fact checker has 42 and 31, its coding assistant 42 and 36, and its call assistant 42 and 34.</li>
 </ul>
 <h2 id="v1-2-0">1.2.0 — August 2026</h2>
 <ul>
@@ -1191,6 +1304,8 @@
         <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
       
         <script src="../../assets/risk-register.js"></script>
+      
+        <script src="../../assets/combination-check.js"></script>
       
     
   </body>

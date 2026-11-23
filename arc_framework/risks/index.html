@@ -18,7 +18,7 @@
         <link rel="prev" href="../elements/">
       
       
-        <link rel="next" href="../controls/">
+        <link rel="next" href="../capability-combinations/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -585,6 +585,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../capability-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../controls/" class="md-nav__link">
         
   
@@ -1075,9 +1098,10 @@ This is a <strong>safety and security risk</strong> caused by <strong>agent fail
 <p>While combining <strong>elements</strong>, <strong>failure modes</strong>, and <strong>hazards</strong> helps brainstorm potential risks, not all combinations are meaningful.
 For instance, "tool or resource malfunction" does not sensibly apply to the "instructions" component.
 Organizations should exercise discretion and retain only risks supported by <strong>academic research</strong> or <strong>industry case studies</strong>.</p>
-<p>We provide a comprehensive <a href="../risk-register/"><strong>Interactive Risk Register</strong></a> that documents 54 risks across all elements of agentic systems, each backed by real-world examples or academic studies.
+<p>We provide a comprehensive <a href="../risk-register/"><strong>Interactive Risk Register</strong></a> that documents 55 risks across all elements of agentic systems, each backed by real-world examples or academic studies.
 The register includes recommended controls for each risk and serves as a practical starting point for organizations.
 It should be <strong>continuously updated</strong> as the field of agentic AI evolves.</p>
+<p>Most risks arise from a single element. Some arise only when a system holds several capabilities at once; <a href="../capability-combinations/">Capability combinations</a> explains how the register handles these.</p>
 
 
 
@@ -1182,13 +1206,13 @@ It should be <strong>continuously updated</strong> as the field of agentic AI ev
         
         
           
-          <a href="../controls/" class="md-footer__link md-footer__link--next" aria-label="Next: Controls for agentic systems">
+          <a href="../capability-combinations/" class="md-footer__link md-footer__link--next" aria-label="Next: Capability combinations">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Controls for agentic systems
+                Capability combinations
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1273,6 +1297,8 @@ It should be <strong>continuously updated</strong> as the field of agentic AI ev
         <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
       
         <script src="../../assets/risk-register.js"></script>
+      
+        <script src="../../assets/combination-check.js"></script>
       
     
   </body>

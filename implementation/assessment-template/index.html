@@ -456,6 +456,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../arc_framework/capability-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../arc_framework/controls/" class="md-nav__link">
         
   
@@ -772,6 +795,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2a-capability-combinations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2a. Capability combinations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#3-controls" class="md-nav__link">
     <span class="md-ellipsis">
       3. Controls
@@ -944,7 +976,7 @@
 </tr>
 <tr>
 <td>Register version assessed against</td>
-<td>e.g. <code>1.4.0</code> (see the <a href="../../arc_framework/changelog/">changelog</a>)</td>
+<td>e.g. <code>1.3.0</code> (see the <a href="../../arc_framework/changelog/">changelog</a>)</td>
 </tr>
 <tr>
 <td>Organisation's relevance threshold</td>
@@ -1043,7 +1075,7 @@
 </tbody>
 </table>
 <h2 id="2-applicable-risks">2. Applicable risks</h2>
-<p>List <strong>every applicable risk</strong>: all baseline risks (those arising only from components CMP-01 to CMP-04 and design elements DSN-01 to DSN-03 — 20 in register 1.4.0), each capability risk for a capability marked present, and each composite risk whose capabilities are <em>all</em> present. Score each; a risk is a <strong>priority</strong> when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.</p>
+<p>List <strong>every applicable risk</strong>: all baseline risks (those arising only from components CMP-01 to CMP-04 and design elements DSN-01 to DSN-03 — 20 in register 1.3.0), each capability risk for a capability marked present, and each composite risk whose capabilities are <em>all</em> present. Score each; a risk is a <strong>priority</strong> when it meets the threshold. A risk below the threshold stays on the list — its Level 0 controls still apply.</p>
 <table>
 <thead>
 <tr>
@@ -1073,6 +1105,60 @@
 <td></td>
 <td></td>
 <td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2a-capability-combinations">2a. Capability combinations</h2>
+<p>Some risks arise only when a system holds several capabilities at once (see <a href="../../arc_framework/capability-combinations/">Capability combinations</a>). Record the check for each combination the register defines. Register 1.3.0 defines one, the lethal trifecta. Count what persistent memory holds when answering for each leg.</p>
+<table>
+<thead>
+<tr>
+<th>Combination</th>
+<th>Leg</th>
+<th>Supplied by (capability, or "none")</th>
+<th>Present in this system? (yes / no, with evidence)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lethal trifecta</td>
+<td>Untrusted content</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Sensitive data</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Outbound channel</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Entry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verdict (present / possible / not present)</td>
+<td></td>
+</tr>
+<tr>
+<td>If every leg is present: which leg is removed or gated for each agent, and how (CTRL-0097)</td>
+<td></td>
+</tr>
+<tr>
+<td>If a leg is absent: which one, and the evidence (CTRL-0097 is then <em>Waived — not applicable</em>)</td>
 <td></td>
 </tr>
 </tbody>
@@ -1394,6 +1480,8 @@
         <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
       
         <script src="../../assets/risk-register.js"></script>
+      
+        <script src="../../assets/combination-check.js"></script>
       
     
   </body>

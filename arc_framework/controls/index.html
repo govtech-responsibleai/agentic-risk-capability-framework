@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/controls/">
       
       
-        <link rel="prev" href="../risks/">
+        <link rel="prev" href="../capability-combinations/">
       
       
         <link rel="next" href="../risk-register/">
@@ -442,6 +442,29 @@
   
   <span class="md-ellipsis">
     Risks of agentic systems
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capability-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
     
   </span>
   
@@ -951,7 +974,7 @@
 </ul>
 <div class="admonition info">
 <p class="admonition-title">When does a Level 0 control apply?</p>
-<p>A Level 0 control is mandatory for every system in which its risk is <strong>applicable</strong> — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, <strong>never waives a Level 0 control</strong>: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. A Level 0 control is <strong>waived only when the capability or component it concerns is not present</strong> in the system — for example, a control on MCP servers in a system that uses none, or on agent-generated code in a system that generates none. Record the waiver with evidence that the capability or component is absent. This is the single definition of the levels; the implementation guides restate it.</p>
+<p>A Level 0 control is mandatory for every system in which its risk is <strong>applicable</strong> — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, <strong>never waives a Level 0 control</strong>: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. A Level 0 control is <strong>waived only when the capability or component it concerns is not present</strong> in the system — for example, a control on MCP servers in a system that uses none, on agent-generated code in a system that generates none, or on persistent memory in a system that keeps nothing beyond a session. Record the waiver with evidence that the capability or component is absent. This is the single definition of the levels; the implementation guides restate it.</p>
 </div>
 <details class="example">
 <summary>Example of controls targeting a specific risk</summary>
@@ -1062,7 +1085,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../risks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Risks of agentic systems">
+          <a href="../capability-combinations/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Capability combinations">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1072,7 +1095,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Risks of agentic systems
+                Capability combinations
               </div>
             </div>
           </a>
@@ -1170,6 +1193,8 @@
         <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
       
         <script src="../../assets/risk-register.js"></script>
+      
+        <script src="../../assets/combination-check.js"></script>
       
     
   </body>

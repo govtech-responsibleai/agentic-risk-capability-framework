@@ -456,6 +456,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../arc_framework/capability-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../arc_framework/controls/" class="md-nav__link">
         
   
@@ -1132,6 +1155,7 @@
 <ol>
 <li><strong>Baseline risks</strong> — risks that arise only from components and design elements, which every agentic system has, so they apply regardless of capabilities</li>
 <li><strong>Capability-specific risks</strong> — for each capability identified in Step 1. A <em>composite</em> risk (one that lists several elements, shown joined with "+" in the register) applies only when your system has <strong>all</strong> of them: for example, RISK-047 (data exfiltration through untrusted content, sensitive data, and an outbound channel) applies to any system that both browses the web (CAP-07) and handles files or data (CAP-11). Likewise, the multi-agent risks (RISK-012, RISK-013, RISK-051) arise from the agentic architecture together with Agent Delegation (CAP-02), so they apply only when more than one agent works on a task, including agents operated by other parties</li>
+<li><strong>Check capability combinations</strong> — some risks arise only when a system holds several capabilities at once, and the register cannot name every pairing as a composite risk. For each combination the register defines, see which of your capabilities supply each leg and record the verdict: <em>present</em>, <em>possible</em>, or <em>not present</em>. Register 1.3 defines one combination, the lethal trifecta: untrusted content, sensitive data, and an outbound channel. The verdict decides whether CTRL-0097 is implemented or waived; it does not change which risks apply. See <a href="../../arc_framework/capability-combinations/">Capability combinations</a> for the table and an interactive check</li>
 <li><strong>Contextualise to your use case</strong> — define domain-specific terms and focus on critical scenarios</li>
 <li><strong>Apply relevance criteria</strong> — score Impact and Likelihood (1–5) for each applicable risk, and mark as <em>priority</em> those that meet the threshold set by your governance team (see <a href="../for-governance-teams/#step-4-define-relevance-criteria">Define Relevance Criteria</a>). Scoring decides where Level 1 and Level 2 effort goes; <strong>it does not switch off Level 0 controls</strong> (see Step 3)</li>
 </ol>
@@ -1200,7 +1224,7 @@
   </tbody>
 </table>
 
-<p>Level 0 controls are mandatory for every <strong>applicable</strong> risk. A risk that scores below your threshold still carries its Level 0 controls, because they are the floor without which the risk is unmitigated — scoring never waives them. A Level 0 control is waived only when the capability or component it concerns is not present in your system (for example, a control on MCP servers when you use none); record the waiver with evidence. Levels 1 and 2 are where scoring matters: apply them to priority risks proportionate to severity, or as your governance team specifies. The three levels are defined once, in <a href="../../arc_framework/controls/#control-levels">Controls for agentic systems</a>; this table restates them for developers.</p>
+<p>Level 0 controls are mandatory for every <strong>applicable</strong> risk. A risk that scores below your threshold still carries its Level 0 controls, because they are the floor without which the risk is unmitigated — scoring never waives them. A Level 0 control is waived only when the capability or component it concerns is not present in your system (for example, a control on MCP servers when you use none, or on persistent memory when your system keeps nothing beyond a session); record the waiver with evidence. Levels 1 and 2 are where scoring matters: apply them to priority risks proportionate to severity, or as your governance team specifies. The three levels are defined once, in <a href="../../arc_framework/controls/#control-levels">Controls for agentic systems</a>; this table restates them for developers.</p>
 <div class="admonition tip">
 <p class="admonition-title">Contextualising Controls</p>
 <p>Although the controls in the organisation's risk register would have been contextualised by the governance teams, they may need additional adaptation to your specific use case or implementation. Below are examples showing the full progression from framework baseline to organisation context to system-specific adaptation:</p>
@@ -1383,8 +1407,9 @@
 </tbody>
 </table>
 <p><em>(Lower-priority risks documented but not shown here for brevity)</em></p>
+<p><strong>Combination check.</strong> The lethal trifecta is <em>present</em>: Internet and Search Access supplies untrusted content and an outbound channel, and File and Data Management supplies sensitive data. CTRL-0097 must therefore be implemented, not waived (see RISK-047 below).</p>
 <h4 id="step-3-implement-controls_1">Step 3: Implement Controls</h4>
-<p>This system has 42 applicable risks (20 baseline, 18 from single capabilities, and four from combinations: RISK-047, plus the multi-agent risks RISK-012, RISK-013 and RISK-051 that Agent Delegation brings in), which between them carry 29 Level 0 controls. All 29 are implemented as-is and recorded in the assessment; the table below shows the priority risks only — every Level 0 control of each, plus the Level 1 and 2 controls we selected:</p>
+<p>This system has 42 applicable risks (20 baseline, 18 from single capabilities, and four from combinations: RISK-047, plus the multi-agent risks RISK-012, RISK-013 and RISK-051 that Agent Delegation brings in), which between them carry 31 Level 0 controls. All 31 are implemented as-is and recorded in the assessment; the table below shows the priority risks only — every Level 0 control of each, plus the Level 1 and 2 controls we selected:</p>
 <table>
 <thead>
 <tr>
@@ -1421,13 +1446,13 @@
 </tr>
 <tr>
 <td>RISK-044</td>
-<td><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection<br><strong>CTRL-0083</strong> (Level 0): Disallow unknown or external files unless scanned</td>
+<td><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection<br><strong>CTRL-0083</strong> (Level 0): Disallow unknown or external files unless scanned<br><strong>CTRL-0097</strong> (Level 0): Do not give one agent untrusted content, sensitive data, and an unrestricted outbound channel at once (see RISK-047)</td>
 <td>• Validate all new data contributions to knowledge base before ingestion<br>• Scan uploaded files for embedded prompt injection attempts<br>• Maintain allowlist of approved data sources</td>
 </tr>
 <tr>
 <td>RISK-047</td>
-<td><strong>CTRL-0089</strong> (Level 0): Enforce default-deny network egress for agent runtimes<br><strong>CTRL-0090</strong> (Level 1): Enforce data-flow policies with a deterministic policy layer</td>
-<td>• Agent runtime may reach only the search API and the internal knowledge base; all other egress is blocked<br>• Search queries are generated by a component that never sees knowledge-base content, so retrieved internal text cannot be smuggled into an outbound query</td>
+<td><strong>CTRL-0089</strong> (Level 0): Enforce default-deny network egress for agent runtimes<br><strong>CTRL-0097</strong> (Level 0): Do not give one agent untrusted content, sensitive data, and an unrestricted outbound channel at once<br><strong>CTRL-0090</strong> (Level 1): Enforce data-flow policies with a deterministic policy layer</td>
+<td>• Agent runtime may reach only the search API and the internal knowledge base; all other egress is blocked<br>• Search queries are generated by a component that never sees knowledge-base content, so retrieved internal text cannot be smuggled into an outbound query<br>• The combination is broken by splitting the agents: the Web Searcher has no access to the knowledge base and returns only structured fields (source, quotation, date), and the Internal KB Searcher cannot make web requests</td>
 </tr>
 </tbody>
 </table>
@@ -1613,8 +1638,9 @@
 </tbody>
 </table>
 <p><em>(Lower-priority risks documented but not shown here for brevity)</em></p>
+<p><strong>Combination check.</strong> The lethal trifecta is <em>possible</em>: File and Data Management supplies sensitive data, and the other two legs depend on the deployment. Both are confirmed here. The assistant opens repositories and installs packages that others can change, and code it runs could reach the network. CTRL-0097 is therefore implemented, by gating the outbound channel (see RISK-044 below).</p>
 <h4 id="step-3-implement-controls_2">Step 3: Implement Controls</h4>
-<p>This system has 42 applicable risks (20 baseline, 18 from single capabilities, and four from combinations: the three multi-agent risks that Agent Delegation brings in, and RISK-049, sandbox escape, which Code Execution brings in) carrying 34 Level 0 controls, all of which are implemented as-is. The table shows the priority risks — every Level 0 control of each, plus the Level 1 and 2 controls we selected:</p>
+<p>This system has 42 applicable risks (20 baseline, 18 from single capabilities, and four from combinations: the three multi-agent risks that Agent Delegation brings in, and RISK-049, sandbox escape, which Code Execution brings in) carrying 36 Level 0 controls, all of which are implemented as-is. The table shows the priority risks — every Level 0 control of each, plus the Level 1 and 2 controls we selected:</p>
 <table>
 <thead>
 <tr>
@@ -1646,7 +1672,7 @@
 </tr>
 <tr>
 <td>RISK-039</td>
-<td><strong>CTRL-0068</strong> (Level 0): Use code linters to screen generated code<br><strong>CTRL-0069</strong> (Level 0): Run code only in isolated environments<br><strong>CTRL-0071</strong> (Level 0): Use static code analysers (see RISK-040)<br><strong>CTRL-0070</strong> (Level 1): Review all agent-generated code before execution</td>
+<td><strong>CTRL-0069</strong> (Level 0): Run code only in isolated environments<br><strong>CTRL-0071</strong> (Level 0): Use static code analysers (see RISK-040)<br><strong>CTRL-0068</strong> (Level 1): Use code linters to screen generated code<br><strong>CTRL-0070</strong> (Level 1): Review all agent-generated code before execution</td>
 <td>• Integrate ESLint for JavaScript/TypeScript and Pylint for Python, blocking code application if critical errors detected<br>• Execute all code in Docker containers with no network access by default<br>• Require explicit user approval before running any shell commands</td>
 </tr>
 <tr>
@@ -1656,8 +1682,8 @@
 </tr>
 <tr>
 <td>RISK-041</td>
-<td><strong>CTRL-0075</strong> (Level 1): Do not grant write access unless necessary<br><strong>CTRL-0076</strong> (Level 1): Require human approval for destructive changes<br><strong>CTRL-0077</strong> (Level 0): Enable versioning or soft-delete</td>
-<td>• Restrict write access to workspace directory only (no system files)<br>• Require explicit confirmation before deleting files or modifying package.json/requirements.txt<br>• Integrate with Git to ensure all changes are tracked and reversible</td>
+<td><strong>CTRL-0076</strong> (Level 0): Require human approval for destructive changes that cannot be readily undone<br><strong>CTRL-0077</strong> (Level 0): Enable versioning or soft-delete<br><strong>CTRL-0094</strong> (Level 0): Measure the quality of human oversight<br><strong>CTRL-0075</strong> (Level 1): Do not grant write access unless necessary</td>
+<td>• Restrict write access to workspace directory only (no system files)<br>• Integrate with Git to ensure all changes are tracked and reversible; edits to tracked files proceed without approval<br>• Require explicit confirmation, enforced in the tool layer, before deleting untracked files, force-pushing, or running destructive database commands<br>• Track how often users approve these prompts and review a monthly sample; a prompt approved almost every time is redesigned</td>
 </tr>
 <tr>
 <td>RISK-043</td>
@@ -1666,8 +1692,8 @@
 </tr>
 <tr>
 <td>RISK-044</td>
-<td><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection<br><strong>CTRL-0083</strong> (Level 0): Disallow unknown external files unless scanned</td>
-<td>• Scan all file contents for prompt injection patterns before processing<br>• Warn user when opening repositories from untrusted sources<br>• Sanitize code comments and docstrings before including in prompts</td>
+<td><strong>CTRL-0062</strong> (Level 0): Implement input guardrails to detect prompt injection<br><strong>CTRL-0083</strong> (Level 0): Disallow unknown external files unless scanned<br><strong>CTRL-0097</strong> (Level 0): Do not give one agent untrusted content, sensitive data, and an unrestricted outbound channel at once</td>
+<td>• Scan all file contents for prompt injection patterns before processing<br>• Warn user when opening repositories from untrusted sources<br>• Sanitize code comments and docstrings before including in prompts<br>• The outbound channel is gated outside the agents: code runs in containers with no network access by default, and the only destinations that can be enabled are the package mirror and the organisation's Git server</td>
 </tr>
 </tbody>
 </table>
@@ -1843,24 +1869,25 @@
 <td>Impact too low</td>
 </tr>
 <tr>
-<td>RISK-031</td>
-<td>CAP-05 (Official Communication)</td>
-<td>Inaccurate promises or statements in official communications</td>
-<td><strong>[Impact: 4, Likelihood: 2]</strong> Agent may overcommit but conversational nature provides clarification opportunities before commitments finalise.</td>
-<td>Likelihood too low</td>
-</tr>
-<tr>
 <td>RISK-041</td>
 <td>CAP-11 (File &amp; Data Management)</td>
 <td>Unintended overwriting or deletion of files or data</td>
 <td><strong>[Impact: 3, Likelihood: 2]</strong> Booking modifications are reversible; permanent data loss unlikely with modern systems.</td>
 <td>Both too low</td>
 </tr>
+<tr>
+<td>RISK-055</td>
+<td>CAP-09 + CAP-11 (composite)</td>
+<td>Data exfiltration through message and API channels</td>
+<td><strong>[Impact: 4, Likelihood: 2]</strong> A caller could try to talk the assistant into reading out another customer's records, but the agents can reach only the verified caller's own records and can send data only to that caller and the booking system.</td>
+<td>Likelihood too low</td>
+</tr>
 </tbody>
 </table>
 <p><em>(Additional risks documented but not shown here for brevity)</em></p>
+<p><strong>Combination check.</strong> The lethal trifecta is <em>possible</em>: File and Data Management supplies sensitive data and Business Transactions supplies an outbound channel, while untrusted content depends on the deployment. It is confirmed here, because callers are members of the public. CTRL-0097 is therefore implemented (see RISK-055 below).</p>
 <h4 id="step-3-implement-controls_3">Step 3: Implement Controls</h4>
-<p>This system has 41 applicable risks (20 baseline, 18 from single capabilities, and the three multi-agent risks that Agent Delegation brings in) carrying 29 Level 0 controls, all implemented as-is even under the higher risk appetite — the appetite affects only which Level 1 and 2 controls are taken up. For the three priority risks we implement:</p>
+<p>This system has 42 applicable risks (20 baseline, 18 from single capabilities, and four from combinations: the three multi-agent risks that Agent Delegation brings in, and RISK-055, data exfiltration through message and API channels, which Other Programmatic Interfaces and File and Data Management bring in together) carrying 34 Level 0 controls, all implemented as-is even under the higher risk appetite — the appetite affects only which Level 1 and 2 controls are taken up. For the three priority risks we implement:</p>
 <table>
 <thead>
 <tr>
@@ -1877,8 +1904,8 @@
 </tr>
 <tr>
 <td>RISK-032</td>
-<td><strong>CTRL-0056</strong> (Level 1): Require explicit user confirmation before initiating transactions<br><strong>CTRL-0058</strong> (Level 1): Restrict agents to proposing transactions using separate controller<br><em>(RISK-032 carries no Level 0 control, so its treatment is entirely a scoring decision)</em></td>
-<td>• Require verbal confirmation before any booking changes: "I'll change your appointment to [date/time]. Please confirm by saying 'yes' or 'confirm'"<br>• Record confirmation audio for audit trail<br>• Use dedicated transaction controller API that validates all booking operations independently<br>• Booking Agent cannot directly modify databases; only submits requests to controller</td>
+<td><strong>CTRL-0056</strong> (Level 0): Require explicit human confirmation for transactions outside pre-authorised limits<br><strong>CTRL-0058</strong> (Level 0): Restrict agents to proposing transactions using separate controller<br><strong>CTRL-0094</strong> (Level 0): Measure the quality of human oversight</td>
+<td>• No booking change is pre-authorised, so every change needs the caller's verbal confirmation: "I'll change your appointment to [date/time]. Please confirm by saying 'yes' or 'confirm'"<br>• Record confirmation audio for audit trail<br>• Use dedicated transaction controller API that validates all booking operations independently and rejects any change without a recorded confirmation<br>• Booking Agent cannot directly modify databases; only submits requests to controller<br>• Track confirmation rates and changes reversed shortly after confirmation; review a monthly sample of calls</td>
 </tr>
 <tr>
 <td>RISK-043</td>
@@ -1887,7 +1914,7 @@
 </tr>
 </tbody>
 </table>
-<p>The below-threshold risks still contribute their Level 0 controls. Two examples from the table above:</p>
+<p>The below-threshold risks still contribute their Level 0 controls. Three examples from the table above:</p>
 <table>
 <thead>
 <tr>
@@ -1904,8 +1931,13 @@
 </tr>
 <tr>
 <td>RISK-041</td>
-<td><strong>CTRL-0077</strong>: Enable versioning or soft-delete for managed data stores</td>
-<td>• Booking system changes are versioned; cancelled or modified appointments are recoverable for 30 days</td>
+<td><strong>CTRL-0076</strong>: Human approval for destructive changes that cannot be readily undone<br><strong>CTRL-0077</strong>: Enable versioning or soft-delete for managed data stores<br><strong>CTRL-0094</strong>: Measure the quality of human oversight</td>
+<td>• Booking system changes are versioned; cancelled or modified appointments are recoverable for 30 days, so they need no approval<br>• The agents cannot purge customer records; purges are done by staff in the CRM with a supervisor's approval<br>• Supervisor approvals of purges are counted and sampled quarterly</td>
+</tr>
+<tr>
+<td>RISK-055</td>
+<td><strong>CTRL-0062</strong>: Input guardrails to detect prompt injection<br><strong>CTRL-0083</strong>: Disallow unknown or external files unless scanned<br><strong>CTRL-0089</strong>: Default-deny network egress for agent runtimes<br><strong>CTRL-0097</strong>: Do not give one agent untrusted content, sensitive data, and an unrestricted outbound channel at once</td>
+<td>• Call transcripts pass through an injection detector before they reach the agents<br>• The assistant accepts no files from callers<br>• Agent runtimes can reach only the booking API, the CRM, and the knowledge base<br>• The combination is broken on two legs: the Profile Agent can read only the verified caller's own records, and the only outbound channels are the call itself and booking fields validated against a fixed schema</td>
 </tr>
 </tbody>
 </table>
@@ -2138,6 +2170,8 @@
         <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
       
         <script src="../../assets/risk-register.js"></script>
+      
+        <script src="../../assets/combination-check.js"></script>
       
     
   </body>

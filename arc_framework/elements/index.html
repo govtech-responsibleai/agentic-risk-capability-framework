@@ -561,6 +561,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../capability-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../controls/" class="md-nav__link">
         
   
@@ -942,7 +965,7 @@ Here, we synthesise prevailing agreement on the key components of an agent from 
 <p><strong>🔧 Tools</strong>: Tools are external functions, APIs, or resources attached to an LLM that extend its capabilities beyond text generation, enabling it to retrieve information, execute actions, and affect external systems (e.g., search, code execution, database queries, or file manipulation), typically through structured interfaces such as the <a href="https://modelcontextprotocol.io/">Model Context Protocol (MCP)</a> that constrain invocation, inputs, permissions, and outputs for agentic control and safety.</p>
 </li>
 <li>
-<p><strong>💾 Memory</strong>: Memory is a persistent or semi-persistent data store attached to an LLM that retains information across interactions—such as conversation history, user preferences, task state, and retrieved knowledge—enabling continuity, long-horizon reasoning, and personalization in agentic workflows. Memory may be implemented through mechanisms such as context windows, vector databases, episodic logs, or external state stores, each offering different trade-offs in latency, fidelity, and persistence.</p>
+<p><strong>💾 Memory</strong>: Memory is a persistent or semi-persistent data store attached to an LLM that retains information across interactions—such as conversation history, user preferences, task state, and retrieved knowledge—enabling continuity, long-horizon reasoning, and personalization in agentic workflows. Memory may be implemented through mechanisms such as context windows, vector databases, episodic logs, or external state stores, each offering different trade-offs in latency, fidelity, and persistence. Every agent has working memory, the context it carries within a task; a system has persistent memory when it keeps information beyond a single session or shares it across users or tasks.</p>
 </li>
 </ul>
 <hr />
@@ -994,7 +1017,7 @@ Here, we synthesise prevailing agreement on the key components of an agent from 
 <p><strong>🖱️ Computer Use</strong>: The capability to directly operate a computer's graphical user interface on behalf of the user, enabling the agent to navigate applications and execute tasks through mouse, keyboard, and window-based interactions. This includes moving the cursor, clicking buttons, entering text, using keyboard shortcuts, switching between windows and applications, and navigating files and menus within the operating system environment.</p>
 </li>
 <li>
-<p><strong>🔌 Other Programmatic Interfaces</strong>: The capability to interact with external systems through non-graphical, programmatic interfaces, such as APIs, SDKs, and backend services, to exchange data or trigger actions as part of task execution. This includes calling REST or GraphQL APIs, invoking cloud services, publishing or consuming messages from queues or event streams, and performing operations such as code pushes, data updates, or system integrations across enterprise platforms.</p>
+<p><strong>🔌 Other Programmatic Interfaces</strong>: The capability to interact with external systems through non-graphical, programmatic interfaces, such as APIs, SDKs, and backend services, to exchange data or trigger actions as part of task execution. This includes calling REST or GraphQL APIs, invoking cloud services, publishing or consuming messages from queues or event streams, and performing operations such as code pushes, data updates, or system integrations across enterprise platforms. This includes sending and receiving email, chat, or other messages through an API or mail protocol, including when those messages are also Official Communication.</p>
 </li>
 </ul>
 <h3 id="operational-capabilities">⚙️ Operational Capabilities</h3>
@@ -1205,6 +1228,8 @@ Here, we synthesise prevailing agreement on the key components of an agent from 
         <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
       
         <script src="../../assets/risk-register.js"></script>
+      
+        <script src="../../assets/combination-check.js"></script>
       
     
   </body>

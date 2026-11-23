@@ -461,6 +461,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../capability-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Capability combinations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../controls/" class="md-nav__link">
         
   
@@ -1347,6 +1370,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#RISK-055" class="md-nav__link">
+    <span class="md-ellipsis">
+      RISK-055 · Data exfiltration through message and API channels
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1442,7 +1474,7 @@
           <li class="md-nav__item">
   <a href="#CTRL-0009" class="md-nav__link">
     <span class="md-ellipsis">
-      CTRL-0009 · Use only MCP servers that implement robust authentication mechanisms in production environments
+      CTRL-0009 · Use only tool servers and APIs, including MCP servers, that implement robust authentication mechanisms in production environments
     </span>
   </a>
   
@@ -1532,7 +1564,7 @@
           <li class="md-nav__item">
   <a href="#CTRL-0019" class="md-nav__link">
     <span class="md-ellipsis">
-      CTRL-0019 · Use delimiters to enclose untrusted inputs and instruct the LLM to treat delimited content as data only
+      CTRL-0019 · Keep untrusted inputs out of system instructions, and enclose any untrusted content given to the model in delimiters marked as data
     </span>
   </a>
   
@@ -1550,7 +1582,7 @@
           <li class="md-nav__item">
   <a href="#CTRL-0021" class="md-nav__link">
     <span class="md-ellipsis">
-      CTRL-0021 · Implement allowlists and denylists to restrict what categories of information can be written to agent memory
+      CTRL-0021 · Implement allowlists and denylists to restrict what categories of information can be written to the agent's persistent memory
     </span>
   </a>
   
@@ -1559,7 +1591,7 @@
           <li class="md-nav__item">
   <a href="#CTRL-0022" class="md-nav__link">
     <span class="md-ellipsis">
-      CTRL-0022 · Implement content filtering on memory writes to detect and block known unsafe content patterns
+      CTRL-0022 · Implement content filtering on writes to persistent memory to detect and block known unsafe content patterns
     </span>
   </a>
   
@@ -1568,7 +1600,7 @@
           <li class="md-nav__item">
   <a href="#CTRL-0023" class="md-nav__link">
     <span class="md-ellipsis">
-      CTRL-0023 · Log all memory modifications with comprehensive source metadata for audit purposes
+      CTRL-0023 · Log all modifications to persistent memory with comprehensive source metadata for audit purposes
     </span>
   </a>
   
@@ -1865,7 +1897,7 @@
           <li class="md-nav__item">
   <a href="#CTRL-0056" class="md-nav__link">
     <span class="md-ellipsis">
-      CTRL-0056 · Require explicit user confirmation before initiating or committing any business transaction
+      CTRL-0056 · Require explicit human confirmation before committing any business transaction outside limits that an accountable human has pre-authorised
     </span>
   </a>
   
@@ -2045,7 +2077,7 @@
           <li class="md-nav__item">
   <a href="#CTRL-0076" class="md-nav__link">
     <span class="md-ellipsis">
-      CTRL-0076 · Require human approval for any destructive changes to databases, tables, or files
+      CTRL-0076 · Require human approval for destructive changes to databases, tables, or files that cannot be readily undone
     </span>
   </a>
   
@@ -2208,6 +2240,15 @@
   <a href="#CTRL-0096" class="md-nav__link">
     <span class="md-ellipsis">
       CTRL-0096 · Harden agent frameworks and runtimes before exposing them, and patch framework vulnerabilities promptly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#CTRL-0097" class="md-nav__link">
+    <span class="md-ellipsis">
+      CTRL-0097 · Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent
     </span>
   </a>
   
@@ -2522,9 +2563,9 @@
 
 <div class="admonition abstract">
 <p class="admonition-title">Page Summary</p>
-<p>Every risk and control in ARC risk register <strong>v1.4.0</strong> (released 2026-11-20), as plain text generated from the register's YAML. Each entry has its own link: append its ID, e.g. <a href="#RISK-034"><code>#RISK-034</code></a> or <a href="#CTRL-0062"><code>#CTRL-0062</code></a>. The <a href="../risk-register/">Interactive Risk Register</a> has the same content with filters; the machine-readable source is the <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/v1.4.0/arc-risk-register">register YAML</a>.</p>
+<p>Every risk and control in ARC risk register <strong>v1.3.0</strong> (released 2026-11-23), as plain text generated from the register's YAML. Each entry has its own link: append its ID, e.g. <a href="#RISK-034"><code>#RISK-034</code></a> or <a href="#CTRL-0062"><code>#CTRL-0062</code></a>. The <a href="../risk-register/">Interactive Risk Register</a> has the same content with filters; the machine-readable source is the <a href="https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/v1.3.0/arc-risk-register">register YAML</a>.</p>
 </div>
-<p><strong>Contents:</strong> <a href="#risks">Risks</a> (54, grouped by the element they arise from) · <a href="#controls">Controls</a> (94)</p>
+<p><strong>Contents:</strong> <a href="#risks">Risks</a> (55, grouped by the element they arise from) · <a href="#controls">Controls</a> (95)</p>
 <h2 id="risks">Risks</h2>
 <p>Each risk arises from one or more <a href="../elements/">elements</a> through one failure mode, and results in one or more hazards. A risk that lists several elements arises from their combination and applies only when all of them are present.</p>
 <h3 id="component-llm-cmp-01">Component: LLM (CMP-01)</h3>
@@ -2605,7 +2646,7 @@
 <p>This risk arises when untrusted or user-controlled inputs are incorporated into system instructions without proper sanitisation or validation. As a result, malicious or malformed content may manipulate the model's behaviour, override intended constraints, or trigger unintended actions.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0019">CTRL-0019</a> (Level 0 · Cardinal): Use delimiters to enclose untrusted inputs and instruct the LLM to treat delimited content as data only</li>
+<li><a href="#CTRL-0019">CTRL-0019</a> (Level 0 · Cardinal): Keep untrusted inputs out of system instructions, and enclose any untrusted content given to the model in delimiters marked as data</li>
 <li><a href="#CTRL-0020">CTRL-0020</a> (Level 2 · Best Practice): Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions</li>
 <li><a href="#CTRL-0090">CTRL-0090</a> (Level 1 · Standard): Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions</li>
 </ul>
@@ -2619,7 +2660,7 @@
 <p>This risk arises when tools connected to an agent lack robust authentication or fine-grained authorisation mechanisms, allowing unauthorised access or misuse of tool capabilities. As a result, attackers or misbehaving agents may compromise the system by invoking sensitive actions, escalating privileges, or manipulating external resources beyond intended boundaries.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0009">CTRL-0009</a> (Level 0 · Cardinal): Use only MCP servers that implement robust authentication mechanisms in production environments</li>
+<li><a href="#CTRL-0009">CTRL-0009</a> (Level 0 · Cardinal): Use only tool servers and APIs, including MCP servers, that implement robust authentication mechanisms in production environments</li>
 <li><a href="#CTRL-0010">CTRL-0010</a> (Level 1 · Standard): Use only MCP servers that validate credentials on every inbound request</li>
 <li><a href="#CTRL-0032">CTRL-0032</a> (Level 0 · Cardinal): Centralise observability data collection in a unified backend system</li>
 </ul>
@@ -2668,22 +2709,21 @@
 <li><a href="#CTRL-0013">CTRL-0013</a> (Level 0 · Cardinal): Test all untested MCP servers in a sandboxed environment before deploying to production</li>
 <li><a href="#CTRL-0014">CTRL-0014</a> (Level 0 · Cardinal): Use only MCP servers from verified and trusted developers</li>
 <li><a href="#CTRL-0015">CTRL-0015</a> (Level 1 · Standard): Treat all tool metadata and outputs as untrusted input requiring validation</li>
-<li><a href="#CTRL-0074">CTRL-0074</a> (Level 0 · Cardinal): Conduct CVE scanning and block execution of code with High or Critical vulnerabilities</li>
 <li><a href="#CTRL-0091">CTRL-0091</a> (Level 0 · Cardinal): Require verified provenance for tools, skills, and dependencies, and re-verify them on every update</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/</a> · <a href="https://morphisec.com/mcp-attack-chain/">https://morphisec.com/mcp-attack-chain/</a> · <a href="https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now">https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI04; OWASP threat T17</p>
 <h3 id="component-memory-cmp-04">Component: Memory (CMP-04)</h3>
-<p><em>Memory is a persistent or semi-persistent data store attached to an LLM that retains information across interactions—such as conversation history, user preferences, task state, and retrieved knowledge—enabling continuity, long-horizon reasoning, and personalization in agentic workflows. Memory may be implemented through mechanisms such as context windows, vector databases, episodic logs, or external state stores, each offering different trade-offs in latency, fidelity, and persistence.</em></p>
+<p><em>Memory is a persistent or semi-persistent data store attached to an LLM that retains information across interactions—such as conversation history, user preferences, task state, and retrieved knowledge—enabling continuity, long-horizon reasoning, and personalization in agentic workflows. Memory may be implemented through mechanisms such as context windows, vector databases, episodic logs, or external state stores, each offering different trade-offs in latency, fidelity, and persistence. Every agent has working memory, the context it carries within a task; a system has persistent memory when it keeps information beyond a single session or shares it across users or tasks.</em></p>
 <h4 id="RISK-010">RISK-010 · Poisoned memory</h4>
 <p><strong>Arises from:</strong> Component: Memory (CMP-04)<br />
 <strong>Failure mode:</strong> External Manipulation · <strong>Type:</strong> Safety, Security · <strong>Hazards:</strong> Data (HZ-01), Compromised user safety (HZ-08), Misrepresentation (HZ-09)</p>
 <p>This risk arises when the memory component of an agentic system is intentionally or inadvertently populated with malicious, misleading, or corrupted information. As a result, the agent may rely on compromised memory to make decisions, propagate false information, or exhibit persistent unsafe behaviour across interactions.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0021">CTRL-0021</a> (Level 0 · Cardinal): Implement allowlists and denylists to restrict what categories of information can be written to agent memory</li>
-<li><a href="#CTRL-0022">CTRL-0022</a> (Level 1 · Standard): Implement content filtering on memory writes to detect and block known unsafe content patterns</li>
-<li><a href="#CTRL-0023">CTRL-0023</a> (Level 2 · Best Practice): Log all memory modifications with comprehensive source metadata for audit purposes</li>
+<li><a href="#CTRL-0021">CTRL-0021</a> (Level 0 · Cardinal): Implement allowlists and denylists to restrict what categories of information can be written to the agent's persistent memory</li>
+<li><a href="#CTRL-0022">CTRL-0022</a> (Level 1 · Standard): Implement content filtering on writes to persistent memory to detect and block known unsafe content patterns</li>
+<li><a href="#CTRL-0023">CTRL-0023</a> (Level 2 · Best Practice): Log all modifications to persistent memory with comprehensive source metadata for audit purposes</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://arxiv.org/abs/2505.11548v2">https://arxiv.org/abs/2505.11548v2</a> · <a href="https://arxiv.org/abs/2402.07867">https://arxiv.org/abs/2402.07867</a> · <a href="https://openreview.net/pdf?id=6SIymOqJlc">https://openreview.net/pdf?id=6SIymOqJlc</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI06; OWASP threat T1</p>
@@ -2693,8 +2733,8 @@
 <p>This risk arises when the memory component retains or exposes sensitive information across sessions, tasks, or users with different scopes or authorisations. As a result, data may be inappropriately accessed or reused in unrelated contexts, leading to privacy breaches, confidentiality violations, or unauthorised disclosure.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0021">CTRL-0021</a> (Level 0 · Cardinal): Implement allowlists and denylists to restrict what categories of information can be written to agent memory</li>
-<li><a href="#CTRL-0023">CTRL-0023</a> (Level 2 · Best Practice): Log all memory modifications with comprehensive source metadata for audit purposes</li>
+<li><a href="#CTRL-0021">CTRL-0021</a> (Level 0 · Cardinal): Implement allowlists and denylists to restrict what categories of information can be written to the agent's persistent memory</li>
+<li><a href="#CTRL-0023">CTRL-0023</a> (Level 2 · Best Practice): Log all modifications to persistent memory with comprehensive source metadata for audit purposes</li>
 <li><a href="#CTRL-0047">CTRL-0047</a> (Level 0 · Cardinal): Implement output guardrails to detect and redact personally identifiable information</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://arxiv.org/abs/2506.12699v2">https://arxiv.org/abs/2506.12699v2</a></p>
@@ -2708,7 +2748,7 @@
 <p><strong>Controls:</strong></p>
 <ul>
 <li><a href="#CTRL-0027">CTRL-0027</a> (Level 1 · Standard): Implement circuit breakers to prevent cascading failures in multi-agent systems</li>
-<li><a href="#CTRL-0029">CTRL-0029</a> (Level 1 · Standard): Grant agents only the minimum permissions required for their designated tasks</li>
+<li><a href="#CTRL-0029">CTRL-0029</a> (Level 0 · Cardinal): Grant agents only the minimum permissions required for their designated tasks</li>
 <li><a href="#CTRL-0040">CTRL-0040</a> (Level 0 · Cardinal): Limit the scope of agent actions through predefined thresholds and baselines</li>
 <li><a href="#CTRL-0065">CTRL-0065</a> (Level 0 · Cardinal): Ensure every agent can be immediately paused or terminated by its operators</li>
 </ul>
@@ -2722,7 +2762,7 @@
 <p>This risk arises when agents are granted roles or permissions that exceed their intended responsibilities or operational needs. As a result, agents may access sensitive resources, invoke high-impact capabilities, or perform unauthorised actions that increase the likelihood of security, privacy, or operational failures.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0029">CTRL-0029</a> (Level 1 · Standard): Grant agents only the minimum permissions required for their designated tasks</li>
+<li><a href="#CTRL-0029">CTRL-0029</a> (Level 0 · Cardinal): Grant agents only the minimum permissions required for their designated tasks</li>
 <li><a href="#CTRL-0030">CTRL-0030</a> (Level 1 · Standard): Assign each agent a unique, verifiable identity with no shared credentials</li>
 <li><a href="#CTRL-0031">CTRL-0031</a> (Level 1 · Standard): Use only MCP servers that validate token provenance and prohibit unauthorised token passthrough</li>
 </ul>
@@ -2734,7 +2774,7 @@
 <p>This risk arises when agents are able to gain elevated roles or permissions beyond those initially granted, whether through misconfiguration, exploitation, or unintended system behaviour. As a result, agents may bypass intended controls, access restricted resources, or execute actions that undermine system security and governance.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0029">CTRL-0029</a> (Level 1 · Standard): Grant agents only the minimum permissions required for their designated tasks</li>
+<li><a href="#CTRL-0029">CTRL-0029</a> (Level 0 · Cardinal): Grant agents only the minimum permissions required for their designated tasks</li>
 <li><a href="#CTRL-0030">CTRL-0030</a> (Level 1 · Standard): Assign each agent a unique, verifiable identity with no shared credentials</li>
 <li><a href="#CTRL-0032">CTRL-0032</a> (Level 0 · Cardinal): Centralise observability data collection in a unified backend system</li>
 </ul>
@@ -2746,8 +2786,7 @@
 <p>This risk arises when the frameworks and runtimes an agent is built on ship with insecure defaults — authentication disabled, services listening on all interfaces, permissive origin checks on local control channels, unsafe deserialisation of persisted state, or default credentials — and deployers inherit them unchanged. As a result, any reachable attacker can drive the agent and use the credentials and tools it holds, as shown by a one-click remote-code-execution flaw in a widely installed open-source agent and a chain of deserialisation flaws in agent orchestration frameworks.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0009">CTRL-0009</a> (Level 0 · Cardinal): Use only MCP servers that implement robust authentication mechanisms in production environments</li>
-<li><a href="#CTRL-0074">CTRL-0074</a> (Level 0 · Cardinal): Conduct CVE scanning and block execution of code with High or Critical vulnerabilities</li>
+<li><a href="#CTRL-0009">CTRL-0009</a> (Level 0 · Cardinal): Use only tool servers and APIs, including MCP servers, that implement robust authentication mechanisms in production environments</li>
 <li><a href="#CTRL-0096">CTRL-0096</a> (Level 0 · Cardinal): Harden agent frameworks and runtimes before exposing them, and patch framework vulnerabilities promptly</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now">https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now</a> · <a href="https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html">https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html</a> · <a href="https://www.theregister.com/security/2026/08/05/prompt-injection-isnt-the-bug-ai-agent-frameworks-are/5283585">https://www.theregister.com/security/2026/08/05/prompt-injection-isnt-the-bug-ai-agent-frameworks-are/5283585</a></p>
@@ -2785,7 +2824,7 @@
 <li><a href="#CTRL-0006">CTRL-0006</a> (Level 1 · Standard): Require human approval before executing high-impact actions</li>
 <li><a href="#CTRL-0042">CTRL-0042</a> (Level 1 · Standard): Require explicit human confirmation before executing high-impact or irreversible tool actions</li>
 <li><a href="#CTRL-0049">CTRL-0049</a> (Level 0 · Cardinal): Implement UI/UX cues to communicate the risk of hallucination to users</li>
-<li><a href="#CTRL-0094">CTRL-0094</a> (Level 1 · Standard): Measure the quality of human oversight and redesign approval steps that have become rubber stamps</li>
+<li><a href="#CTRL-0094">CTRL-0094</a> (Level 0 · Cardinal): Measure the quality of human oversight and redesign approval steps that have become rubber stamps</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://www.anthropic.com/engineering/how-we-contain-claude">https://www.anthropic.com/engineering/how-we-contain-claude</a> · <a href="https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf">https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf</a> · <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI09; OWASP threat T10</p>
@@ -2929,7 +2968,7 @@
 <p>This risk arises when an agent generates content that reproduces or closely resembles copyrighted material without appropriate rights or attribution. As a result, the system may infringe intellectual property laws, expose the organisation to legal liability, or violate licensing and usage terms.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0051">CTRL-0051</a> (Level 0 · Cardinal): Implement input guardrails to detect and decline requests to generate copyrighted content</li>
+<li><a href="#CTRL-0051">CTRL-0051</a> (Level 1 · Standard): Implement input guardrails to detect and decline requests to generate copyrighted content</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://arxiv.org/abs/2407.07087">https://arxiv.org/abs/2407.07087</a></p>
 <h3 id="capability-official-communication-cap-05">Capability: Official Communication (CAP-05)</h3>
@@ -2950,9 +2989,10 @@
 <p>This risk arises when an agent makes commitments, assurances, or public statements that are incorrect, unsupported, or exceed the organisation’s actual intentions or capabilities. As a result, the organisation may face reputational damage, legal exposure, or loss of public trust due to unmet expectations or misinformation.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0053">CTRL-0053</a> (Level 1 · Standard): Require human approval for communications on sensitive matters</li>
+<li><a href="#CTRL-0053">CTRL-0053</a> (Level 0 · Cardinal): Require human approval for communications on sensitive matters</li>
 <li><a href="#CTRL-0054">CTRL-0054</a> (Level 1 · Standard): Limit agent communications to standard processes with predefined templates</li>
 <li><a href="#CTRL-0055">CTRL-0055</a> (Level 1 · Standard): Provide alternative channels for users to clarify communications or provide feedback</li>
+<li><a href="#CTRL-0094">CTRL-0094</a> (Level 0 · Cardinal): Measure the quality of human oversight and redesign approval steps that have become rubber stamps</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://the-decoder.com/people-buy-brand-new-chevrolets-for-1-from-a-chatgpt-chatbot/">https://the-decoder.com/people-buy-brand-new-chevrolets-for-1-from-a-chatgpt-chatbot/</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI09; OWASP threat T15</p>
@@ -2964,10 +3004,11 @@
 <p>This risk arises when an agent initiates, authorises, or executes business transactions outside predefined approval thresholds, roles, or authorisation limits. As a result, the organisation may be exposed to unintended financial losses, binding contractual obligations, or operational commitments that were not properly sanctioned.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0056">CTRL-0056</a> (Level 1 · Standard): Require explicit user confirmation before initiating or committing any business transaction</li>
+<li><a href="#CTRL-0056">CTRL-0056</a> (Level 0 · Cardinal): Require explicit human confirmation before committing any business transaction outside limits that an accountable human has pre-authorised</li>
 <li><a href="#CTRL-0057">CTRL-0057</a> (Level 2 · Best Practice): Require out-of-band confirmation when transaction risk signals are elevated</li>
-<li><a href="#CTRL-0058">CTRL-0058</a> (Level 1 · Standard): Restrict agents to proposing transactions whilst using a separate transaction controller for execution</li>
+<li><a href="#CTRL-0058">CTRL-0058</a> (Level 0 · Cardinal): Restrict agents to proposing transactions whilst using a separate transaction controller for execution</li>
 <li><a href="#CTRL-0059">CTRL-0059</a> (Level 2 · Best Practice): Apply fraud detection models or heuristics to agent-proposed transactions</li>
+<li><a href="#CTRL-0094">CTRL-0094</a> (Level 0 · Cardinal): Measure the quality of human oversight and redesign approval steps that have become rubber stamps</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks">https://www.emergingtechbrew.com/stories/2025/05/29/ai-agents-vulnerable-financial-attacks</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI02, ASI01; OWASP threat T2, T6</p>
@@ -2977,7 +3018,7 @@
 <p>This risk arises when credentials, tokens, or sensitive authentication information used to execute business transactions are exposed, mishandled, or improperly stored by an agent or its supporting systems. As a result, malicious parties may gain the ability to initiate unauthorised transactions, manipulate financial operations, or compromise transactional systems.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0058">CTRL-0058</a> (Level 1 · Standard): Restrict agents to proposing transactions whilst using a separate transaction controller for execution</li>
+<li><a href="#CTRL-0058">CTRL-0058</a> (Level 0 · Cardinal): Restrict agents to proposing transactions whilst using a separate transaction controller for execution</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://arxiv.org/pdf/2506.01055">https://arxiv.org/pdf/2506.01055</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI03; OWASP threat T3</p>
@@ -3030,11 +3071,12 @@
 <li><a href="#CTRL-0047">CTRL-0047</a> (Level 0 · Cardinal): Implement output guardrails to detect and redact personally identifiable information</li>
 <li><a href="#CTRL-0066">CTRL-0066</a> (Level 0 · Cardinal): Ensure "take over" mode is activated when entering sensitive data</li>
 <li><a href="#CTRL-0089">CTRL-0089</a> (Level 0 · Cardinal): Enforce default-deny network egress for agent runtimes, allowing only approved destinations</li>
+<li><a href="#CTRL-0097">CTRL-0097</a> (Level 0 · Cardinal): Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://arxiv.org/html/2506.00618v3">https://arxiv.org/html/2506.00618v3</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI02; OWASP threat T2</p>
 <h3 id="capability-other-programmatic-interfaces-cap-09">Capability: Other Programmatic Interfaces (CAP-09)</h3>
-<p><em>The capability to interact with external systems through non-graphical, programmatic interfaces, such as APIs, SDKs, and backend services, to exchange data or trigger actions as part of task execution. This includes calling REST or GraphQL APIs, invoking cloud services, publishing or consuming messages from queues or event streams, and performing operations such as code pushes, data updates, or system integrations across enterprise platforms.</em></p>
+<p><em>The capability to interact with external systems through non-graphical, programmatic interfaces, such as APIs, SDKs, and backend services, to exchange data or trigger actions as part of task execution. This includes calling REST or GraphQL APIs, invoking cloud services, publishing or consuming messages from queues or event streams, and performing operations such as code pushes, data updates, or system integrations across enterprise platforms. This includes sending and receiving email, chat, or other messages through an API or mail protocol, including when those messages are also Official Communication (CAP-05).</em></p>
 <h4 id="RISK-038">RISK-038 · Incorrect use of unfamiliar programmatic interfaces</h4>
 <p><strong>Arises from:</strong> Capability: Other Programmatic Interfaces (CAP-09)<br />
 <strong>Failure mode:</strong> Agent Failure · <strong>Type:</strong> Safety, Security · <strong>Hazards:</strong> Application (HZ-02), Compromised user safety (HZ-08)</p>
@@ -3054,7 +3096,7 @@
 <p>This risk arises when an agent generates or executes code that is incorrect, inefficient, insecure, or unsuitable for the intended task. As a result, the code may fail to achieve desired outcomes, introduce bugs or vulnerabilities, or cause operational disruptions when deployed or run.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0068">CTRL-0068</a> (Level 0 · Cardinal): Use code linters to screen generated code for bad practices and poor syntax</li>
+<li><a href="#CTRL-0068">CTRL-0068</a> (Level 1 · Standard): Use code linters to screen generated code for bad practices and poor syntax</li>
 <li><a href="#CTRL-0069">CTRL-0069</a> (Level 0 · Cardinal): Run agent-generated code only in isolated compute environments with network access blocked by default</li>
 <li><a href="#CTRL-0070">CTRL-0070</a> (Level 1 · Standard): Review all agent-generated code before execution</li>
 <li><a href="#CTRL-0071">CTRL-0071</a> (Level 0 · Cardinal): Use static code analysers to detect security vulnerabilities and code quality issues</li>
@@ -3086,8 +3128,9 @@
 <p><strong>Controls:</strong></p>
 <ul>
 <li><a href="#CTRL-0075">CTRL-0075</a> (Level 1 · Standard): Do not grant write access to agents unless strictly necessary</li>
-<li><a href="#CTRL-0076">CTRL-0076</a> (Level 1 · Standard): Require human approval for any destructive changes to databases, tables, or files</li>
+<li><a href="#CTRL-0076">CTRL-0076</a> (Level 0 · Cardinal): Require human approval for destructive changes to databases, tables, or files that cannot be readily undone</li>
 <li><a href="#CTRL-0077">CTRL-0077</a> (Level 0 · Cardinal): Enable versioning or soft-delete for managed object stores to allow recovery from accidental modifications</li>
+<li><a href="#CTRL-0094">CTRL-0094</a> (Level 0 · Cardinal): Measure the quality of human oversight and redesign approval steps that have become rubber stamps</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf">https://syssec.dpss.inesc-id.pt/papers/pedro_icse25.pdf</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI02; OWASP threat T2</p>
@@ -3124,6 +3167,7 @@
 <li><a href="#CTRL-0062">CTRL-0062</a> (Level 0 · Cardinal): Implement input guardrails to detect prompt injection and adversarial attacks</li>
 <li><a href="#CTRL-0083">CTRL-0083</a> (Level 0 · Cardinal): Disallow unknown or external files unless they have been scanned for threats</li>
 <li><a href="#CTRL-0090">CTRL-0090</a> (Level 1 · Standard): Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions</li>
+<li><a href="#CTRL-0097">CTRL-0097</a> (Level 0 · Cardinal): Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability">https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</a> · <a href="https://www.wired.com/story/here-come-the-ai-worms/">https://www.wired.com/story/here-come-the-ai-worms/</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI01, ASI06; OWASP threat T6, T1</p>
@@ -3178,7 +3222,7 @@
 <h4 id="RISK-047">RISK-047 · Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel</h4>
 <p><strong>Arises from:</strong> Capability: Internet and Search Access (CAP-07) + Capability: File and Data Management (CAP-11)<br />
 <strong>Failure mode:</strong> External Manipulation · <strong>Type:</strong> Security · <strong>Hazards:</strong> Data (HZ-01)</p>
-<p>This risk arises when an agent that ingests untrusted content (web pages, files, messages) also holds access to sensitive data and has any outbound channel — browsing itself, API calls, messaging, or tool calls that carry data in URLs — so that instructions injected through the retrieval path can direct the agent to send data out through a legitimate tool. Each capability may be individually controlled; the exposure comes from their combination. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by ForcedLeak and EchoLeak.</p>
+<p>This risk arises when an agent that ingests untrusted content (web pages, files, messages) also holds access to sensitive data and has any outbound channel — browsing itself, API calls, messaging, or tool calls that carry data in URLs — so that instructions injected through the retrieval path can direct the agent to send data out through a legitimate tool. Each capability may be individually controlled; the exposure comes from their combination. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by ForcedLeak and EchoLeak. RISK-055 covers the same combination when the untrusted content arrives through messages or APIs rather than the web.</p>
 <p><strong>Controls:</strong></p>
 <ul>
 <li><a href="#CTRL-0020">CTRL-0020</a> (Level 2 · Best Practice): Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions</li>
@@ -3188,6 +3232,7 @@
 <li><a href="#CTRL-0083">CTRL-0083</a> (Level 0 · Cardinal): Disallow unknown or external files unless they have been scanned for threats</li>
 <li><a href="#CTRL-0089">CTRL-0089</a> (Level 0 · Cardinal): Enforce default-deny network egress for agent runtimes, allowing only approved destinations</li>
 <li><a href="#CTRL-0090">CTRL-0090</a> (Level 1 · Standard): Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions</li>
+<li><a href="#CTRL-0097">CTRL-0097</a> (Level 0 · Cardinal): Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent</li>
 </ul>
 <p><strong>Sources:</strong> <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/</a> · <a href="https://www.varonis.com/blog/forcedleak">https://www.varonis.com/blog/forcedleak</a> · <a href="https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability">https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</a> · <a href="https://www.anthropic.com/engineering/how-we-contain-claude">https://www.anthropic.com/engineering/how-we-contain-claude</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI01, ASI02; OWASP threat T6, T2</p>
@@ -3197,7 +3242,7 @@
 <p>This risk arises when an agent that can execute code, operating in what is intended to be a contained setting — an evaluation, a red-team exercise, or a sandboxed task — reaches real systems because containment is incomplete: network egress is open, real credentials or accounts are present, or the objective can be pursued more easily outside the boundary. Capable agents have inferred that they were being evaluated and attacked third-party infrastructure to satisfy the task, and have taken unsanctioned actions against real people and organisations during cyber testing. As a result, activity meant to be harmless produces real-world security incidents.</p>
 <p><strong>Controls:</strong></p>
 <ul>
-<li><a href="#CTRL-0029">CTRL-0029</a> (Level 1 · Standard): Grant agents only the minimum permissions required for their designated tasks</li>
+<li><a href="#CTRL-0029">CTRL-0029</a> (Level 0 · Cardinal): Grant agents only the minimum permissions required for their designated tasks</li>
 <li><a href="#CTRL-0040">CTRL-0040</a> (Level 0 · Cardinal): Limit the scope of agent actions through predefined thresholds and baselines</li>
 <li><a href="#CTRL-0065">CTRL-0065</a> (Level 0 · Cardinal): Ensure every agent can be immediately paused or terminated by its operators</li>
 <li><a href="#CTRL-0069">CTRL-0069</a> (Level 0 · Cardinal): Run agent-generated code only in isolated compute environments with network access blocked by default</li>
@@ -3220,6 +3265,22 @@
 </ul>
 <p><strong>Sources:</strong> <a href="https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing">https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing</a> · <a href="https://arxiv.org/abs/2502.14143">https://arxiv.org/abs/2502.14143</a> · <a href="https://arxiv.org/abs/2601.11369">https://arxiv.org/abs/2601.11369</a></p>
 <p><strong>Crosswalks:</strong> OWASP ASI ASI10, ASI07; OWASP threat T13, T12</p>
+<h4 id="RISK-055">RISK-055 · Data exfiltration through message and API channels</h4>
+<p><strong>Arises from:</strong> Capability: Other Programmatic Interfaces (CAP-09) + Capability: File and Data Management (CAP-11)<br />
+<strong>Failure mode:</strong> External Manipulation · <strong>Type:</strong> Security · <strong>Hazards:</strong> Data (HZ-01)</p>
+<p>This risk arises when an agent that reads messages or data sent by outside parties through a programmatic channel — email, chat, support tickets, form submissions, webhooks, or API responses — also holds access to sensitive data and can send messages or make API calls outward. Instructions injected in an inbound message can then direct the agent to send data out through a legitimate channel: replying or forwarding to an attacker's address, posting to a shared channel, or calling an API with data in its parameters or in a URL. Unlike RISK-047, no web access is needed, because the message channel is both the way in and the way out. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by EchoLeak, where a single crafted email led Microsoft 365 Copilot to send internal data to an attacker, and ForcedLeak, where instructions in a web-form submission led Salesforce Agentforce to exfiltrate CRM records.</p>
+<p><strong>Controls:</strong></p>
+<ul>
+<li><a href="#CTRL-0020">CTRL-0020</a> (Level 2 · Best Practice): Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions</li>
+<li><a href="#CTRL-0062">CTRL-0062</a> (Level 0 · Cardinal): Implement input guardrails to detect prompt injection and adversarial attacks</li>
+<li><a href="#CTRL-0082">CTRL-0082</a> (Level 2 · Best Practice): Do not grant agents access to personally identifiable or sensitive data unless strictly required</li>
+<li><a href="#CTRL-0083">CTRL-0083</a> (Level 0 · Cardinal): Disallow unknown or external files unless they have been scanned for threats</li>
+<li><a href="#CTRL-0089">CTRL-0089</a> (Level 0 · Cardinal): Enforce default-deny network egress for agent runtimes, allowing only approved destinations</li>
+<li><a href="#CTRL-0090">CTRL-0090</a> (Level 1 · Standard): Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions</li>
+<li><a href="#CTRL-0097">CTRL-0097</a> (Level 0 · Cardinal): Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent</li>
+</ul>
+<p><strong>Sources:</strong> <a href="https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf">https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf</a> · <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/</a> · <a href="https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability">https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</a> · <a href="https://www.varonis.com/blog/forcedleak">https://www.varonis.com/blog/forcedleak</a></p>
+<p><strong>Crosswalks:</strong> OWASP ASI ASI01, ASI02; OWASP threat T6, T2</p>
 <h2 id="controls">Controls</h2>
 <p>Level 0 controls are cardinal, Level 1 standard and Level 2 best practice; <a href="../controls/#control-levels">Controls → Control levels</a> defines when each applies.</p>
 <h3 id="CTRL-0001">CTRL-0001 · Use only LLMs from verified and trusted model developers</h3>
@@ -3255,9 +3316,9 @@
 <p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-002">RISK-002</a>, <a href="#RISK-022">RISK-022</a></p>
 <p>Behavioural drift may indicate model degradation, adversarial manipulation, or emergent unsafe patterns that require immediate investigation. Define baseline metrics for expected agent behaviour (e.g., tool usage patterns, response times, error rates, decision distributions) and establish acceptable variance thresholds based on your risk tolerance. Implement monitoring systems that continuously track these metrics and trigger alerts when deviations exceed thresholds, enabling rapid response to anomalies. Configure alerts to include sufficient diagnostic context (timestamp, affected sessions, deviation magnitude) and establish clear escalation procedures for investigating and remediating drift incidents.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.3; IMDA MGF 2.3.3; OWASP ASI ASI10</p>
-<h3 id="CTRL-0009">CTRL-0009 · Use only MCP servers that implement robust authentication mechanisms in production environments</h3>
+<h3 id="CTRL-0009">CTRL-0009 · Use only tool servers and APIs, including MCP servers, that implement robust authentication mechanisms in production environments</h3>
 <p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-004">RISK-004</a>, <a href="#RISK-054">RISK-054</a></p>
-<p>Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management. As of the 2026-07-28 MCP specification, verify additionally that the server implements RFC 9207 issuer identification (so a client can detect a substituted authorization server) and Client ID Metadata Documents in place of dynamic client registration, and prefer servers that support the Enterprise-Managed Authorization extension so that access is governed by your identity provider rather than by per-user ad-hoc consent. Treat servers still built on the pre-2026 stateful session model as needing review before production use.</p>
+<p>Weak or misconfigured authorisation on the servers and APIs that an agent's tools call can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Before deployment, verify that every remote tool endpoint authenticates its caller with a standard mechanism (for example OAuth 2.1, OAuth 2.0 with PKCE, or mutually authenticated TLS) and enforces per-client scopes, and reject endpoints that rely on hard-coded credentials, unscoped shared keys, or deprecated authentication methods; test the authorisation flows in a development environment to confirm them. For MCP servers, also verify per-client consent flows and redirect URI validation to prevent authorisation bypasses, and reject servers with insufficient session management. As of the 2026-07-28 MCP specification, verify additionally that the server implements RFC 9207 issuer identification (so a client can detect a substituted authorization server) and Client ID Metadata Documents in place of dynamic client registration, and prefer servers that support the Enterprise-Managed Authorization extension so that access is governed by your identity provider rather than by per-user ad-hoc consent. Treat servers still built on the pre-2026 stateful session model as needing review before production use.</p>
 <p><strong>References:</strong> <a href="https://modelcontextprotocol.io/specification/draft/basic/security_best_practices">https://modelcontextprotocol.io/specification/draft/basic/security_best_practices</a> · <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/">https://blog.modelcontextprotocol.io/posts/2026-07-28/</a></p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.1, 3.3; IMDA MGF 2.3.1; OWASP ASI ASI03, ASI04</p>
 <h3 id="CTRL-0010">CTRL-0010 · Use only MCP servers that validate credentials on every inbound request</h3>
@@ -3302,23 +3363,23 @@
 <p><strong>Level 2 · Best Practice</strong> · <strong>Mitigates:</strong> <a href="#RISK-008">RISK-008</a></p>
 <p>Agents encountering ambiguous instructions without clear fallback behaviour may make incorrect assumptions, proceed with risky actions, or halt unexpectedly, reducing reliability and increasing safety risks. Establish a default policy for handling ambiguity that aligns with your risk tolerance, such as requesting human clarification, selecting the most conservative option, or declining to act until uncertainty is resolved. Document this policy in the system prompt and provide examples of ambiguous scenarios to guide agent decision-making. Monitor how often the agent invokes ambiguity handling mechanisms to identify areas where task definitions or instructions require clarification.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.10; IMDA MGF 2.3.1; OWASP ASI ASI01</p>
-<h3 id="CTRL-0019">CTRL-0019 · Use delimiters to enclose untrusted inputs and instruct the LLM to treat delimited content as data only</h3>
+<h3 id="CTRL-0019">CTRL-0019 · Keep untrusted inputs out of system instructions, and enclose any untrusted content given to the model in delimiters marked as data</h3>
 <p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-009">RISK-009</a></p>
-<p>Prompt injection attacks exploit LLMs' inability to distinguish between instructions and data, allowing malicious users to embed commands within input that override intended behaviour. Implement delimiter-based input segregation by enclosing all untrusted content (user inputs, external data, tool outputs) within clearly marked boundaries (e.g., XML tags, triple quotes, special markers) and explicitly instructing the LLM to treat delimited content as data rather than instructions. Use consistent, distinctive delimiters that are unlikely to appear naturally in user input and reinforce the delimiter policy throughout the system prompt. Whilst delimiters provide some protection, this is not a complete defence and should be combined with other prompt injection mitigations such as input validation and output monitoring.</p>
+<p>Prompt injection attacks exploit LLMs' inability to distinguish between instructions and data, allowing malicious users to embed commands within input that override intended behaviour. Do not interpolate user input, retrieved content, or tool outputs into the system prompt or other instruction templates; fix the system prompt at build time and pass untrusted content to the model in the user or tool turns, where it carries less authority. Where untrusted content must be quoted, enclose it within clearly marked boundaries (e.g., XML tags or special markers) that are unlikely to appear naturally in the input, and instruct the LLM to treat delimited content as data rather than instructions. Neither measure is a complete defence, because the model can still follow instructions in untrusted content, so combine them with controls that do not depend on the model's compliance, such as a deterministic policy layer (CTRL-0090) and least privilege (CTRL-0029).</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.1; IMDA MGF 2.3.1; OWASP ASI ASI01</p>
 <h3 id="CTRL-0020">CTRL-0020 · Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions</h3>
-<p><strong>Level 2 · Best Practice</strong> · <strong>Mitigates:</strong> <a href="#RISK-009">RISK-009</a>, <a href="#RISK-047">RISK-047</a></p>
+<p><strong>Level 2 · Best Practice</strong> · <strong>Mitigates:</strong> <a href="#RISK-009">RISK-009</a>, <a href="#RISK-047">RISK-047</a>, <a href="#RISK-055">RISK-055</a></p>
 <p>Using the same LLM for both input processing and task execution creates vulnerability to prompt injection attacks embedded in user input. Deploy a separate LLM instance configured specifically for input sanitisation, with explicit instructions to extract only designated fields (e.g., name, email, query text) whilst ignoring any other content including embedded commands or meta-instructions. Configure this extraction LLM with a restrictive system prompt focused solely on structured data extraction and validation against expected schemas. Validate extracted fields against expected formats before passing them to the main agent LLM, and monitor extraction outputs for anomalies that might indicate injection attempts.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.1, 2.9; IMDA MGF 2.3.1; OWASP ASI ASI01</p>
-<h3 id="CTRL-0021">CTRL-0021 · Implement allowlists and denylists to restrict what categories of information can be written to agent memory</h3>
+<h3 id="CTRL-0021">CTRL-0021 · Implement allowlists and denylists to restrict what categories of information can be written to the agent's persistent memory</h3>
 <p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-010">RISK-010</a>, <a href="#RISK-011">RISK-011</a></p>
-<p>Unrestricted memory writes enable attackers to poison agent memory with malicious instructions, false information, or sensitive data that could compromise future agent behaviour or leak confidential information. Define explicit allowlists of permitted memory categories (e.g., user preferences, conversation context, task history) and denylists of forbidden content (e.g., credentials, system instructions, security policies, prompt overrides). Enforce these restrictions at the memory write interface, validating all write operations against the defined policies before persisting data.</p>
+<p>Unrestricted writes to persistent memory enable attackers to poison agent memory with malicious instructions, false information, or sensitive data that could compromise future agent behaviour or leak confidential information. Define explicit allowlists of permitted memory categories (e.g., user preferences, conversation context, task history) and denylists of forbidden content (e.g., credentials, system instructions, security policies, prompt overrides). Enforce these restrictions at the memory write interface, validating all write operations against the defined policies before persisting data.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.6, 2.7; IMDA MGF 2.3.1; OWASP ASI ASI06</p>
-<h3 id="CTRL-0022">CTRL-0022 · Implement content filtering on memory writes to detect and block known unsafe content patterns</h3>
+<h3 id="CTRL-0022">CTRL-0022 · Implement content filtering on writes to persistent memory to detect and block known unsafe content patterns</h3>
 <p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-010">RISK-010</a></p>
 <p>Malicious actors may attempt to inject adversarial content into agent memory that bypasses category-based restrictions, such as jailbreak prompts, command injection templates, or social engineering content designed to manipulate future agent behaviour. Deploy content filtering mechanisms that scan all memory write operations for known unsafe patterns (e.g., jailbreak strings, tool invocation templates, prompt override attempts, phishing content) before persisting data. Implement filtering using prompt injection detectors (to detect jailbreak strings) or custom classifiers finetuned on specific risks (e.g. attempts to invoke tools maliciously).</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.1; IMDA MGF 2.3.1; OWASP ASI ASI06</p>
-<h3 id="CTRL-0023">CTRL-0023 · Log all memory modifications with comprehensive source metadata for audit purposes</h3>
+<h3 id="CTRL-0023">CTRL-0023 · Log all modifications to persistent memory with comprehensive source metadata for audit purposes</h3>
 <p><strong>Level 2 · Best Practice</strong> · <strong>Mitigates:</strong> <a href="#RISK-010">RISK-010</a>, <a href="#RISK-011">RISK-011</a></p>
 <p>Without detailed audit logs, detecting and investigating memory poisoning attacks becomes extremely difficult, preventing effective incident response and forensic analysis. Implement comprehensive logging for all memory write, update, and delete operations, capturing source metadata including timestamps, user or agent identity, session context, and the specific content being modified. Structure logs to enable correlation analysis, allowing security teams to trace how specific memory entries evolved over time and identify suspicious modification patterns. Store audit logs in a tamper-evident system separate from the agent's operational memory to prevent attackers from covering their tracks by deleting or modifying log entries.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.3; IMDA MGF 2.3.3; OWASP ASI ASI06, ASI08</p>
@@ -3347,7 +3408,7 @@
 <p><strong>References:</strong> <a href="https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996">https://live.paloaltonetworks.com/t5/community-blogs/safeguarding-ai-agents-an-in-depth-look-at-a2a-protocol-risks/ba-p/1235996</a></p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.3; IMDA MGF 2.3.3; OWASP ASI ASI08</p>
 <h3 id="CTRL-0029">CTRL-0029 · Grant agents only the minimum permissions required for their designated tasks</h3>
-<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-014">RISK-014</a>, <a href="#RISK-015">RISK-015</a>, <a href="#RISK-016">RISK-016</a>, <a href="#RISK-049">RISK-049</a></p>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-014">RISK-014</a>, <a href="#RISK-015">RISK-015</a>, <a href="#RISK-016">RISK-016</a>, <a href="#RISK-049">RISK-049</a></p>
 <p>Excessive permissions enable compromised or malfunctioning agents to access sensitive resources, modify critical data, or perform actions beyond their intended scope, amplifying the impact of security breaches. Apply the principle of least privilege by defining granular permission sets for each agent based on its specific role and required operations, avoiding blanket administrative access or broad permission grants. Review agent permissions regularly to ensure they remain aligned with current responsibilities, revoking unnecessary access as agent roles evolve.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.8; IMDA MGF 2.1.2; OWASP ASI ASI03</p>
 <h3 id="CTRL-0030">CTRL-0030 · Assign each agent a unique, verifiable identity with no shared credentials</h3>
@@ -3440,7 +3501,7 @@
 <p>Without verification mechanisms, users cannot easily check whether agent-generated information is accurate or fabricated, increasing reliance on potentially hallucinated content. Provide built-in features that enable users to verify agent responses against original source materials, such as inline citations linking to specific documents or passages, source attribution showing which materials informed the response, or side-by-side views displaying retrieved content alongside generated summaries. Design verification features to minimise friction whilst maintaining effectiveness — users should be able to check sources with minimal effort rather than requiring extensive navigation or manual searching. For example, automatically highlight passages in source documents that support specific claims made by the agent, enabling rapid verification of factual statements.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.11; IMDA MGF 2.4.2; OWASP ASI ASI09</p>
 <h3 id="CTRL-0051">CTRL-0051 · Implement input guardrails to detect and decline requests to generate copyrighted content</h3>
-<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-029">RISK-029</a></p>
+<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-029">RISK-029</a></p>
 <p>Agents may generate content that reproduces or closely resembles copyrighted material without authorisation, exposing the organisation to intellectual property infringement claims, legal liability, or licensing violations. Deploy input guardrails that detect requests asking the agent to reproduce copyrighted works such as song lyrics, book passages, proprietary code, or other protected content. Configure the system to decline these requests with appropriate messaging that explains copyright limitations and suggests legal alternatives such as summarisation, licensed access, or original creation. Note that copyright detection at the input stage may not catch all violations, as users might phrase requests in ways that obscure copyrighted content generation — tools such as Patronus AI's CopyrightCatcher can provide output-level copyright detection to complement input filtering.</p>
 <p><strong>References:</strong> <a href="https://www.patronus.ai/blog/introducing-copyright-catcher">https://www.patronus.ai/blog/introducing-copyright-catcher</a></p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.1; IMDA MGF 2.3.1</p>
@@ -3449,8 +3510,8 @@
 <p>Recipients misled about whether communications were generated by AI or authored by humans may form incorrect assumptions about accountability, intent, or authority, leading to trust issues or legal complications. Implement clear, prominent disclosures at the beginning of AI-generated communications stating that content was created by an automated system, using unambiguous language such as "This message was generated by an AI assistant" rather than vague phrases that might confuse recipients.</p>
 <p><strong>Crosswalks:</strong> IMDA MGF 2.4.2; OWASP ASI ASI09</p>
 <h3 id="CTRL-0053">CTRL-0053 · Require human approval for communications on sensitive matters</h3>
-<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-031">RISK-031</a></p>
-<p>Agents making unsupported commitments, inaccurate assurances, or statements that exceed organisational capabilities in official communications may expose the organisation to reputational damage, legal liability, or unmet expectations. Implement mandatory human review and approval workflows for communications on sensitive matters including contractual commitments, financial promises, policy statements, regulatory responses, or public-facing announcements. Define clear criteria for what constitutes "sensitive matters" requiring approval, ensuring consistent application across the organisation.</p>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-031">RISK-031</a></p>
+<p>Agents making unsupported commitments, inaccurate assurances, or statements that exceed organisational capabilities in official communications may expose the organisation to reputational damage, legal liability, or unmet expectations. Implement mandatory human review and approval workflows for communications on sensitive matters including contractual commitments, financial promises, policy statements, regulatory responses, or public-facing announcements. Define clear criteria for what constitutes "sensitive matters" requiring approval, ensuring consistent application across the organisation. Enforce the approval in the sending path, so that the agent cannot dispatch a message in a sensitive category until it is approved; an instruction to the agent to seek approval is not enough. Pair this control with CTRL-0094 so that approvals remain real decisions.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.4; IMDA MGF 2.2.2; OWASP ASI ASI09</p>
 <h3 id="CTRL-0054">CTRL-0054 · Limit agent communications to standard processes with predefined templates</h3>
 <p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-031">RISK-031</a></p>
@@ -3460,16 +3521,16 @@
 <p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-031">RISK-031</a></p>
 <p>When agents make inaccurate statements or commitments in communications, recipients need accessible mechanisms to seek clarification, report concerns, or correct misunderstandings before problems escalate. Establish clear alternative channels for recipients to contact human representatives when they have questions about AI-generated communications, such as dedicated email addresses, phone numbers, or contact forms prominently displayed in agent communications.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.5; IMDA MGF 2.4.2; OWASP ASI ASI09</p>
-<h3 id="CTRL-0056">CTRL-0056 · Require explicit user confirmation before initiating or committing any business transaction</h3>
-<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-032">RISK-032</a></p>
-<p>Agents executing business transactions without explicit user confirmation may create unintended financial obligations, contractual commitments, or operational liabilities that were not properly authorised. Implement mandatory confirmation workflows that pause execution immediately before any transaction is initiated, presenting clear details of the transaction type, amounts, counterparties, and consequences for user review and approval. Design confirmation interfaces to require active consent rather than passive acceptance, using explicit "confirm" actions rather than dismissible notifications or opt-out mechanisms. Ensure confirmation cannot be bypassed by agents and maintain audit logs of all transaction approvals including timestamp, user identity, and transaction details.</p>
+<h3 id="CTRL-0056">CTRL-0056 · Require explicit human confirmation before committing any business transaction outside limits that an accountable human has pre-authorised</h3>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-032">RISK-032</a></p>
+<p>Agents executing business transactions without proper authorisation may create unintended financial obligations, contractual commitments, or operational liabilities. Have an accountable human set the limits within which the agent may transact without confirmation — for example amounts, counterparties, transaction types, and frequency — and enforce those limits outside the agent, such as in the transaction controller (CTRL-0058) or payment gateway. Pause any transaction outside the limits, and every transaction where no limits have been set, immediately before it is initiated, presenting the transaction type, amount, counterparty, and consequences for review by the user on whose behalf the agent acts or by a designated approver. Require active consent, using an explicit "confirm" action rather than a dismissible notification or opt-out. Ensure confirmation cannot be bypassed by agents, and keep audit logs of all approvals, including timestamp, approver identity, and transaction details. Pair this control with CTRL-0094 so that confirmations remain real decisions.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.4; IMDA MGF 2.2.2; OWASP ASI ASI09, ASI02</p>
 <h3 id="CTRL-0057">CTRL-0057 · Require out-of-band confirmation when transaction risk signals are elevated</h3>
 <p><strong>Level 2 · Best Practice</strong> · <strong>Mitigates:</strong> <a href="#RISK-032">RISK-032</a></p>
 <p>Transactions exhibiting elevated risk indicators may represent unauthorised or fraudulent activity requiring additional verification beyond standard confirmation. Implement out-of-band confirmation (e.g., SMS codes, email verification, authentication app approvals) when transactions exhibit risk signals such as unusual payees, amounts exceeding typical patterns, rapid transaction sequences, or first-time recipients.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.4; IMDA MGF 2.2.2; OWASP ASI ASI09</p>
 <h3 id="CTRL-0058">CTRL-0058 · Restrict agents to proposing transactions whilst using a separate transaction controller for execution</h3>
-<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-032">RISK-032</a>, <a href="#RISK-033">RISK-033</a></p>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-032">RISK-032</a>, <a href="#RISK-033">RISK-033</a></p>
 <p>Allowing agents direct access to transaction credentials creates risk of credential leakage through prompt injection, logging, or model outputs. Implement architectural separation where agents propose transactions but a dedicated non-LLM transaction controller handles authentication, authorisation, and execution. Ensure agents never receive or handle credentials directly, passing only transaction proposals through secure interfaces.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.9; IMDA MGF 2.1.2; OWASP ASI ASI03</p>
 <h3 id="CTRL-0059">CTRL-0059 · Apply fraud detection models or heuristics to agent-proposed transactions</h3>
@@ -3485,7 +3546,7 @@
 <p>Web scraping exposes agents to arbitrary web content including malicious HTML, scripts, and embedded instructions that may be crafted to inject prompts or manipulate agent behaviour. Use structured retrieval APIs such as search engine APIs, knowledge bases, or curated data sources that provide pre-processed, sanitised content rather than raw web pages. Structured APIs typically return controlled formats (JSON, XML) containing extracted information without rendering full web content, reducing exposure to injection vectors embedded in HTML, CSS, or JavaScript.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.1; IMDA MGF 2.1.2; OWASP ASI ASI01</p>
 <h3 id="CTRL-0062">CTRL-0062 · Implement input guardrails to detect prompt injection and adversarial attacks</h3>
-<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-034">RISK-034</a>, <a href="#RISK-036">RISK-036</a>, <a href="#RISK-044">RISK-044</a>, <a href="#RISK-047">RISK-047</a></p>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-034">RISK-034</a>, <a href="#RISK-036">RISK-036</a>, <a href="#RISK-044">RISK-044</a>, <a href="#RISK-047">RISK-047</a>, <a href="#RISK-055">RISK-055</a></p>
 <p>Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.1; IMDA MGF 2.3.1; OWASP ASI ASI01</p>
 <h3 id="CTRL-0063">CTRL-0063 · Prioritise search results from verified, high-quality domains</h3>
@@ -3509,7 +3570,7 @@
 <p>Agents interacting with poorly documented or unfamiliar programmatic interfaces may misinterpret interface semantics, invoke operations incorrectly, or produce unintended effects. Provide comprehensive, LLM-readable documentation for all programmatic interfaces agents may interact with, including clear descriptions of available operations, required parameters with data types and constraints, expected responses, and common error conditions.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.4; IMDA MGF 2.3.1; OWASP ASI ASI02</p>
 <h3 id="CTRL-0068">CTRL-0068 · Use code linters to screen generated code for bad practices and poor syntax</h3>
-<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-039">RISK-039</a></p>
+<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-039">RISK-039</a></p>
 <p>Agents may generate code containing bad practices, anti-patterns, unused variables, or syntax errors that reduce code quality, introduce bugs, or create maintainability issues. Implement automated code linting that analyses all agent-generated code before execution or deployment, using tools such as Pylint, ESLint, or language-specific linters configured with appropriate rule sets. Configure linters to detect common issues including syntax errors, unused variables, deprecated functions, security anti-patterns, and violations of coding standards. Reject code that fails linting checks or present warnings to users for review before proceeding.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.2; IMDA MGF 2.3.1; OWASP ASI ASI05</p>
 <h3 id="CTRL-0069">CTRL-0069 · Run agent-generated code only in isolated compute environments with network access blocked by default</h3>
@@ -3533,16 +3594,16 @@
 <p>Agents may generate code that invokes dangerous or destructive commands capable of compromising systems, deleting data, or establishing unauthorised network connections. Implement command denylists that explicitly prohibit execution of dangerous operations such as system shutdown commands, file deletion utilities, network scanning tools, or privileged system calls. Enforce denylists at the execution layer, preventing blocked commands from running even if agents generate code containing them. Regularly review and update denylists based on observed agent behaviour, emerging security threats, and identified misuse patterns.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.7; IMDA MGF 2.1.2; OWASP ASI ASI05</p>
 <h3 id="CTRL-0074">CTRL-0074 · Conduct CVE scanning and block execution of code with High or Critical vulnerabilities</h3>
-<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-040">RISK-040</a>, <a href="#RISK-048">RISK-048</a>, <a href="#RISK-054">RISK-054</a></p>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-040">RISK-040</a></p>
 <p>Agent-generated code may inadvertently include dependencies or libraries containing known security vulnerabilities that could be exploited to compromise systems. Implement automated CVE scanning that analyses all dependencies, libraries, and packages used by agent-generated code before execution, checking against vulnerability databases such as the National Vulnerability Database. Configure scanning to block execution when High or Critical severity CVEs are detected, requiring remediation such as dependency updates or vulnerability patches before proceeding.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.2; IMDA MGF 2.3.1; OWASP ASI ASI04, ASI05</p>
 <h3 id="CTRL-0075">CTRL-0075 · Do not grant write access to agents unless strictly necessary</h3>
 <p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-041">RISK-041</a></p>
 <p>Agents with unnecessary write access may inadvertently modify, overwrite, or delete critical files or data, leading to data loss, corruption, or operational disruption. Apply the principle of least privilege by granting write access only when explicitly required for the agent's intended functionality, defaulting to read-only access for all other operations. Implement granular access controls that restrict write permissions to specific directories, databases, or resources that the agent legitimately needs to modify. Regularly review agent permissions to ensure write access remains justified and revoke unnecessary permissions as agent responsibilities evolve.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.8; IMDA MGF 2.1.2; OWASP ASI ASI02</p>
-<h3 id="CTRL-0076">CTRL-0076 · Require human approval for any destructive changes to databases, tables, or files</h3>
-<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-041">RISK-041</a></p>
-<p>Destructive operations such as deleting files, dropping database tables, or overwriting critical data can cause irreversible damage if executed without proper authorisation. Implement mandatory human approval workflows for all destructive operations including DELETE queries, DROP statements, file deletions, or data overwrites that modify or remove existing information.</p>
+<h3 id="CTRL-0076">CTRL-0076 · Require human approval for destructive changes to databases, tables, or files that cannot be readily undone</h3>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-041">RISK-041</a></p>
+<p>Destructive operations such as deleting files, dropping database tables, or overwriting critical data can cause irreversible damage if executed without proper authorisation. Require human approval for every destructive operation that cannot be readily undone, including DROP and TRUNCATE statements, DELETE or UPDATE queries that are not narrowly filtered, bulk file deletions, and any deletion or overwrite in a store without versioning, soft-delete, or point-in-time recovery (see CTRL-0077). Changes that can be reverted from version control or soft-delete, such as edits to files in a version-controlled working copy, may proceed without approval. Enforce the approval in the tool or database permission layer rather than by instructing the agent to ask first, because an instruction in the agent's context can be ignored or lost.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.4; IMDA MGF 2.2.2; OWASP ASI ASI02, ASI09</p>
 <h3 id="CTRL-0077">CTRL-0077 · Enable versioning or soft-delete for managed object stores to allow recovery from accidental modifications</h3>
 <p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-041">RISK-041</a></p>
@@ -3565,11 +3626,11 @@
 <p>Agents accessing files or databases containing PII may inadvertently expose sensitive personal information through outputs, logs, or downstream processing without appropriate safeguards. Deploy input guardrails that scan data retrieved from files, databases, or other sources for PII categories including names, email addresses, phone numbers, identification numbers, and financial information before agents process it. When PII is detected, trigger protective measures such as flagging the data as sensitive to the agent, applying stricter output filtering, requiring additional access authorisation, or activating enhanced logging to track how the sensitive data is used.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.1; IMDA MGF 2.3.1</p>
 <h3 id="CTRL-0082">CTRL-0082 · Do not grant agents access to personally identifiable or sensitive data unless strictly required</h3>
-<p><strong>Level 2 · Best Practice</strong> · <strong>Mitigates:</strong> <a href="#RISK-043">RISK-043</a>, <a href="#RISK-047">RISK-047</a></p>
+<p><strong>Level 2 · Best Practice</strong> · <strong>Mitigates:</strong> <a href="#RISK-043">RISK-043</a>, <a href="#RISK-047">RISK-047</a>, <a href="#RISK-055">RISK-055</a></p>
 <p>Agents with unnecessary access to PII or sensitive data create elevated risk of exposure, leakage, or misuse, particularly if agents are compromised or misuse their permissions. Apply the principle of least privilege by restricting agent access to databases, files, or systems containing PII or sensitive information unless explicitly required for the agent's designated functionality. Implement access controls that enforce these restrictions at the data layer, preventing agents from querying or reading sensitive datasets they should not access.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.8, 2.7; IMDA MGF 2.1.2; OWASP ASI ASI03</p>
 <h3 id="CTRL-0083">CTRL-0083 · Disallow unknown or external files unless they have been scanned for threats</h3>
-<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-044">RISK-044</a>, <a href="#RISK-047">RISK-047</a></p>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-044">RISK-044</a>, <a href="#RISK-047">RISK-047</a>, <a href="#RISK-055">RISK-055</a></p>
 <p>External files may contain maliciously crafted content designed to inject hidden instructions, manipulate agent behaviour, or introduce security threats when processed. Implement mandatory scanning for all unknown or external files before allowing agents to access them, using antivirus software, malware scanners, or specialised tools that detect prompt injection attempts embedded in file content.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.1, 2.1; IMDA MGF 2.3.1; OWASP ASI ASI01, ASI04</p>
 <h3 id="CTRL-0084">CTRL-0084 · Set minimum and maximum limits on what agents can modify within system resources</h3>
@@ -3585,12 +3646,12 @@
 <p>Agents making unlimited concurrent queries to external systems may overwhelm those systems, trigger rate limiting or blocking, or exhaust connection pools and network resources. Implement concurrency limits that restrict the maximum number of simultaneous queries an agent can issue to external systems, such as APIs, web services, or remote databases. Configure limits appropriate to external system capacity and rate limit policies, ensuring agents operate within acceptable thresholds whilst maintaining functionality.</p>
 <p><strong>Crosswalks:</strong> CSA Addendum 3.1; IMDA MGF 2.1.2; OWASP ASI ASI02</p>
 <h3 id="CTRL-0089">CTRL-0089 · Enforce default-deny network egress for agent runtimes, allowing only approved destinations</h3>
-<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-037">RISK-037</a>, <a href="#RISK-047">RISK-047</a>, <a href="#RISK-049">RISK-049</a></p>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-037">RISK-037</a>, <a href="#RISK-047">RISK-047</a>, <a href="#RISK-049">RISK-049</a>, <a href="#RISK-055">RISK-055</a></p>
 <p>Every exfiltration and every containment escape needs an outbound channel, and agents acquire new ones with each tool. Run agent runtimes behind an egress policy that denies all outbound connections by default and allows only named destinations required for the task, applied at the network layer (proxy, firewall, or sandbox policy) rather than in the prompt. Include browsing and API tools in the policy, block requests that carry data in URLs or headers to unapproved hosts, and validate at the egress boundary that any credential presented belongs to the deployment — an allowlisted API endpoint is still an exfiltration channel if the agent can use it with an attacker's account. Log and alert on denied connections; they are an early signal of injection or misbehaviour.</p>
 <p><strong>References:</strong> <a href="https://www.anthropic.com/engineering/how-we-contain-claude">https://www.anthropic.com/engineering/how-we-contain-claude</a> · <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/</a></p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.6, 2.9; IMDA MGF 2.1.2; OWASP ASI ASI02</p>
 <h3 id="CTRL-0090">CTRL-0090 · Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions</h3>
-<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-009">RISK-009</a>, <a href="#RISK-034">RISK-034</a>, <a href="#RISK-036">RISK-036</a>, <a href="#RISK-044">RISK-044</a>, <a href="#RISK-047">RISK-047</a></p>
+<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-009">RISK-009</a>, <a href="#RISK-034">RISK-034</a>, <a href="#RISK-036">RISK-036</a>, <a href="#RISK-044">RISK-044</a>, <a href="#RISK-047">RISK-047</a>, <a href="#RISK-055">RISK-055</a></p>
 <p>Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.</p>
 <p><strong>References:</strong> <a href="https://arxiv.org/abs/2503.18813">https://arxiv.org/abs/2503.18813</a> · <a href="https://arxiv.org/abs/2504.11703">https://arxiv.org/abs/2504.11703</a> · <a href="https://arxiv.org/abs/2503.18666">https://arxiv.org/abs/2503.18666</a></p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.9, 4.1; IMDA MGF 2.3.1; OWASP ASI ASI01</p>
@@ -3610,7 +3671,7 @@
 <p><strong>References:</strong> <a href="https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing">https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing</a> · <a href="https://arxiv.org/abs/2502.14143">https://arxiv.org/abs/2502.14143</a></p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.3, 3.4; IMDA MGF 2.3.3; OWASP ASI ASI10</p>
 <h3 id="CTRL-0094">CTRL-0094 · Measure the quality of human oversight and redesign approval steps that have become rubber stamps</h3>
-<p><strong>Level 1 · Standard</strong> · <strong>Mitigates:</strong> <a href="#RISK-052">RISK-052</a></p>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-031">RISK-031</a>, <a href="#RISK-032">RISK-032</a>, <a href="#RISK-041">RISK-041</a>, <a href="#RISK-052">RISK-052</a></p>
 <p>A human approval step is only a control while the human is actually deciding. Instrument approval workflows: track approval rates, response times, and override rates per user and per action type, and audit random samples of approved actions. Approval rates near 100% or response times of seconds indicate that the step has stopped working. Respond by routing only genuinely uncertain or high-impact actions to humans, screening routine ones automatically, presenting the context needed to decide (what will change, why the agent chose it, what it would cost to reverse), and training overseers on the agent's failure modes. Report oversight metrics alongside the agent's other operating metrics so that erosion is visible to the governance team.</p>
 <p><strong>References:</strong> <a href="https://www.anthropic.com/engineering/how-we-contain-claude">https://www.anthropic.com/engineering/how-we-contain-claude</a> · <a href="https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf">https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf</a></p>
 <p><strong>Crosswalks:</strong> CSA Addendum 4.4; IMDA MGF 2.2.2; OWASP ASI ASI09</p>
@@ -3624,6 +3685,11 @@
 <p>Do not run an agent framework with its defaults on any reachable network. Before exposure, enable authentication on every control interface, bind local services to loopback rather than all interfaces, validate origins on WebSocket and browser-facing endpoints, disable or replace unsafe deserialisation of persisted state and checkpoints, remove default credentials, and run the agent as an unprivileged user. Track security advisories for the frameworks and SDKs in use and treat agent-framework vulnerabilities as high priority for patching, because an agent runtime typically holds the credentials of everything it can act on. Include these checks in the deployment baseline so that a new agent cannot go live unhardened.</p>
 <p><strong>References:</strong> <a href="https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now">https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now</a> · <a href="https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html">https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html</a></p>
 <p><strong>Crosswalks:</strong> CSA Addendum 2.3, 2.8; IMDA MGF 2.3.1; OWASP ASI ASI05, ASI03</p>
+<h3 id="CTRL-0097">CTRL-0097 · Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent</h3>
+<p><strong>Level 0 · Cardinal</strong> · <strong>Mitigates:</strong> <a href="#RISK-037">RISK-037</a>, <a href="#RISK-044">RISK-044</a>, <a href="#RISK-047">RISK-047</a>, <a href="#RISK-055">RISK-055</a></p>
+<p>An agent that reads content from outside parties, can reach sensitive data, and can send data out can be turned into an exfiltration channel by a single injected instruction, and detection alone does not reliably stop this. Map, for each agent, where its inputs come from, what sensitive data it can reach, and every channel through which it can send data out, including messages, API calls, and URLs it can fetch or render. Where all three are present, break the combination: give the untrusted content to a separate agent that has no access to sensitive data and returns only structured values (see CTRL-0020 and CTRL-0090); remove the sensitive data the task does not need (see CTRL-0082); or restrict the outbound channel outside the agent, by limiting recipients and destinations to a fixed allowlist (see CTRL-0089) and requiring human approval for any message or call that carries data to a new recipient. Record which of the three is removed or gated for each agent, and recheck the map whenever a tool, data source, or channel is added. An agent that lacks any of the three does not need this control; record the waiver with evidence of which one is absent.</p>
+<p><strong>References:</strong> <a href="https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf">https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf</a> · <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/</a></p>
+<p><strong>Crosswalks:</strong> CSA Addendum 2.7, 2.9; IMDA MGF 2.1.2; OWASP ASI ASI01, ASI02</p>
 
 
 
@@ -3826,6 +3892,8 @@
         <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
       
         <script src="../../assets/risk-register.js"></script>
+      
+        <script src="../../assets/combination-check.js"></script>
       
     
   </body>
