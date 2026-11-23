@@ -504,7 +504,7 @@ def effective_level(control, profile):
 def combination_rules(reg):
     """The register's combination rules as {rule_id: rule}, each with `legs`: {role_id: role}.
 
-    Register 2.0 keeps shared `roles` and `rules` that name them; register 1.5 kept the legs inside each
+    Register 2.0 keeps shared `roles` and `rules` that name them; register 1.3 kept the legs inside each
     combination. Both are returned in the one shape.
     """
     data = reg.get("combinations") or {}
