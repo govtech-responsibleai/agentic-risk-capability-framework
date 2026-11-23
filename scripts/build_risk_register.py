@@ -52,8 +52,20 @@ def load_yaml(filename):
         return yaml.safe_load(f)
 
 def load_combinations():
-    """Capability combinations the register checks for (combinations.yaml), or {} if it has none."""
+    """combinations.yaml (roles, rules and implied capabilities), or {} if the register has none."""
     return load_yaml('combinations.yaml') if (DATA_DIR / 'combinations.yaml').exists() else {}
+
+
+def combination_rules(combinations):
+    """{rule_id: rule}, each with `legs`: the roles it names, in order, with their capability marks."""
+    roles = combinations.get('roles') or {}
+    return {rule_id: {**rule, 'legs': {r: roles[r] for r in rule.get('roles') or []}}
+            for rule_id, rule in (combinations.get('rules') or {}).items()}
+
+
+def live(entries):
+    """Entries that have not been retired (`superseded_by`)."""
+    return {k: v for k, v in entries.items() if not v.get('superseded_by')}
 
 
 def _crosswalk_labels(crosswalks, references):
@@ -75,6 +87,7 @@ FRAMEWORK_SHORT = {
 
 def build_crosswalks_page(risks, controls, references, register):
     """Render the Crosswalks page (arc_framework/crosswalks.md) from the register."""
+    risks, controls = live(risks), live(controls)
     def entries_for(section, framework):
         """external ID -> list of (entry_id, statement)"""
         table = {str(k): [] for k in references[framework]['ids']}
@@ -155,6 +168,10 @@ def build_risk_register_data():
     references = load_yaml('crosswalk_references.yaml')
     hazards = load_yaml('hazards.yaml')
     register = load_yaml('register.yaml')
+    rules = combination_rules(load_combinations())
+    retired = [{'id': k, 'statement': v.get('statement', ''), 'superseded_by': v['superseded_by']}
+               for section in (risks, controls) for k, v in section.items() if v.get('superseded_by')]
+    risks, controls = live(risks), live(controls)
 
     # Create element lookup (components + design + capabilities)
     elements = {}
@@ -217,14 +234,16 @@ def build_risk_register_data():
                     'crosswalks': _crosswalk_labels(ctrl.get('crosswalks') or {}, references),
                 })
 
+        rule = rules.get(risk_data.get('combination'))
         enriched_risk = {
             'id': risk_id,
             'statement': risk_data.get('statement', ''),
             'description': risk_data.get('description', ''),
             'element_ids': [e['id'] for e in risk_elements],
-            'element_names': [e['name'] for e in risk_elements],
-            'element_categories': [e['category'] for e in risk_elements],
-            'composite': len(risk_elements) > 1,
+            'element_names': [rule['name']] if rule else [e['name'] for e in risk_elements],
+            'element_categories': ['Combination'] if rule else [e['category'] for e in risk_elements],
+            'composite': bool(rule) or len(risk_elements) > 1,
+            'combination': risk_data.get('combination', ''),
             'min_authority': risk_data.get('min_authority', {}),
             'failure_mode': risk_data.get('failure_mode', ''),
             'type': risk_data.get('type', []),
@@ -242,7 +261,9 @@ def build_risk_register_data():
     output = {
         'risks': enriched_risks,
         'elements': list(elements.values()),
-        'combinations': load_combinations(),
+        'combinations': rules,
+        'implies': load_combinations().get('implies', {}),
+        'retired': retired,
         'crosswalk_references': {
             fw: {'title': ref['title'], 'url': ref['url'], 'version': ref.get('version', '')}
             for fw, ref in references.items()
@@ -253,7 +274,7 @@ def build_risk_register_data():
             'total_risks': len(risks),
             'total_controls': len(controls),
             'total_elements': len(elements),
-            'categories': sorted(set(e['category'] for e in elements.values())),
+            'categories': sorted(set(e['category'] for e in elements.values()) | ({'Combination'} if rules else set())),
             'failure_modes': sorted(set(r.get('failure_mode', '') for r in risks.values())),
             'hazards': [{'id': h, 'name': d['name'], 'type': d['type']} for h, d in hazards.items()],
             'risk_types': ['Safety', 'Security']
@@ -292,6 +313,10 @@ def _crosswalk_line(crosswalks, references):
 
 def build_full_text_page(risks, controls, capabilities, components, design, hazards, references, register):
     """Render the full-text register (arc_framework/register-full-text.md): one linkable section per entry."""
+    rules = combination_rules(load_combinations())
+    retired_risks = {k: v for k, v in risks.items() if v.get('superseded_by')}
+    retired_controls = {k: v for k, v in controls.items() if v.get('superseded_by')}
+    risks, controls = live(risks), live(controls)
     elements = {}
     for eid, e in components.items():
         elements[eid] = ('Component', e)
@@ -332,14 +357,17 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
 
     groups = {}
     for rid, r in risks.items():
-        ids = r.get('element_ids', [])
+        ids = r.get('element_ids') or []
         key = ids[0] if len(ids) == 1 else 'combination'
         groups.setdefault(key, []).append(rid)
     order = [eid for eid in elements if eid in groups] + (['combination'] if 'combination' in groups else [])
 
     for key in order:
         if key == 'combination':
-            lines += ['', '### Combinations of elements', '']
+            lines += ['', '### Combinations of elements', '',
+                      'A risk in this group arises from several elements together, or from a '
+                      '[combination rule](capability-combinations.md), which applies whenever the capabilities a '
+                      'system has can between them fill every role the rule names.']
         else:
             lines += ['', f"### {element_label(key)}", '', f"*{elements[key][1].get('description', '').strip()}*"]
             if elements[key][1].get('authority'):
@@ -355,7 +383,10 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
                 '',
                 f"#### {rid} · {r['statement']} {{ #{rid} }}",
                 '',
-                f"**Arises from:** {' + '.join(element_label(e) for e in r.get('element_ids', []))}  ",
+                ("**Arises from:** the combination rule \"" + rules[r['combination']]['name']
+                 + "\" (roles: " + ', '.join(leg['name'].lower() for leg in rules[r['combination']]['legs'].values()) + ")  "
+                 if r.get('combination') in rules else
+                 f"**Arises from:** {' + '.join(element_label(e) for e in r.get('element_ids', []))}  "),
                 f"**Failure mode:** {r.get('failure_mode', '')} · **Type:** {', '.join(r.get('type', []))} · **Hazards:** {hz}",
             ]
             for cap_id, minimum in (r.get('min_authority') or {}).items():
@@ -378,6 +409,12 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
             if cw:
                 lines += ['', f"**Crosswalks:** {cw}"]
 
+    if retired_risks:
+        lines += ['', '### Retired risks', '', 'These IDs are kept so that older assessments and citations still resolve.']
+        for rid, r in retired_risks.items():
+            lines += ['', f"#### {rid} · {r['statement']} {{ #{rid} }}", '',
+                      f"Retired. Superseded by [{r['superseded_by']}](#{r['superseded_by']})."]
+
     lines += ['', '## Controls { #controls }', '',
               'Level 0 controls are cardinal, Level 1 standard and Level 2 best practice; '
               '[Controls → Control levels](controls.md#control-levels) defines when each applies.']
@@ -397,6 +434,11 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
         cw = _crosswalk_line(c.get('crosswalks'), references)
         if cw:
             lines += ['', f"**Crosswalks:** {cw}"]
+    if retired_controls:
+        lines += ['', '### Retired controls', '', 'These IDs are kept so that older assessments and citations still resolve.']
+        for cid, c in retired_controls.items():
+            lines += ['', f"#### {cid} · {c['statement']} {{ #{cid} }}", '',
+                      f"Retired. Superseded by [{c['superseded_by']}](#{c['superseded_by']})."]
     return '\n'.join(lines) + '\n'
 
 
@@ -412,19 +454,35 @@ def build_combinations_page(source, risks, controls, capabilities, components, d
     """
     names = {eid: e['name'] for group in (components, design, capabilities) for eid, e in group.items()}
 
+    rules = combination_rules(combinations)
+
     def composite_risks(_):
-        rows = ['| Risk | Applies when the system has all of |', '| --- | --- |']
-        for rid, r in risks.items():
-            ids = r.get('element_ids', [])
-            if len(ids) > 1:
-                rows.append(f"| [{rid}](register-full-text.md#{rid}) {r['statement']} | "
+        rows = ['| Risk | Applies when |', '| --- | --- |']
+        for rid, r in live(risks).items():
+            ids = r.get('element_ids') or []
+            if r.get('combination') in rules:
+                rule = rules[r['combination']]
+                rows.append(f"| [{rid}](register-full-text.md#{rid}) {r['statement']} | The rule \"{rule['name']}\" is "
+                            'present or possible: the system\'s capabilities can supply '
+                            + ', '.join(leg['name'].lower() for leg in rule['legs'].values()) + ' |')
+            elif len(ids) > 1:
+                rows.append(f"| [{rid}](register-full-text.md#{rid}) {r['statement']} | The system has all of: "
                             + ' + '.join(f'{names[e]} ({e})' for e in ids) + ' |')
         return rows
 
+    def implied(_):
+        rows = ['| Capability | Also gives the system | When |', '| --- | --- | --- |']
+        for cap_id, others in (combinations.get('implies') or {}).items():
+            for other, entry in others.items():
+                target = 'Any capability' if other == 'any' else f"{capabilities[other]['name']} ({other})"
+                rows.append(f"| {capabilities[cap_id]['name']} ({cap_id}) | {target} | "
+                            f"{MARK_LABELS[entry['mark']]}. {entry['note']} |")
+        return rows
+
     def combination(combo_id):
-        if combo_id not in combinations:
-            raise RegisterInvalid(f'{COMBINATIONS_PATH}: unknown combination "{combo_id}"')
-        return combinations[combo_id]
+        if combo_id not in rules:
+            raise RegisterInvalid(f'{COMBINATIONS_PATH}: unknown combination rule "{combo_id}"')
+        return rules[combo_id]
 
     def legs_table(combo_id):
         legs = combination(combo_id)['legs']
@@ -440,8 +498,9 @@ def build_combinations_page(source, risks, controls, capabilities, components, d
         rows = []
         for leg in combination(combo_id)['legs'].values():
             rows += [f"**{leg['name']}.** {leg['description']}", '']
-            rows += [f"- {capabilities[c]['name']} ({c}): {MARK_LABELS[e['mark']].lower()}. {e['note']}"
-                     for c, e in leg['capabilities'].items()]
+            rows += [f"- {capabilities[c]['name']} ({c}): {MARK_LABELS[e['mark']].lower()}"
+                     + (f", from {AUTHORITY_LABELS[e['min_authority']]} upwards" if e.get('min_authority') else '')
+                     + f". {e['note']}" for c, e in leg['capabilities'].items()]
             rows.append('')
         return rows[:-1]
 
@@ -451,7 +510,7 @@ def build_combinations_page(source, risks, controls, capabilities, components, d
         return [f"> **[{cid}](register-full-text.md#{cid}) ({LEVEL_LABELS[c['level']]}).** {c['statement']}."]
 
     blocks = {'composite-risks': composite_risks, 'combination-legs': legs_table,
-              'combination-notes': legs_notes, 'combination-control': control}
+              'combination-notes': legs_notes, 'combination-control': control, 'implied-capabilities': implied}
 
     def fill(match):
         indent, name, arg = match.group(1), match.group(2), match.group(3)

@@ -24,13 +24,16 @@ SELECTED = ["CAP-07", "CAP-11"]  # Internet & Search Access, File & Data Managem
 def test_loader_helpers():
     caps, risks, controls, comps, design = dl.load_data()
     assert caps and risks and controls and comps and design, "register failed to load"
-    assert all(dl.element_kind(eid) != "unknown" for r in risks.values() for eid in r["element_ids"])
+    assert all(dl.element_kind(eid) != "unknown" for r in risks.values() for eid in r.get("element_ids") or [])
 
     baseline = [rid for rid in risks if dl.is_baseline_risk(risks[rid])]
     assert baseline, "no baseline risks found"
     ids = dl.get_applicable_risk_ids(risks, SELECTED)
     assert ids[:len(baseline)] == baseline
-    assert all(set(risks[r]["element_ids"]) <= set(SELECTED) for r in ids[len(baseline):])
+    assert all(set(risks[r].get("element_ids") or []) <= set(SELECTED) for r in ids[len(baseline):])
+    # RISK-047 arises from a combination rule, which web access and file management complete between them
+    assert "RISK-047" in ids and dl.describe_risk_element(risks["RISK-047"], caps, comps, design) == \
+        "Combination: Lethal trifecta"
 
     assert dl.describe_risk_element(risks["RISK-034"], caps, comps, design) == \
         "Capability: Internet and Search Access (Interaction)"

@@ -4,7 +4,7 @@
 
 !!! abstract "Page Summary"
 
-    Some risks belong to no single capability. They arise only when a system holds several capabilities at once. This page explains how ARC handles them: composite risks in the register, a check that reads a system's capabilities and reports whether a dangerous combination is present, and a control that breaks the combination. The lethal trifecta is the worked example.
+    Some risks belong to no single capability. They arise only when a system holds several capabilities at once. This page explains the four ways capabilities combine, and how ARC handles them: combination rules that bring a risk into scope whenever a system's capabilities can complete the combination, a list of the capabilities that give a system others, and a control for each rule. The lethal trifecta is the worked example.
 
 ## Why combinations matter
 
@@ -20,17 +20,34 @@ The third agent has a risk that neither of the first two has. Each of its capabi
 
 Other fields met this problem long before agents did. Auditors use [segregation-of-duties matrices](https://www.isaca.org/resources/isaca-journal/issues/2016/volume-3/implementing-segregation-of-duties-a-practical-experience-based-on-best-practices) to find duties that no one person should hold together. Security researchers wrote [rules for dangerous combinations of app permissions](https://doi.org/10.1145/1653662.1653691) on mobile phones. Cloud security tools flag ["toxic combinations"](https://docs.cloud.google.com/security-command-center/docs/toxic-combinations-overview) of findings that are minor alone. ARC applies the same idea to the capabilities of an agentic system.
 
+## Four ways capabilities combine
+
+| Mechanism | What combines | Example with no attacker | In register 2.0 |
+| --- | --- | --- | --- |
+| **Flow** | A capability that reads, and one that writes somewhere with a different level of trust | Internal data pasted into a web search; web content saved into official records | The lethal trifecta rule |
+| **Reach beyond the declared list** | Code Execution, Computer Use, System Management or Agent Delegation, with anything else | An agent with code execution and network access can call any API, whether or not that capability was declared | [Capabilities that give a system others](#capabilities-that-give-a-system-others) |
+| **Both sides of a check** | The capability to do something, and the capability to change what checks it | An agent that writes code and also deploys it, or that acts and can also edit its own logs | Not yet a rule |
+| **Loops** | A capability that writes where another reads | Instructions planted in memory or in a file are read back in a later session | Covered for persistent memory by the [Memory component](elements.md#components); not yet a rule |
+
+The first mechanism has been studied most. The lethal trifecta, Meta's [Agents Rule of Two](https://ai.meta.com/blog/practical-ai-agent-security/) and information-flow defences such as [CaMeL](https://arxiv.org/abs/2503.18813) all address it. The second matters most to a framework like ARC, which assumes that the list of capabilities bounds what a system can do. Four capabilities break that assumption, because they produce or borrow other capabilities.
+
 ## What ARC builds in
 
-**Composite risks.** A risk in the register can list more than one element, and it applies only when the system has all of them. Components and design elements are present in every agentic system, so a composite risk that lists one of them depends on its capabilities alone. The register has these composite risks:
+**Roles.** The register records what each capability can contribute to a combination, for example *untrusted content* or *an outbound channel*. A capability supplies a role wherever it is present (**Yes**), or only in some deployments (**Maybe**, with a note saying when). Some capabilities supply a role only from a certain [authority](elements.md#context-how-a-capability-is-used) upwards: Official Communication is an outbound channel when the agent sends messages itself, and not when a person sends what it drafts.
+
+**Rules.** A rule names the roles that must all be supplied. Any capability that supplies a role will do, so a rule covers every pairing without listing them. A rule is:
+
+- **present** when every role is supplied by a capability marked Yes;
+- **possible** when every role is supplied, at least one only by capabilities marked Maybe;
+- **not present** when at least one role is supplied by none of the system's capabilities.
+
+A rule that is present or possible brings its risks into scope, and its control must be implemented unless the assessor shows that a role is absent. The roles, rules and marks are in [`combinations.yaml`](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/blob/main/arc-risk-register/combinations.yaml), next to the risks and controls.
+
+**Composite risks.** A risk can also list more than one element, and then applies only when the system has all of them. These risks arise from a rule or from several elements:
 
 <!-- arc:composite-risks -->
 
-**A combination check.** A composite risk names specific elements, so it cannot say "any capability that can send data out". The check fills that gap. For each combination ARC checks, the register records which capabilities can supply each part of it, and the check reports whether a system's capabilities complete the combination. The data is in [`combinations.yaml`](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/blob/main/arc-risk-register/combinations.yaml), next to the risks and controls.
-
-**A control that breaks the combination.** Each checked combination has a control. The verdict of the check decides whether that control must be implemented or can be waived. The check does not add or remove risks.
-
-Register 1.3 checks one combination, the lethal trifecta.
+Register 2.0 has one rule, the lethal trifecta.
 
 ## The lethal trifecta
 
@@ -92,12 +109,22 @@ Tick the capabilities your system has. The check runs in your browser, and nothi
 
 These are the systems from the [guide for AI developers](../implementation/for-ai-developers.md#application-examples), with a simple question-answering bot for comparison.
 
+The verdicts below assume the most cautious context for each capability.
+
 | System | Capabilities | Verdict | Why |
 | --- | --- | --- | --- |
 | Question-answering bot | CAP-04 | **Not present** | Nothing supplies sensitive data |
 | Agentic fact checker | CAP-01, 02, 03, 04, 07, 11 | **Present** | Internet and Search Access supplies untrusted content and an outbound channel; File and Data Management supplies sensitive data |
 | Agentic coding assistant | CAP-01, 02, 03, 04, 10, 11 | **Possible** | File and Data Management supplies sensitive data. Untrusted content depends on whether it reads repositories or packages that others can change. An outbound channel depends on whether its code runs with network access |
 | Agentic call assistant | CAP-01, 02, 04, 06, 09, 11 | **Possible** | File and Data Management supplies sensitive data, and Business Transactions supplies an outbound channel. Untrusted content depends on what its callers and the systems it reads can put in front of it |
+
+## Capabilities that give a system others
+
+ARC assesses a system by the capabilities it declares. Four capabilities can give a system more than was declared: code can call anything its environment lets it reach, a computer-use agent can open any application, an administrator can grant itself access, and a delegating agent borrows what its delegates can do. Controls placed on the agent's named tools do not bind what it does by these routes.
+
+<!-- arc:implied-capabilities -->
+
+For each row that applies to a system, either add the implied capability to the assessment, or record the evidence that it does not apply, such as a sandbox with no network access and no credentials in reach.
 
 ## Using the check in an assessment
 
@@ -107,7 +134,7 @@ These are the systems from the [guide for AI developers](../implementation/for-a
 
 ## Limits
 
-- **One combination.** Register 1.3 checks the lethal trifecta only. Capabilities combine in other ways too, for example when code execution gives an agent abilities that its tool list does not show. These are being studied for version 2.0.
+- **One rule so far.** Register 2.0 has a rule for the lethal trifecta only. The mechanism of holding both sides of a check, and loops other than persistent memory, are described above but have no rule yet.
 - **Capabilities are coarse.** Internet and Search Access covers reading pages and posting to them. Many systems will therefore get a verdict of Possible, and the notes turn that verdict into questions that evidence can answer.
-- **Composite risks need every element.** RISK-047 covers the trifecta through web access, and RISK-055 covers it through messages and APIs. Other routes, such as Computer Use alone, are caught by the check and not by a composite risk. Rules of the form "any capability that supplies this leg" are planned for version 2.0.
+- **Implied capabilities are reported, not added.** The check lists the capabilities a system probably also has. It leaves the decision to the assessor, who adds them or records why they do not apply.
 - **Design time only.** The check reads what a system can do, not what it does in a given session. [CTRL-0090](register-full-text.md#CTRL-0090) covers enforcement at run time.

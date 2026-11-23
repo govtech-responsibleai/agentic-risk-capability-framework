@@ -45,11 +45,14 @@ def chosen_elements(register=REGISTER):
 
 
 def test_applicability_matches_register_rules():
-    risks = yaml.safe_load((REGISTER / "risks.yaml").read_text())
+    risks = {r: v for r, v in yaml.safe_load((REGISTER / "risks.yaml").read_text()).items() if not v.get("superseded_by")}
     controls = yaml.safe_load((REGISTER / "controls.yaml").read_text())
     chosen = chosen_elements()
     is_cap = lambda e: e in chosen
-    baseline = [r for r, v in risks.items() if not any(is_cap(e) for e in v["element_ids"])]
+    by_rule = {r for r, v in risks.items() if v.get("combination")}   # these arise from a rule, not from elements
+    for v in risks.values():
+        v.setdefault("element_ids", [])
+    baseline = [r for r, v in risks.items() if r not in by_rule and not any(is_cap(e) for e in v["element_ids"])]
 
     none = assess([])
     assert [r["id"] for r in none["risks"]["baseline"]] == baseline
@@ -84,7 +87,7 @@ def test_conditional_components():
     conditional = [c for c, v in components.items() if v.get("present_when")]
     assert conditional, "the register should define at least one conditional component"
     for cid in conditional:
-        own = {r for r, v in risks.items() if v["element_ids"] == [cid]}
+        own = {r for r, v in risks.items() if v.get("element_ids") == [cid]}
         without = {r["id"] for g in assess([])["risks"].values() for r in g}
         with_it = {r["id"] for g in assess([cid])["risks"].values() for r in g}
         assert own and not (own & without) and own <= with_it, cid
@@ -162,7 +165,7 @@ def test_organisation_register_with_single_element_id():
         shutil.copytree(REGISTER, org)
         risks = yaml.safe_load((org / "risks.yaml").read_text())
         for v in risks.values():
-            if len(v["element_ids"]) == 1:
+            if len(v.get("element_ids") or []) == 1:
                 v["element_id"] = v.pop("element_ids")[0]
         (org / "risks.yaml").write_text(yaml.safe_dump(risks, sort_keys=False, allow_unicode=True))
         (org / "register.yaml").unlink()
@@ -211,14 +214,15 @@ def _register():
 
 
 def test_combination_check():
-    """The lethal trifecta check: verdicts follow the marks in combinations.yaml."""
+    """Combination rules: verdicts follow the marks in combinations.yaml, and a rule brings its risks into scope."""
     reg = _register()
-    combo = yaml.safe_load((REGISTER / "combinations.yaml").read_text())["lethal-trifecta"]
+    data = yaml.safe_load((REGISTER / "combinations.yaml").read_text())
+    rule = data["rules"]["lethal-trifecta"]
+    roles = [data["roles"][r] for r in rule["roles"]]
     caps = sorted(reg["capabilities"])
 
-    def expected(selected):
-        legs = [{leg["capabilities"][c]["mark"] for c in selected if c in leg["capabilities"]}
-                for leg in combo["legs"].values()]
+    def expected(selected):   # the most cautious context, so every mark counts
+        legs = [{role["capabilities"][c]["mark"] for c in selected if c in role["capabilities"]} for role in roles]
         if not all(legs):
             return "not present"
         return "present" if all("yes" in marks for marks in legs) else "possible"
@@ -228,6 +232,9 @@ def test_combination_check():
             (check,) = arc.combination_checks(reg, list(subset))
             assert check["verdict"] == expected(subset), subset
             assert arc.combination_advice(check)
+            # the rule's risk applies exactly when the rule is not ruled out
+            applies = "RISK-047" in arc.applicable_risks(reg, list(subset))[2]
+            assert applies == (check["verdict"] != "not present"), subset
 
     # The verdicts quoted on the Capability combinations page and in the developer guide's examples
     examples = {
@@ -236,18 +243,33 @@ def test_combination_check():
         ("CAP-01", "CAP-02", "CAP-03", "CAP-04", "CAP-10", "CAP-11"): "possible",   # coding assistant
         ("CAP-01", "CAP-02", "CAP-04", "CAP-06", "CAP-09", "CAP-11"): "possible",   # call assistant
         ("CAP-04", "CAP-05", "CAP-09", "CAP-11"): "possible",                       # email agent
+        ("CAP-07", "CAP-12"): "present",                                            # no composite risk covered this in 1.3
     }
     for subset, verdict in examples.items():
         assert arc.combination_checks(reg, list(subset))[0]["verdict"] == verdict, subset
 
-    out = assess(["CAP-04", "CAP-05", "CAP-09", "CAP-11"])
+    out = assess(["CAP-07", "CAP-12"])
     (check,) = out["combinations"]
-    assert check["control"]["id"] == "CTRL-0097" and check["control"]["level"] == 0
-    assert "RISK-055" in check["control_listed_by"]
-    assert [leg["status"] for leg in check["legs"]] == ["maybe", "yes", "yes"]
-    text = run("--register", str(REGISTER), "assess", "--capabilities", "CAP-07,CAP-12")
-    assert "### Lethal trifecta: present" in text
-    assert "None of this system's applicable risks lists CTRL-0097" in text  # caught by the check, not by a risk
+    assert check["control"]["id"] == "CTRL-0097" and check["control_listed_by"] == ["RISK-047"]
+    assert "RISK-047" in {r["id"] for r in out["risks"]["combination"]}
+
+    # A capability used below the authority a mark needs does not supply the role
+    drafting = arc.build_profile(reg, ["CAP-05", "CAP-11"], {"CAP-05": "propose"})
+    legs = {leg["id"]: leg["status"] for leg in arc.combination_checks(reg, ["CAP-05", "CAP-11"], drafting)[0]["legs"]}
+    assert legs["outbound-channel"] == "none"
+    sending = arc.build_profile(reg, ["CAP-05", "CAP-11"])
+    legs = {leg["id"]: leg["status"] for leg in arc.combination_checks(reg, ["CAP-05", "CAP-11"], sending)[0]["legs"]}
+    assert legs["outbound-channel"] == "yes"
+
+    # Implied capabilities are reported until they are declared
+    implied = {(i["from"], i["capability"]) for i in assess(["CAP-10"])["implied_capabilities"]}
+    assert ("CAP-10", "CAP-11") in implied and ("CAP-10", "CAP-09") in implied
+    assert not any(i["capability"] == "CAP-11" for i in assess(["CAP-10", "CAP-11"])["implied_capabilities"])
+
+    # A retired risk never applies, and `show` points to its successor
+    everything = assess(sorted(chosen_elements()))
+    assert "RISK-055" not in {r["id"] for g in everything["risks"].values() for r in g}
+    assert "Superseded by RISK-047" in run("--register", str(REGISTER), "show", "RISK-055")
 
 
 def test_register_without_combinations():
@@ -276,7 +298,7 @@ def test_site_check_matches_script():
     )
     result = subprocess.run(
         ["node", "-e", script, str(REPO / "docs" / "assets" / "combination-check.js")],
-        input=json.dumps({"combination": reg["combinations"]["lethal-trifecta"], "subsets": subsets}),
+        input=json.dumps({"combination": arc.combination_rules(reg)["lethal-trifecta"], "subsets": subsets}),
         capture_output=True, text=True, check=True)
     assert json.loads(result.stdout) == [arc.combination_checks(reg, s)[0]["verdict"] for s in subsets]
 
