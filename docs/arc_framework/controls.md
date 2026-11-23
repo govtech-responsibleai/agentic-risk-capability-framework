@@ -55,7 +55,7 @@ Next, we categorise the control into three levels based on its criticality:
     A Level 0 control is mandatory for every system in which its risk is **applicable**. A risk is applicable when what it arises from is present:
 
     - a **baseline** risk arises only from components and design elements that every agentic system has, so it always applies;
-    - a risk that arises from a **conditional component** (Memory, Protocols) applies when the system has that component;
+    - a risk that arises from a **conditional component** (Memory, Protocols) applies when the system has that component, and is assumed to apply when the assessment does not say;
     - a **capability** risk applies when the system has the capability, and, where the risk states a minimum authority, uses it at that authority or above;
     - a risk that arises from a **combination rule** applies when the rule is present or possible for the system's capabilities.
 

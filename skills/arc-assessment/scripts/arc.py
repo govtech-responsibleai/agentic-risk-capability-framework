@@ -13,7 +13,8 @@ Commands:
   elements                       components, design elements and capabilities, with definitions
   assess --capabilities IDS      applicable risks and their controls for a system, and a check for
          [--components IDS]      capability combinations such as the lethal trifecta; --components names
-                                 the conditional components the system has (e.g. CMP-04 for persistent memory)
+                                 the conditional components the system has (e.g. CMP-04 for persistent memory),
+                                 or `none`. If omitted, the system is assumed to have them all
          [--priority IDS|all]    ...and the controls in scope once priority risks are known
          [--profile FILE]        ...for a system described in a YAML file (capabilities with their
                                  authority, whether their effects are irreversible or external, and
@@ -813,7 +814,9 @@ def parse_capabilities(text):
 
 
 def read_profile(path):
-    """A system profile file -> (capabilities, authority, reversible, internal, components)."""
+    """A system profile file -> (capabilities, authority, reversible, internal, components).
+
+    `components` is None when the file does not say which conditional components the system has."""
     data = load_yaml_text(Path(path).read_text(), path) or {}
     entries = data.get("capabilities") or {}
     if isinstance(entries, list):
@@ -823,7 +826,8 @@ def read_profile(path):
     authority = {c: str(v["authority"]).lower() for c, v in entries.items() if v.get("authority")}
     reversible = [c for c, v in entries.items() if v.get("irreversible") is False]
     internal = [c for c, v in entries.items() if v.get("external") is False]
-    return caps, authority, reversible, internal, [str(c).upper() for c in data.get("components") or []]
+    components = [str(c).upper() for c in data.get("components") or []] if "components" in data else None
+    return caps, authority, reversible, internal, components
 
 
 def describe_context(context):
@@ -862,7 +866,7 @@ def cmd_assess(reg, source, args):
     elements = element_index(reg)
     caps, authority = parse_capabilities(args.capabilities)
     reversible, internal = parse_ids(args.reversible), parse_ids(args.internal)
-    profile_components = []
+    profile_components = None
     if args.profile:
         if caps:
             raise ArcError("--profile and --capabilities are alternatives")
@@ -871,10 +875,14 @@ def cmd_assess(reg, source, args):
     if unknown:
         valid = ", ".join(f"{e['id']} {e['name']}" for e in elements.values() if e["kind"] == "Capability")
         raise ArcError(f"unknown capability ID(s): {', '.join(unknown)}. Valid: {valid}")
-    components = parse_ids(getattr(args, "components", "") or "") or profile_components
+    # Conditional components: the flag wins over the profile; "none" or an empty value says the system has none.
+    # When neither says, the system is assumed to have them all, so that nothing drops out unnoticed.
+    flag = getattr(args, "components", None)
+    stated = (parse_ids("" if flag.strip().lower() == "none" else flag) if flag is not None else profile_components)
     profile = build_profile(reg, caps, authority, reversible, internal)
     too_low = {rid: below_authority(r, profile) for rid, r in reg["risks"].items() if below_authority(r, profile)}
     conditional = {e["id"]: e for e in elements.values() if e["present_when"]}
+    components = list(conditional) if stated is None else stated
     stray = [c for c in components if c not in conditional]
     if stray:
         valid = ", ".join(f"{e['id']} {e['name']}" for e in conditional.values()) or "none in this register"
@@ -914,11 +922,13 @@ def cmd_assess(reg, source, args):
     v = reg["register"].get("version")
     if args.format == "json":
         out = {"register_version": v, "source": source, "capabilities": caps, "components": components,
+               "components_stated": stated is not None,
                "context": profile,
                "below_authority": [{"id": rid, "capability": cap, "needs": minimum}
                                    for rid, (cap, minimum) in too_low.items()],
                "conditional_components": [{"id": e["id"], "name": e["name"], "present_when": e["present_when"],
-                                           "present": e["id"] in components} for e in conditional.values()],
+                                           "present": e["id"] in components, "assumed": stated is None}
+                                          for e in conditional.values()],
                "risks": {"baseline": [records[r] for r in baseline], "capability": [records[r] for r in single],
                          "combination": [records[r] for r in combination]},
                "level0_controls": [{"id": k, **val} for k, val in level0.items()],
@@ -941,7 +951,9 @@ def cmd_assess(reg, source, args):
     for rid, (cap, minimum) in too_low.items():
         print(f"**Left out:** {rid} {reg['risks'][rid].get('statement', '')}. It needs {cap} at {minimum} or above.\n")
     for e in conditional.values():
-        state = "present" if e["id"] in components else "not present (its risks are left out; pass --components to include them)"
+        state = ("assumed present, because the assessment does not say (pass `--components none`, or list the ones "
+                 "the system has)" if stated is None else
+                 "present" if e["id"] in components else "not present (its risks are left out)")
         print(f"**{e['id']} {e['name']}:** {state}. Present when: {e['present_when']}\n")
     print(f"**{len(applicable)} applicable risks:** {len(baseline)} baseline, {len(single)} from single "
           f"capabilities, {len(combination)} from combinations of elements. Between them they list "
@@ -1130,8 +1142,10 @@ def main(argv=None):
     p_assess.add_argument("--internal", default="", help="capabilities whose effects stay inside the organisation")
     p_assess.add_argument("--profile", help="a YAML file describing the system: capabilities (each with authority, "
                                             "irreversible, external) and components")
-    p_assess.add_argument("--components", default="", help="comma-separated conditional components the system has, "
-                                                           "e.g. CMP-04,CMP-05 (see `elements` for the conditions)")
+    p_assess.add_argument("--components", default=None, help="comma-separated conditional components the system has, "
+                                                             "e.g. CMP-04,CMP-05, or `none` (see `elements` for the "
+                                                             "conditions). If omitted, the system is assumed to have "
+                                                             "them all")
     p_assess.add_argument("--priority", help="comma-separated priority risk IDs (or 'all'): also list every "
                                              "control in scope")
     p_assess.add_argument("--detail", action="store_true", help="include each control's implementation guidance")

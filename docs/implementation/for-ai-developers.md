@@ -233,8 +233,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 #### Step 3: Implement Controls
 
-<!-- arc:example fact-checker risks=45 level0=28 lethal-trifecta=present oversight-within-reach=not-present -->
-This system has 45 applicable risks: 22 baseline, 19 from single capabilities, and four from combinations (RISK-047, plus the multi-agent risks RISK-012, RISK-013 and RISK-051 that Agent Delegation brings in). RISK-041, unintended overwriting or deletion, is left out because the system only reads its knowledge base. Between them the 45 risks carry 28 Level 0 controls. All 28 are implemented as-is and recorded in the assessment; the table below shows the priority risks only — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
+<!-- arc:example fact-checker risks=46 level0=28 lethal-trifecta=present oversight-within-reach=not-present -->
+This system has 46 applicable risks: 22 baseline, 20 from single capabilities, and four from combinations (RISK-047, plus the multi-agent risks RISK-012, RISK-013 and RISK-051 that Agent Delegation brings in). RISK-041, unintended overwriting or deletion, is left out because the system only reads its knowledge base. Between them the 46 risks carry 28 Level 0 controls. All 28 are implemented as-is and recorded in the assessment; the table below shows the priority risks only — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
 
 | Risk ID | Selected Controls | Implementation |
 |---------|-------------------|----------------|
@@ -315,8 +315,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 #### Step 3: Implement Controls
 
-<!-- arc:example coding-assistant risks=49 level0=37 lethal-trifecta=possible oversight-within-reach=possible -->
-This system has 49 applicable risks: 22 baseline, 21 from single capabilities, and six from combinations (the three multi-agent risks that Agent Delegation brings in; RISK-049, sandbox escape, which Code Execution brings in; and RISK-047 and RISK-062 from the two combination rules). They carry 37 Level 0 controls, all of which are implemented as-is. The table shows the priority risks — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
+<!-- arc:example coding-assistant risks=50 level0=37 lethal-trifecta=possible oversight-within-reach=possible -->
+This system has 50 applicable risks: 22 baseline, 22 from single capabilities, and six from combinations (the three multi-agent risks that Agent Delegation brings in; RISK-049, sandbox escape, which Code Execution brings in; and RISK-047 and RISK-062 from the two combination rules). They carry 37 Level 0 controls, all of which are implemented as-is. The table shows the priority risks — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
 
 | Risk ID | Selected Controls | Implementation |
 |---------|-------------------|----------------|
@@ -399,8 +399,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 #### Step 3: Implement Controls
 
-<!-- arc:example call-assistant risks=46 level0=31 lethal-trifecta=possible oversight-within-reach=not-present -->
-This system has 46 applicable risks: 22 baseline, 20 from single capabilities, and four from combinations (the three multi-agent risks that Agent Delegation brings in, and RISK-047 from the lethal trifecta rule). RISK-041 is left out because the system only reads its data stores. The 46 risks carry 31 Level 0 controls, all implemented as-is even under the higher risk appetite — the appetite affects only which Level 1 and 2 controls are taken up. For the three priority risks we implement:
+<!-- arc:example call-assistant risks=47 level0=31 lethal-trifecta=possible oversight-within-reach=not-present -->
+This system has 47 applicable risks: 22 baseline, 21 from single capabilities, and four from combinations (the three multi-agent risks that Agent Delegation brings in, and RISK-047 from the lethal trifecta rule). RISK-041 is left out because the system only reads its data stores. The 47 risks carry 31 Level 0 controls, all implemented as-is even under the higher risk appetite — the appetite affects only which Level 1 and 2 controls are taken up. For the three priority risks we implement:
 
 | Risk ID | Selected Controls | Implementation |
 |---------|-------------------|----------------|

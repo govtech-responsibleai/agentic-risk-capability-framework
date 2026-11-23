@@ -36,10 +36,10 @@ Here, we synthesise prevailing agreement on the key components of an agent from 
 
 !!! note "Conditional components"
 
-    Every agentic system has an LLM, instructions, and tools. Memory and Protocols are conditional: a system has them only when a stated condition holds, and their risks apply only to systems that have them.
+    Every agentic system has an LLM, instructions, and tools. Memory and Protocols are conditional: a system has them only when a stated condition holds, and their risks apply only to systems that have them. When an assessment does not say whether a system has one, it is assumed to.
 
     - **Memory** is present when: the system keeps information beyond a single session, or shares it across users or tasks.
-    - **Protocols** is present when: at least one tool server or agent that another party builds or operates is connected to the system through an agent protocol such as MCP or A2A, in either direction.
+    - **Protocols** is present when: at least one tool server or agent that another party builds or operates is connected to the system through an agent protocol such as MCP or A2A, in either direction. Another team in the same organisation counts as another party.
 
 ---
 

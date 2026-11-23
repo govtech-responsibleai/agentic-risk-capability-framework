@@ -38,12 +38,12 @@ For each capability that acts on the world, record how the system uses it (see [
 | CAP-11 File and Data Management | | | | | | |
 | CAP-12 System Management | | | | | | |
 
-**Conditional components.** Most components and design elements are present in every agentic system. Two components are conditional. Record whether the system has each one; its risks apply only if it does.
+**Conditional components.** Most components and design elements are present in every agentic system. Two components are conditional. Record whether the system has each one; its risks apply only if it does. A component left blank is treated as present.
 
 | Component | Present when | Present? (yes / no, with evidence) |
 | --- | --- | --- |
 | CMP-04 Memory | The system keeps information beyond a single session, or shares it across users or tasks. | |
-| CMP-05 Protocols | At least one tool server or agent that another party builds or operates is connected to the system through an agent protocol such as MCP or A2A, in either direction. | |
+| CMP-05 Protocols | At least one tool server or agent that another party builds or operates is connected to the system through an agent protocol such as MCP or A2A, in either direction. Another team in the same organisation counts as another party. | |
 
 ## 2. Applicable risks
 

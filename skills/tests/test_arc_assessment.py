@@ -33,7 +33,7 @@ def assess(present, register=REGISTER):
     caps = [e for e in present if e.startswith("CAP-")]
     components = [e for e in present if not e.startswith("CAP-")]
     return json.loads(run("--register", str(register), "assess", "--capabilities", ",".join(caps),
-                          "--components", ",".join(components), "--format", "json"))
+                          "--components", ",".join(components) or "none", "--format", "json"))
 
 
 def chosen_elements(register=REGISTER):
@@ -81,7 +81,7 @@ def test_applicability_matches_register_rules():
 
 
 def test_conditional_components():
-    """A component with `present_when` contributes its risks only when the system is said to have it."""
+    """A component with `present_when` contributes its risks unless the system is said not to have it."""
     risks = yaml.safe_load((REGISTER / "risks.yaml").read_text())
     components = yaml.safe_load((REGISTER / "components.yaml").read_text())
     conditional = [c for c, v in components.items() if v.get("present_when")]
@@ -91,6 +91,16 @@ def test_conditional_components():
         without = {r["id"] for g in assess([])["risks"].values() for r in g}
         with_it = {r["id"] for g in assess([cid])["risks"].values() for r in g}
         assert own and not (own & without) and own <= with_it, cid
+    # An assessment that does not say is assumed to have every conditional component, and is told so
+    unstated = json.loads(run("--register", str(REGISTER), "assess", "--capabilities", "CAP-04", "--format", "json"))
+    assert not unstated["components_stated"] and sorted(unstated["components"]) == sorted(conditional)
+    assert all(c["present"] and c["assumed"] for c in unstated["conditional_components"])
+    assert {r["id"] for g in unstated["risks"].values() for r in g} == \
+        {r["id"] for g in assess(["CAP-04", *conditional])["risks"].values() for r in g}
+    assert "assumed present" in run("--register", str(REGISTER), "assess", "--capabilities", "CAP-04")
+    stated = assess(["CAP-04"])
+    assert stated["components_stated"] and stated["components"] == []
+    assert not any(c["present"] or c["assumed"] for c in stated["conditional_components"])
     try:
         run("--register", str(REGISTER), "assess", "--capabilities", "CAP-04", "--components", "CMP-01")
     except SystemExit as e:
@@ -200,7 +210,7 @@ def test_priority_lists_controls_in_scope():
     applicable = [r["id"] for g in assess(caps)["risks"].values() for r in g]
     priority = ["RISK-034"]
     out = json.loads(run("--register", str(REGISTER), "assess", "--capabilities", ",".join(caps),
-                         "--priority", ",".join(priority), "--format", "json"))
+                         "--components", "none", "--priority", ",".join(priority), "--format", "json"))
     profile = arc.build_profile(_register(), caps)
     expected = {c for rid in applicable for c in risks[rid]["controls"]
                 if arc.effective_level(controls[c], profile) == 0 or rid in priority}

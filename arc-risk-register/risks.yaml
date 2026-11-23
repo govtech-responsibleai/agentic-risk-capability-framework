@@ -1511,7 +1511,6 @@ RISK-053:
   statement: Dependence on third-party agents as counterparties or delegates
   description: This risk arises when tasks are delegated to, or transactions conducted with, agents provided or operated by external parties — SaaS agents, partner agents reached through protocols such as A2A — whose instructions, tools, data handling, and updates are outside the organisation's control. Delegated work may be performed unsafely, data shared with the agent may be retained or reused, and behaviour can change without notice. As a result, the organisation carries the consequences of failures it cannot observe or govern directly.
   element_ids:
-  - CMP-05
   - CAP-02
   failure_mode: Tool or Resource Malfunction
   type:
