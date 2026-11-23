@@ -1,0 +1,341 @@
+# Leads that were reviewed and left out of incidents.yaml, so that the harvest does not offer
+# them again. One entry per lead: source and source_id as in sources.yaml (or a url), and a reason:
+#   not-agentic            no LLM-based system acting through tools is involved
+#   offensive-use          an attacker used an agent as their own tool against other targets
+#   no-event               news, a launch, a report or an opinion with no underlying event
+#   generic-infrastructure a breach or flaw that does not depend on the system being an agent
+#   insufficient-evidence  no source that can be opened, or the account cannot be made out
+#   out-of-period          before January 2025
+# A duplicate lead is not logged here: its upstream ID goes into the case's external_ids.
+- {source: genai-incidents, source_id: "INC-02498", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02254", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2025-01-24 OmniGPT Data Breach", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: owasp-roundups, source_id: "JanFeb-2025 #3", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03233", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02922", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03375", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03379", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2025-02-21 Bybit $1.5B Cryptocurrency Heist", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02898", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02188", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02465", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2025-03-15 tj-actions/changed-files GitHub Actions Supply Chain Attack", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03355", reason: no-event, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1054", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03216", reason: no-event, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#59", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1578", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2025-06 Langflow Flodrix Botnet Exploitation", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-01 \"JADEPUFFER\" First Documented End-to-End Agentic Ransomware", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14302", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03011", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2025-07-09 Hugging Face Poisoned GGUF Templates", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1220", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1201", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02514", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03315", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02189", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02463", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02955", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03366", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-13080", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14923", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02460", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2025-11 CrewAI \"Uncrew\" GitHub Token Exposure", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02542", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02543", reason: no-event, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#58", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1263", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2025-11-13 GTG-1002 Chinese State-Sponsored AI-Orchestrated Espionage", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02426", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#23", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02896", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02515", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02795", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03149", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-03394", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00036", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00069", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-07726", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01396", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-07735", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17217", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01264", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01642", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02058", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01471", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-01-08 n8n \"Ni8mare\" CVSS 10.0 RCE", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01157", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-02-20 CyberStrikeAI FortiGate Mass Compromise", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14697", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01466", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01760", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00671", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01288", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01769", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14716", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01737", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00075", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00788", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01111", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01394", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00051", reason: no-event, reviewed: "2026-11-23"}
+- {source: arc-search-2026-11, source_id: "S-026", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-03-11 UNC6426 nx npm to AWS Admin Takeover", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01593", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00786", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00132", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-03-19 Trivy GitHub Action Compromise by TeamPCP", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00052", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-03-20 CanisterWorm npm Worm by TeamPCP", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14738", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01591", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-03-23 Checkmarx KICS GitHub Actions Compromise", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01433", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01263", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01594", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01916", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-03-27 Telnyx PyPI Supply Chain Compromise", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00071", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14743", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14747", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00074", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00604", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00594", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-03-31 Axios npm Supply Chain Attack", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-03-31 Cisco Source Code Stolen via Trivy Breach", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14941", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14940", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-01 Drift Protocol $285M Exploit", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01096", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-02 Meta Pauses Mercor Partnership", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00814", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00812", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00068", reason: no-event, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1661", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17270", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-08 UNC1069 Contagious Interview Cross-Ecosystem Package Campaig", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-10 Red Hat OpenShift AI odh-dashboard Kubernetes Token Disclosu", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-13 Marimo Pre-Auth RCE Weaponized to Deploy NKAbuse via Hugging", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00613", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-15 LiteLLM OIDC Userinfo Cache Authentication Bypass", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-15 n8n Webhook Weaponization for Phishing Campaigns", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-17 FastGPT Authentication and Password Change NoSQL Injection", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01414", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-21 Anthropic Claude Mythos Preview Accessed by Discord Group vi", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-21 CanisterSprawl Self-Propagating npm Worm via Namastex Labs a", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-21 Cloud Security Alliance Survey: AI Agent Incidents Common Ac", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-21 LMDeploy SSRF Exploited Within 13 Hours of Public Disclosure", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01748", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-22 Bitwarden CLI npm Package Trojanized via Checkmarx KICS Casc", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-22 Xinference PyPI Package Compromise (Versions 2.6.0-2.6.2)", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-23 Google Workspace Reports 32% Rise in Indirect Prompt Injecti", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-23 HexagonalRodent North Korean APT Industrializes Web3 Develop", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01441", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01929", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00073", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01062", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01909", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-29 LiteLLM Pre-Auth SQL Injection (CVE-2026-42208)", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01362", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-02059", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-04-30 PyTorch Lightning PyPI Compromise (Mini Shai-Hulud)", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-06-05 Hades PyPI Worm Wave (Shai-Hulud / Miasma Lineage)", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14946", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14942", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14943", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-05 Ollama for Windows Auto-Updater RCE and Persistence (CVE-202", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00602", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-07 Malicious Hugging Face \"Open-OSS/privacy-filter\" Fake OpenAI", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00043", reason: no-event, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1670", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17276", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-10 Ollama \"Bleeding Llama\" Unauthenticated Memory Leak (CVE-202", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-11 Google GTIG Reports First AI-Developed Zero-Day for Mass Exp", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-11 Mini Shai-Hulud Worm Compromises TanStack, Mistral AI, and G", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-14 OpenAI Internal Source Code and Certificate Theft via TanSta", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14800", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01759", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00070", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00072", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-00639", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-01130", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-07765", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-18 actions-cool GitHub Actions Tag Hijack (Mini Shai-Hulud)", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#61", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1796", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-10 Anthropic's Threat Report: 1.8 Million Android Apps Scanned ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-21 CrowdStrike: Four Previously Unreported Actors Ran Claude Co", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17369", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-07817", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17221", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-20 NVIDIA Triton Inference Server Authentication Bypass (CVE-20", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-25 \"Megalodon\" Mass GitHub Actions Secret Exfiltration", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-07901", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-05-28 Nx Console Malicious VS Code Extension Leads to GitHub Repos", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14470", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#64", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-08014", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-06-01 Red Hat @redhat-cloud-services npm \"Miasma\" Worm", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-08085", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-06-03 node-gyp \"Phantom Gyp\" Self-Propagating npm Worm (Miasma)", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-08100", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-13046", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-13052", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-13045", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-13051", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14867", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-13176", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-13191", reason: no-event, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-13253", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-06-22 vLLM OpenAI-Compatible API Authentication Bypass (CVE-2026-4", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-13275", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14246", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-06-30 Anthropic \"buffa\" Rust protobuf Memory-Amplification DoS (CV", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-06-30 Palo Alto Unit 42 \"Phantom Squatting\" - AI-Hallucinated Doma", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14953", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14951", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14955", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14956", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-01 Check Point Demonstrates LLM-Generated Browser-Native Ransom", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1646", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17261", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14361", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-06 Summer.fi \"Keeper AI Agents\" Exploit Drains About $6M", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-07 DigiCert AI Trust Outlook: 78% of Enterprises Report AI Secu", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-08 Sygnia Documents Lone Attacker Breaching AWS in 72 Hours Wit", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1586", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17222", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-09 AWS AI Gateway Wired to Amazon Bedrock Hijacked for Cryptomi", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1669", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17275", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14504", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14516", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-13 Orca Security 2026 State of AI Security Report", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-14 Check Point AI Security Report 2026: \"AI Has Crossed From As", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14571", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-20 \"wp2shell\": AI-Discovered WordPress Pre-Auth RCE Chain Explo", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-21 CISA Adds a Second Actively Exploited Langflow RCE to KEV Wi", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-21 \"Trim\" Turns Jailbroken Claude Opus Into a Commercial Penetr", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-23 \"FakeAgent\": Malicious Claude Artifact and Bing Ads Deliver ", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-23 Kimi K3 Agents Find Redis Zero-Days and Build a Working RCE ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-24 165 Malicious npm and PyPI Packages in One Week, Several Tar", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-24 Hermes AI Agent Run Unattended for Post-Exploitation Inside ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-27 Google Indexed Shared Claude Conversations and Artifacts, Ex", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-28 Claude Mythos Preview Recovers HAWK-256 Signing Keys and the", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-30 \"MacSync\": Fake Claude Install Guide Hosted on claude.ai/sha", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-07-30 Chinese-Speaking Operator Wires DeepSeek Into the Hermes Age", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#67", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-03 54 AI-Fabricated Vulnerability Reports Reach the National Vu", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-03 CrowdStrike 2026 Threat Hunting Report: AI as Both Weapon an", reason: no-event, reviewed: "2026-11-23"}
+- {source: arc-search-2026-11, source_id: "S-056", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-10 Kimsuky Builds an Offline LLM Lab on Its Own Attack Servers ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-11 \"Zoomsday\": A Zero-Click Zoom RCE Chain Built With Fewer Tha", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-11 A Three-Agent LLM Pipeline Finds 84 Flaws in 4G and 5G Core ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-11 An AI Agent Builds an Unauthenticated SharePoint RCE Chain; ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-12 Near-Autonomous AI Agents Breach Taiwan's Government and Nuc", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-17 An AI Agent Exploits a Copilot-Reviewed GitHub Actions Bug i", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-17 MLflow SSRF Exploited for Cloud Credential Theft Within Hour", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-18 OpenAI Pauses Its Largest Frontier RL Run After Astra Approa", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-19 Five US Agencies Warn of AI-Generated Exploit Scripts Probin", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-19 Google Threat Intelligence Publishes Its Multi-Agent Vulnera", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-25 ToxNetV2 Wires an NVIDIA-Hosted LLM Into a Linux Botnet's Co", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-25 Unit 42 Finds 97% of AI-Enabled Malware Samples Never Left t", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-26 Gartner Emerging Risks Survey Ranks AI-Enabled Vulnerability", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-08-31 Aurora Ransomware Affiliates Ran Live Intrusions Through Cur", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#60", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-10 Hundreds of AI Agents Exploit Two PaperCut Flaws to Breach 3", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14962", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#68", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-16 Spain's Data Protection Agency Receives Its First Breach Not", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14964", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-14961", reason: insufficient-evidence, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-01 \"Agents Without Guardrails\": 65% of Enterprises Have Watched", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-01 Forescout Uses Claude to Port a Pre-Auth PLC Exploit Between", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-01 OWASP Ranks Excessive Agency Third After Weighing 6,639 Real", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-02 Unit 42: AI Agents Ran Every Step of an Enterprise Intrusion", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-08 Google Threat Intelligence: a Multi-Agent Framework Harveste", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-08 NSA, FBI, and CISA Name Six Chinese AI Companies Running Ind", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-09 Okta Finds 555 AI Service Tokens in One Infostealer Dump, Re", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1687", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17290", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-search-2026-11, source_id: "S-064", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1693", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17294", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-15 \"Luciferus\": An Uncensored AI Service Sold on Exploit Forum ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-17 Fake \"AI Trading Agent\" Site Delivers Needle Stealer, Which ", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-17 French-Speaking Crew Deletes a Hermes Agent's Refusal Memori", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-17 RatHat Android Malware Sends the Screen to an AI Assistant t", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1834", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-19 Researchers Use Claude Opus 5 to Take Over OpenAI Employee C", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-22 Three Open-Source AI Agents Breach 27 Retailers and Steal 60", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-23 \"Carbonato\" Botnet Puts a Telegram-Controlled Hermes Agent o", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-25 Microsoft: JADEPUFFER (Storm-3168) Used Agents to Enumerate,", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1766", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-19 NorForge: One Operator's Exposed \"Cairn\" Agent Panels Show 1", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17344", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1782", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-07 ARTEX Agentic Pentest Tool and Claude Code Used to Breach So", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17357", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-28 Malicious ChatGPT Custom GPTs on chatgpt.com Push ClickFix a", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-28 XBOW's AI Agent Finds and Exploits a Linux Kernel Out-of-Bou", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-29 An Autonomous AI Agent Chains Two Zammad Zero-Days to Breach", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-29 Unsloth Studio: Merely Selecting a Hugging Face Model Ran th", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-30 Claude Mythos Spots a Recoverable Math.random() Signing Key ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-30 Google GTIG: AI-Discovered Flaws Lead to RCE Twice as Often,", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-09-30 OpenAI Disrupts a Moonshot AI-Linked Campaign That Replayed ", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#62", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-search-2026-11, source_id: "S-070", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1781", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-21 Microsoft: China-Aligned Storm-0940 Used ARTEX AI Agents to ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17356", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-06 \"CyberXero\": A Russian-Speaking Access Broker Runs Up to 51 ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-06 Datadog: Stolen AWS Keys Are Being Systematically Tested for", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-07 Unpatched LMCache Flaw Gives Unauthenticated Root RCE on LLM", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: arc-search-2026-11, source_id: "S-072", reason: no-event, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-11 Booz Allen: Frontier Models Cleared All Eight Objectives in ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-13 Anthropic: Small Open-Weight Models Are Close to Self-Replic", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-14 XBOW Agents on a Public OpenAI Model Built a $250,000 Chrome", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-16 Bitsight: \"MONST3R-AI\" Underground Pentest Agent Runs on Buy", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-17 OpenCode Console Breach Exposes Users' Stored OpenAI, Anthro", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1794", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17367", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-19 Wiz CIRT: An AI Agent Ran a Full Multi-Cloud Intrusion From ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-search-2026-11, source_id: "S-077", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-20 Wiz: Google Ads Phishing Leads to GCP Takeover and Gemini LL", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-21 Symantec: \"Skynet Mode\" Attack Agent Hijacks Exposed LLM End", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-21 Unit 42: \"BUGSTER\" Drives Hermes Agent and DeepSeek V4 Over ", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1789", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17362", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-search-2026-11, source_id: "S-078", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-27 Anthropic: An Unreleased Internal Model Built Working Exploi", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-27 Autonomous \"Cipher\" Agent Finds Four Flaws in EPICS Particle", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-29 Wiz: In-the-Wild Agentic Attacks Mass-Exploit Flowise and Ex", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-review-2026-11, source_id: "#38", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-30 Wiz \"Black October\": At Least 17 AI Developer Platforms Brea", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-03 Chainstack Production Breach Exposes Customer Accounts and P", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-08 SGLang RCE Breaches NEAR AI Inference Server; Data From 18 A", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-10 Railway: Build-Sandbox Escape and Misconfigured Trust Decryp", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-30 Chainalysis Breached by \"Offensive Agentic Techniques\"; Pass", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-search-2026-11, source_id: "S-080", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1795", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: genai-incidents, source_id: "INC-17368", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-10-30 Mandiant: UNC7228 Used ARTEX and Forks to Go From First Acco", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-05 Check Point: ARTEX Crime Campaigns Took Apple Signing Certif", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-02 CrowdStrike: China-Nexus \"Vapor Panda\" Ran ARTEX Agents Agai", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-02 Google GTIG: LLMjacking Runs Up $100,000 a Day and Up to $1 ", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-03 Bitdefender: 3AM Ransomware Attack on a UK School Estate Sho", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: aiid, source_id: "1815", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-09 Acronis: A Lone Taiwan-Based Operator Ran the \"BOSSAI\" Agent", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-05 Microsoft: ARTEX Agent Went From a GitHub Secret Search to A", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-05 OpenAI: An Autonomous Pipeline Produced 948 Working Linux Ro", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-06 Microsoft: Cambodia-Based Storm-3358 Pairs ARTEX With RATs A", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-06 Three Charged in $129 Million Scheme Using AI to Impersonate", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-10 Fireworks AI Breach Widens to Model Weights, Datasets, and N", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-11 Arctic Wolf: \"AntiFox,\" a Fork of ARTEX, Used to Steal AWS C", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-11 Unit 42 and Datadog: ARTEX Agents Validate 200+ Client Secre", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-12 \"TypoPrompting\": 186 Lookalike Domains for 27 AI Brands Serv", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-12 \"wfx\" CI Secret Stealer Pushed Through Hijacked GitHub Accou", reason: generic-infrastructure, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-12 FBI \"FaceStealer\": North Korean Actors Stole $400M+ Using De", reason: not-agentic, reviewed: "2026-11-23"}
+- {source: awesome-ai-agent-attacks, source_id: "2026-11-12 Unit 42: China-Nexus CL-STA-1238 Ran a Cairn Agent Fork Agai", reason: offensive-use, reviewed: "2026-11-23"}
+- {source: arc-search-2026-11, source_id: "S-082", reason: offensive-use, reviewed: "2026-11-23"}

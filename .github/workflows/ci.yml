@@ -23,6 +23,9 @@ jobs:
       - name: Validate risk register
         run: python scripts/validate_risk_register.py
 
+      - name: Validate the incident file against the register
+        run: python scripts/validate_incidents.py
+
       - name: Build site (warnings are errors; generates the register JSON and Crosswalks page)
         run: mkdocs build --strict
 
