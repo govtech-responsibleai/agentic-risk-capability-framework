@@ -10,7 +10,8 @@ built-in parser for the register's YAML otherwise.
 Commands:
   elements                       components, design elements and capabilities, with definitions
   assess --capabilities IDS      applicable risks and their controls for a system, and a check for
-                                 capability combinations such as the lethal trifecta
+         [--components IDS]      capability combinations such as the lethal trifecta; --components names
+                                 the conditional components the system has (e.g. CMP-04 for persistent memory)
          [--priority IDS|all]    ...and the controls in scope once priority risks are known
   show ID [ID ...]               full text of risks, controls or elements (RISK-034, CTRL-0062, CAP-07)
   template                       the ARC assessment template (Markdown)
@@ -415,7 +416,8 @@ def element_index(reg):
     for kind, key in (("Component", "components"), ("Design", "design"), ("Capability", "capabilities")):
         for eid, e in (reg[key] or {}).items():
             idx[eid] = {"id": eid, "kind": kind, "name": e.get("name", ""), "category": e.get("category", ""),
-                        "description": (e.get("description") or "").strip()}
+                        "description": (e.get("description") or "").strip(),
+                        "present_when": (e.get("present_when") or "").strip()}
     return idx
 
 
@@ -423,21 +425,27 @@ def risk_elements(r):
     return r.get("element_ids") or ([r["element_id"]] if r.get("element_id") else [])
 
 
-def applicable_risks(reg, capabilities):
-    """Risks that apply to a system with the given capabilities.
+def is_chosen(element):
+    """True for an element that only some systems have: a capability, or a conditional component or design element."""
+    return element.get("kind") == "Capability" or bool(element.get("present_when"))
 
-    A risk applies when all the elements it arises from are present. Components and design elements are
-    present in every agentic system, so a risk arising only from them is a baseline risk; a risk that
-    lists capabilities applies only when the system has all of them.
+
+def applicable_risks(reg, present):
+    """Risks that apply to a system with the given capabilities and conditional components.
+
+    A risk applies when all the elements it arises from are present. Most components and design elements
+    are present in every agentic system, so a risk arising only from them is a baseline risk. A capability,
+    or a component that states when it is present (`present_when`), must be named in `present`; a risk
+    that lists such elements applies only when the system has all of them.
     """
     elements = element_index(reg)
-    selected = set(capabilities)
+    selected = set(present)
     baseline, single, combination = [], [], []
     for rid, r in reg["risks"].items():
         if r.get("superseded_by"):
             continue
         ids = risk_elements(r)
-        needed = {e for e in ids if elements.get(e, {}).get("kind") == "Capability"}
+        needed = {e for e in ids if is_chosen(elements.get(e, {}))}
         if not needed:
             baseline.append(rid)
         elif needed <= selected:
@@ -537,14 +545,18 @@ def cmd_elements(reg, source, args):
         print(json.dumps({"register_version": v, "source": source, "elements": list(elements.values())}, indent=2))
         return
     print(f"# ARC elements (register {v}; {source})\n")
-    print("Components and design elements are present in every agentic system. Capabilities are what the system "
-          "can do; a system has a capability if any of its agents has it. Go by each definition, not the name.\n")
+    print("Components and design elements are present in every agentic system, except those marked conditional, "
+          "which a system has only when the stated condition holds. Capabilities are what the system can do; a "
+          "system has a capability if any of its agents has it. Go by each definition, not the name.\n")
     for kind, title in (("Component", "Components"), ("Design", "Design elements"), ("Capability", "Capabilities")):
         print(f"## {title}\n")
         for e in elements.values():
             if e["kind"] == kind:
                 cat = f" ({e['category']})" if e["category"] else ""
-                print(f"- **{e['id']} {e['name']}**{cat}: {e['description']}\n")
+                print(f"- **{e['id']} {e['name']}**{cat}: {e['description']}")
+                if e["present_when"]:
+                    print(f"  - Conditional. Present when: {e['present_when']}")
+                print()
 
 
 def cmd_assess(reg, source, args):
@@ -554,10 +566,16 @@ def cmd_assess(reg, source, args):
     if unknown:
         valid = ", ".join(f"{e['id']} {e['name']}" for e in elements.values() if e["kind"] == "Capability")
         raise ArcError(f"unknown capability ID(s): {', '.join(unknown)}. Valid: {valid}")
-    baseline, single, combination = applicable_risks(reg, caps)
+    components = parse_ids(getattr(args, "components", "") or "")
+    conditional = {e["id"]: e for e in elements.values() if e["present_when"]}
+    stray = [c for c in components if c not in conditional]
+    if stray:
+        valid = ", ".join(f"{e['id']} {e['name']}" for e in conditional.values()) or "none in this register"
+        raise ArcError(f"not a conditional component: {', '.join(stray)}. Conditional components: {valid}")
+    baseline, single, combination = applicable_risks(reg, caps + components)
     applicable = baseline + single + combination
     groups = [("Baseline risks (components and design elements)", baseline),
-              ("Capability risks", single),
+              ("Risks from capabilities and conditional components", single),
               ("Risks from combinations of elements", combination)]
     records = {rid: risk_record(reg, rid, elements, detail=args.detail) for rid in applicable}
 
@@ -584,7 +602,9 @@ def cmd_assess(reg, source, args):
     combinations = combination_checks(reg, caps)
     v = reg["register"].get("version")
     if args.format == "json":
-        out = {"register_version": v, "source": source, "capabilities": caps,
+        out = {"register_version": v, "source": source, "capabilities": caps, "components": components,
+               "conditional_components": [{"id": e["id"], "name": e["name"], "present_when": e["present_when"],
+                                           "present": e["id"] in components} for e in conditional.values()],
                "risks": {"baseline": [records[r] for r in baseline], "capability": [records[r] for r in single],
                          "combination": [records[r] for r in combination]},
                "level0_controls": [{"id": k, **val} for k, val in level0.items()],
@@ -599,6 +619,9 @@ def cmd_assess(reg, source, args):
     by_level = lambda d: ", ".join(f"{sum(1 for x in d.values() if x['level'] == lv)} at Level {lv}" for lv in (0, 1, 2))
     print(f"# ARC applicable risks (register {v}; {source})\n")
     print(f"**Capabilities:** {cap_names}\n")
+    for e in conditional.values():
+        state = "present" if e["id"] in components else "not present (its risks are left out; pass --components to include them)"
+        print(f"**{e['id']} {e['name']}:** {state}. Present when: {e['present_when']}\n")
     print(f"**{len(applicable)} applicable risks:** {len(baseline)} baseline, {len(single)} from single "
           f"capabilities, {len(combination)} from combinations of elements. Between them they list "
           f"{len(all_controls)} distinct controls ({by_level(all_controls)}).\n")
@@ -747,6 +770,8 @@ def main(argv=None):
     sub.add_parser("elements", parents=[fmt], help="list components, design elements and capabilities")
     p_assess = sub.add_parser("assess", parents=[fmt], help="list applicable risks and their controls")
     p_assess.add_argument("--capabilities", default="", help="comma-separated capability IDs, e.g. CAP-03,CAP-07")
+    p_assess.add_argument("--components", default="", help="comma-separated conditional components the system has, "
+                                                           "e.g. CMP-04,CMP-05 (see `elements` for the conditions)")
     p_assess.add_argument("--priority", help="comma-separated priority risk IDs (or 'all'): also list every "
                                              "control in scope")
     p_assess.add_argument("--detail", action="store_true", help="include each control's implementation guidance")

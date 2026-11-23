@@ -12,6 +12,9 @@ Checks:
   - every risk has statement, description, element_ids, failure_mode, type, controls
   - element_ids is a non-empty list of distinct, defined components, design elements,
     or capabilities (a risk with several elements arises from their combination)
+  - a component or design element may carry `present_when`, a sentence saying when a system
+    has it; such an element is conditional, and its risks apply only to systems that have it.
+    Capabilities are always chosen per system, so they may not carry it
   - failure_mode and type values come from the allowed sets
   - every risk lists at least one hazard from hazards.yaml, and the hazard types
     (Safety/Security) agree exactly with the risk's type
@@ -147,9 +150,14 @@ def validate():
     if not ISO_DATE.match(str(register.get('released', ''))):
         errors.append(f'register.yaml: released must be an ISO date YYYY-MM-DD (got {register.get("released")!r})')
 
-    for element_id in elements:
+    for element_id, element in elements.items():
         if not ELEMENT_ID.match(element_id):
             errors.append(f'{element_id}: malformed element ID')
+        if 'present_when' in element:
+            if element_id.startswith('CAP-'):
+                errors.append(f'{element_id}: capabilities are chosen per system and may not carry present_when')
+            elif not isinstance(element['present_when'], str) or not element['present_when'].strip():
+                errors.append(f'{element_id}: present_when must be a sentence saying when a system has this element')
     for hazard_id, hazard in hazards.items():
         if not HAZARD_ID.match(hazard_id):
             errors.append(f'{hazard_id}: malformed hazard ID')

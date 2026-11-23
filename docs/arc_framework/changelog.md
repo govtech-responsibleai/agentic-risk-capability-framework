@@ -20,6 +20,14 @@ Rules that hold across versions:
 - Each release to the `main` branch is tagged `v<version>` on GitHub; the register YAML for any version can be retrieved from the tag.
 - To cite a specific version: *GovTech Singapore (2026). Agentic Risk & Capability Framework, risk register v1.3.0.* followed by the site URL.
 
+## 2.0.0 — in preparation { #v2-0-0 }
+
+Version 2.0 changes the model, so an assessment or a contextualised register written against 1.x needs migrating. This section is a draft and grows as the changes are agreed.
+
+- **Protocols is a component.** CMP-05 covers the standard interfaces, such as MCP and A2A, through which a system connects to tools, services and agents that another party builds or operates, in either direction. This follows the Cyber Security Agency of Singapore's addendum and IMDA's framework, which both list protocols as a component, with a narrower definition: a function or API wrapper that the system's own team writes is a tool, not a protocol connection. RISK-006 (tool poisoning) now arises from Protocols, and its description covers hidden instructions in tool descriptions and agent cards, shadowing, and definitions that change after approval. RISK-053 (third-party agents) now requires both Protocols and Agent Delegation.
+- **Conditional components.** A component can state when a system has it (`present_when`). Memory is present when the system keeps information beyond a single session or shares it across users or tasks; Protocols when another party's tool server or agent is connected through an agent protocol. The risks of a conditional component apply only to systems that have it. This replaces the 1.3.0 practice of listing those risks for every system and waiving their Level 0 controls one by one. A system without persistent memory or outside connections now has 17 baseline risks, down from 20.
+- **No thirteenth capability.** Agent-to-agent interaction is not added as a capability. Agent Delegation (CAP-02) remains the capability, and Protocols covers the channel to other parties' agents, including requests they send in.
+
 ## 1.3.0 — November 2026 { #v1-3-0 }
 
 The November 2026 update, described as the change from 1.2.0, and the first release whose version number appears on the site. It includes the content of 1.2.0, which was not published separately.
