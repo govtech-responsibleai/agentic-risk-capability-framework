@@ -91,4 +91,5 @@ A case can be proposed by anyone through a pull request or an issue that gives a
 
 - **Disclosure bias.** The file holds what was published, in English, and found by the trackers it draws on. Security research and coding agents are over-represented, and quiet operational failures inside organisations are under-represented. Counts say what has been reported, not how often things happen.
 - **Recency.** The upstream trackers grew quickly in 2026, so later months have more cases for reasons that have nothing to do with risk.
+- **Mapped to register 1.3.0.** The cases were mapped before version 2.0 was drafted. A case that cited a risk since retired now cites the risk that replaces it, but the cases have not yet been remapped to the risks added in 2.0 (RISK-056 to RISK-067), so their `gap` notes still describe what 1.3.0 lacked.
 - **Triage is a judgement.** The same event can reasonably be mapped to different risks. The `status` field shows which cases a maintainer has checked.

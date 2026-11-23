@@ -142,7 +142,7 @@ CASE-0008:
   system: "Model Context Protocol clients and servers (Cursor, Claude Desktop, WhatsApp MCP server)"
   summary: "MCP clients pass each server's tool descriptions to the model, and users do not see them in full. Invariant Labs showed that a malicious server can hide instructions there, change them after installation, and steer how the agent uses other servers; in one demonstration it sent a user's whole WhatsApp history out through the legitimate WhatsApp server. Trail of Bits described the same weakness as 'line jumping', because the injection lands before any tool is called."
   elements: [CMP-03, CAP-03]
-  risks: [RISK-006, RISK-048, RISK-055]
+  risks: [RISK-006, RISK-048, RISK-047]
   sources:
   - https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks
   - https://invariantlabs.ai/blog/whatsapp-mcp-exploited
@@ -199,7 +199,7 @@ CASE-0011:
   system: "GitHub MCP server used with coding agents"
   summary: "An agent connected to GitHub through the MCP server could reach both a user's public and private repositories. Invariant Labs showed that text in an issue filed on the public repository by an outsider made the agent pull private-repository data and publish it in a public pull request."
   elements: [CMP-03, CAP-09, DSN-02]
-  risks: [RISK-055, RISK-015]
+  risks: [RISK-047, RISK-015]
   sources:
   - https://invariantlabs.ai/blog/mcp-github-vulnerability
   external_ids:
@@ -339,7 +339,7 @@ CASE-0019:
   system: "Microsoft Copilot Studio agents with knowledge sources and customer-data tools"
   summary: "Copilot Studio agents can start work when an external event fires a trigger, and can hold knowledge sources and tools that read customer records. Zenity Labs showed that injected text delivered through a trigger could take over such an agent and make it give up its knowledge sources and customer data. Microsoft confirmed the behaviour and issued a fix in April 2025."
   elements: [CAP-09, CAP-11]
-  risks: [RISK-055]
+  risks: [RISK-047]
   sources:
   - https://labs.zenity.io/p/a-copilot-studio-story-2-when-aijacking-leads-to-full-data-exfiltration-bc4a
   external_ids:
@@ -371,7 +371,7 @@ CASE-0021:
   system: "Microsoft 365 Copilot"
   summary: "Copilot draws on the user's mailbox, files and chats when it answers. Aim Security found that instructions in an email from an outsider were picked up when Copilot later processed the mailbox, and made it send confidential content out of the organisation without the user doing anything. Microsoft patched it."
   elements: [CAP-11, CAP-09]
-  risks: [RISK-055]
+  risks: [RISK-047]
   sources:
   - https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711
   - https://www.aim.security/post/echoleak-blogpost
@@ -444,7 +444,7 @@ CASE-0025:
   system: "Atlassian MCP server with Jira Service Management"
   summary: "Cato Networks showed that an outside user can submit a support ticket containing instructions. When an AI assistant connected through Atlassian's MCP server processes the ticket inside the organisation, those instructions are carried out with the internal user's elevated privileges."
   elements: [CMP-03, CAP-09, DSN-02]
-  risks: [RISK-055]
+  risks: [RISK-047]
   gap:
     theme: inbound-message-injection
     note: "RISK-055 covers ticket-borne instructions that leak data. Ticket text that makes the agent take other actions with an internal user's privileges is not described."
@@ -644,7 +644,7 @@ CASE-0035:
   system: "ChatGPT, Microsoft Copilot Studio, Salesforce Einstein, Google Gemini, Microsoft 365 Copilot, Cursor with Jira MCP"
   summary: "At Black Hat USA 2025 Zenity Labs presented exploit chains against six widely used enterprise agents and assistants. In each, the agent is silently taken over without any action by the user, so its connected tools and data come under the attacker's direction."
   elements: [CAP-09, CAP-11, CMP-03]
-  risks: [RISK-055, RISK-047]
+  risks: [RISK-047]
   sources:
   - https://www.prnewswire.com/news-releases/zenity-labs-exposes-widespread-agentflayer-vulnerabilities-allowing-silent-hijacking-of-major-enterprise-ai-agents-circumventing-human-oversight-302523580.html
   external_ids:
@@ -806,7 +806,7 @@ CASE-0044:
   system: "Google Gemini with Calendar and smart-home integrations"
   summary: "Gemini could read a user's calendar and act through connected apps, including smart-home controls. Researchers showed that instructions hidden in a calendar invite were followed when Gemini later handled the user's schedule, letting an outsider operate home devices, read private calendar data and create deceptive events without any click by the user."
   elements: [CAP-09, CMP-03]
-  risks: [RISK-055]
+  risks: [RISK-047]
   gap:
     theme: inbound-message-injection
     note: "RISK-055 covers the data leak. An invite-borne instruction that makes the agent take real-world actions, such as operating smart-home devices, is not described."
@@ -1012,7 +1012,7 @@ CASE-0055:
   system: "Salesforce Agentforce; later variants in Microsoft Copilot Studio"
   summary: "Agentforce agents process records created from public Web-to-Lead forms. Noma Security showed that instructions typed into a form field were followed when the agent later handled the lead, and CRM data was sent to a domain that was still on Salesforce's allow-list although its registration had expired. Later variants, 'ShareLeak' in Copilot Studio (CVE-2026-21520) and 'PipeLeak', repeated the pattern through the agent's legitimate email actions."
   elements: [CAP-09, CAP-11]
-  risks: [RISK-055]
+  risks: [RISK-047]
   sources:
   - https://noma.security/blog/forcedleak-agent-risks-exposed-in-salesforce-agentforce/
   - https://thehackernews.com/2025/09/salesforce-patches-critical-forcedleak.html
@@ -1521,7 +1521,7 @@ CASE-0083:
   system: "ServiceNow Now Assist AI agents"
   summary: "AppOmni showed that text planted in data read by a low-privilege Now Assist agent could make it ask a more privileged agent, found through default agent discovery, to act for it. The second agent complied, for example exporting case files to an outside URL; ServiceNow said the system works as intended."
   elements: [CAP-02, DSN-02]
-  risks: [RISK-022, RISK-054, RISK-055]
+  risks: [RISK-022, RISK-054, RISK-047]
   gap:
     theme: cross-agent-trust
     note: "The delegation risks do not cover a more privileged agent accepting a peer agent's request as authorised, so that privileges pass from one agent to another."
@@ -2758,7 +2758,7 @@ CASE-0148:
   system: "Claude Code Security Review (Anthropic), Gemini CLI Action (Google), GitHub Copilot Agent"
   summary: "Three coding agents that run inside GitHub workflows treated pull-request titles, issue text and comments, including hidden HTML comments, as instructions. An outsider could make them run commands in the Actions runner and post API keys, GitHub tokens and other workflow secrets back to GitHub in comments or commits. The vendors paid bounties but published no CVEs or advisories."
   elements: [CAP-09, CAP-10, DSN-02]
-  risks: [RISK-055, RISK-015]
+  risks: [RISK-047, RISK-015]
   sources:
   - https://www.theregister.com/2026/04/15/claude_gemini_copilot_agents_hijacked/
   - https://www.securityweek.com/claude-code-gemini-cli-github-copilot-agents-vulnerable-to-prompt-injection-via-comments/
@@ -4103,7 +4103,7 @@ CASE-0213:
   system: "GitHub Agentic Workflows"
   summary: "Noma Security showed that instructions hidden in a public GitHub issue were followed by the workflow's agent, which holds credentials to repositories the issue's author cannot read. In the proof of concept the agent posted a private repository's README in a public comment, and starting the injected text with the word Additionally got it past GitHub's threat detection."
   elements: [CAP-09, CAP-11]
-  risks: [RISK-055]
+  risks: [RISK-047]
   sources:
   - https://noma.security/blog/gitlost-how-we-tricked-githubs-ai-agent-into-leaking-private-repos/
   - https://thehackernews.com/2026/07/public-github-issue-could-trick-github.html
@@ -4562,7 +4562,7 @@ CASE-0236:
   system: "Microsoft Azure DevOps MCP server (v2.7.0), used with GitHub Copilot CLI and Claude"
   summary: "Microsoft's Azure DevOps MCP server marks untrusted content for the model, but the tool that fetches a pull request skipped that step. An attacker with write access to one project could hide instructions in an HTML comment in a pull-request description; an agent asked to review it would then act with the reviewer's credentials and return source code, secrets and work items from projects the attacker could not reach."
   elements: [CMP-03, CAP-09]
-  risks: [RISK-055]
+  risks: [RISK-047]
   sources:
   - https://www.manifold.security/blog
   - https://thehackernews.com/2026/07/microsoft-azure-devops-mcp-flaw-lets.html
@@ -4720,7 +4720,7 @@ CASE-0244:
   system: "Claude Code (Anthropic) and Sentry Seer reading observability logs"
   summary: "Tenet Security showed at DEF CON that an attacker can plant instructions in logs an agent later reads: a request that a firewall blocks is still logged word for word. Agents investigating those logs treated the text as instructions, ran code and leaked cloud credentials."
   elements: [CAP-09, CAP-10]
-  risks: [RISK-055]
+  risks: [RISK-047]
   gap:
     theme: inbound-message-injection
     note: "RISK-055 covers the credential leak. The register has no risk for instructions arriving through logs and telemetry that lead the agent to run code."
@@ -5008,7 +5008,7 @@ CASE-0258:
   system: "Default CI/CD workflows for Claude Code (Anthropic), Gemini CLI (Google) and Codex (OpenAI)"
   summary: "Novee Security showed that the reference GitHub workflows shipped by the three vendors gave an agent that anyone could trigger the credentials of a trusted maintainer. Text in an issue or pull request from an unauthenticated outsider could steer the agent into running code on the vendor-managed runner and stealing API keys and GitHub tokens, opening the way to a supply-chain compromise (CVE-2026-54316)."
   elements: [CAP-10, DSN-02, CAP-09]
-  risks: [RISK-055, RISK-015]
+  risks: [RISK-047, RISK-015]
   gap:
     theme: inbound-message-injection
     note: "The credential theft is covered. Injection through issue and pull-request text that leads to code execution on the runner is not."
@@ -5886,7 +5886,7 @@ CASE-0301:
   system: "Manus general-purpose agent platform"
   summary: "Salt Labs sent Manus an email to process in which the malicious instructions were encoded with JSFuck, which got past the content filter that caught the plain version. The agent executed the hidden payload, giving the researchers code execution and a reverse shell in the agent's environment, where they could reach the credentials and tokens for the user's connected services."
   elements: [CAP-09, CAP-10, DSN-02]
-  risks: [RISK-040, RISK-055]
+  risks: [RISK-040, RISK-047]
   gap:
     theme: inbound-message-injection
     note: "RISK-055 covers an injected email making the agent send data out. Here the email led to code execution and a shell in the agent's environment, an outcome the register does not describe for message-borne injection, and live third-party tokens were held where the agent's code runs."
@@ -5945,7 +5945,7 @@ CASE-0304:
   system: "Salesforce Agentforce with its Slack integration"
   summary: "An Agentforce agent with CRM read access and outbound channels treated hidden text in a publicly submitted sales lead as instructions when an employee later asked it an ordinary question about leads. Zenity Labs bypassed the Trusted URLs allowlist to send CRM data out, found Slack link unfurling to be a second exfiltration path, and had the Slack integration post phishing messages as the agent."
   elements: [CAP-09, CAP-11, DSN-02]
-  risks: [RISK-055]
+  risks: [RISK-047]
   gap:
     theme: inbound-message-injection
     note: "RISK-055 covers the exfiltration. The same injected form record also made the agent post phishing messages to staff under its own identity, an outcome of message-borne injection other than exfiltration that the register does not describe."
