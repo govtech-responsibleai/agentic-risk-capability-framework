@@ -15,7 +15,7 @@ The script needs only Python 3.9+ (it uses PyYAML if present, and a built-in par
 
 ```bash
 ARC elements                                          # definitions of components, design elements, capabilities
-ARC assess --capabilities CAP-03,CAP-07               # applicable risks and their controls
+ARC assess --capabilities CAP-03,CAP-07               # applicable risks, their controls, and the combination check
 ARC assess --capabilities ... --priority RISK-...     # ...plus every control in scope, once each
 ARC show RISK-034 CTRL-0062 CAP-07                    # full text of any entry
 ARC template                                          # the assessment template as plain Markdown
@@ -61,9 +61,18 @@ Ask the user these questions. If you can't reach them, choose a sensible default
    - baseline risks, which come from components and design elements and are present in every agentic system;
    - risks from each capability;
    - risks from combinations of elements, which apply only when all of their elements are present.
-2. For each applicable risk, describe in one or two sentences how it would arise in this system, naming the components or code paths involved.
-3. Score impact and likelihood on the scales from "Before you start", with a reason for each score. Mark as *priority* the risks that meet the threshold.
-4. Run `assess` again with `--priority <priority risk IDs>`. Its "Controls in scope" section lists each control once, with the risks it addresses:
+2. Read the "Capability combinations" section of the output. Some risks arise only when a system holds several capabilities at once, and the script reports a verdict for each combination the register defines (the [lethal trifecta](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/capability-combinations/) in register 1.3):
+   - **present:** every leg is supplied by a capability. The combination's control must be implemented.
+   - **possible:** at least one leg depends on how the system is deployed. Answer each note marked "maybe" from the code and configuration, with file paths as evidence, and state whether the leg is present.
+   - **not present:** no capability supplies one of the legs.
+
+   Apply these rules:
+   - The script sees capabilities only. Persistent memory can carry untrusted content or sensitive data from one session into another, so count what memory holds.
+   - In a multi-agent system, record which agent holds each leg.
+   - Record the verdict and your answers in the template's Section 2a. If the register has no combinations file, the script prints no such section; say so in the assessment and skip Section 2a.
+3. For each applicable risk, describe in one or two sentences how it would arise in this system, naming the components or code paths involved.
+4. Score impact and likelihood on the scales from "Before you start", with a reason for each score. Mark as *priority* the risks that meet the threshold.
+5. Run `assess` again with `--priority <priority risk IDs>`. Its "Controls in scope" section lists each control once, with the risks it addresses:
    - the Level 0 controls of every applicable risk;
    - the Level 1 and 2 controls of the priority risks.
 
@@ -84,7 +93,8 @@ For each control in scope, follow these steps.
 4. Make each control concrete and specific to the components involved. ARC's guide shows the progression from framework control to organisation control to system-specific implementation; with no organisation register, go straight from framework control to system.
 5. Apply the expectations for each level from the guide's table:
    - **Level 0:** adopted as-is. The template expects every Level 0 control to be implemented before sign-off.
-     - A Level 0 control is waived only when the capability or component it concerns is not present in the system, for example a control on MCP servers in a system that uses none. Record it as *Waived — not applicable*, with the evidence that the capability or component is absent.
+     - A Level 0 control is waived only when the capability or component it concerns is not present in the system, for example a control on MCP servers in a system that uses none, or on persistent memory in a system that keeps nothing beyond a session. Record it as *Waived — not applicable*, with the evidence that the capability or component is absent.
+     - A combination's control, such as CTRL-0097 for the lethal trifecta, follows the verdict from Step 2. If every leg is present, it must be implemented: record which leg is removed or gated for each agent, and how. If a leg is absent, record it as *Waived — not applicable*, naming the absent leg and the evidence.
      - Any other Level 0 control that isn't implemented is a blocker for the governance team. List these blockers at the top of your summary.
    - **Level 1:** adopted or adapted, or not adopted with a documented rationale.
    - **Level 2:** considered according to the system's risk.

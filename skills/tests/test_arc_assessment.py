@@ -2,10 +2,13 @@
 
     python skills/tests/test_arc_assessment.py      # or: pytest skills/tests
 """
+import argparse
 import contextlib
 import io
+import itertools
 import json
 import shutil
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -115,6 +118,82 @@ def test_priority_lists_controls_in_scope():
     assert len(out["controls_in_scope"]) == len(expected), "each control in scope should appear once"
 
 
+def _register():
+    reg, _, _ = arc.load_register(argparse.Namespace(register=str(REGISTER), version=None, refresh=False))
+    return reg
+
+
+def test_combination_check():
+    """The lethal trifecta check: verdicts follow the marks in combinations.yaml."""
+    reg = _register()
+    combo = yaml.safe_load((REGISTER / "combinations.yaml").read_text())["lethal-trifecta"]
+    caps = sorted(reg["capabilities"])
+
+    def expected(selected):
+        legs = [{leg["capabilities"][c]["mark"] for c in selected if c in leg["capabilities"]}
+                for leg in combo["legs"].values()]
+        if not all(legs):
+            return "not present"
+        return "present" if all("yes" in marks for marks in legs) else "possible"
+
+    for n in range(len(caps) + 1):
+        for subset in itertools.combinations(caps, n):
+            (check,) = arc.combination_checks(reg, list(subset))
+            assert check["verdict"] == expected(subset), subset
+            assert arc.combination_advice(check)
+
+    # The verdicts quoted on the Capability combinations page and in the developer guide's examples
+    examples = {
+        ("CAP-04",): "not present",
+        ("CAP-01", "CAP-02", "CAP-03", "CAP-04", "CAP-07", "CAP-11"): "present",    # fact checker
+        ("CAP-01", "CAP-02", "CAP-03", "CAP-04", "CAP-10", "CAP-11"): "possible",   # coding assistant
+        ("CAP-01", "CAP-02", "CAP-04", "CAP-06", "CAP-09", "CAP-11"): "possible",   # call assistant
+        ("CAP-04", "CAP-05", "CAP-09", "CAP-11"): "possible",                       # email agent
+    }
+    for subset, verdict in examples.items():
+        assert arc.combination_checks(reg, list(subset))[0]["verdict"] == verdict, subset
+
+    out = assess(["CAP-04", "CAP-05", "CAP-09", "CAP-11"])
+    (check,) = out["combinations"]
+    assert check["control"]["id"] == "CTRL-0097" and check["control"]["level"] == 0
+    assert "RISK-055" in check["control_listed_by"]
+    assert [leg["status"] for leg in check["legs"]] == ["maybe", "yes", "yes"]
+    text = run("--register", str(REGISTER), "assess", "--capabilities", "CAP-07,CAP-12")
+    assert "### Lethal trifecta: present" in text
+    assert "None of this system's applicable risks lists CTRL-0097" in text  # caught by the check, not by a risk
+
+
+def test_register_without_combinations():
+    """Older registers and organisation registers may have no combinations.yaml."""
+    with tempfile.TemporaryDirectory() as tmp:
+        org = Path(tmp) / "org-register"
+        shutil.copytree(REGISTER, org)
+        (org / "combinations.yaml").unlink()
+        assert assess(["CAP-07", "CAP-11"], register=org)["combinations"] == []
+        text = run("--register", str(org), "assess", "--capabilities", "CAP-07,CAP-11")
+        assert "Capability combinations" not in text
+
+
+def test_site_check_matches_script():
+    """The website's interactive check (docs/assets/combination-check.js) gives the script's verdicts."""
+    if shutil.which("node") is None:
+        print("  (node not found; skipping the website check comparison)")
+        return
+    reg = _register()
+    caps = sorted(reg["capabilities"])
+    subsets = [list(s) for n in range(len(caps) + 1) for s in itertools.combinations(caps, n)]
+    script = (
+        "const {checkCombination} = require(process.argv[1]);"
+        "const input = JSON.parse(require('fs').readFileSync(0, 'utf8'));"
+        "console.log(JSON.stringify(input.subsets.map((s) => checkCombination(input.combination, s).verdict)));"
+    )
+    result = subprocess.run(
+        ["node", "-e", script, str(REPO / "docs" / "assets" / "combination-check.js")],
+        input=json.dumps({"combination": reg["combinations"]["lethal-trifecta"], "subsets": subsets}),
+        capture_output=True, text=True, check=True)
+    assert json.loads(result.stdout) == [arc.combination_checks(reg, s)[0]["verdict"] for s in subsets]
+
+
 def test_template_is_plain_markdown():
     page = (REPO / "docs" / "implementation" / "assessment-template.md").read_text()
     plain = arc.plain_markdown(page)
@@ -130,5 +209,8 @@ if __name__ == "__main__":
     test_builtin_yaml_parser_matches_pyyaml()
     test_runs_without_pyyaml()
     test_priority_lists_controls_in_scope()
+    test_combination_check()
+    test_register_without_combinations()
+    test_site_check_matches_script()
     test_template_is_plain_markdown()
     print("ALL PASSED")

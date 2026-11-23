@@ -45,6 +45,7 @@ extra_css:
 extra_javascript:
   - https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js
   - assets/risk-register.js
+  - assets/combination-check.js
 
 # Extra Configuration
 extra:
@@ -80,6 +81,7 @@ nav:
     - Introduction: arc_framework/introduction.md
     - Elements of agentic systems: arc_framework/elements.md
     - Risks of agentic systems: arc_framework/risks.md
+    - Capability combinations: arc_framework/capability-combinations.md
     - Controls for agentic systems: arc_framework/controls.md
     - Interactive Risk Register: arc_framework/risk-register.md
     - Risk Register (full text): arc_framework/register-full-text.md

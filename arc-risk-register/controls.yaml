@@ -129,8 +129,8 @@ CTRL-0009:
   risks:
   - RISK-004
   - RISK-054
-  statement: Use only MCP servers that implement robust authentication mechanisms in production environments
-  recommendations: Weak or misconfigured authorisation in MCP servers can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Verify that MCP servers implement modern OAuth standards (OAuth 2.1 or OAuth 2.0 with PKCE) before deployment, ensuring they enforce per-client consent flows, scope restrictions, and redirect URI validation to prevent authorisation bypasses. Review the server's authentication documentation and test authorisation flows in a development environment to confirm proper implementation. Reject MCP servers that use deprecated authentication methods, hard-coded credentials, or insufficient session management. As of the 2026-07-28 MCP specification, verify additionally that the server implements RFC 9207 issuer identification (so a client can detect a substituted authorization server) and Client ID Metadata Documents in place of dynamic client registration, and prefer servers that support the Enterprise-Managed Authorization extension so that access is governed by your identity provider rather than by per-user ad-hoc consent. Treat servers still built on the pre-2026 stateful session model as needing review before production use.
+  statement: Use only tool servers and APIs, including MCP servers, that implement robust authentication mechanisms in production environments
+  recommendations: Weak or misconfigured authorisation on the servers and APIs that an agent's tools call can lead to unauthorised access, token theft, or privilege escalation that compromises connected systems. Before deployment, verify that every remote tool endpoint authenticates its caller with a standard mechanism (for example OAuth 2.1, OAuth 2.0 with PKCE, or mutually authenticated TLS) and enforces per-client scopes, and reject endpoints that rely on hard-coded credentials, unscoped shared keys, or deprecated authentication methods; test the authorisation flows in a development environment to confirm them. For MCP servers, also verify per-client consent flows and redirect URI validation to prevent authorisation bypasses, and reject servers with insufficient session management. As of the 2026-07-28 MCP specification, verify additionally that the server implements RFC 9207 issuer identification (so a client can detect a substituted authorization server) and Client ID Metadata Documents in place of dynamic client registration, and prefer servers that support the Enterprise-Managed Authorization extension so that access is governed by your identity provider rather than by per-user ad-hoc consent. Treat servers still built on the pre-2026 stateful session model as needing review before production use.
   references:
   - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
   - https://blog.modelcontextprotocol.io/posts/2026-07-28/
@@ -294,8 +294,8 @@ CTRL-0019:
   level: 0
   risks:
   - RISK-009
-  statement: Use delimiters to enclose untrusted inputs and instruct the LLM to treat delimited content as data only
-  recommendations: Prompt injection attacks exploit LLMs' inability to distinguish between instructions and data, allowing malicious users to embed commands within input that override intended behaviour. Implement delimiter-based input segregation by enclosing all untrusted content (user inputs, external data, tool outputs) within clearly marked boundaries (e.g., XML tags, triple quotes, special markers) and explicitly instructing the LLM to treat delimited content as data rather than instructions. Use consistent, distinctive delimiters that are unlikely to appear naturally in user input and reinforce the delimiter policy throughout the system prompt. Whilst delimiters provide some protection, this is not a complete defence and should be combined with other prompt injection mitigations such as input validation and output monitoring.
+  statement: Keep untrusted inputs out of system instructions, and enclose any untrusted content given to the model in delimiters marked as data
+  recommendations: Prompt injection attacks exploit LLMs' inability to distinguish between instructions and data, allowing malicious users to embed commands within input that override intended behaviour. Do not interpolate user input, retrieved content, or tool outputs into the system prompt or other instruction templates; fix the system prompt at build time and pass untrusted content to the model in the user or tool turns, where it carries less authority. Where untrusted content must be quoted, enclose it within clearly marked boundaries (e.g., XML tags or special markers) that are unlikely to appear naturally in the input, and instruct the LLM to treat delimited content as data rather than instructions. Neither measure is a complete defence, because the model can still follow instructions in untrusted content, so combine them with controls that do not depend on the model's compliance, such as a deterministic policy layer (CTRL-0090) and least privilege (CTRL-0029).
   references: null
   crosswalks:
     csa_addendum:
@@ -309,6 +309,7 @@ CTRL-0020:
   risks:
   - RISK-009
   - RISK-047
+  - RISK-055
   statement: Use a dedicated LLM to extract required fields from inputs and filter out extraneous text or embedded instructions
   recommendations: Using the same LLM for both input processing and task execution creates vulnerability to prompt injection attacks embedded in user input. Deploy a separate LLM instance configured specifically for input sanitisation, with explicit instructions to extract only designated fields (e.g., name, email, query text) whilst ignoring any other content including embedded commands or meta-instructions. Configure this extraction LLM with a restrictive system prompt focused solely on structured data extraction and validation against expected schemas. Validate extracted fields against expected formats before passing them to the main agent LLM, and monitor extraction outputs for anomalies that might indicate injection attempts.
   references: null
@@ -325,8 +326,8 @@ CTRL-0021:
   risks:
   - RISK-010
   - RISK-011
-  statement: Implement allowlists and denylists to restrict what categories of information can be written to agent memory
-  recommendations: Unrestricted memory writes enable attackers to poison agent memory with malicious instructions, false information, or sensitive data that could compromise future agent behaviour or leak confidential information. Define explicit allowlists of permitted memory categories (e.g., user preferences, conversation context, task history) and denylists of forbidden content (e.g., credentials, system instructions, security policies, prompt overrides). Enforce these restrictions at the memory write interface, validating all write operations against the defined policies before persisting data.
+  statement: Implement allowlists and denylists to restrict what categories of information can be written to the agent's persistent memory
+  recommendations: Unrestricted writes to persistent memory enable attackers to poison agent memory with malicious instructions, false information, or sensitive data that could compromise future agent behaviour or leak confidential information. Define explicit allowlists of permitted memory categories (e.g., user preferences, conversation context, task history) and denylists of forbidden content (e.g., credentials, system instructions, security policies, prompt overrides). Enforce these restrictions at the memory write interface, validating all write operations against the defined policies before persisting data.
   references: null
   crosswalks:
     csa_addendum:
@@ -340,7 +341,7 @@ CTRL-0022:
   level: 1
   risks:
   - RISK-010
-  statement: Implement content filtering on memory writes to detect and block known unsafe content patterns
+  statement: Implement content filtering on writes to persistent memory to detect and block known unsafe content patterns
   recommendations: Malicious actors may attempt to inject adversarial content into agent memory that bypasses category-based restrictions, such as jailbreak prompts, command injection templates, or social engineering content designed to manipulate future agent behaviour. Deploy content filtering mechanisms that scan all memory write operations for known unsafe patterns (e.g., jailbreak strings, tool invocation templates, prompt override attempts, phishing content) before persisting data. Implement filtering using prompt injection detectors (to detect jailbreak strings) or custom classifiers finetuned on specific risks (e.g. attempts to invoke tools maliciously).
   references: null
   crosswalks:
@@ -355,7 +356,7 @@ CTRL-0023:
   risks:
   - RISK-010
   - RISK-011
-  statement: Log all memory modifications with comprehensive source metadata for audit purposes
+  statement: Log all modifications to persistent memory with comprehensive source metadata for audit purposes
   recommendations: Without detailed audit logs, detecting and investigating memory poisoning attacks becomes extremely difficult, preventing effective incident response and forensic analysis. Implement comprehensive logging for all memory write, update, and delete operations, capturing source metadata including timestamps, user or agent identity, session context, and the specific content being modified. Structure logs to enable correlation analysis, allowing security teams to trace how specific memory entries evolved over time and identify suspicious modification patterns. Store audit logs in a tamper-evident system separate from the agent's operational memory to prevent attackers from covering their tracks by deleting or modifying log entries.
   references: null
   crosswalks:
@@ -457,7 +458,7 @@ CTRL-0028:
     owasp_asi:
     - ASI08
 CTRL-0029:
-  level: 1
+  level: 0
   risks:
   - RISK-014
   - RISK-015
@@ -803,7 +804,7 @@ CTRL-0050:
     owasp_asi:
     - ASI09
 CTRL-0051:
-  level: 0
+  level: 1
   risks:
   - RISK-029
   statement: Implement input guardrails to detect and decline requests to generate copyrighted content
@@ -830,11 +831,11 @@ CTRL-0052:
     owasp_asi:
     - ASI09
 CTRL-0053:
-  level: 1
+  level: 0
   risks:
   - RISK-031
   statement: Require human approval for communications on sensitive matters
-  recommendations: Agents making unsupported commitments, inaccurate assurances, or statements that exceed organisational capabilities in official communications may expose the organisation to reputational damage, legal liability, or unmet expectations. Implement mandatory human review and approval workflows for communications on sensitive matters including contractual commitments, financial promises, policy statements, regulatory responses, or public-facing announcements. Define clear criteria for what constitutes "sensitive matters" requiring approval, ensuring consistent application across the organisation.
+  recommendations: Agents making unsupported commitments, inaccurate assurances, or statements that exceed organisational capabilities in official communications may expose the organisation to reputational damage, legal liability, or unmet expectations. Implement mandatory human review and approval workflows for communications on sensitive matters including contractual commitments, financial promises, policy statements, regulatory responses, or public-facing announcements. Define clear criteria for what constitutes "sensitive matters" requiring approval, ensuring consistent application across the organisation. Enforce the approval in the sending path, so that the agent cannot dispatch a message in a sensitive category until it is approved; an instruction to the agent to seek approval is not enough. Pair this control with CTRL-0094 so that approvals remain real decisions.
   references: null
   crosswalks:
     csa_addendum:
@@ -872,11 +873,11 @@ CTRL-0055:
     owasp_asi:
     - ASI09
 CTRL-0056:
-  level: 1
+  level: 0
   risks:
   - RISK-032
-  statement: Require explicit user confirmation before initiating or committing any business transaction
-  recommendations: Agents executing business transactions without explicit user confirmation may create unintended financial obligations, contractual commitments, or operational liabilities that were not properly authorised. Implement mandatory confirmation workflows that pause execution immediately before any transaction is initiated, presenting clear details of the transaction type, amounts, counterparties, and consequences for user review and approval. Design confirmation interfaces to require active consent rather than passive acceptance, using explicit "confirm" actions rather than dismissible notifications or opt-out mechanisms. Ensure confirmation cannot be bypassed by agents and maintain audit logs of all transaction approvals including timestamp, user identity, and transaction details.
+  statement: Require explicit human confirmation before committing any business transaction outside limits that an accountable human has pre-authorised
+  recommendations: Agents executing business transactions without proper authorisation may create unintended financial obligations, contractual commitments, or operational liabilities. Have an accountable human set the limits within which the agent may transact without confirmation — for example amounts, counterparties, transaction types, and frequency — and enforce those limits outside the agent, such as in the transaction controller (CTRL-0058) or payment gateway. Pause any transaction outside the limits, and every transaction where no limits have been set, immediately before it is initiated, presenting the transaction type, amount, counterparty, and consequences for review by the user on whose behalf the agent acts or by a designated approver. Require active consent, using an explicit "confirm" action rather than a dismissible notification or opt-out. Ensure confirmation cannot be bypassed by agents, and keep audit logs of all approvals, including timestamp, approver identity, and transaction details. Pair this control with CTRL-0094 so that confirmations remain real decisions.
   references: null
   crosswalks:
     csa_addendum:
@@ -901,7 +902,7 @@ CTRL-0057:
     owasp_asi:
     - ASI09
 CTRL-0058:
-  level: 1
+  level: 0
   risks:
   - RISK-032
   - RISK-033
@@ -965,6 +966,7 @@ CTRL-0062:
   - RISK-036
   - RISK-044
   - RISK-047
+  - RISK-055
   statement: Implement input guardrails to detect prompt injection and adversarial attacks
   recommendations: Malicious actors may attempt to inject hidden instructions through web content, uploaded files, or external data sources to hijack agent behaviour and bypass intended constraints. Use prompt injection detection tools or classifiers trained to identify adversarial inputs before they reach the agent's context.
   references: null
@@ -1048,7 +1050,7 @@ CTRL-0067:
     owasp_asi:
     - ASI02
 CTRL-0068:
-  level: 0
+  level: 1
   risks:
   - RISK-039
   statement: Use code linters to screen generated code for bad practices and poor syntax
@@ -1142,8 +1144,6 @@ CTRL-0074:
   level: 0
   risks:
   - RISK-040
-  - RISK-048
-  - RISK-054
   statement: Conduct CVE scanning and block execution of code with High or Critical vulnerabilities
   recommendations: Agent-generated code may inadvertently include dependencies or libraries containing known security vulnerabilities that could be exploited to compromise systems. Implement automated CVE scanning that analyses all dependencies, libraries, and packages used by agent-generated code before execution, checking against vulnerability databases such as the National Vulnerability Database. Configure scanning to block execution when High or Critical severity CVEs are detected, requiring remediation such as dependency updates or vulnerability patches before proceeding.
   references: null
@@ -1170,11 +1170,11 @@ CTRL-0075:
     owasp_asi:
     - ASI02
 CTRL-0076:
-  level: 1
+  level: 0
   risks:
   - RISK-041
-  statement: Require human approval for any destructive changes to databases, tables, or files
-  recommendations: Destructive operations such as deleting files, dropping database tables, or overwriting critical data can cause irreversible damage if executed without proper authorisation. Implement mandatory human approval workflows for all destructive operations including DELETE queries, DROP statements, file deletions, or data overwrites that modify or remove existing information.
+  statement: Require human approval for destructive changes to databases, tables, or files that cannot be readily undone
+  recommendations: Destructive operations such as deleting files, dropping database tables, or overwriting critical data can cause irreversible damage if executed without proper authorisation. Require human approval for every destructive operation that cannot be readily undone, including DROP and TRUNCATE statements, DELETE or UPDATE queries that are not narrowly filtered, bulk file deletions, and any deletion or overwrite in a store without versioning, soft-delete, or point-in-time recovery (see CTRL-0077). Changes that can be reverted from version control or soft-delete, such as edits to files in a version-controlled working copy, may proceed without approval. Enforce the approval in the tool or database permission layer rather than by instructing the agent to ask first, because an instruction in the agent's context can be ignored or lost.
   references: null
   crosswalks:
     csa_addendum:
@@ -1257,6 +1257,7 @@ CTRL-0082:
   risks:
   - RISK-043
   - RISK-047
+  - RISK-055
   statement: Do not grant agents access to personally identifiable or sensitive data unless strictly required
   recommendations: Agents with unnecessary access to PII or sensitive data create elevated risk of exposure, leakage, or misuse, particularly if agents are compromised or misuse their permissions. Apply the principle of least privilege by restricting agent access to databases, files, or systems containing PII or sensitive information unless explicitly required for the agent's designated functionality. Implement access controls that enforce these restrictions at the data layer, preventing agents from querying or reading sensitive datasets they should not access.
   references: null
@@ -1273,6 +1274,7 @@ CTRL-0083:
   risks:
   - RISK-044
   - RISK-047
+  - RISK-055
   statement: Disallow unknown or external files unless they have been scanned for threats
   recommendations: External files may contain maliciously crafted content designed to inject hidden instructions, manipulate agent behaviour, or introduce security threats when processed. Implement mandatory scanning for all unknown or external files before allowing agents to access them, using antivirus software, malware scanners, or specialised tools that detect prompt injection attempts embedded in file content.
   references: null
@@ -1333,6 +1335,7 @@ CTRL-0089:
   - RISK-037
   - RISK-047
   - RISK-049
+  - RISK-055
   statement: Enforce default-deny network egress for agent runtimes, allowing only approved destinations
   recommendations: Every exfiltration and every containment escape needs an outbound channel, and agents acquire new ones with each tool. Run agent runtimes behind an egress policy that denies all outbound connections by default and allows only named destinations required for the task, applied at the network layer (proxy, firewall, or sandbox policy) rather than in the prompt. Include browsing and API tools in the policy, block requests that carry data in URLs or headers to unapproved hosts, and validate at the egress boundary that any credential presented belongs to the deployment — an allowlisted API endpoint is still an exfiltration channel if the agent can use it with an attacker's account. Log and alert on denied connections; they are an early signal of injection or misbehaviour.
   references:
@@ -1354,6 +1357,7 @@ CTRL-0090:
   - RISK-036
   - RISK-044
   - RISK-047
+  - RISK-055
   statement: Enforce data-flow and capability policies at runtime with a deterministic policy layer that separates untrusted content from privileged actions
   recommendations: Classifier-based injection guardrails are probabilistic and do not close the attack. Complement them with an architectural boundary in which untrusted content never directly drives privileged actions - for example a privileged planner that never sees raw untrusted data working with a quarantined model that extracts values from it (the dual-LLM pattern), capability or information-flow labels that follow data through the system, and a policy engine that checks each tool call against what the data it depends on is allowed to do. Published designs such as CaMeL, Progent, and related reference monitors largely eliminate injection success on agent benchmarks; adopt one, or an equivalent policy layer in your framework, for systems that combine untrusted content with sensitive data or consequential actions.
   references:
@@ -1423,8 +1427,11 @@ CTRL-0093:
     owasp_asi:
     - ASI10
 CTRL-0094:
-  level: 1
+  level: 0
   risks:
+  - RISK-031
+  - RISK-032
+  - RISK-041
   - RISK-052
   statement: Measure the quality of human oversight and redesign approval steps that have become rubber stamps
   recommendations: 'A human approval step is only a control while the human is actually deciding. Instrument approval workflows: track approval rates, response times, and override rates per user and per action type, and audit random samples of approved actions. Approval rates near 100% or response times of seconds indicate that the step has stopped working. Respond by routing only genuinely uncertain or high-impact actions to humans, screening routine ones automatically, presenting the context needed to decide (what will change, why the agent chose it, what it would cost to reverse), and training overseers on the agent''s failure modes. Report oversight metrics alongside the agent''s other operating metrics so that erosion is visible to the governance team.'
@@ -1473,3 +1480,24 @@ CTRL-0096:
     owasp_asi:
     - ASI05
     - ASI03
+CTRL-0097:
+  level: 0
+  risks:
+  - RISK-037
+  - RISK-044
+  - RISK-047
+  - RISK-055
+  statement: Do not give one agent untrusted content, access to sensitive data, and an unrestricted outbound channel at once; remove one, or gate the outbound channel outside the agent
+  recommendations: "An agent that reads content from outside parties, can reach sensitive data, and can send data out can be turned into an exfiltration channel by a single injected instruction, and detection alone does not reliably stop this. Map, for each agent, where its inputs come from, what sensitive data it can reach, and every channel through which it can send data out, including messages, API calls, and URLs it can fetch or render. Where all three are present, break the combination: give the untrusted content to a separate agent that has no access to sensitive data and returns only structured values (see CTRL-0020 and CTRL-0090); remove the sensitive data the task does not need (see CTRL-0082); or restrict the outbound channel outside the agent, by limiting recipients and destinations to a fixed allowlist (see CTRL-0089) and requiring human approval for any message or call that carries data to a new recipient. Record which of the three is removed or gated for each agent, and recheck the map whenever a tool, data source, or channel is added. An agent that lacks any of the three does not need this control; record the waiver with evidence of which one is absent."
+  references:
+  - https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf
+  - https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
+  crosswalks:
+    csa_addendum:
+    - '2.7'
+    - '2.9'
+    imda_mgf:
+    - 2.1.2
+    owasp_asi:
+    - ASI01
+    - ASI02
