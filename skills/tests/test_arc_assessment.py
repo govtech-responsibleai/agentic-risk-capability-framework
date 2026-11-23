@@ -216,6 +216,7 @@ def _register():
 def test_combination_check():
     """Combination rules: verdicts follow the marks in combinations.yaml, and a rule brings its risks into scope."""
     reg = _register()
+    trifecta = lambda checks: next(c for c in checks if c["id"] == "lethal-trifecta")
     data = yaml.safe_load((REGISTER / "combinations.yaml").read_text())
     rule = data["rules"]["lethal-trifecta"]
     roles = [data["roles"][r] for r in rule["roles"]]
@@ -229,7 +230,7 @@ def test_combination_check():
 
     for n in range(len(caps) + 1):
         for subset in itertools.combinations(caps, n):
-            (check,) = arc.combination_checks(reg, list(subset))
+            check = trifecta(arc.combination_checks(reg, list(subset)))
             assert check["verdict"] == expected(subset), subset
             assert arc.combination_advice(check)
             # the rule's risk applies exactly when the rule is not ruled out
@@ -246,25 +247,34 @@ def test_combination_check():
         ("CAP-07", "CAP-12"): "present",                                            # no composite risk covered this in 1.3
     }
     for subset, verdict in examples.items():
-        assert arc.combination_checks(reg, list(subset))[0]["verdict"] == verdict, subset
+        assert trifecta(arc.combination_checks(reg, list(subset)))["verdict"] == verdict, subset
 
     out = assess(["CAP-07", "CAP-12"])
-    (check,) = out["combinations"]
+    check = trifecta(out["combinations"])
     assert check["control"]["id"] == "CTRL-0097" and check["control_listed_by"] == ["RISK-047"]
     assert "RISK-047" in {r["id"] for r in out["risks"]["combination"]}
 
     # A capability used below the authority a mark needs does not supply the role
     drafting = arc.build_profile(reg, ["CAP-05", "CAP-11"], {"CAP-05": "propose"})
-    legs = {leg["id"]: leg["status"] for leg in arc.combination_checks(reg, ["CAP-05", "CAP-11"], drafting)[0]["legs"]}
+    legs = {leg["id"]: leg["status"] for leg in trifecta(arc.combination_checks(reg, ["CAP-05", "CAP-11"], drafting))["legs"]}
     assert legs["outbound-channel"] == "none"
     sending = arc.build_profile(reg, ["CAP-05", "CAP-11"])
-    legs = {leg["id"]: leg["status"] for leg in arc.combination_checks(reg, ["CAP-05", "CAP-11"], sending)[0]["legs"]}
+    legs = {leg["id"]: leg["status"] for leg in trifecta(arc.combination_checks(reg, ["CAP-05", "CAP-11"], sending))["legs"]}
     assert legs["outbound-channel"] == "yes"
 
     # Implied capabilities are reported until they are declared
     implied = {(i["from"], i["capability"]) for i in assess(["CAP-10"])["implied_capabilities"]}
     assert ("CAP-10", "CAP-11") in implied and ("CAP-10", "CAP-09") in implied
     assert not any(i["capability"] == "CAP-11" for i in assess(["CAP-10", "CAP-11"])["implied_capabilities"])
+
+    # A rule with one role: an agent that can change what governs it. Reading is not enough to supply the role.
+    oversight = lambda caps, **kw: next(c for c in arc.combination_checks(reg, caps, arc.build_profile(reg, caps, **kw))
+                                        if c["id"] == "oversight-within-reach")
+    assert oversight(["CAP-04"])["verdict"] == "not present"
+    assert oversight(["CAP-12"])["verdict"] == "present"
+    assert oversight(["CAP-11"])["verdict"] == "possible"
+    assert oversight(["CAP-11"], authority={"CAP-11": "read"})["verdict"] == "not present"
+    assert "RISK-062" in arc.applicable_risks(reg, ["CAP-12"])[2] and "RISK-062" not in arc.applicable_risks(reg, ["CAP-04"])[2]
 
     # A retired risk never applies, and `show` points to its successor
     everything = assess(sorted(chosen_elements()))
@@ -300,7 +310,8 @@ def test_site_check_matches_script():
         ["node", "-e", script, str(REPO / "docs" / "assets" / "combination-check.js")],
         input=json.dumps({"combination": arc.combination_rules(reg)["lethal-trifecta"], "subsets": subsets}),
         capture_output=True, text=True, check=True)
-    assert json.loads(result.stdout) == [arc.combination_checks(reg, s)[0]["verdict"] for s in subsets]
+    assert json.loads(result.stdout) == [next(c for c in arc.combination_checks(reg, s) if c["id"] == "lethal-trifecta")["verdict"]
+                                         for s in subsets]
 
 
 def test_overlay():
