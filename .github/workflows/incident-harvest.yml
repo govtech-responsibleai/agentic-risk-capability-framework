@@ -1,0 +1,39 @@
+name: Incident harvest
+
+# Lists new leads for the incident file from the upstream trackers in incidents/sources.yaml.
+# It changes nothing in the repository: the leads are attached to the run as a file, for a
+# maintainer to triage (see incidents/README.md, "Keeping it current").
+#
+# It runs only when started by hand. To run it every month, uncomment the schedule.
+
+on:
+  workflow_dispatch:
+    inputs:
+      since:
+        description: Ignore leads dated before this month (YYYY-MM)
+        default: "2025-01"
+  # schedule:
+  #   - cron: "0 1 1 * *"   # 01:00 UTC on the first of each month
+
+permissions:
+  contents: read
+
+jobs:
+  harvest:
+    name: List new leads
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Harvest
+        run: |
+          python scripts/harvest_incidents.py --cache "$RUNNER_TEMP/harvest" \
+            --since "${{ inputs.since || '2025-01' }}" --out leads.jsonl | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: incident-leads
+          path: leads.jsonl

@@ -1,0 +1,18 @@
+# Themes for cases the register does not fully describe. A case's `gap.theme` must be one of
+# these. The coverage report groups gaps by theme, and a theme with repeated cases is a
+# candidate for a new risk or control. Add a theme here when cases keep landing in `other`.
+
+oversight-subversion: The agent alters, disables or evades its own logs, monitors, permissions, approvals or configuration.
+unsanctioned-means: The agent reaches its goal with credentials, access or resources it was not given, or by acting against outside parties.
+reach-beyond-tools: Code the agent runs, or credentials within its reach, let it act outside the tools and approvals it was given.
+instruction-files: Instruction, rules, configuration, skill or memory files that the agent loads are used as a way in.
+inbound-message-injection: Instructions arrive through inbound email, tickets, forms, comments, logs or other messages the agent reads.
+identity-lifecycle: Agent identities and credentials that are over-broad by default, persist, leak, or outlive their use.
+cross-agent-trust: One agent's output is treated as authorisation by another, or privileges pass between agents or across organisations.
+adversarial-counterparty: Sellers, sites or other agents set out to mislead or defraud an agent that transacts or negotiates.
+provider-dependency: A model or platform the agent depends on is withdrawn, changed or unavailable.
+personal-data: Personal data is over-collected, retained beyond its purpose, or sent to third parties through the agent's tools.
+third-party-harm: The agent, in production or in testing, acts against people or systems outside the deployment.
+accountability: It is unclear who is answerable for what the agent did, or its record of what it did cannot be relied on.
+human-factors: People over-trust, misuse or are manipulated by the agent in a way no current risk describes.
+other: None of the above. Say what is missing in the note.
