@@ -54,6 +54,15 @@ Next, we categorise the control into three levels based on its criticality:
 
     A Level 0 control is mandatory for every system in which its risk is **applicable** — that is, whenever the risk's element(s) are present (all baseline component and design risks, plus each capability risk whose capabilities the system has). Impact and likelihood scoring, which organisations use to prioritise effort, **never waives a Level 0 control**: a risk that scores below the relevance threshold still carries its Level 0 controls. Scoring governs Levels 1 and 2 only. A Level 0 control is **waived only when the capability or component it concerns is not present** in the system — for example, a control on MCP servers in a system that uses none, on agent-generated code in a system that generates none, or on persistent memory in a system that keeps nothing beyond a session. Record the waiver with evidence that the capability or component is absent. This is the single definition of the levels; the implementation guides restate it.
 
+!!! info "Levels that depend on context"
+
+    A control's level can be stricter when a capability is used with more authority. The register states this on the control (`level_when`). In register 2.0:
+
+    - **CTRL-0042** (human confirmation before high-impact or irreversible tool actions) is Level 1, and Level 0 when a capability acts alone with effects that are irreversible and reach outside the organisation.
+    - **CTRL-0043** (log all tool selection decisions and invocations) is Level 1, and Level 0 when a capability acts alone.
+
+    See [how a capability is used](elements.md#context-how-a-capability-is-used) for the definitions. An organisation can add its own conditions when it contextualises the register.
+
 ??? example "Example of controls targeting a specific risk"
 
     **Risk:** RISK-034 "Prompt injection via malicious websites" → **Safety and security risk** caused by **external manipulation** of the **Internet and Search Access** capability.

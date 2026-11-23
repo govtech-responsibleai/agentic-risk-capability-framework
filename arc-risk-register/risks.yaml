@@ -821,6 +821,8 @@ RISK-032:
     contractual obligations, or operational commitments that were not properly sanctioned.
   element_ids:
   - CAP-06
+  min_authority:
+    CAP-06: act-with-approval
   failure_mode: Agent Error
   type:
   - Safety
@@ -1073,6 +1075,8 @@ RISK-041:
     issues, operational disruption, or the need for costly recovery efforts.
   element_ids:
   - CAP-11
+  min_authority:
+    CAP-11: act-with-approval
   failure_mode: Agent Error
   type:
   - Security
@@ -1179,6 +1183,8 @@ RISK-045:
     operational behaviour.
   element_ids:
   - CAP-12
+  min_authority:
+    CAP-12: act-with-approval
   failure_mode: Agent Error
   type:
   - Security
@@ -1283,6 +1289,8 @@ RISK-049:
   element_ids:
   - DSN-02
   - CAP-10
+  min_authority:
+    CAP-10: act-with-approval
   failure_mode: Agent Misbehaviour
   type:
   - Safety

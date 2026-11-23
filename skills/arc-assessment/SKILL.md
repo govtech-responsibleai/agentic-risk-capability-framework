@@ -17,6 +17,8 @@ The script needs only Python 3.9+ (it uses PyYAML if present, and a built-in par
 ARC elements                                          # definitions of components, design elements, capabilities
 ARC assess --capabilities CAP-03,CAP-07               # applicable risks, their controls, and the combination check
 ARC assess --capabilities ... --components CMP-04     # ...for a system that also has a conditional component
+ARC assess --capabilities CAP-06=act-with-approval,CAP-11=read --internal CAP-11   # ...with the context of each capability
+ARC assess --profile system.yaml                      # ...or with the whole system described in a file
 ARC assess --capabilities ... --priority RISK-...     # ...plus every control in scope, once each
 ARC show RISK-034 CTRL-0062 CAP-07                    # full text of any entry
 ARC template                                          # the assessment template as plain Markdown
@@ -51,7 +53,10 @@ Ask the user these questions. If you can't reach them, choose a sensible default
 5. For each capability, record:
    - the evidence, as file paths and line numbers;
    - which agent or tool provides it;
-   - whether a human approves before it acts. If only some actions are approved, say which.
+   - its **authority**, for the capabilities that list authority levels in `ARC elements`: `read`, `propose` (a person carries out what the agent prepares), `act-with-approval` (a person approves each action in a step the agent cannot skip), or `act-alone`. Take the highest level any agent has. An instruction in a prompt to "ask first" is not approval; look for a gate in code or in the platform;
+   - whether its effects are **irreversible** (it can make changes that cannot be readily undone) and **external** (they reach people or systems outside the organisation), where the register leaves those open.
+
+   If you cannot establish a fact, leave it unstated: the script then assumes the most cautious case.
 
    Also list the capabilities you ruled out, with reasons.
 6. Decide which conditional components the system has. `ARC elements` marks them and gives the condition for each, for example Memory (the system keeps information beyond a session or shares it across users or tasks) and Protocols (a tool server or agent that another party builds or operates is connected through an agent protocol such as MCP or A2A). Record the evidence for each answer, including for the ones that are absent.
@@ -59,7 +64,20 @@ Ask the user these questions. If you can't reach them, choose a sensible default
 
 ## Step 2: Evaluate risks
 
-1. Run `ARC --version X.Y.Z assess --capabilities <confirmed IDs> --components <conditional components present>`. It lists every applicable risk:
+1. Run `ARC --version X.Y.Z assess --capabilities <confirmed IDs, each with =authority> --reversible <IDs> --internal <IDs> --components <conditional components present>`, or put the same facts in a profile file and pass `--profile`:
+
+   ```yaml
+   capabilities:
+     CAP-06:
+       authority: act-with-approval
+     CAP-11:
+       authority: read
+       external: false
+   components:
+   - CMP-04
+   ```
+
+   The output names any risk left out because a capability is used below the authority that risk needs, and marks any control that is at a stricter level in this context. It lists every applicable risk:
    - baseline risks, which come from the components and design elements that every agentic system has;
    - risks from each capability and each conditional component that is present;
    - risks from combinations of elements, which apply only when all of their elements are present.

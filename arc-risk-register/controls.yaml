@@ -676,6 +676,11 @@ CTRL-0041:
     - ASI02
 CTRL-0042:
   level: 1
+  level_when:
+  - level: 0
+    authority: act-alone
+    irreversible: true
+    external: true
   risks:
   - RISK-023
   - RISK-052
@@ -693,6 +698,9 @@ CTRL-0042:
     - ASI09
 CTRL-0043:
   level: 1
+  level_when:
+  - level: 0
+    authority: act-alone
   risks:
   - RISK-023
   statement: Log all tool selection decisions and invocations with comprehensive metadata

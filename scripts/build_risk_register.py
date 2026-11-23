@@ -188,7 +188,10 @@ def build_risk_register_data():
             'id': cap_id,
             'name': cap_data.get('name', ''),
             'category': f'Capability - {cap_category}',
-            'description': cap_data.get('description', '')
+            'description': cap_data.get('description', ''),
+            'authority': cap_data.get('authority', []),
+            'irreversible': cap_data.get('irreversible', ''),
+            'external': cap_data.get('external', ''),
         }
 
     # Build enriched risk data
@@ -207,6 +210,7 @@ def build_risk_register_data():
                 control_details.append({
                     'id': ctrl_id,
                     'level': ctrl.get('level', ''),
+                    'level_when': ctrl.get('level_when', []),
                     'statement': ctrl.get('statement', ''),
                     'recommendations': ctrl.get('recommendations', ''),
                     'references': ctrl.get('references', []) if ctrl.get('references') else [],
@@ -221,6 +225,7 @@ def build_risk_register_data():
             'element_names': [e['name'] for e in risk_elements],
             'element_categories': [e['category'] for e in risk_elements],
             'composite': len(risk_elements) > 1,
+            'min_authority': risk_data.get('min_authority', {}),
             'failure_mode': risk_data.get('failure_mode', ''),
             'type': risk_data.get('type', []),
             'hazards': [{'id': h, 'name': hazards[h]['name'], 'type': hazards[h]['type']}
@@ -258,6 +263,25 @@ def build_risk_register_data():
     return output
 
 LEVEL_LABELS = {0: 'Level 0 · Cardinal', 1: 'Level 1 · Standard', 2: 'Level 2 · Best Practice'}
+AUTHORITY_LABELS = {'read': 'read', 'propose': 'propose', 'act-with-approval': 'act with approval',
+                    'act-alone': 'act alone'}
+
+
+def describe_level_condition(condition):
+    """'Level 0 when a capability is used to act alone, with effects that are irreversible and external'."""
+    who = ' or '.join(condition['capabilities']) if condition.get('capabilities') else 'a capability'
+    parts = []
+    if condition.get('authority') == 'act-alone':
+        parts.append('is used to act alone')
+    elif condition.get('authority'):
+        parts.append(f"is used at {AUTHORITY_LABELS[condition['authority']]} or above")
+    effects = [word for field, word in (('irreversible', 'irreversible'), ('external', 'external'))
+               if condition.get(field) is True]
+    effects += [word for field, word in (('irreversible', 'reversible'), ('external', 'internal'))
+                if condition.get(field) is False]
+    if effects:
+        parts.append('has effects that are ' + ' and '.join(effects))
+    return f"{LEVEL_LABELS[condition['level']]} when {who} " + ' and '.join(parts)
 
 
 def _crosswalk_line(crosswalks, references):
@@ -318,6 +342,10 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
             lines += ['', '### Combinations of elements', '']
         else:
             lines += ['', f"### {element_label(key)}", '', f"*{elements[key][1].get('description', '').strip()}*"]
+            if elements[key][1].get('authority'):
+                e = elements[key][1]
+                lines += ['', '**Authority levels:** ' + ', '.join(AUTHORITY_LABELS[a] for a in e['authority'])
+                          + f". **Irreversible effects:** {e['irreversible']}. **Effects outside the organisation:** {e['external']}."]
             if elements[key][1].get('present_when'):
                 lines += ['', f"**Present when:** {elements[key][1]['present_when']} These risks apply only to systems that have this element."]
         for rid in groups[key]:
@@ -329,6 +357,11 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
                 '',
                 f"**Arises from:** {' + '.join(element_label(e) for e in r.get('element_ids', []))}  ",
                 f"**Failure mode:** {r.get('failure_mode', '')} · **Type:** {', '.join(r.get('type', []))} · **Hazards:** {hz}",
+            ]
+            for cap_id, minimum in (r.get('min_authority') or {}).items():
+                lines += ['', f"**Applies when:** {elements[cap_id][1]['name']} ({cap_id}) is used at "
+                              f"{AUTHORITY_LABELS[minimum]} or above."]
+            lines += [
                 '',
                 r.get('description', '').strip(),
                 '',
@@ -337,7 +370,8 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
             ]
             for cid in r.get('controls', []):
                 c = controls[cid]
-                lines.append(f"- [{cid}](#{cid}) ({LEVEL_LABELS.get(c['level'], c['level'])}): {c['statement']}")
+                stricter = ''.join(f'; {describe_level_condition(w)}' for w in c.get('level_when') or [])
+                lines.append(f"- [{cid}](#{cid}) ({LEVEL_LABELS.get(c['level'], c['level'])}{stricter}): {c['statement']}")
             if r.get('sources'):
                 lines += ['', '**Sources:** ' + ' · '.join(f'<{u}>' if str(u).startswith('http') else str(u) for u in r['sources'])]
             cw = _crosswalk_line(r.get('crosswalks'), references)
@@ -353,7 +387,8 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
             f"### {cid} · {c['statement']} {{ #{cid} }}",
             '',
             f"**{LEVEL_LABELS.get(c['level'], c['level'])}** · **Mitigates:** "
-            + ', '.join(f'[{rid}](#{rid})' for rid in c.get('risks', [])),
+            + ', '.join(f'[{rid}](#{rid})' for rid in c.get('risks', []))
+            + ''.join(f'  \n**{describe_level_condition(w)}.**' for w in c.get('level_when') or []),
             '',
             (c.get('recommendations') or '*No implementation guidance recorded.*').strip(),
         ]

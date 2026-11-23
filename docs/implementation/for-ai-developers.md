@@ -26,6 +26,8 @@ Analyse your agentic AI system's capabilities using [the capability taxonomy](..
 
 **Key principle:** Capabilities are defined system-level—if any agent has a capability, the entire system has that capability.
 
+For each capability that acts on the world, also record **how the system uses it**: its authority (read, propose, act with approval, or act alone), whether its effects are irreversible, and whether they reach outside the organisation. See [Context](../arc_framework/elements.md#context-how-a-capability-is-used). Some risks apply only above a certain authority, and some controls are stricter when an agent acts alone. Where you cannot establish a fact, assume the most cautious case.
+
 !!! tip "Quick Capability Identification"
     Map each function your system performs to specific capabilities:
 

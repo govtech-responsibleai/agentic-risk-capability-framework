@@ -13,6 +13,9 @@ Commands:
          [--components IDS]      capability combinations such as the lethal trifecta; --components names
                                  the conditional components the system has (e.g. CMP-04 for persistent memory)
          [--priority IDS|all]    ...and the controls in scope once priority risks are known
+         [--profile FILE]        ...for a system described in a YAML file (capabilities with their
+                                 authority, whether their effects are irreversible or external, and
+                                 conditional components); see "Context" below
   show ID [ID ...]               full text of risks, controls or elements (RISK-034, CTRL-0062, CAP-07)
   template                       the ARC assessment template (Markdown)
 
@@ -21,6 +24,14 @@ Examples:
   python3 arc.py assess --capabilities CAP-03,CAP-07,CAP-11
   python3 arc.py --version 1.3.0 assess --capabilities CAP-03,CAP-07 --priority RISK-034,RISK-044 --format json
   python3 arc.py --register ./our-arc-register assess --capabilities CAP-02,CAP-06
+
+Context:
+  A capability that acts on the world is used at an authority level: read, propose (a person carries
+  out what the agent prepares), act-with-approval (the agent acts after a person approves each action)
+  or act-alone. Give it inline, CAP-11=read, or in a profile file. Its effects may be irreversible and
+  may reach outside the organisation; --reversible and --internal name the capabilities for which they
+  do not. Anything left unstated is assumed to be the most cautious case, so no risk or stricter
+  control level drops out until the context says it can.
 
 Environment:
   ARC_CACHE_DIR   where release files are cached (default ~/.cache/arc-assessment;
@@ -51,6 +62,7 @@ REGISTER_FILES = ("register", "risks", "controls", "capabilities", "components",
 OPTIONAL_FILES = ("combinations",)  # older registers and organisation registers may lack them
 TEMPLATE_PATH = "docs/implementation/assessment-template.md"
 LEVELS = {0: "Level 0 · Cardinal", 1: "Level 1 · Standard", 2: "Level 2 · Best Practice"}
+AUTHORITY = ("read", "propose", "act-with-approval", "act-alone")  # least to most
 
 
 class ArcError(Exception):
@@ -417,7 +429,9 @@ def element_index(reg):
         for eid, e in (reg[key] or {}).items():
             idx[eid] = {"id": eid, "kind": kind, "name": e.get("name", ""), "category": e.get("category", ""),
                         "description": (e.get("description") or "").strip(),
-                        "present_when": (e.get("present_when") or "").strip()}
+                        "present_when": (e.get("present_when") or "").strip(),
+                        "authority": e.get("authority") or [], "irreversible": e.get("irreversible"),
+                        "external": e.get("external")}
     return idx
 
 
@@ -430,7 +444,64 @@ def is_chosen(element):
     return element.get("kind") == "Capability" or bool(element.get("present_when"))
 
 
-def applicable_risks(reg, present):
+def build_profile(reg, capabilities, authority=None, reversible=(), internal=()):
+    """The context each capability is used in: {capability: {authority, irreversible, external}}.
+
+    A capability that lists authority levels is taken to be used at the highest one unless `authority`
+    says otherwise. Its effects are taken to be irreversible and external wherever the register leaves
+    the question open ("ask"), unless the capability is named in `reversible` or `internal`. The cautious
+    assumption keeps every risk and every stricter control level in scope until the context removes it.
+    A register without context fields gives an empty context, and nothing changes.
+    """
+    elements = element_index(reg)
+    profile = {}
+    for cap in capabilities:
+        e = elements[cap]
+        context = {}
+        if e["authority"]:
+            given = (authority or {}).get(cap)
+            if given and given not in e["authority"]:
+                raise ArcError(f"{cap} {e['name']} can be used at: {', '.join(e['authority'])} (got {given!r})")
+            context["authority"] = given or e["authority"][-1]
+        for field, cleared in (("irreversible", reversible), ("external", internal)):
+            if e[field] == "ask":
+                context[field] = cap not in cleared
+            elif e[field] in ("always", "never"):
+                context[field] = e[field] == "always"
+        if context.get("authority") == "read" and "irreversible" in context:
+            context["irreversible"] = False   # reading changes nothing, so there is nothing to undo
+        profile[cap] = context
+    return profile
+
+
+def below_authority(risk, profile):
+    """(capability, level needed) if the system uses a capability below the authority this risk needs."""
+    for cap, minimum in (risk.get("min_authority") or {}).items():
+        used = (profile or {}).get(cap, {}).get("authority")
+        if used and AUTHORITY.index(used) < AUTHORITY.index(minimum):
+            return cap, minimum
+    return None
+
+
+def effective_level(control, profile):
+    """A control's level in this system: its own, or a stricter one if a `level_when` context holds."""
+    level = control.get("level")
+    for condition in control.get("level_when") or []:
+        for cap, context in (profile or {}).items():
+            if condition.get("capabilities") and cap not in condition["capabilities"]:
+                continue
+            if "authority" in condition and (
+                    not context.get("authority")
+                    or AUTHORITY.index(context["authority"]) < AUTHORITY.index(condition["authority"])):
+                continue
+            if any(field in condition and context.get(field) != condition[field]
+                   for field in ("irreversible", "external")):
+                continue
+            level = min(level, condition["level"])
+    return level
+
+
+def applicable_risks(reg, present, profile=None):
     """Risks that apply to a system with the given capabilities and conditional components.
 
     A risk applies when all the elements it arises from are present. Most components and design elements
@@ -442,7 +513,7 @@ def applicable_risks(reg, present):
     selected = set(present)
     baseline, single, combination = [], [], []
     for rid, r in reg["risks"].items():
-        if r.get("superseded_by"):
+        if r.get("superseded_by") or below_authority(r, profile):
             continue
         ids = risk_elements(r)
         needed = {e for e in ids if is_chosen(elements.get(e, {}))}
@@ -453,14 +524,16 @@ def applicable_risks(reg, present):
     return baseline, single, combination
 
 
-def risk_record(reg, rid, elements, detail=False):
+def risk_record(reg, rid, elements, detail=False, profile=None):
     r = reg["risks"][rid]
     hazards = reg["hazards"] or {}
     controls = []
     for cid in r.get("controls", []) or []:
         c = reg["controls"].get(cid)
         if c:
-            rec = {"id": cid, "level": c.get("level"), "statement": c.get("statement", "")}
+            rec = {"id": cid, "level": effective_level(c, profile), "statement": c.get("statement", "")}
+            if rec["level"] != c.get("level"):
+                rec["level_outside_this_context"] = c.get("level")
             if detail:
                 rec["recommendations"] = (c.get("recommendations") or "").strip()
             controls.append(rec)
@@ -536,6 +609,42 @@ def parse_ids(text):
     return [x.strip().upper() for x in (text or "").split(",") if x.strip()]
 
 
+def parse_capabilities(text):
+    """'CAP-06=act-with-approval,CAP-11' -> (['CAP-06', 'CAP-11'], {'CAP-06': 'act-with-approval'})."""
+    caps, authority = [], {}
+    for item in (text or "").split(","):
+        if not item.strip():
+            continue
+        cap, _, level = item.strip().partition("=")
+        caps.append(cap.strip().upper())
+        if level.strip():
+            authority[caps[-1]] = level.strip().lower()
+    return caps, authority
+
+
+def read_profile(path):
+    """A system profile file -> (capabilities, authority, reversible, internal, components)."""
+    data = load_yaml_text(Path(path).read_text(), path) or {}
+    entries = data.get("capabilities") or {}
+    if isinstance(entries, list):
+        entries = {cap: {} for cap in entries}
+    caps = [str(c).upper() for c in entries]
+    entries = {str(c).upper(): (v or {}) for c, v in entries.items()}
+    authority = {c: str(v["authority"]).lower() for c, v in entries.items() if v.get("authority")}
+    reversible = [c for c, v in entries.items() if v.get("irreversible") is False]
+    internal = [c for c, v in entries.items() if v.get("external") is False]
+    return caps, authority, reversible, internal, [str(c).upper() for c in data.get("components") or []]
+
+
+def describe_context(context):
+    parts = [context["authority"]] if context.get("authority") else []
+    if "irreversible" in context:
+        parts.append("irreversible" if context["irreversible"] else "reversible")
+    if "external" in context:
+        parts.append("external" if context["external"] else "internal")
+    return ", ".join(parts)
+
+
 # ---------------------------------------------------------------- commands
 
 def cmd_elements(reg, source, args):
@@ -561,23 +670,31 @@ def cmd_elements(reg, source, args):
 
 def cmd_assess(reg, source, args):
     elements = element_index(reg)
-    caps = parse_ids(args.capabilities)
+    caps, authority = parse_capabilities(args.capabilities)
+    reversible, internal = parse_ids(args.reversible), parse_ids(args.internal)
+    profile_components = []
+    if args.profile:
+        if caps:
+            raise ArcError("--profile and --capabilities are alternatives")
+        caps, authority, reversible, internal, profile_components = read_profile(args.profile)
     unknown = [c for c in caps if elements.get(c, {}).get("kind") != "Capability"]
     if unknown:
         valid = ", ".join(f"{e['id']} {e['name']}" for e in elements.values() if e["kind"] == "Capability")
         raise ArcError(f"unknown capability ID(s): {', '.join(unknown)}. Valid: {valid}")
-    components = parse_ids(getattr(args, "components", "") or "")
+    components = parse_ids(getattr(args, "components", "") or "") or profile_components
+    profile = build_profile(reg, caps, authority, reversible, internal)
+    too_low = {rid: below_authority(r, profile) for rid, r in reg["risks"].items() if below_authority(r, profile)}
     conditional = {e["id"]: e for e in elements.values() if e["present_when"]}
     stray = [c for c in components if c not in conditional]
     if stray:
         valid = ", ".join(f"{e['id']} {e['name']}" for e in conditional.values()) or "none in this register"
         raise ArcError(f"not a conditional component: {', '.join(stray)}. Conditional components: {valid}")
-    baseline, single, combination = applicable_risks(reg, caps + components)
+    baseline, single, combination = applicable_risks(reg, caps + components, profile)
     applicable = baseline + single + combination
     groups = [("Baseline risks (components and design elements)", baseline),
               ("Risks from capabilities and conditional components", single),
               ("Risks from combinations of elements", combination)]
-    records = {rid: risk_record(reg, rid, elements, detail=args.detail) for rid in applicable}
+    records = {rid: risk_record(reg, rid, elements, detail=args.detail, profile=profile) for rid in applicable}
 
     priority = None
     if args.priority:
@@ -603,6 +720,9 @@ def cmd_assess(reg, source, args):
     v = reg["register"].get("version")
     if args.format == "json":
         out = {"register_version": v, "source": source, "capabilities": caps, "components": components,
+               "context": profile,
+               "below_authority": [{"id": rid, "capability": cap, "needs": minimum}
+                                   for rid, (cap, minimum) in too_low.items()],
                "conditional_components": [{"id": e["id"], "name": e["name"], "present_when": e["present_when"],
                                            "present": e["id"] in components} for e in conditional.values()],
                "risks": {"baseline": [records[r] for r in baseline], "capability": [records[r] for r in single],
@@ -615,10 +735,16 @@ def cmd_assess(reg, source, args):
         print(json.dumps(out, indent=2))
         return
 
-    cap_names = ", ".join(f"{c} {elements[c]['name']}" for c in caps) or "none"
+    cap_names = ", ".join(f"{c} {elements[c]['name']}" + (f" ({describe_context(profile[c])})" if profile[c] else "")
+                          for c in caps) or "none"
     by_level = lambda d: ", ".join(f"{sum(1 for x in d.values() if x['level'] == lv)} at Level {lv}" for lv in (0, 1, 2))
     print(f"# ARC applicable risks (register {v}; {source})\n")
     print(f"**Capabilities:** {cap_names}\n")
+    if any(profile.values()):
+        print("The context in brackets is how each capability is used. Unstated context is assumed to be the most "
+              "cautious case; give it with CAP-xx=<authority>, --reversible, --internal or --profile.\n")
+    for rid, (cap, minimum) in too_low.items():
+        print(f"**Left out:** {rid} {reg['risks'][rid].get('statement', '')}. It needs {cap} at {minimum} or above.\n")
     for e in conditional.values():
         state = "present" if e["id"] in components else "not present (its risks are left out; pass --components to include them)"
         print(f"**{e['id']} {e['name']}:** {state}. Present when: {e['present_when']}\n")
@@ -638,7 +764,9 @@ def cmd_assess(reg, source, args):
                   f"Hazards: {', '.join(rec['hazards'])}\n")
             print(f"{rec['description']}\n")
             for c in rec["controls"]:
-                print(f"- {c['id']} [{LEVELS.get(c['level'], c['level'])}] {c['statement']}")
+                raised = (f"; Level {c['level_outside_this_context']} outside this context"
+                          if "level_outside_this_context" in c else "")
+                print(f"- {c['id']} [{LEVELS.get(c['level'], c['level'])}{raised}] {c['statement']}")
                 if args.detail and c.get("recommendations"):
                     print(f"  - Guidance: {c['recommendations']}")
             print()
@@ -770,6 +898,10 @@ def main(argv=None):
     sub.add_parser("elements", parents=[fmt], help="list components, design elements and capabilities")
     p_assess = sub.add_parser("assess", parents=[fmt], help="list applicable risks and their controls")
     p_assess.add_argument("--capabilities", default="", help="comma-separated capability IDs, e.g. CAP-03,CAP-07")
+    p_assess.add_argument("--reversible", default="", help="capabilities whose effects can be readily undone")
+    p_assess.add_argument("--internal", default="", help="capabilities whose effects stay inside the organisation")
+    p_assess.add_argument("--profile", help="a YAML file describing the system: capabilities (each with authority, "
+                                            "irreversible, external) and components")
     p_assess.add_argument("--components", default="", help="comma-separated conditional components the system has, "
                                                            "e.g. CMP-04,CMP-05 (see `elements` for the conditions)")
     p_assess.add_argument("--priority", help="comma-separated priority risk IDs (or 'all'): also list every "

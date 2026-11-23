@@ -71,9 +71,9 @@ We see three broad categories of capabilities — **cognitive**, **interaction**
 
 * **💬 Multimodal Understanding & Generation**: The capability to communicate with human users across multiple modalities, including natural language conversation (explaining topics, generating documents, interactive discussions) and multimodal understanding/generation (processing and creating image, audio, or video content such as visual analysis, speech transcription, or multimedia creation).
 
-* **📧 Official Communication**: The capability to autonomously compose, finalize, and dispatch authoritative communications that formally and legally represent an organisation to external parties (e.g. customers, partners, regulators, courts, or media) via approved channels and formats, without prior human review or approval, thereby creating potential legal, regulatory, or reputational obligations. This includes sending legally binding correspondence, publishing official statements or press releases, and responding to external inquiries using the organisation's identity.
+* **📧 Official Communication**: The capability to compose, finalise, and dispatch authoritative communications that formally and legally represent an organization to external parties (e.g. customers, partners, regulators, courts, or media) via approved channels and formats, thereby creating potential legal, regulatory, or reputational obligations. This includes sending legally binding correspondence, publishing official statements or press releases, and responding to external inquiries using the organisation's identity. A system has this capability whether a person sends what the agent drafts, approves each message before it goes, or lets the agent send by itself; that difference is recorded as the capability's authority.
 
-* **💳 Business Transactions**: The capability to autonomously initiate, authorise, and execute binding business transactions with external parties - such as payments, purchases, reservations, or service commitments - within predefined authorisation limits, resulting in real financial, contractual, or operational obligations for the organisation. This includes processing payments or refunds, placing orders or subscriptions, booking services or reservations, and accepting or triggering contractual commitments on behalf of the organisation.
+* **💳 Business Transactions**: The capability to initiate, authorise, and execute binding business transactions with external parties - such as payments, purchases, reservations, or service commitments - resulting in real financial, contractual, or operational obligations for the organization. This includes processing payments or refunds, placing orders or subscriptions, booking services or reservations, and accepting or triggering contractual commitments on behalf of the organization. A system has this capability whether a person completes the transactions the agent prepares, approves each one, or lets the agent transact by itself within limits set in advance; that difference is recorded as the capability's authority.
 
 * **🌐 Internet & Search Access**: The capability to autonomously access, browse, search, and retrieve information from the Internet to augment the LLM's static training knowledge with external and up-to-date sources in support of task execution and response generation. This includes issuing search queries, following and parsing web pages, extracting relevant facts or documents, and aggregating information from multiple online sources.
 
@@ -90,3 +90,41 @@ We see three broad categories of capabilities — **cognitive**, **interaction**
 * **📁 File & Data Management**: The capability to manage the full lifecycle of files and data by creating, reading, modifying, organizing, converting, querying, and updating information across both unstructured artifacts (e.g. documents, spreadsheets, media files) and structured data stores (e.g. SQL/NoSQL databases, data warehouses, vector or embedding stores) in support of operational tasks. This includes ingesting and transforming datasets, generating or updating files, maintaining directory or schema structures, executing database queries or updates, and storing or retrieving embeddings or derived data products.
 
 * **⚡ System Management**: The capability to directly manage and configure technical systems and infrastructure by adjusting system settings, controlling computing resources, and administering operational environments across on-premise or cloud platforms. This includes monitoring system health and performance, managing authentication credentials and access controls, provisioning or scaling compute and storage resources, configuring operating system or runtime parameters, and applying system-level optimisations to support reliable operation.
+
+### 🎚️ Context: how a capability is used
+
+Two systems can have the same capability and very different exposure. An assistant that drafts a payment for a person to make and an agent that pays suppliers by itself both have Business Transactions. For each capability that acts on the world, ARC therefore records three things about how the system uses it.
+
+**Authority** is how far the agent goes without a person:
+
+| Authority | Meaning |
+| --- | --- |
+| **Read** | The agent only observes or retrieves through this capability |
+| **Propose** | The agent prepares the action and a person carries it out |
+| **Act with approval** | The agent carries out the action after a person approves that action |
+| **Act alone** | The agent carries out the action without a person approving each one, whether freely or within limits set in advance |
+
+**Irreversible** records whether the capability can make changes that cannot be readily undone. **External** records whether its effects reach people or systems outside the organisation.
+
+| Capability | Authority levels | Irreversible effects | Effects outside the organisation |
+| --- | --- | --- | --- |
+| Official Communication | propose, act with approval, act alone | always | always |
+| Business Transactions | propose, act with approval, act alone | ask | always |
+| Internet & Search Access | read | never | always |
+| Computer Use | act with approval, act alone | ask | ask |
+| Other Programmatic Interfaces | read, propose, act with approval, act alone | ask | ask |
+| Code Execution | propose, act with approval, act alone | ask | ask |
+| File & Data Management | read, propose, act with approval, act alone | ask | ask |
+| System Management | read, propose, act with approval, act alone | ask | ask |
+
+The cognitive capabilities and Multimodal Understanding & Generation carry no context, because they do not act on anything by themselves.
+
+The context is used in three ways:
+
+1. **Some risks need a minimum authority.** Unintended deletion of files (RISK-041) cannot arise in a system that only reads them. A risk of this kind states the authority it needs, and it applies only at that level or above.
+2. **Some controls are stricter in context.** A control can state a context in which it moves to a higher level. For example, logging every tool invocation (CTRL-0043) is Level 1 in general and Level 0 when a capability acts alone.
+3. **Capability combinations** read the context too, since a capability used only to read cannot send anything out.
+
+Where the context is not stated, an assessment assumes the most cautious case: the highest authority the capability allows, with irreversible and external effects. Nothing drops out of an assessment until the context shows that it can.
+
+These three factors correspond to those in [IMDA's Model AI Governance Framework for Agentic AI](https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf): the scope of an agent's actions, their reversibility, the agent's level of autonomy, and its access to external systems.
