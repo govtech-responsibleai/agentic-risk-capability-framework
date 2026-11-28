@@ -12,9 +12,9 @@ RISK-001:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0001
   - CTRL-0002
@@ -47,9 +47,9 @@ RISK-002:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-07
-  - HZ-08
+  - HARM-02
+  - HARM-07
+  - HARM-08
   controls:
   - CTRL-0004
   - CTRL-0005
@@ -79,9 +79,9 @@ RISK-003:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-08
-  - HZ-09
+  - HARM-02
+  - HARM-08
+  - HARM-09
   controls:
   - CTRL-0004
   - CTRL-0005
@@ -109,8 +109,8 @@ RISK-004:
   type:
   - Security
   harms:
-  - HZ-02
-  - HZ-04
+  - HARM-02
+  - HARM-04
   controls:
   - CTRL-0009
   - CTRL-0032
@@ -141,7 +141,7 @@ RISK-005:
   type:
   - Security
   harms:
-  - HZ-04
+  - HARM-04
   controls:
   - CTRL-0011
   sources:
@@ -163,9 +163,9 @@ RISK-006:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0013
   - CTRL-0015
@@ -196,9 +196,9 @@ RISK-007:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0015
   sources:
@@ -227,8 +227,8 @@ RISK-008:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-08
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0016
   - CTRL-0017
@@ -255,8 +255,8 @@ RISK-009:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-08
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0019
   - CTRL-0020
@@ -284,9 +284,9 @@ RISK-010:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-08
-  - HZ-09
+  - HARM-01
+  - HARM-08
+  - HARM-09
   controls:
   - CTRL-0021
   - CTRL-0022
@@ -316,8 +316,8 @@ RISK-011:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-08
+  - HARM-01
+  - HARM-08
   controls:
   - CTRL-0021
   - CTRL-0023
@@ -346,8 +346,8 @@ RISK-012:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-08
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0024
   - CTRL-0025
@@ -376,8 +376,8 @@ RISK-013:
   type:
   - Security
   harms:
-  - HZ-01
-  - HZ-03
+  - HARM-01
+  - HARM-03
   controls:
   - CTRL-0026
   - CTRL-0027
@@ -406,8 +406,8 @@ RISK-014:
   - Safety
   - Security
   harms:
-  - HZ-03
-  - HZ-08
+  - HARM-03
+  - HARM-08
   controls:
   - CTRL-0027
   - CTRL-0029
@@ -436,7 +436,7 @@ RISK-015:
   type:
   - Security
   harms:
-  - HZ-04
+  - HARM-04
   controls:
   - CTRL-0029
   - CTRL-0030
@@ -463,7 +463,7 @@ RISK-016:
   type:
   - Security
   harms:
-  - HZ-04
+  - HARM-04
   controls:
   - CTRL-0029
   - CTRL-0030
@@ -492,8 +492,8 @@ RISK-017:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-08
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0032
   - CTRL-0033
@@ -517,7 +517,7 @@ RISK-018:
   type:
   - Security
   harms:
-  - HZ-02
+  - HARM-02
   controls:
   - CTRL-0032
   - CTRL-0034
@@ -544,8 +544,8 @@ RISK-019:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-08
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0035
   - CTRL-0036
@@ -571,7 +571,7 @@ RISK-020:
   type:
   - Safety
   harms:
-  - HZ-08
+  - HARM-08
   controls:
   - CTRL-0035
   - CTRL-0037
@@ -601,9 +601,9 @@ RISK-021:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-04
-  - HZ-08
+  - HARM-02
+  - HARM-04
+  - HARM-08
   controls:
   - CTRL-0040
   sources:
@@ -629,9 +629,9 @@ RISK-022:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-04
-  - HZ-08
+  - HARM-02
+  - HARM-04
+  - HARM-08
   controls:
   - CTRL-0008
   - CTRL-0024
@@ -663,8 +663,8 @@ RISK-023:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-08
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0041
   - CTRL-0042
@@ -689,8 +689,8 @@ RISK-024:
   type:
   - Safety
   harms:
-  - HZ-06
-  - HZ-07
+  - HARM-06
+  - HARM-07
   controls:
   - CTRL-0044
   sources:
@@ -711,7 +711,7 @@ RISK-025:
   type:
   - Safety
   harms:
-  - HZ-08
+  - HARM-08
   controls:
   - CTRL-0045
   sources:
@@ -734,8 +734,8 @@ RISK-026:
   type:
   - Safety
   harms:
-  - HZ-07
-  - HZ-09
+  - HARM-07
+  - HARM-09
   controls:
   - CTRL-0046
   sources:
@@ -757,8 +757,8 @@ RISK-027:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-08
+  - HARM-01
+  - HARM-08
   controls:
   - CTRL-0047
   sources:
@@ -780,8 +780,8 @@ RISK-028:
   type:
   - Safety
   harms:
-  - HZ-08
-  - HZ-09
+  - HARM-08
+  - HARM-09
   controls:
   - CTRL-0048
   - CTRL-0049
@@ -806,7 +806,7 @@ RISK-029:
   type:
   - Safety
   harms:
-  - HZ-05
+  - HARM-05
   controls:
   - CTRL-0051
   sources:
@@ -827,7 +827,7 @@ RISK-030:
   type:
   - Safety
   harms:
-  - HZ-09
+  - HARM-09
   controls:
   - CTRL-0052
   sources:
@@ -851,8 +851,8 @@ RISK-031:
   type:
   - Safety
   harms:
-  - HZ-09
-  - HZ-10
+  - HARM-09
+  - HARM-10
   controls:
   - CTRL-0053
   - CTRL-0054
@@ -882,9 +882,9 @@ RISK-032:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-04
-  - HZ-10
+  - HARM-02
+  - HARM-04
+  - HARM-10
   controls:
   - CTRL-0056
   - CTRL-0057
@@ -915,9 +915,9 @@ RISK-033:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-04
-  - HZ-10
+  - HARM-01
+  - HARM-04
+  - HARM-10
   controls:
   - CTRL-0058
   sources:
@@ -944,9 +944,9 @@ RISK-034:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0060
   - CTRL-0061
@@ -974,8 +974,8 @@ RISK-035:
   type:
   - Safety
   harms:
-  - HZ-08
-  - HZ-09
+  - HARM-08
+  - HARM-09
   controls:
   - CTRL-0063
   sources:
@@ -1002,9 +1002,9 @@ RISK-036:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0062
   - CTRL-0064
@@ -1035,8 +1035,8 @@ RISK-037:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-08
+  - HARM-01
+  - HARM-08
   controls:
   - CTRL-0047
   - CTRL-0066
@@ -1064,8 +1064,8 @@ RISK-038:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-08
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0041
   - CTRL-0067
@@ -1090,7 +1090,7 @@ RISK-039:
   type:
   - Security
   harms:
-  - HZ-02
+  - HARM-02
   controls:
   - CTRL-0068
   - CTRL-0069
@@ -1119,8 +1119,8 @@ RISK-040:
   type:
   - Security
   harms:
-  - HZ-01
-  - HZ-02
+  - HARM-01
+  - HARM-02
   controls:
   - CTRL-0069
   - CTRL-0070
@@ -1154,7 +1154,7 @@ RISK-041:
   type:
   - Security
   harms:
-  - HZ-01
+  - HARM-01
   controls:
   - CTRL-0075
   - CTRL-0076
@@ -1180,7 +1180,7 @@ RISK-042:
   type:
   - Security
   harms:
-  - HZ-03
+  - HARM-03
   controls:
   - CTRL-0078
   - CTRL-0079
@@ -1207,7 +1207,7 @@ RISK-043:
   type:
   - Security
   harms:
-  - HZ-01
+  - HARM-01
   controls:
   - CTRL-0047
   - CTRL-0081
@@ -1236,9 +1236,9 @@ RISK-044:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0062
   - CTRL-0083
@@ -1272,8 +1272,8 @@ RISK-045:
   type:
   - Security
   harms:
-  - HZ-02
-  - HZ-03
+  - HARM-02
+  - HARM-03
   controls:
   - CTRL-0084
   - CTRL-0085
@@ -1299,7 +1299,7 @@ RISK-046:
   type:
   - Security
   harms:
-  - HZ-03
+  - HARM-03
   controls:
   - CTRL-0086
   sources:
@@ -1319,7 +1319,7 @@ RISK-047:
   type:
   - Security
   harms:
-  - HZ-01
+  - HARM-01
   controls:
   - CTRL-0020
   - CTRL-0060
@@ -1357,8 +1357,8 @@ RISK-048:
   type:
   - Security
   harms:
-  - HZ-01
-  - HZ-02
+  - HARM-01
+  - HARM-02
   controls:
   - CTRL-0015
   - CTRL-0091
@@ -1389,10 +1389,10 @@ RISK-049:
   - Safety
   - Security
   harms:
-  - HZ-03
-  - HZ-04
-  - HZ-08
-  - HZ-11
+  - HARM-03
+  - HARM-04
+  - HARM-08
+  - HARM-11
   controls:
   - CTRL-0029
   - CTRL-0040
@@ -1426,8 +1426,8 @@ RISK-050:
   - Safety
   - Security
   harms:
-  - HZ-04
-  - HZ-09
+  - HARM-04
+  - HARM-09
   controls:
   - CTRL-0007
   - CTRL-0034
@@ -1457,8 +1457,8 @@ RISK-051:
   - Safety
   - Security
   harms:
-  - HZ-04
-  - HZ-08
+  - HARM-04
+  - HARM-08
   controls:
   - CTRL-0024
   - CTRL-0026
@@ -1489,8 +1489,8 @@ RISK-052:
   - Safety
   - Security
   harms:
-  - HZ-02
-  - HZ-08
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0042
   - CTRL-0049
@@ -1517,8 +1517,8 @@ RISK-053:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-08
+  - HARM-01
+  - HARM-08
   controls:
   - CTRL-0024
   - CTRL-0025
@@ -1546,8 +1546,8 @@ RISK-054:
   type:
   - Security
   harms:
-  - HZ-03
-  - HZ-04
+  - HARM-03
+  - HARM-04
   controls:
   - CTRL-0009
   - CTRL-0096
@@ -1577,7 +1577,7 @@ RISK-055:
   type:
   - Security
   harms:
-  - HZ-01
+  - HARM-01
   controls: []
   sources:
   - https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf
@@ -1602,9 +1602,9 @@ RISK-056:
   type:
   - Security
   harms:
-  - HZ-01
-  - HZ-03
-  - HZ-04
+  - HARM-01
+  - HARM-03
+  - HARM-04
   controls:
   - CTRL-0029
   - CTRL-0069
@@ -1635,8 +1635,8 @@ RISK-057:
   - Safety
   - Security
   harms:
-  - HZ-04
-  - HZ-11
+  - HARM-04
+  - HARM-11
   controls:
   - CTRL-0029
   - CTRL-0038
@@ -1668,8 +1668,8 @@ RISK-058:
   type:
   - Security
   harms:
-  - HZ-01
-  - HZ-02
+  - HARM-01
+  - HARM-02
   controls:
   - CTRL-0019
   - CTRL-0091
@@ -1700,9 +1700,9 @@ RISK-059:
   - Safety
   - Security
   harms:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0019
   - CTRL-0020
@@ -1730,8 +1730,8 @@ RISK-060:
   type:
   - Security
   harms:
-  - HZ-01
-  - HZ-04
+  - HARM-01
+  - HARM-04
   controls:
   - CTRL-0011
   - CTRL-0029
@@ -1761,7 +1761,7 @@ RISK-061:
   type:
   - Security
   harms:
-  - HZ-02
+  - HARM-02
   controls:
   - CTRL-0005
   - CTRL-0038
@@ -1784,8 +1784,8 @@ RISK-062:
   - Safety
   - Security
   harms:
-  - HZ-04
-  - HZ-09
+  - HARM-04
+  - HARM-09
   controls:
   - CTRL-0032
   - CTRL-0034
@@ -1815,8 +1815,8 @@ RISK-063:
   - Safety
   - Security
   harms:
-  - HZ-04
-  - HZ-10
+  - HARM-04
+  - HARM-10
   controls:
   - CTRL-0024
   - CTRL-0026
@@ -1845,9 +1845,9 @@ RISK-064:
   type:
   - Security
   harms:
-  - HZ-01
-  - HZ-02
-  - HZ-04
+  - HARM-01
+  - HARM-02
+  - HARM-04
   controls:
   - CTRL-0009
   - CTRL-0010
@@ -1880,8 +1880,8 @@ RISK-065:
   type:
   - Security
   harms:
-  - HZ-01
-  - HZ-04
+  - HARM-01
+  - HARM-04
   controls:
   - CTRL-0042
   - CTRL-0096
@@ -1909,7 +1909,7 @@ RISK-066:
   type:
   - Security
   harms:
-  - HZ-01
+  - HARM-01
   controls:
   - CTRL-0047
   - CTRL-0081
@@ -1934,8 +1934,8 @@ RISK-067:
   type:
   - Safety
   harms:
-  - HZ-05
-  - HZ-11
+  - HARM-05
+  - HARM-11
   controls:
   - CTRL-0008
   - CTRL-0038

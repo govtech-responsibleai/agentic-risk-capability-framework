@@ -29,7 +29,7 @@ risks:
       type:
       - Security
       harms:
-      - HZ-01
+      - HARM-01
       controls:
       - CTRL-0047
       - EXA-CTRL-0001

@@ -186,19 +186,22 @@ def test_organisation_register_with_single_element_id():
 
 
 def test_register_with_names_from_before_2_0():
-    """A register from before 2.0 has hazards.yaml, and the risk fields failure_mode and hazards."""
+    """A register from before 2.0 has hazards.yaml, the risk fields failure_mode and hazards, and IDs HZ-01 onwards."""
     current = json.loads(run("--register", str(REGISTER), "show", "RISK-034", "--format", "json"))["entries"][0]
-    assert current["failure_cause"] == "External Manipulation" and current["harms"][0] == "Data (HZ-01)"
+    assert current["failure_cause"] == "External Manipulation" and current["harms"][0] == "Data (HARM-01)"
     with tempfile.TemporaryDirectory() as tmp:
         old = Path(tmp) / "old-register"
         shutil.copytree(REGISTER, old)
-        (old / "harms.yaml").rename(old / "hazards.yaml")
+        (old / "hazards.yaml").write_text((old / "harms.yaml").read_text().replace("HARM-", "HZ-"))
+        (old / "harms.yaml").unlink()
         risks = yaml.safe_load((old / "risks.yaml").read_text())
         for v in risks.values():
-            v["failure_mode"], v["hazards"] = v.pop("failure_cause"), v.pop("harms")
+            v["failure_mode"] = v.pop("failure_cause")
+            v["hazards"] = [h.replace("HARM-", "HZ-") for h in v.pop("harms")]
         (old / "risks.yaml").write_text(yaml.safe_dump(risks, sort_keys=False, allow_unicode=True))
         entry = json.loads(run("--register", str(old), "show", "RISK-034", "--format", "json"))["entries"][0]
-        assert entry["failure_cause"] == current["failure_cause"] and entry["harms"] == current["harms"]
+        assert entry["failure_cause"] == current["failure_cause"]
+        assert entry["harms"] == [h.replace("HARM-", "HZ-") for h in current["harms"]]
 
 
 def test_builtin_yaml_parser_matches_pyyaml():

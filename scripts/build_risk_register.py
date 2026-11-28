@@ -389,7 +389,7 @@ def build_full_text_page(risks, controls, capabilities, components, design, harm
                 lines += ['', f"**Present when:** {elements[key][1]['present_when']} These risks apply only to systems that have this element."]
         for rid in groups[key]:
             r = risks[rid]
-            hz = ', '.join(f"{harms[h]['name']} ({h})" for h in r.get('harms', []) if h in harms)
+            harm_names = ', '.join(f"{harms[h]['name']} ({h})" for h in r.get('harms', []) if h in harms)
             lines += [
                 '',
                 f"#### {rid} · {r['statement']} {{ #{rid} }}",
@@ -398,7 +398,7 @@ def build_full_text_page(risks, controls, capabilities, components, design, harm
                  + "\" (roles: " + ', '.join(leg['name'].lower() for leg in rules[r['combination']]['legs'].values()) + ")  "
                  if r.get('combination') in rules else
                  f"**Arises from:** {' + '.join(element_label(e) for e in r.get('element_ids', []))}  "),
-                f"**Failure cause:** {r.get('failure_cause', '')} · **Type:** {', '.join(r.get('type', []))} · **Harms:** {hz}",
+                f"**Failure cause:** {r.get('failure_cause', '')} · **Type:** {', '.join(r.get('type', []))} · **Harms:** {harm_names}",
             ]
             for cap_id, minimum in (r.get('min_authority') or {}).items():
                 lines += ['', f"**Applies when:** {elements[cap_id][1]['name']} ({cap_id}) is used at "

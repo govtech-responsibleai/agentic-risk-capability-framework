@@ -33,10 +33,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Populate harms (from register metadata, so the list matches harms.yaml)
     const harmFilter = document.getElementById('harm-filter');
-    (data.metadata.harms || []).forEach(hz => {
+    (data.metadata.harms || []).forEach(h => {
         const option = document.createElement('option');
-        option.value = hz.id;
-        option.textContent = `${hz.name} (${hz.type})`;
+        option.value = h.id;
+        option.textContent = `${h.name} (${h.type})`;
         harmFilter.appendChild(option);
     });
 
@@ -129,8 +129,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             const harmsDiv = document.createElement("div");
             harmsDiv.style.marginBottom = "15px";
             harmsDiv.style.fontSize = "0.9em";
-            const harmBadges = data.harms.map(hz =>
-                `<span class="risk-type-badge risk-type-${hz.type.toLowerCase()}" title="${hz.type} harm">${hz.name}</span>`
+            const harmBadges = data.harms.map(h =>
+                `<span class="risk-type-badge risk-type-${h.type.toLowerCase()}" title="${h.type} harm">${h.name}</span>`
             ).join(' ');
             harmsDiv.innerHTML = `<strong>Harms:</strong> ${harmBadges}`;
             holderEl.appendChild(harmsDiv);
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
 
             // Harm filter
-            if (harm && !(data.harms || []).some(hz => hz.id === harm)) {
+            if (harm && !(data.harms || []).some(h => h.id === harm)) {
                 return false;
             }
             

@@ -57,7 +57,7 @@ RENAMED_FIELDS = {'failure_mode': 'failure_cause', 'hazards': 'harms'}   # renam
 RISK_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?RISK-\d{3}$')     # an overlay's own entries carry a namespace: ORG-RISK-001
 CTRL_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?CTRL-\d{4}$')
 ELEMENT_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?(CMP|DSN|CAP)-\d{2}$')
-HARM_ID = re.compile(r'^HZ-\d{2}$')
+HARM_ID = re.compile(r'^HARM-\d{2}$')
 COMBINATION_ID = re.compile(r'^[a-z][a-z0-9-]*$')
 AUTHORITY = ('read', 'propose', 'act-with-approval', 'act-alone')   # least to most
 CONTEXT_ANSWERS = ('always', 'never', 'ask')
@@ -262,7 +262,9 @@ def validate():
             risk_harms = []
         for harm_id in risk_harms:
             if harm_id not in harms:
-                errors.append(f'{risk_id}: unknown harm "{harm_id}"')
+                renamed = re.sub(r'^HZ-', 'HARM-', str(harm_id))
+                errors.append(f'{risk_id}: unknown harm "{harm_id}"'
+                              + (f'; it is called {renamed} from register 2.0' if renamed in harms else ''))
         harm_types = {harms[h]['type'] for h in risk_harms if h in harms}
         if risk_harms and harm_types != set(risk.get('type') or []):
             errors.append(f'{risk_id}: type {sorted(risk.get("type") or [])} does not match '
