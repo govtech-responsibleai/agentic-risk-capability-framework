@@ -217,7 +217,7 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 | Risk ID | Element | Risk Statement | Assessment |
 |----------|---------|----------------|------------|
-| RISK-002 | CMP-01 (LLM) | Insufficient alignment of LLM behaviour | **[Impact: 4, Likelihood: 4]** LLM misalignment could cause it to ignore safety constraints or misinterpret fact-checking instructions, undermining verification accuracy. |
+| RISK-002 | CMP-01 (LLM) | LLM acts against the goals, instructions or policies it was given | **[Impact: 4, Likelihood: 4]** LLM misalignment could cause it to ignore safety constraints or misinterpret fact-checking instructions, undermining verification accuracy. |
 | RISK-007 | CMP-03 (Tools) | Lack of input sanitisation | **[Impact: 5, Likelihood: 4]** Critical given web search tools. Unsanitized web content from malicious sites could inject prompts to manipulate verification results. |
 | RISK-028 | CAP-04 (Multimodal Understanding) | Generation of non-factual or hallucinated content | **[Impact: 5, Likelihood: 4]** Hallucinated "facts" directly undermine the system's core purpose of verifying truthfulness. |
 | RISK-034 | CAP-07 (Internet Access) | Prompt injection via malicious websites | **[Impact: 5, Likelihood: 4]** Critical vulnerability given reliance on web sources. Adversarial sites could embed instructions to override verification logic. |
@@ -295,7 +295,7 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 | Risk ID | Element | Risk Statement | Assessment |
 |---------|---------|----------------|------------|
-| RISK-002 | CMP-01 (LLM) | Insufficient alignment of LLM behaviour | **[Impact: 4, Likelihood: 3]** Misaligned LLM may ignore security constraints or execute dangerous operations when instructed to "fix it quickly" without proper validation. |
+| RISK-002 | CMP-01 (LLM) | LLM acts against the goals, instructions or policies it was given | **[Impact: 4, Likelihood: 3]** Misaligned LLM may ignore security constraints or execute dangerous operations when instructed to "fix it quickly" without proper validation. |
 | RISK-007 | CMP-03 (Tools) | Lack of input sanitisation | **[Impact: 5, Likelihood: 4]** Critical given file system and command execution tools. Malicious file contents or unsanitized tool outputs could inject prompts to manipulate assistant behaviour or execute unintended operations. |
 | RISK-028 | CAP-04 (Multimodal Understanding) | Generation of non-factual or hallucinated content | **[Impact: 4, Likelihood: 4]** Hallucinating incorrect code patterns, API usage, or architectural decisions leads developers to implement buggy or insecure features. |
 | RISK-038 | CAP-09 (Other Programmatic Interfaces) | Incorrect use of unfamiliar programmatic interfaces | **[Impact: 3, Likelihood: 4]** Assistant may misinterpret bespoke API semantics when interacting with internal tools or non-standard interfaces. |
@@ -387,7 +387,7 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 | Risk ID | Element | Risk Statement | Assessment | Why Not Priority |
 |---------|---------|----------------|------------|------------------|
-| RISK-002 | CMP-01 (LLM) | Insufficient alignment of LLM behaviour | **[Impact: 4, Likelihood: 2]** Modern LLMs with strong safety training are unlikely to catastrophically misalign in customer service contexts. | Likelihood too low |
+| RISK-002 | CMP-01 (LLM) | LLM acts against the goals, instructions or policies it was given | **[Impact: 4, Likelihood: 2]** Modern LLMs with strong safety training are unlikely to catastrophically misalign in customer service contexts. | Likelihood too low |
 | RISK-007 | CMP-03 (Tools) | Lack of input sanitisation | **[Impact: 3, Likelihood: 3]** Tool injection could manipulate responses but unlikely to cause severe customer harm in this context. | Impact too low |
 | RISK-047 | Lethal trifecta (combination rule) | Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel | **[Impact: 4, Likelihood: 2]** A caller could try to talk the assistant into reading out another customer's records, but the agents can reach only the verified caller's own records and can send data only to that caller and the booking system. | Likelihood too low |
 

@@ -1,10 +1,10 @@
 RISK-001:
-  statement: Use of untrusted or compromised LLMs
-  description: This risk arises when LLMs obtained from untrusted or insufficiently
-    vetted sources have been intentionally poisoned or backdoored during training
-    or distribution, causing them to behave maliciously or unpredictably under specific
-    conditions. Such models may leak sensitive information, bypass safeguards, or
-    execute hidden behaviors that undermine system integrity and trust.
+  statement: Poisoned or backdoored LLM behaves maliciously
+  description: 'Because an LLM comes from an untrusted or insufficiently vetted source,
+    it may have been poisoned or backdoored during training or distribution, and under
+    specific conditions it behaves maliciously or unpredictably: it leaks sensitive
+    information, bypasses safeguards or carries out hidden behaviours. As a result,
+    the integrity of the system is undermined and its outputs can no longer be trusted.'
   element_ids:
   - CMP-01
   failure_cause: External Manipulation
@@ -34,12 +34,12 @@ RISK-001:
     - AML.T0018.000
     - AML.T0020
 RISK-002:
-  statement: Insufficient alignment of LLM behaviour
-  description: This risk arises when an LLM's learned objectives and behaviors do
-    not reliably align with intended user goals, system instructions, or organizational
-    policies, leading to inappropriate, unsafe, or undesired outputs. Misalignment
-    may surface as failure to follow constraints, inconsistent reasoning, or behavior
-    that diverges from expected norms in edge cases or complex scenarios.
+  statement: LLM acts against the goals, instructions or policies it was given
+  description: Because the objectives and behaviours an LLM has learned do not reliably
+    match the user's goals, the system's instructions or the organisation's policies,
+    the model can ignore a constraint, reason inconsistently or behave unexpectedly,
+    especially in edge cases and complex scenarios. As a result, it produces outputs
+    that are inappropriate, unsafe or unwanted.
   element_ids:
   - CMP-01
   failure_cause: Agent Misbehaviour
@@ -66,12 +66,12 @@ RISK-002:
     - T7
     mitre_atlas: []
 RISK-003:
-  statement: Insufficient LLM capability and reliability
-  description: This risk arises when an LLM lacks sufficient capability, robustness,
-    or reasoning performance to correctly interpret instructions, handle edge cases,
-    or detect unsafe situations. As a result, the model may produce incorrect, misleading,
-    or unsafe outputs that create downstream safety or security failures in systems
-    that rely on its judgments.
+  statement: LLM misjudges a task or situation
+  description: Because an LLM lacks the capability, robustness or reasoning performance
+    that a task needs, it can misread an instruction, mishandle an edge case or fail
+    to recognise an unsafe situation. As a result, it produces incorrect, misleading
+    or unsafe outputs, which cause safety or security failures in the systems that
+    rely on its judgement.
   element_ids:
   - CMP-01
   failure_cause: Agent Error
@@ -1417,8 +1417,13 @@ RISK-049:
     - AML.T0122
     - AML.T0105
 RISK-050:
-  statement: Deceptive behaviour toward overseers
-  description: This risk arises when an agent pursuing an objective misrepresents what it has done or found, edits or obscures its own history or logs, or socially engineers the humans overseeing it in order to obtain approval or avoid intervention. Unlike an error, the behaviour is goal-directed and can look legitimate step by step, so the evidence needed to detect it may have been altered by the agent itself. As a result, oversight based on the agent's own reports provides false assurance, and unsanctioned actions proceed under the appearance of compliance.
+  statement: Agent deceives the people overseeing it
+  description: Because the people overseeing an agent rely on what it reports and
+    records, an agent pursuing an objective can misrepresent what it has done or found,
+    edit or obscure its own history or logs, or manipulate its overseers, in order
+    to win approval or avoid intervention. The behaviour is goal-directed and can
+    look legitimate at each step. As a result, oversight gives false assurance, and
+    unsanctioned actions proceed under the appearance of compliance.
   element_ids:
   - CMP-01
   failure_cause: Agent Misbehaviour
@@ -1753,8 +1758,11 @@ RISK-060:
     - AML.T0083
     - AML.T0091.000
 RISK-061:
-  statement: Dependence on a model provider
-  description: This risk arises when an agentic system depends on a model that another party hosts, and that party withdraws it, changes it, limits access to it, or suffers an outage. A model can be retired at short notice, updated in ways that change how it calls tools or follows instructions, degraded by a fault on the provider's side that goes unannounced for weeks, or made unavailable by a commercial or regulatory decision. As a result, an agent may stop working, or may keep working while behaving differently from the system that was evaluated and approved, as when infrastructure faults at a provider silently degraded model output for weeks, a provider disabled two models for all customers following an export-control directive, and a regional degradation at a provider caused cascading failures in a customer-service agent product.
+  statement: Hosted model is changed, withdrawn or unavailable
+  description: Because the system depends on a model that another party hosts, that
+    party can retire the model, update it, limit access to it or suffer an outage,
+    sometimes without notice. As a result, the agent stops working, or keeps working
+    while behaving differently from the system that was evaluated and approved.
   element_ids:
   - CMP-01
   failure_cause: Tool or Resource Malfunction

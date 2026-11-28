@@ -145,8 +145,8 @@ To illustrate the point, see the examples below from our [Interactive Risk Regis
 
 ??? example "Examples of risks from the Risk Register"
 
-    <u>**Example 1:**</u> "Insufficient alignment of LLM behaviour" →
-    This is a **safety and security risk** caused by **agent misbehaviour** of the **LLM** component. The risk arises when an LLM's learned objectives and behaviors do not reliably align with intended user goals, system instructions, or organizational policies, leading to inappropriate, unsafe, or undesired outputs.
+    <u>**Example 1:**</u> "LLM acts against the goals, instructions or policies it was given" →
+    This is a **safety and security risk** caused by **agent misbehaviour** of the **LLM** component. Because the objectives and behaviours an LLM has learned do not reliably match the user's goals, the system's instructions or the organisation's policies, the model can ignore a constraint, reason inconsistently or behave unexpectedly. As a result, it produces outputs that are inappropriate, unsafe or unwanted.
     
     <u>**Example 2:**</u> "Prompt injection attacks via malicious websites" → 
     This is a **safety and security risk** caused by **external manipulation** of the **Internet & Search Access** capability. The risk arises when malicious actors craft adversarial web content to inject instructions that override the agent's intended behavior, causing data exfiltration or unauthorised actions.

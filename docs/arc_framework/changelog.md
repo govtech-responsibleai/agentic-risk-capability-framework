@@ -48,7 +48,7 @@ Rewrite it as an [overlay](../implementation/for-governance-teams.md#keeping-you
     - RISK-058 Instruction and configuration files as a way in (Instructions)
     - RISK-059 Prompt injection through inbound messages (Other Programmatic Interfaces)
     - RISK-060 Agent credentials that are over-broad, long-lived, or outlive their use (Roles and Access Controls)
-    - RISK-061 Dependence on a model provider (LLM)
+    - RISK-061 Hosted model is changed, withdrawn or unavailable (LLM)
     - RISK-062 Agent alters or disables the oversight placed on it (the new rule "oversight within reach")
     - RISK-063 Authority passing between agents without a check (Agent Delegation)
     - RISK-064 Harm from a connected tool server or agent to the system that connects to it (Protocols)
