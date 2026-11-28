@@ -61,7 +61,7 @@ CASE-0123:
 ```
 
 - **kind.** `harm` is real damage to a real party. `vulnerability` is a flaw disclosed in a deployed product with no confirmed damage. `research` is a demonstration, test or evaluation.
-- **cause.** How the failure came about. It maps onto the register's failure modes: `attack` is External Manipulation, `agent-error` is Agent Error, `agent-goal-seeking` is Agent Misbehaviour, `principal-misuse` is Misuse by the Principal, and `platform-fault` is Tool or Resource Malfunction.
+- **cause.** How the failure came about. It maps onto the register's failure causes: `attack` is External Manipulation, `agent-error` is Agent Error, `agent-goal-seeking` is Agent Misbehaviour, `principal-misuse` is Misuse by the Principal, and `platform-fault` is Tool or Resource Malfunction.
 - **evidence.** `primary` means at least one source is the vendor, the researcher who found it, a lab, a regulator, a court, or a CVE or advisory record. `press` means news coverage only.
 - **status.** `triaged` means the case was written from an upstream record and its cited sources. `verified` means a maintainer has opened the primary source and confirmed the summary and the mapping.
 - **risks.** A risk is cited only if its description matches the mechanism of what happened. A case with no risk is a finding, not a failure.

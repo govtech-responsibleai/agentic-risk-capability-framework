@@ -21,7 +21,7 @@ ARC starts from what an agent **can do**, not from a list of threats. Every agen
 | **Design** | agentic architecture, roles and access controls, monitoring and traceability | every system (the *baseline*) |
 | **Capabilities** | 12 capabilities, e.g. code execution, internet and search access, official communication, business transactions | systems that have them |
 
-Each risk arises from one or more elements, through one of six failure modes (agent error, agent misbehaviour, external manipulation, tool or resource malfunction, safeguard failure, misuse by the principal), and results in safety or security hazards. A risk that lists several capabilities applies only when a system has all of them. Each risk maps to controls at three levels:
+Each risk arises from one or more elements, has one of six failure causes (agent error, agent misbehaviour, external manipulation, tool or resource malfunction, safeguard failure, misuse by the principal), and results in safety or security harms. A risk that lists several capabilities applies only when a system has all of them. Each risk maps to controls at three levels:
 
 | Level | Meaning |
 | --- | --- |
@@ -35,9 +35,9 @@ In practice, a governance team adapts the baseline register to its organisation,
 
 ## Using the register
 
-- **Browse** the [interactive register](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/risk-register/), filterable by element, failure mode, risk type, and hazard, with full-text search.
+- **Browse** the [interactive register](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/risk-register/), filterable by element, failure cause, risk type, and harm, with full-text search.
 - **Read or link** the [full-text register](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/register-full-text/): every risk and control as plain text, with a link per entry (e.g. `#RISK-034`). It needs no JavaScript, so agents and search engines can read it too.
-- **Machine-readable:** the YAML in [`arc-risk-register/`](arc-risk-register/) *is* the register, and the format to build on. It is the single source for both the website and ARCvisor, with one file per kind of entry (risks, controls, elements, hazards, crosswalk references) cross-referenced by ID, and the version in `register.yaml`. The JSON the website loads is generated from it at build time for the interactive page; its shape may change, so don't depend on it.
+- **Machine-readable:** the YAML in [`arc-risk-register/`](arc-risk-register/) *is* the register, and the format to build on. It is the single source for both the website and ARCvisor, with one file per kind of entry (risks, controls, elements, harms, crosswalk references) cross-referenced by ID, and the version in `register.yaml`. The JSON the website loads is generated from it at build time for the interactive page; its shape may change, so don't depend on it.
 - **Pin a version:** each release is tagged `v<version>` (e.g. `v2.0.0`). The [changelog](https://govtech-responsibleai.github.io/agentic-risk-capability-framework/arc_framework/changelog/) explains the versioning policy and how to cite a specific version.
 
 ## ARCvisor
@@ -52,7 +52,7 @@ In practice, a governance team adapts the baseline register to its organisation,
 
 | Path | Contents |
 | --- | --- |
-| [`arc-risk-register/`](arc-risk-register/) | The register: risks, controls, elements, hazards, crosswalk references, and the register version |
+| [`arc-risk-register/`](arc-risk-register/) | The register: risks, controls, elements, harms, crosswalk references, and the register version |
 | [`docs/`](docs/) | The website ([MkDocs Material](https://squidfunk.github.io/mkdocs-material/)) |
 | [`scripts/`](scripts/) | Validator, and the MkDocs hook that generates the site's register JSON, Crosswalks page, and full-text register at build time |
 | [`app/`](app/) | ARCvisor |

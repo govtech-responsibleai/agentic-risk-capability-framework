@@ -47,7 +47,7 @@ app/
    files that build the framework website), so ARCvisor can never drift from the published
    framework:
    - `capabilities.yaml` - Capabilities and their categories
-   - `risks.yaml` - Risks with descriptions, originating element, failure mode, and recommended controls
+   - `risks.yaml` - Risks with descriptions, originating element, failure cause, and recommended controls
    - `controls.yaml` - Controls with level (0 Cardinal / 1 Standard / 2 Best Practice), recommendations, and references
    - `components.yaml`, `design.yaml` - Baseline elements whose risks apply to every agentic system
 

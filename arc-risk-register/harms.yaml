@@ -1,5 +1,5 @@
-# Hazards: the resulting impact of a risk. Security hazards concern the confidentiality,
-# integrity, and availability of systems, data, and infrastructure; safety hazards concern
+# Harms: the resulting impact of a risk. Security harms concern the confidentiality,
+# integrity, and availability of systems, data, and infrastructure; safety harms concern
 # human well-being, social harm, and the responsible use of AI. See docs/arc_framework/risks.md.
 HZ-01:
   name: "Data"

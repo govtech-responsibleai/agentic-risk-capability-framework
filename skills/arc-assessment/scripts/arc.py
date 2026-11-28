@@ -63,7 +63,8 @@ except ImportError:
 
 REPO_RAW = "https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework"
 SITE = "https://govtech-responsibleai.github.io/agentic-risk-capability-framework/"
-REGISTER_FILES = ("register", "risks", "controls", "capabilities", "components", "design", "hazards")
+REGISTER_FILES = ("register", "risks", "controls", "capabilities", "components", "design", "harms")
+OLD_FILE_NAMES = {"harms": "hazards"}  # registers before 2.0 call the file hazards.yaml
 OPTIONAL_FILES = ("combinations",)  # older registers and organisation registers may lack them
 TEMPLATE_PATH = "docs/implementation/assessment-template.md"
 LEVELS = {0: "Level 0 · Cardinal", 1: "Level 1 · Standard", 2: "Level 2 · Best Practice"}
@@ -397,19 +398,24 @@ def load_base_register(args):
     if args.register:
         src = args.register
         for name in REGISTER_FILES:
-            if src.startswith(("http://", "https://")):
-                try:
-                    data[name] = load_yaml_text(http_get(f"{src.rstrip('/')}/{name}.yaml"), f"{name}.yaml")
-                except urllib.error.HTTPError:
-                    data[name] = None
-            else:
-                p = Path(src) / f"{name}.yaml"
-                data[name] = load_yaml_text(p.read_text(), str(p)) if p.exists() else None
-        missing = [n for n in REGISTER_FILES if data[n] is None and n not in ("hazards", "register")]
+            data[name] = None
+            for file_name in filter(None, (name, OLD_FILE_NAMES.get(name))):
+                if data[name] is not None:
+                    break
+                if src.startswith(("http://", "https://")):
+                    try:
+                        data[name] = load_yaml_text(http_get(f"{src.rstrip('/')}/{file_name}.yaml"), f"{file_name}.yaml")
+                    except urllib.error.HTTPError:
+                        pass
+                else:
+                    p = Path(src) / f"{file_name}.yaml"
+                    if p.exists():
+                        data[name] = load_yaml_text(p.read_text(), str(p))
+        missing = [n for n in REGISTER_FILES if data[n] is None and n not in ("harms", "register")]
         if missing:
             raise ArcError(f"{src} is missing {', '.join(f'{m}.yaml' for m in missing)}; an organisation's "
                            "register must use the same file layout as arc-risk-register/.")
-        data["hazards"] = data["hazards"] or {}
+        data["harms"] = data["harms"] or {}
         data["register"] = data["register"] or {"version": "unversioned", "released": ""}
         for name in OPTIONAL_FILES:
             data[name] = None
@@ -428,6 +434,14 @@ def load_base_register(args):
         try:
             data[name] = load_yaml_text(cached_get(url, ref, f"{name}.yaml", args.refresh), f"{name}.yaml")
         except urllib.error.HTTPError as e:
+            if e.code == 404 and name in OLD_FILE_NAMES:   # a release before 2.0
+                old = OLD_FILE_NAMES[name]
+                try:
+                    data[name] = load_yaml_text(cached_get(f"{REPO_RAW}/{ref}/arc-risk-register/{old}.yaml", ref,
+                                                           f"{old}.yaml", args.refresh), f"{old}.yaml")
+                    continue
+                except urllib.error.HTTPError as e2:
+                    e = e2
             if e.code == 404:
                 raise ArcError(f"release {ref} not found in the ARC repository"
                                + ("; check --version" if args.version else "; pass --version to choose one"))
@@ -692,7 +706,7 @@ def applicable_risks(reg, present, profile=None):
 
 def risk_record(reg, rid, elements, detail=False, profile=None):
     r = reg["risks"][rid]
-    hazards = reg["hazards"] or {}
+    harms = reg["harms"] or {}
     controls = []
     for cid in r.get("controls", []) or []:
         c = reg["controls"].get(cid)
@@ -714,9 +728,11 @@ def risk_record(reg, rid, elements, detail=False, profile=None):
                      if r.get("combination") else
                      [f"{elements[e]['kind']}: {elements[e]['name']} ({e})" if e in elements else e
                       for e in risk_elements(r)]),
-        "failure_mode": r.get("failure_mode", ""),
+        # registers before 2.0 call these fields failure_mode and hazards
+        "failure_cause": r.get("failure_cause") or r.get("failure_mode", ""),
         "type": r.get("type", []),
-        "hazards": [f"{hazards[h]['name']} ({h})" if h in hazards else h for h in r.get("hazards", []) or []],
+        "harms": [f"{harms[h]['name']} ({h})" if h in harms else h
+                  for h in (r.get("harms") or r.get("hazards") or [])],
         "controls": controls,
     }
 
@@ -967,8 +983,8 @@ def cmd_assess(reg, source, args):
         for rid in ids:
             rec = records[rid]
             print(f"### {rid} · {rec['statement']}\n")
-            print(f"Arises from: {' + '.join(rec['elements'])} · Failure mode: {rec['failure_mode']} · "
-                  f"Hazards: {', '.join(rec['hazards'])}\n")
+            print(f"Arises from: {' + '.join(rec['elements'])} · Failure cause: {rec['failure_cause']} · "
+                  f"Harms: {', '.join(rec['harms'])}\n")
             print(f"{rec['description']}\n")
             for c in rec["controls"]:
                 raised = (f"; Level {c['level_outside_this_context']} outside this context"
@@ -1064,8 +1080,8 @@ def cmd_show(reg, source, args):
             print(f"## {e['id']} · {e['name']} ({e['kind']}{', ' + e['category'] if e['category'] else ''})\n\n"
                   f"{e['description']}\n\nRisks arising from it: {', '.join(e['risks']) or 'none'}")
         elif "controls" in e:
-            print(f"## {e['id']} · {e['statement']}\n\nArises from: {' + '.join(e['elements'])} · Failure mode: "
-                  f"{e['failure_mode']} · Hazards: {', '.join(e['hazards'])}\n\n{e['description']}\n")
+            print(f"## {e['id']} · {e['statement']}\n\nArises from: {' + '.join(e['elements'])} · Failure cause: "
+                  f"{e['failure_cause']} · Harms: {', '.join(e['harms'])}\n\n{e['description']}\n")
             for c in e["controls"]:
                 print(f"- {c['id']} [{LEVELS.get(c['level'], c['level'])}] {c['statement']}")
             if e.get("sources"):

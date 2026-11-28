@@ -30,7 +30,7 @@ def model_for(step: str) -> str:
 
 def format_risks_for_prompt(risk_ids: List[str], risks: Dict[str, Any], capabilities: Dict[str, Any],
                             components: Dict[str, Any], design: Dict[str, Any]) -> str:
-    """Render register risks as prompt text: statement, description, origin, failure mode, type."""
+    """Render register risks as prompt text: statement, description, origin, failure cause, type."""
     lines = []
     for risk_id in risk_ids:
         risk = risks.get(risk_id)
@@ -39,8 +39,8 @@ def format_risks_for_prompt(risk_ids: List[str], risks: Dict[str, Any], capabili
         lines.append(f"- {risk_id}: {risk['statement']}")
         lines.append(f"  Description: {risk['description']}")
         lines.append(f"  Arises from: {describe_risk_element(risk, capabilities, components, design)}")
-        if risk.get('failure_mode'):
-            lines.append(f"  Failure mode: {risk['failure_mode']}")
+        if risk.get('failure_cause'):
+            lines.append(f"  Failure cause: {risk['failure_cause']}")
         if risk.get('type'):
             lines.append(f"  Risk type: {', '.join(risk['type'])}")
         lines.append("")
@@ -203,7 +203,7 @@ Risks to Assess (you MUST assess ALL {len(applicable_risk_ids)} risks):
 
 CRITICAL INSTRUCTIONS:
 1. You MUST assess ALL {len(applicable_risk_ids)} risks listed above. Do not skip any.
-2. For each risk, provide specific context referencing the application details. Where possible, reference the specific component of the application that is at risk, and how the risk materializes into specific failure modes and hazards.
+2. For each risk, provide specific context referencing the application details. Where possible, reference the specific component of the application that is at risk, and what causes the failure and what harm results.
 3. Scores MUST be integers between 1 and 5 (inclusive).
 4. All text fields (context, reasoning) MUST be non-empty strings.
 

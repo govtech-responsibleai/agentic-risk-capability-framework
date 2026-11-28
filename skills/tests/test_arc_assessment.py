@@ -185,6 +185,22 @@ def test_organisation_register_with_single_element_id():
         assert "RISK-034" in {r["id"] for r in result["risks"]["capability"]}
 
 
+def test_register_with_names_from_before_2_0():
+    """A register from before 2.0 has hazards.yaml, and the risk fields failure_mode and hazards."""
+    current = json.loads(run("--register", str(REGISTER), "show", "RISK-034", "--format", "json"))["entries"][0]
+    assert current["failure_cause"] == "External Manipulation" and current["harms"][0] == "Data (HZ-01)"
+    with tempfile.TemporaryDirectory() as tmp:
+        old = Path(tmp) / "old-register"
+        shutil.copytree(REGISTER, old)
+        (old / "harms.yaml").rename(old / "hazards.yaml")
+        risks = yaml.safe_load((old / "risks.yaml").read_text())
+        for v in risks.values():
+            v["failure_mode"], v["hazards"] = v.pop("failure_cause"), v.pop("harms")
+        (old / "risks.yaml").write_text(yaml.safe_dump(risks, sort_keys=False, allow_unicode=True))
+        entry = json.loads(run("--register", str(old), "show", "RISK-034", "--format", "json"))["entries"][0]
+        assert entry["failure_cause"] == current["failure_cause"] and entry["harms"] == current["harms"]
+
+
 def test_builtin_yaml_parser_matches_pyyaml():
     """Without PyYAML the script uses its own parser; it must read every register file exactly as PyYAML does."""
     for f in sorted(REGISTER.glob("*.yaml")):
@@ -405,6 +421,7 @@ if __name__ == "__main__":
     test_context_changes_applicability_and_levels()
     test_show_and_elements()
     test_organisation_register_with_single_element_id()
+    test_register_with_names_from_before_2_0()
     test_builtin_yaml_parser_matches_pyyaml()
     test_runs_without_pyyaml()
     test_priority_lists_controls_in_scope()

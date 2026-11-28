@@ -25,10 +25,10 @@ risks:
       description: "This risk arises when an agent that answers applicants' questions about their cases retrieves or summarises another applicant's case, because cases are matched on name or reference number alone. As a result, personal and case information is disclosed to someone with no right to it, and the agency must report a data breach."
       element_ids:
       - CAP-11
-      failure_mode: Agent Error
+      failure_cause: Agent Error
       type:
       - Security
-      hazards:
+      harms:
       - HZ-01
       controls:
       - CTRL-0047

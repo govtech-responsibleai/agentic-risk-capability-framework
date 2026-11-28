@@ -127,7 +127,7 @@ def build_crosswalks_page(risks, controls, references, register):
         '',
         '??? question "Why are some cells empty?"',
         '',
-        '    ARC covers both safety and security hazards. Its content-safety risks (undesirable, unqualified,',
+        '    ARC covers both safety and security risks. Its content-safety risks (undesirable, unqualified,',
         '    controversial, or copyrighted content) have no counterpart in OWASP\'s security-focused agentic',
         '    taxonomy, and are deliberately left unmapped rather than forced. CSA Addendum control 1.1 (conduct a',
         '    risk assessment) is the assessment process that the ARC methodology itself implements, so no single',
@@ -172,7 +172,7 @@ def build_risk_register_data():
     components = load_yaml('components.yaml')
     design = load_yaml('design.yaml')
     references = load_yaml('crosswalk_references.yaml')
-    hazards = load_yaml('hazards.yaml')
+    harms = load_yaml('harms.yaml')
     register = load_yaml('register.yaml')
     rules = combination_rules(load_combinations())
     retired = [{'id': k, 'statement': v.get('statement', ''), 'superseded_by': v['superseded_by']}
@@ -256,10 +256,10 @@ def build_risk_register_data():
             'composite': bool(rule) or len(risk_elements) > 1,
             'combination': risk_data.get('combination', ''),
             'min_authority': risk_data.get('min_authority', {}),
-            'failure_mode': risk_data.get('failure_mode', ''),
+            'failure_cause': risk_data.get('failure_cause', ''),
             'type': risk_data.get('type', []),
-            'hazards': [{'id': h, 'name': hazards[h]['name'], 'type': hazards[h]['type']}
-                        for h in risk_data.get('hazards', []) if h in hazards],
+            'harms': [{'id': h, 'name': harms[h]['name'], 'type': harms[h]['type']}
+                        for h in risk_data.get('harms', []) if h in harms],
             'controls': control_details,
             'control_count': len(control_details),
             'sources': risk_data.get('sources', []),
@@ -286,8 +286,8 @@ def build_risk_register_data():
             'total_controls': len(controls),
             'total_elements': len(elements),
             'categories': sorted(set(e['category'] for e in elements.values()) | ({'Combination'} if rules else set())),
-            'failure_modes': sorted(set(r.get('failure_mode', '') for r in risks.values())),
-            'hazards': [{'id': h, 'name': d['name'], 'type': d['type']} for h, d in hazards.items()],
+            'failure_causes': sorted(set(r.get('failure_cause', '') for r in risks.values())),
+            'harms': [{'id': h, 'name': d['name'], 'type': d['type']} for h, d in harms.items()],
             'risk_types': ['Safety', 'Security']
         }
     }
@@ -322,7 +322,7 @@ def _crosswalk_line(crosswalks, references):
     return '; '.join(parts)
 
 
-def build_full_text_page(risks, controls, capabilities, components, design, hazards, references, register):
+def build_full_text_page(risks, controls, capabilities, components, design, harms, references, register):
     """Render the full-text register (arc_framework/register-full-text.md): one linkable section per entry."""
     rules = combination_rules(load_combinations())
     retired_risks = {k: v for k, v in risks.items() if v.get('superseded_by')}
@@ -362,8 +362,8 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
         '',
         '## Risks { #risks }',
         '',
-        'Each risk arises from one or more [elements](elements.md) through one failure mode, and results in one or more '
-        'hazards. A risk that lists several elements arises from their combination and applies only when all of them are present.',
+        'Each risk arises from one or more [elements](elements.md) with one failure cause, and results in one or more '
+        'harms. A risk that lists several elements arises from their combination and applies only when all of them are present.',
     ]
 
     groups = {}
@@ -389,7 +389,7 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
                 lines += ['', f"**Present when:** {elements[key][1]['present_when']} These risks apply only to systems that have this element."]
         for rid in groups[key]:
             r = risks[rid]
-            hz = ', '.join(f"{hazards[h]['name']} ({h})" for h in r.get('hazards', []) if h in hazards)
+            hz = ', '.join(f"{harms[h]['name']} ({h})" for h in r.get('harms', []) if h in harms)
             lines += [
                 '',
                 f"#### {rid} · {r['statement']} {{ #{rid} }}",
@@ -398,7 +398,7 @@ def build_full_text_page(risks, controls, capabilities, components, design, haza
                  + "\" (roles: " + ', '.join(leg['name'].lower() for leg in rules[r['combination']]['legs'].values()) + ")  "
                  if r.get('combination') in rules else
                  f"**Arises from:** {' + '.join(element_label(e) for e in r.get('element_ids', []))}  "),
-                f"**Failure mode:** {r.get('failure_mode', '')} · **Type:** {', '.join(r.get('type', []))} · **Hazards:** {hz}",
+                f"**Failure cause:** {r.get('failure_cause', '')} · **Type:** {', '.join(r.get('type', []))} · **Harms:** {hz}",
             ]
             for cap_id, minimum in (r.get('min_authority') or {}).items():
                 lines += ['', f"**Applies when:** {elements[cap_id][1]['name']} ({cap_id}) is used at "
@@ -547,7 +547,7 @@ def build_llms_txt(register):
 
 > A technical governance framework from GovTech Singapore for identifying, assessing, and mitigating safety and security risks in agentic AI systems. ARC derives a system's risks from its components, design, and capabilities, and maps each risk to technical controls. Risk register version {v}.
 
-ARC describes an agentic system by three kinds of element: components (LLM, instructions, tools, memory, protocols), design (agentic architecture, roles and access controls, monitoring and traceability), and twelve capabilities, such as code execution, internet and search access, official communication, and business transactions. Each risk in the register arises from one or more elements through one of six failure modes, results in safety or security hazards, and is mapped to controls at Level 0 (cardinal), Level 1 (standard), or Level 2 (best practice).
+ARC describes an agentic system by three kinds of element: components (LLM, instructions, tools, memory, protocols), design (agentic architecture, roles and access controls, monitoring and traceability), and twelve capabilities, such as code execution, internet and search access, official communication, and business transactions. Each risk in the register arises from one or more elements, has one of six failure causes, results in safety or security harms, and is mapped to controls at Level 0 (cardinal), Level 1 (standard), or Level 2 (best practice).
 
 ARC is meant to be adapted: an organisation contextualises the baseline register to its own setting, and teams then assess individual systems against that version. When citing ARC, give the register version and the entry ID (for example RISK-034 or CTRL-0062).
 
@@ -555,7 +555,7 @@ ARC is meant to be adapted: an organisation contextualises the baseline register
 
 - [Introduction]({site}arc_framework/introduction/): motivation, the capability-based approach, and related work
 - [Elements]({site}arc_framework/elements/): definitions of the components, design elements, and twelve capabilities
-- [Risks]({site}arc_framework/risks/): failure modes and hazards
+- [Risks]({site}arc_framework/risks/): failure causes and harms
 - [Capability combinations]({site}arc_framework/capability-combinations/): risks that arise only when capabilities are held together, and the check for the lethal trifecta
 - [Controls]({site}arc_framework/controls/): what the control levels mean and when they apply
 - [Risk Register (full text)]({site}arc_framework/register-full-text/): every risk and control, one linkable section per entry
@@ -570,7 +570,7 @@ ARC is meant to be adapted: an organisation contextualises the baseline register
 ## Register data
 
 - [risks.yaml]({raw}/risks.yaml) and [controls.yaml]({raw}/controls.yaml): the machine-readable register at v{v}
-- [capabilities.yaml]({raw}/capabilities.yaml), [components.yaml]({raw}/components.yaml), [design.yaml]({raw}/design.yaml), [hazards.yaml]({raw}/hazards.yaml): elements and hazard categories
+- [capabilities.yaml]({raw}/capabilities.yaml), [components.yaml]({raw}/components.yaml), [design.yaml]({raw}/design.yaml), [harms.yaml]({raw}/harms.yaml): elements and harm categories
 - [combinations.yaml]({raw}/combinations.yaml): which capabilities supply each leg of a checked combination
 - [Changelog]({site}arc_framework/changelog/): what changed in each version, and the versioning policy
 - [Keeping the register current]({site}arc_framework/keeping-current/): the incident file, the quarterly review, and how changes are proposed
@@ -599,7 +599,7 @@ def generate():
                                  load_yaml('crosswalk_references.yaml'), load_yaml('register.yaml'))
     full_text = build_full_text_page(
         load_yaml('risks.yaml'), load_yaml('controls.yaml'), load_yaml('capabilities.yaml'),
-        load_yaml('components.yaml'), load_yaml('design.yaml'), load_yaml('hazards.yaml'),
+        load_yaml('components.yaml'), load_yaml('design.yaml'), load_yaml('harms.yaml'),
         load_yaml('crosswalk_references.yaml'), load_yaml('register.yaml'))
     files = {JSON_PATH: json.dumps(data, indent=2), CROSSWALKS_PATH: page, FULL_TEXT_PATH: full_text,
              LLMS_TXT_PATH: build_llms_txt(load_yaml('register.yaml'))}

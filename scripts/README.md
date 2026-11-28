@@ -4,7 +4,7 @@ The YAML in `arc-risk-register/` is the register. These scripts check it and der
 
 ## `validate_risk_register.py`
 
-Checks the register for well-formed IDs, required fields, valid elements, hazards, failure modes and levels, inverse-consistent risk↔control links, and valid crosswalk IDs. Exits non-zero on any error.
+Checks the register for well-formed IDs, required fields, valid elements, harms, failure causes and levels, inverse-consistent risk↔control links, and valid crosswalk IDs. Exits non-zero on any error.
 
 ```bash
 python scripts/validate_risk_register.py
@@ -14,7 +14,7 @@ python scripts/validate_risk_register.py
 
 Validates the register, then derives five files for the website:
 
-- `assets/risk_register_data.json`: the data behind the [interactive register](../docs/arc_framework/risk-register.md) page, shaped for display (each risk carries copies of its controls, with element names and hazards resolved)
+- `assets/risk_register_data.json`: the data behind the [interactive register](../docs/arc_framework/risk-register.md) page, shaped for display (each risk carries copies of its controls, with element names and harms resolved)
 - `arc_framework/crosswalks.md`: the generated Crosswalks page
 - `arc_framework/register-full-text.md`: every risk and control as plain text with a link per entry, for readers, search engines, and agents that don't run JavaScript
 - `llms.txt`: an index of the site for LLM agents ([llmstxt.org](https://llmstxt.org)), pinned to the register version
