@@ -97,12 +97,11 @@ RISK-003:
     - T5
     mitre_atlas: []
 RISK-004:
-  statement: Weak tool authentication and authorisation controls
-  description: This risk arises when tools connected to an agent lack robust authentication
-    or fine-grained authorisation mechanisms, allowing unauthorised access or misuse
-    of tool capabilities. As a result, attackers or misbehaving agents may compromise
-    the system by invoking sensitive actions, escalating privileges, or manipulating
-    external resources beyond intended boundaries.
+  statement: Tool carries out an unauthorised call
+  description: Because a tool does not check who is calling it, or what that caller
+    is allowed to do, an attacker or a misbehaving agent can call it and have sensitive
+    actions carried out. As a result, the caller gains privileges it was never given
+    and can change systems and resources outside the intended boundary.
   element_ids:
   - CMP-03
   failure_cause: Tool or Resource Malfunction
@@ -129,12 +128,11 @@ RISK-004:
     - AML.T0053
     - AML.T0091.000
 RISK-005:
-  statement: Lack of proper role-based access control for tools
-  description: This risk arises when tools exposed to an agent do not enforce clear,
-    role-based access controls, allowing agents to access capabilities or resources
-    beyond their intended responsibilities. As a result, agents may perform unauthorised
-    actions, misuse sensitive tools, or exceed their permitted scope, increasing the
-    likelihood of security and operational failures.
+  statement: Agent uses a tool for something outside its role
+  description: Because a tool does not enforce role-based access, an agent can reach
+    capabilities or resources of that tool that lie outside its intended responsibilities.
+    As a result, the agent performs unauthorised actions, misuses sensitive tools
+    or exceeds its permitted scope, which leads to security and operational failures.
   element_ids:
   - CMP-03
   failure_cause: Tool or Resource Malfunction
@@ -184,11 +182,11 @@ RISK-006:
     - AML.T0110
     - AML.T0011.002
 RISK-007:
-  statement: Lack of input sanitisation
-  description: This risk arises when inputs passed from the agent to tools are not
-    properly validated or sanitised, allowing malformed or malicious data to be processed.
-    As a result, tools may be exploited through injection attacks, unintended command
-    execution, or data corruption.
+  statement: Tool processes malformed or malicious input from the agent
+  description: Because the inputs an agent passes to a tool are not validated or sanitised,
+    the tool processes malformed or malicious data as if it were sound. As a result,
+    the tool is exploited through an injection attack, runs a command that nobody
+    intended or corrupts data.
   element_ids:
   - CMP-03
   failure_cause: Tool or Resource Malfunction
@@ -1350,8 +1348,14 @@ RISK-047:
     - AML.T0086
     - AML.T0077
 RISK-048:
-  statement: Compromise through the tool, skill, and dependency supply chain
-  description: This risk arises when the tools, MCP servers, agent "skills" or plug-ins, prompt templates, and software packages an agent relies on are obtained through registries, marketplaces, package managers, or update channels that an attacker can seed, tamper with, or silently change after approval (the "rug pull"). Unlike the poisoning of a specific tool (RISK-006), the vector is the distribution channel itself, and agents increasingly perform installs and updates autonomously. As a result, malicious code or instructions reach production with the trust of a vetted dependency, as with the postmark-mcp backdoor, the mcp-remote remote-code-execution flaw, and marketplaces found to carry large numbers of malicious skills.
+  statement: Malicious code or instructions arrive through the supply chain
+  description: Because an agent relies on tools, MCP servers, skills, plug-ins, prompt
+    templates and software packages that come through registries, marketplaces, package
+    managers or update channels, an attacker can seed or tamper with a channel, or
+    silently change an item after it was approved. Unlike RISK-006, the attack is
+    on the distribution channel and not on one tool, and agents increasingly install
+    and update these on their own. As a result, malicious code or instructions reach
+    production with the trust of a vetted dependency.
   element_ids:
   - CMP-03
   failure_cause: External Manipulation
@@ -1367,6 +1371,7 @@ RISK-048:
   - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
   - https://morphisec.com/mcp-attack-chain/
   - https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now
+  - https://www.koi.ai/blog/postmark-mcp-npm-malicious-backdoor-email-theft
   crosswalks:
     owasp_asi:
     - ASI04
