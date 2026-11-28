@@ -154,6 +154,9 @@ RISK-005:
 RISK-006:
   statement: Tool poisoning by malicious actors
   description: This risk arises when a tool server or agent that another party builds or operates describes itself in a way that manipulates the agent that connects to it. Instructions can be hidden in tool descriptions, parameter schemas, or agent cards; a tool can imitate or shadow a trusted one; and a definition can change after it was approved. The agent reads these descriptions as part of its instructions, so it may follow them even when the tool is never called. As a result, the agent may unknowingly execute malicious actions, leak sensitive information, or produce manipulated outputs that undermine system integrity and trust.
+  related:
+    RISK-048: RISK-048 is an attack on the channel that tools are distributed through.
+      This risk is one connected tool or agent misleading the agent through its description.
   element_ids:
   - CMP-05
   failure_cause: External Manipulation
@@ -1351,11 +1354,14 @@ RISK-048:
   statement: Malicious code or instructions arrive through the supply chain
   description: Because an agent relies on tools, MCP servers, skills, plug-ins, prompt
     templates and software packages that come through registries, marketplaces, package
-    managers or update channels, an attacker can seed or tamper with a channel, or
-    silently change an item after it was approved. Unlike RISK-006, the attack is
-    on the distribution channel and not on one tool, and agents increasingly install
-    and update these on their own. As a result, malicious code or instructions reach
-    production with the trust of a vetted dependency.
+    managers or update channels, and increasingly installs and updates them on its
+    own, an attacker can seed or tamper with a channel, or silently change an item
+    after it was approved. As a result, malicious code or instructions reach production
+    with the trust of a vetted dependency.
+  related:
+    RISK-006: RISK-006 is one connected tool or agent misleading the agent through
+      its description. This risk is an attack on the channel that tools are distributed
+      through.
   element_ids:
   - CMP-03
   failure_cause: External Manipulation

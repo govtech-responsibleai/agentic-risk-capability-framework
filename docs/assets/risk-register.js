@@ -124,6 +124,19 @@ document.addEventListener('DOMContentLoaded', async function() {
         descriptionDiv.innerHTML = `<strong>Description:</strong> ${data.description} <a href="../register-full-text/#${data.id}" style="font-size: 0.85em;" title="Link to this risk in the full-text register">(link)</a>`;
         holderEl.appendChild(descriptionDiv);
 
+        // Related risks: how this risk differs from its neighbours. Each sentence names the other risk.
+        const related = Object.values(data.related || {});
+        if (related.length > 0) {
+            const relatedDiv = document.createElement("div");
+            relatedDiv.style.marginBottom = "15px";
+            relatedDiv.style.fontSize = "0.9em";
+            const items = related.map(sentence => '<li>' + sentence.replace(
+                /\b((?:[A-Z][A-Z0-9]{1,7}-)?RISK-\d{3})\b/g,
+                '<a href="../register-full-text/#$1" title="Open this risk in the full-text register">$1</a>') + '</li>').join('');
+            relatedDiv.innerHTML = `<strong>Related risks:</strong><ul style="margin: 4px 0 0 0;">${items}</ul>`;
+            holderEl.appendChild(relatedDiv);
+        }
+
         // Harms: the resulting impact of the risk
         if (data.harms && data.harms.length > 0) {
             const harmsDiv = document.createElement("div");

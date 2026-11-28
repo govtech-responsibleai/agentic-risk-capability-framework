@@ -38,6 +38,7 @@ JSON_PATH = 'assets/risk_register_data.json'
 CROSSWALKS_PATH = 'arc_framework/crosswalks.md'
 FULL_TEXT_PATH = 'arc_framework/register-full-text.md'
 LLMS_TXT_PATH = 'llms.txt'
+RISK_MENTION = re.compile(r'\b((?:[A-Z][A-Z0-9]{1,7}-)?RISK-\d{3})\b')
 COMBINATIONS_PATH = 'arc_framework/capability-combinations.md'
 SITE_URL = 'https://govtech-responsibleai.github.io/agentic-risk-capability-framework/'
 RAW_URL = 'https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework'
@@ -262,6 +263,7 @@ def build_risk_register_data():
                         for h in risk_data.get('harms', []) if h in harms],
             'controls': control_details,
             'control_count': len(control_details),
+            'related': {k: v for k, v in (risk_data.get('related') or {}).items() if k in risks},
             'sources': risk_data.get('sources', []),
             'crosswalks': _crosswalk_labels(risk_data.get('crosswalks') or {}, references),
         }
@@ -403,13 +405,11 @@ def build_full_text_page(risks, controls, capabilities, components, design, harm
             for cap_id, minimum in (r.get('min_authority') or {}).items():
                 lines += ['', f"**Applies when:** {elements[cap_id][1]['name']} ({cap_id}) is used at "
                               f"{AUTHORITY_LABELS[minimum]} or above."]
-            lines += [
-                '',
-                r.get('description', '').strip(),
-                '',
-                '**Controls:**',
-                '',
-            ]
+            lines += ['', r.get('description', '').strip()]
+            if r.get('related'):   # how this risk differs from its neighbours; each sentence names the other risk
+                lines += ['', '**Related risks:**', '']
+                lines += ['- ' + RISK_MENTION.sub(r'[\1](#\1)', sentence.strip()) for sentence in r['related'].values()]
+            lines += ['', '**Controls:**', '']
             for cid in r.get('controls', []):
                 c = controls[cid]
                 stricter = ''.join(f'; {describe_level_condition(w)}' for w in c.get('level_when') or [])

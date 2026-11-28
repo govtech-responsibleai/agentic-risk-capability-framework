@@ -164,6 +164,9 @@ def test_show_and_elements():
     out = json.loads(run("--register", str(REGISTER), "show", "RISK-034", "CTRL-0062", "CAP-07", "--format", "json"))
     assert [e["id"] for e in out["entries"]] == ["RISK-034", "CTRL-0062", "CAP-07"]
     assert "RISK-034" in out["entries"][2]["risks"]
+    pair = json.loads(run("--register", str(REGISTER), "show", "RISK-048", "RISK-006", "--format", "json"))["entries"]
+    assert "RISK-006" in pair[0]["related"] and "RISK-048" in pair[1]["related"], "a comparison is entered on both risks"
+    assert "Related risks:\n- RISK-006 is" in run("--register", str(REGISTER), "show", "RISK-048")
     elements = json.loads(run("--register", str(REGISTER), "elements", "--format", "json"))
     assert sum(e["kind"] == "Capability" for e in elements["elements"]) == 12
 
@@ -361,6 +364,9 @@ def test_overlay():
     assert effective["risks"]["EXA-RISK-001"]["overlay"] == "added"
     assert "EXA-RISK-001" in effective["controls"]["CTRL-0047"]["risks"], "links are made in both directions"
     assert effective["risks"]["RISK-001"] == reg["risks"]["RISK-001"], "unmentioned entries are inherited unchanged"
+    without, _ = arc.apply_overlay(reg, {"overlay": {"base": "2.0.0"}, "risks": {"remove": {"RISK-006": "not used"}}})
+    assert "RISK-006" in reg["risks"]["RISK-048"]["related"]
+    assert "RISK-006" not in (without["risks"]["RISK-048"].get("related") or {}), "a comparison goes with the risk it names"
     forward = {(r, c) for r, v in effective["risks"].items() for c in v.get("controls") or []}
     backward = {(r, c) for c, v in effective["controls"].items() for r in v.get("risks") or []}
     assert forward == backward

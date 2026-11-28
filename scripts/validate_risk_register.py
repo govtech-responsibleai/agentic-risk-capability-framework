@@ -37,6 +37,9 @@ Checks:
     control, and risks that carry that control and name the rule in their `combination` field;
     `implies` maps a capability to the capabilities it gives a system
   - a risk arises either from elements (`element_ids`) or from a combination rule (`combination`)
+  - a risk may carry `related`, which maps another live risk's ID to a sentence that names that risk
+    and says how the two differ; the other risk must name this one back (an entry that an overlay adds
+    may name a risk of the base register without being named back)
   - a retired entry carries `superseded_by`, naming a live entry of the same kind, and is no longer
     linked to controls or risks
   - warnings (non-fatal) for empty sources, missing recommendations, or missing crosswalks
@@ -251,6 +254,20 @@ def validate():
                 errors.append(f'{risk_id}: min_authority names {cap_id}, which is not one of its elements')
             elif minimum not in (elements.get(cap_id, {}).get('authority') or []):
                 errors.append(f'{risk_id}: min_authority {minimum!r} is not an authority level of {cap_id}')
+        related = risk.get('related') or {}
+        if not isinstance(related, dict):
+            errors.append(f'{risk_id}: related must map a risk ID to a sentence on how the two risks differ')
+            related = {}
+        for other_id, difference in related.items():
+            other = risks.get(other_id)
+            if other is None or other_id == risk_id:
+                errors.append(f'{risk_id}: related names {other_id}, which is not another risk in the register')
+            elif other.get('superseded_by'):
+                errors.append(f'{risk_id}: related names retired risk {other_id}; use {other["superseded_by"]}')
+            elif risk_id.startswith('RISK-') and risk_id not in (other.get('related') or {}):
+                errors.append(f'{risk_id}: related names {other_id}, but {other_id} does not name {risk_id} back')
+            if not isinstance(difference, str) or str(other_id) not in difference:
+                errors.append(f'{risk_id}: the related entry for {other_id} must be a sentence that names {other_id}')
         if risk.get('failure_cause') and risk['failure_cause'] not in FAILURE_CAUSES:
             errors.append(f'{risk_id}: unknown failure_cause "{risk["failure_cause"]}"')
         for t in risk.get('type') or []:

@@ -529,6 +529,11 @@ def apply_overlay(reg, overlay):
         if gone:
             del reg["risks"][rid]
             notes.append(f"{rid} is left out because the overlay removes {', '.join(gone)}")
+    for r in reg["risks"].values():   # a comparison with a risk that is no longer in the register goes with it
+        if r.get("related"):
+            r["related"] = {k: v for k, v in r["related"].items() if k in reg["risks"]}
+            if not r["related"]:
+                del r["related"]
     combinations = reg.get("combinations") or {}
     for role in (combinations.get("roles") or {}).values():
         for cap in removed["capabilities"]:
@@ -733,6 +738,8 @@ def risk_record(reg, rid, elements, detail=False, profile=None):
         "type": r.get("type", []),
         "harms": [f"{harms[h]['name']} ({h})" if h in harms else h
                   for h in (r.get("harms") or r.get("hazards") or [])],
+        # how this risk differs from its neighbours: {other risk: a sentence that names it}
+        **({"related": dict(r["related"])} if r.get("related") else {}),
         "controls": controls,
     }
 
@@ -1082,6 +1089,8 @@ def cmd_show(reg, source, args):
         elif "controls" in e:
             print(f"## {e['id']} · {e['statement']}\n\nArises from: {' + '.join(e['elements'])} · Failure cause: "
                   f"{e['failure_cause']} · Harms: {', '.join(e['harms'])}\n\n{e['description']}\n")
+            if e.get("related"):
+                print("Related risks:\n" + "\n".join(f"- {s}" for s in e["related"].values()) + "\n")
             for c in e["controls"]:
                 print(f"- {c['id']} [{LEVELS.get(c['level'], c['level'])}] {c['statement']}")
             if e.get("sources"):

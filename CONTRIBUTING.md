@@ -5,6 +5,7 @@ The ARC risk register is a living document. We welcome new risks, new controls, 
 ## What makes a good entry
 
 - **A risk** must be supported by academic research or a documented industry incident — not an opinion piece. It arises from one or more *elements* (a component, a design element, or one or more capabilities), has one *failure cause*, and results in one or more *harms*. If it lists several capabilities, it applies only when a system has all of them.
+- **A risk's description covers that risk alone.** A comparison with a neighbouring risk goes in `related`, which maps the other risk's ID to one or two sentences that name it and say how the two differ. Enter it on both risks.
 - **A control** must be actionable, composable, and measurable: say what to do, to what, and how one would check it was done. Map it to at least one risk. Level 0 is reserved for controls that must be adopted as-is wherever the risk applies, with no legitimate exception.
 - **IDs are never reused.** Take the next free `RISK-###` / `CTRL-####`. To retire or merge an entry, keep it and add `superseded_by`.
 
