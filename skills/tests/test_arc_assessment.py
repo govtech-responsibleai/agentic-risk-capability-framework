@@ -33,7 +33,7 @@ def assess(present, register=REGISTER):
     caps = [e for e in present if e.startswith("CAP-")]
     components = [e for e in present if not e.startswith("CAP-")]
     return json.loads(run("--register", str(register), "assess", "--capabilities", ",".join(caps),
-                          "--components", ",".join(components), "--format", "json"))
+                          "--components", ",".join(components) or "none", "--format", "json"))
 
 
 def chosen_elements(register=REGISTER):
@@ -81,7 +81,7 @@ def test_applicability_matches_register_rules():
 
 
 def test_conditional_components():
-    """A component with `present_when` contributes its risks only when the system is said to have it."""
+    """A component with `present_when` contributes its risks unless the system is said not to have it."""
     risks = yaml.safe_load((REGISTER / "risks.yaml").read_text())
     components = yaml.safe_load((REGISTER / "components.yaml").read_text())
     conditional = [c for c, v in components.items() if v.get("present_when")]
@@ -91,6 +91,16 @@ def test_conditional_components():
         without = {r["id"] for g in assess([])["risks"].values() for r in g}
         with_it = {r["id"] for g in assess([cid])["risks"].values() for r in g}
         assert own and not (own & without) and own <= with_it, cid
+    # An assessment that does not say is assumed to have every conditional component, and is told so
+    unstated = json.loads(run("--register", str(REGISTER), "assess", "--capabilities", "CAP-04", "--format", "json"))
+    assert not unstated["components_stated"] and sorted(unstated["components"]) == sorted(conditional)
+    assert all(c["present"] and c["assumed"] for c in unstated["conditional_components"])
+    assert {r["id"] for g in unstated["risks"].values() for r in g} == \
+        {r["id"] for g in assess(["CAP-04", *conditional])["risks"].values() for r in g}
+    assert "assumed present" in run("--register", str(REGISTER), "assess", "--capabilities", "CAP-04")
+    stated = assess(["CAP-04"])
+    assert stated["components_stated"] and stated["components"] == []
+    assert not any(c["present"] or c["assumed"] for c in stated["conditional_components"])
     try:
         run("--register", str(REGISTER), "assess", "--capabilities", "CAP-04", "--components", "CMP-01")
     except SystemExit as e:
@@ -154,6 +164,9 @@ def test_show_and_elements():
     out = json.loads(run("--register", str(REGISTER), "show", "RISK-034", "CTRL-0062", "CAP-07", "--format", "json"))
     assert [e["id"] for e in out["entries"]] == ["RISK-034", "CTRL-0062", "CAP-07"]
     assert "RISK-034" in out["entries"][2]["risks"]
+    pair = json.loads(run("--register", str(REGISTER), "show", "RISK-048", "RISK-006", "--format", "json"))["entries"]
+    assert "RISK-006" in pair[0]["related"] and "RISK-048" in pair[1]["related"], "a comparison is entered on both risks"
+    assert "Related risks:\n- RISK-006 is" in run("--register", str(REGISTER), "show", "RISK-048")
     elements = json.loads(run("--register", str(REGISTER), "elements", "--format", "json"))
     assert sum(e["kind"] == "Capability" for e in elements["elements"]) == 12
 
@@ -173,6 +186,25 @@ def test_organisation_register_with_single_element_id():
         assert result["register_version"] == "unversioned"
         assert [r["id"] for r in result["risks"]["baseline"]] == [r["id"] for r in assess(["CAP-07", "CAP-11"])["risks"]["baseline"]]
         assert "RISK-034" in {r["id"] for r in result["risks"]["capability"]}
+
+
+def test_register_with_names_from_before_2_0():
+    """A register from before 2.0 has hazards.yaml, the risk fields failure_mode and hazards, and IDs HZ-01 onwards."""
+    current = json.loads(run("--register", str(REGISTER), "show", "RISK-034", "--format", "json"))["entries"][0]
+    assert current["failure_cause"] == "External Manipulation" and current["harms"][0] == "Data (HARM-01)"
+    with tempfile.TemporaryDirectory() as tmp:
+        old = Path(tmp) / "old-register"
+        shutil.copytree(REGISTER, old)
+        (old / "hazards.yaml").write_text((old / "harms.yaml").read_text().replace("HARM-", "HZ-"))
+        (old / "harms.yaml").unlink()
+        risks = yaml.safe_load((old / "risks.yaml").read_text())
+        for v in risks.values():
+            v["failure_mode"] = v.pop("failure_cause")
+            v["hazards"] = [h.replace("HARM-", "HZ-") for h in v.pop("harms")]
+        (old / "risks.yaml").write_text(yaml.safe_dump(risks, sort_keys=False, allow_unicode=True))
+        entry = json.loads(run("--register", str(old), "show", "RISK-034", "--format", "json"))["entries"][0]
+        assert entry["failure_cause"] == current["failure_cause"]
+        assert entry["harms"] == [h.replace("HARM-", "HZ-") for h in current["harms"]]
 
 
 def test_builtin_yaml_parser_matches_pyyaml():
@@ -200,7 +232,7 @@ def test_priority_lists_controls_in_scope():
     applicable = [r["id"] for g in assess(caps)["risks"].values() for r in g]
     priority = ["RISK-034"]
     out = json.loads(run("--register", str(REGISTER), "assess", "--capabilities", ",".join(caps),
-                         "--priority", ",".join(priority), "--format", "json"))
+                         "--components", "none", "--priority", ",".join(priority), "--format", "json"))
     profile = arc.build_profile(_register(), caps)
     expected = {c for rid in applicable for c in risks[rid]["controls"]
                 if arc.effective_level(controls[c], profile) == 0 or rid in priority}
@@ -332,6 +364,9 @@ def test_overlay():
     assert effective["risks"]["EXA-RISK-001"]["overlay"] == "added"
     assert "EXA-RISK-001" in effective["controls"]["CTRL-0047"]["risks"], "links are made in both directions"
     assert effective["risks"]["RISK-001"] == reg["risks"]["RISK-001"], "unmentioned entries are inherited unchanged"
+    without, _ = arc.apply_overlay(reg, {"overlay": {"base": "2.0.0"}, "risks": {"remove": {"RISK-006": "not used"}}})
+    assert "RISK-006" in reg["risks"]["RISK-048"]["related"]
+    assert "RISK-006" not in (without["risks"]["RISK-048"].get("related") or {}), "a comparison goes with the risk it names"
     forward = {(r, c) for r, v in effective["risks"].items() for c in v.get("controls") or []}
     backward = {(r, c) for c, v in effective["controls"].items() for r in v.get("risks") or []}
     assert forward == backward
@@ -395,6 +430,7 @@ if __name__ == "__main__":
     test_context_changes_applicability_and_levels()
     test_show_and_elements()
     test_organisation_register_with_single_element_id()
+    test_register_with_names_from_before_2_0()
     test_builtin_yaml_parser_matches_pyyaml()
     test_runs_without_pyyaml()
     test_priority_lists_controls_in_scope()

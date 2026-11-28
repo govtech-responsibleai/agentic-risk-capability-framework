@@ -1,20 +1,20 @@
 RISK-001:
-  statement: Use of untrusted or compromised LLMs
-  description: This risk arises when LLMs obtained from untrusted or insufficiently
-    vetted sources have been intentionally poisoned or backdoored during training
-    or distribution, causing them to behave maliciously or unpredictably under specific
-    conditions. Such models may leak sensitive information, bypass safeguards, or
-    execute hidden behaviors that undermine system integrity and trust.
+  statement: Poisoned or backdoored LLM behaves maliciously
+  description: 'Because an LLM comes from an untrusted or insufficiently vetted source,
+    it may have been poisoned or backdoored during training or distribution, and under
+    specific conditions it behaves maliciously or unpredictably: it leaks sensitive
+    information, bypasses safeguards or carries out hidden behaviours. As a result,
+    the integrity of the system is undermined and its outputs can no longer be trusted.'
   element_ids:
   - CMP-01
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0001
   - CTRL-0002
@@ -34,22 +34,22 @@ RISK-001:
     - AML.T0018.000
     - AML.T0020
 RISK-002:
-  statement: Insufficient alignment of LLM behaviour
-  description: This risk arises when an LLM's learned objectives and behaviors do
-    not reliably align with intended user goals, system instructions, or organizational
-    policies, leading to inappropriate, unsafe, or undesired outputs. Misalignment
-    may surface as failure to follow constraints, inconsistent reasoning, or behavior
-    that diverges from expected norms in edge cases or complex scenarios.
+  statement: LLM acts against the goals, instructions or policies it was given
+  description: Because the objectives and behaviours an LLM has learned do not reliably
+    match the user's goals, the system's instructions or the organisation's policies,
+    the model can ignore a constraint, reason inconsistently or behave unexpectedly,
+    especially in edge cases and complex scenarios. As a result, it produces outputs
+    that are inappropriate, unsafe or unwanted.
   element_ids:
   - CMP-01
-  failure_mode: Agent Misbehaviour
+  failure_cause: Agent Misbehaviour
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-07
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-07
+  - HARM-08
   controls:
   - CTRL-0004
   - CTRL-0005
@@ -66,22 +66,22 @@ RISK-002:
     - T7
     mitre_atlas: []
 RISK-003:
-  statement: Insufficient LLM capability and reliability
-  description: This risk arises when an LLM lacks sufficient capability, robustness,
-    or reasoning performance to correctly interpret instructions, handle edge cases,
-    or detect unsafe situations. As a result, the model may produce incorrect, misleading,
-    or unsafe outputs that create downstream safety or security failures in systems
-    that rely on its judgments.
+  statement: LLM misjudges a task or situation
+  description: Because an LLM lacks the capability, robustness or reasoning performance
+    that a task needs, it can misread an instruction, mishandle an edge case or fail
+    to recognise an unsafe situation. As a result, it produces incorrect, misleading
+    or unsafe outputs, which cause safety or security failures in the systems that
+    rely on its judgement.
   element_ids:
   - CMP-01
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-08
-  - HZ-09
+  harms:
+  - HARM-02
+  - HARM-08
+  - HARM-09
   controls:
   - CTRL-0004
   - CTRL-0005
@@ -97,20 +97,19 @@ RISK-003:
     - T5
     mitre_atlas: []
 RISK-004:
-  statement: Weak tool authentication and authorisation controls
-  description: This risk arises when tools connected to an agent lack robust authentication
-    or fine-grained authorisation mechanisms, allowing unauthorised access or misuse
-    of tool capabilities. As a result, attackers or misbehaving agents may compromise
-    the system by invoking sensitive actions, escalating privileges, or manipulating
-    external resources beyond intended boundaries.
+  statement: Tool carries out an unauthorised call
+  description: Because a tool does not check who is calling it, or what that caller
+    is allowed to do, an attacker or a misbehaving agent can call it and have sensitive
+    actions carried out. As a result, the caller gains privileges it was never given
+    and can change systems and resources outside the intended boundary.
   element_ids:
   - CMP-03
-  failure_mode: Tool or Resource Malfunction
+  failure_cause: Tool or Resource Malfunction
   type:
   - Security
-  hazards:
-  - HZ-02
-  - HZ-04
+  harms:
+  - HARM-02
+  - HARM-04
   controls:
   - CTRL-0009
   - CTRL-0032
@@ -129,19 +128,18 @@ RISK-004:
     - AML.T0053
     - AML.T0091.000
 RISK-005:
-  statement: Lack of proper role-based access control for tools
-  description: This risk arises when tools exposed to an agent do not enforce clear,
-    role-based access controls, allowing agents to access capabilities or resources
-    beyond their intended responsibilities. As a result, agents may perform unauthorised
-    actions, misuse sensitive tools, or exceed their permitted scope, increasing the
-    likelihood of security and operational failures.
+  statement: Agent uses a tool for something outside its role
+  description: Because a tool does not enforce role-based access, an agent can reach
+    capabilities or resources of that tool that lie outside its intended responsibilities.
+    As a result, the agent performs unauthorised actions, misuses sensitive tools
+    or exceeds its permitted scope, which leads to security and operational failures.
   element_ids:
   - CMP-03
-  failure_mode: Tool or Resource Malfunction
+  failure_cause: Tool or Resource Malfunction
   type:
   - Security
-  hazards:
-  - HZ-04
+  harms:
+  - HARM-04
   controls:
   - CTRL-0011
   sources:
@@ -156,16 +154,19 @@ RISK-005:
 RISK-006:
   statement: Tool poisoning by malicious actors
   description: This risk arises when a tool server or agent that another party builds or operates describes itself in a way that manipulates the agent that connects to it. Instructions can be hidden in tool descriptions, parameter schemas, or agent cards; a tool can imitate or shadow a trusted one; and a definition can change after it was approved. The agent reads these descriptions as part of its instructions, so it may follow them even when the tool is never called. As a result, the agent may unknowingly execute malicious actions, leak sensitive information, or produce manipulated outputs that undermine system integrity and trust.
+  related:
+    RISK-048: RISK-048 is an attack on the channel that tools are distributed through.
+      This risk is one connected tool or agent misleading the agent through its description.
   element_ids:
   - CMP-05
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0013
   - CTRL-0015
@@ -184,21 +185,21 @@ RISK-006:
     - AML.T0110
     - AML.T0011.002
 RISK-007:
-  statement: Lack of input sanitisation
-  description: This risk arises when inputs passed from the agent to tools are not
-    properly validated or sanitised, allowing malformed or malicious data to be processed.
-    As a result, tools may be exploited through injection attacks, unintended command
-    execution, or data corruption.
+  statement: Tool processes malformed or malicious input from the agent
+  description: Because the inputs an agent passes to a tool are not validated or sanitised,
+    the tool processes malformed or malicious data as if it were sound. As a result,
+    the tool is exploited through an injection attack, runs a command that nobody
+    intended or corrupts data.
   element_ids:
   - CMP-03
-  failure_mode: Tool or Resource Malfunction
+  failure_cause: Tool or Resource Malfunction
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0015
   sources:
@@ -215,20 +216,20 @@ RISK-007:
     - AML.T0053
     - AML.T0050
 RISK-008:
-  statement: Vague or underspecified instructions
-  description: This risk arises when instructions provided to an LLM are ambiguous,
-    incomplete, or poorly scoped, leading the model to make unintended assumptions
-    when interpreting tasks or constraints. As a result, the LLM may behave unpredictably,
-    bypass safeguards, or take actions that introduce safety or security risks.
+  statement: LLM fills gaps in its instructions with its own assumptions
+  description: Because the instructions given to an LLM are ambiguous, incomplete
+    or poorly scoped, the model makes assumptions that nobody intended when it interprets
+    a task or a constraint. As a result, it behaves unpredictably, bypasses safeguards
+    or takes actions that cause safety or security failures.
   element_ids:
   - CMP-02
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0016
   - CTRL-0017
@@ -243,20 +244,21 @@ RISK-008:
     - T6
     mitre_atlas: []
 RISK-009:
-  statement: Unsanitised inputs in system instructions
-  description: This risk arises when untrusted or user-controlled inputs are incorporated
-    into system instructions without proper sanitisation or validation. As a result,
-    malicious or malformed content may manipulate the model's behaviour, override
-    intended constraints, or trigger unintended actions.
+  statement: Untrusted input in the system instructions manipulates the model
+  description: Because untrusted or user-controlled input is placed into the system
+    instructions without being sanitised or validated, the model reads malicious or
+    malformed content in that input as part of its instructions. As a result, the
+    content manipulates the model's behaviour, overrides its intended constraints
+    or triggers actions that nobody intended.
   element_ids:
   - CMP-02
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0019
   - CTRL-0020
@@ -279,14 +281,14 @@ RISK-010:
     propagate false information, or exhibit persistent unsafe behaviour across interactions.
   element_ids:
   - CMP-04
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-08
-  - HZ-09
+  harms:
+  - HARM-01
+  - HARM-08
+  - HARM-09
   controls:
   - CTRL-0021
   - CTRL-0022
@@ -311,13 +313,13 @@ RISK-011:
     leading to privacy breaches, confidentiality violations, or unauthorised disclosure.
   element_ids:
   - CMP-04
-  failure_mode: Tool or Resource Malfunction
+  failure_cause: Tool or Resource Malfunction
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-08
   controls:
   - CTRL-0021
   - CTRL-0023
@@ -341,13 +343,13 @@ RISK-012:
   element_ids:
   - DSN-01
   - CAP-02
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0024
   - CTRL-0025
@@ -372,12 +374,12 @@ RISK-013:
   element_ids:
   - DSN-01
   - CAP-02
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Security
-  hazards:
-  - HZ-01
-  - HZ-03
+  harms:
+  - HARM-01
+  - HARM-03
   controls:
   - CTRL-0026
   - CTRL-0027
@@ -401,13 +403,13 @@ RISK-014:
     intervention.
   element_ids:
   - DSN-01
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-03
-  - HZ-08
+  harms:
+  - HARM-03
+  - HARM-08
   controls:
   - CTRL-0027
   - CTRL-0029
@@ -432,11 +434,11 @@ RISK-015:
     actions that increase the likelihood of security, privacy, or operational failures.
   element_ids:
   - DSN-02
-  failure_mode: Safeguard Failure
+  failure_cause: Safeguard Failure
   type:
   - Security
-  hazards:
-  - HZ-04
+  harms:
+  - HARM-04
   controls:
   - CTRL-0029
   - CTRL-0030
@@ -459,11 +461,11 @@ RISK-016:
     and governance.
   element_ids:
   - DSN-02
-  failure_mode: Safeguard Failure
+  failure_cause: Safeguard Failure
   type:
   - Security
-  hazards:
-  - HZ-04
+  harms:
+  - HARM-04
   controls:
   - CTRL-0029
   - CTRL-0030
@@ -487,13 +489,13 @@ RISK-017:
     the impact and difficulty of remediation.
   element_ids:
   - DSN-03
-  failure_mode: Safeguard Failure
+  failure_cause: Safeguard Failure
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0032
   - CTRL-0033
@@ -513,11 +515,11 @@ RISK-018:
     outcomes occurred, or conduct effective audits and post-incident reviews.
   element_ids:
   - DSN-03
-  failure_mode: Safeguard Failure
+  failure_cause: Safeguard Failure
   type:
   - Security
-  hazards:
-  - HZ-02
+  harms:
+  - HARM-02
   controls:
   - CTRL-0032
   - CTRL-0034
@@ -539,13 +541,13 @@ RISK-019:
     or deliver outcomes that do not satisfy user expectations.
   element_ids:
   - CAP-01
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0035
   - CTRL-0036
@@ -567,11 +569,11 @@ RISK-020:
     insecure, or inappropriate despite being technically feasible.
   element_ids:
   - CAP-01
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
-  hazards:
-  - HZ-08
+  harms:
+  - HARM-08
   controls:
   - CTRL-0035
   - CTRL-0037
@@ -596,14 +598,14 @@ RISK-021:
     issues due to inappropriate delegation.
   element_ids:
   - CAP-02
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-04
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-04
+  - HARM-08
   controls:
   - CTRL-0040
   sources:
@@ -624,14 +626,14 @@ RISK-022:
     the system.
   element_ids:
   - CAP-02
-  failure_mode: Agent Misbehaviour
+  failure_cause: Agent Misbehaviour
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-04
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-04
+  - HARM-08
   controls:
   - CTRL-0008
   - CTRL-0024
@@ -658,13 +660,13 @@ RISK-023:
     side effects due to misuse of tool capabilities.
   element_ids:
   - CAP-03
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0041
   - CTRL-0042
@@ -685,12 +687,12 @@ RISK-024:
     or regulations, or undermine trust in the system’s outputs.
   element_ids:
   - CAP-04
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
-  hazards:
-  - HZ-06
-  - HZ-07
+  harms:
+  - HARM-06
+  - HARM-07
   controls:
   - CTRL-0044
   sources:
@@ -707,11 +709,11 @@ RISK-025:
     information, leading to potential harm or adverse outcomes.
   element_ids:
   - CAP-04
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
-  hazards:
-  - HZ-08
+  harms:
+  - HARM-08
   controls:
   - CTRL-0045
   sources:
@@ -730,12 +732,12 @@ RISK-026:
     of organisational views.
   element_ids:
   - CAP-04
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
-  hazards:
-  - HZ-07
-  - HZ-09
+  harms:
+  - HARM-07
+  - HARM-09
   controls:
   - CTRL-0046
   sources:
@@ -752,13 +754,13 @@ RISK-027:
     harm, or breach data protection requirements.
   element_ids:
   - CAP-04
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-08
   controls:
   - CTRL-0047
   sources:
@@ -776,12 +778,12 @@ RISK-028:
     users may be misled, make incorrect decisions, or lose trust in the system’s outputs.
   element_ids:
   - CAP-04
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
-  hazards:
-  - HZ-08
-  - HZ-09
+  harms:
+  - HARM-08
+  - HARM-09
   controls:
   - CTRL-0048
   - CTRL-0049
@@ -802,11 +804,11 @@ RISK-029:
     to legal liability, or violate licensing and usage terms.
   element_ids:
   - CAP-04
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
-  hazards:
-  - HZ-05
+  harms:
+  - HARM-05
   controls:
   - CTRL-0051
   sources:
@@ -823,11 +825,11 @@ RISK-030:
     intent, or authority, potentially leading to trust, legal, or reputational issues.
   element_ids:
   - CAP-05
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
-  hazards:
-  - HZ-09
+  harms:
+  - HARM-09
   controls:
   - CTRL-0052
   sources:
@@ -847,12 +849,12 @@ RISK-031:
     damage, legal exposure, or loss of public trust due to unmet expectations or misinformation.
   element_ids:
   - CAP-05
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
-  hazards:
-  - HZ-09
-  - HZ-10
+  harms:
+  - HARM-09
+  - HARM-10
   controls:
   - CTRL-0053
   - CTRL-0054
@@ -877,14 +879,14 @@ RISK-032:
   - CAP-06
   min_authority:
     CAP-06: act-with-approval
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-04
-  - HZ-10
+  harms:
+  - HARM-02
+  - HARM-04
+  - HARM-10
   controls:
   - CTRL-0056
   - CTRL-0057
@@ -910,14 +912,14 @@ RISK-033:
     financial operations, or compromise transactional systems.
   element_ids:
   - CAP-06
-  failure_mode: Tool or Resource Malfunction
+  failure_cause: Tool or Resource Malfunction
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-04
-  - HZ-10
+  harms:
+  - HARM-01
+  - HARM-04
+  - HARM-10
   controls:
   - CTRL-0058
   sources:
@@ -939,14 +941,14 @@ RISK-034:
     or integrity.
   element_ids:
   - CAP-07
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0060
   - CTRL-0061
@@ -970,12 +972,12 @@ RISK-035:
     that has not been adequately validated or corroborated.
   element_ids:
   - CAP-07
-  failure_mode: Tool or Resource Malfunction
+  failure_cause: Tool or Resource Malfunction
   type:
   - Safety
-  hazards:
-  - HZ-08
-  - HZ-09
+  harms:
+  - HARM-08
+  - HARM-09
   controls:
   - CTRL-0063
   sources:
@@ -997,14 +999,14 @@ RISK-036:
     the interface.
   element_ids:
   - CAP-08
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0062
   - CTRL-0064
@@ -1030,13 +1032,13 @@ RISK-037:
     scope or authorisation.
   element_ids:
   - CAP-08
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-08
   controls:
   - CTRL-0047
   - CTRL-0066
@@ -1059,13 +1061,13 @@ RISK-038:
     or produce unintended effects due to improper integration or usage.
   element_ids:
   - CAP-09
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0041
   - CTRL-0067
@@ -1086,11 +1088,11 @@ RISK-039:
     operational disruptions when deployed or run.
   element_ids:
   - CAP-10
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Security
-  hazards:
-  - HZ-02
+  harms:
+  - HARM-02
   controls:
   - CTRL-0068
   - CTRL-0069
@@ -1115,12 +1117,12 @@ RISK-040:
     unauthorised access, data leakage, or other harmful effects.
   element_ids:
   - CAP-10
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
+  harms:
+  - HARM-01
+  - HARM-02
   controls:
   - CTRL-0069
   - CTRL-0070
@@ -1150,11 +1152,11 @@ RISK-041:
   - CAP-11
   min_authority:
     CAP-11: act-with-approval
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Security
-  hazards:
-  - HZ-01
+  harms:
+  - HARM-01
   controls:
   - CTRL-0075
   - CTRL-0076
@@ -1176,11 +1178,11 @@ RISK-042:
     may become unavailable due to unnecessary load.
   element_ids:
   - CAP-11
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Security
-  hazards:
-  - HZ-03
+  harms:
+  - HARM-03
   controls:
   - CTRL-0078
   - CTRL-0079
@@ -1203,11 +1205,11 @@ RISK-043:
     leading to privacy breaches, regulatory non-compliance, or loss of trust.
   element_ids:
   - CAP-11
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Security
-  hazards:
-  - HZ-01
+  harms:
+  - HARM-01
   controls:
   - CTRL-0047
   - CTRL-0081
@@ -1231,14 +1233,14 @@ RISK-044:
     that compromise system safety or integrity.
   element_ids:
   - CAP-11
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0062
   - CTRL-0083
@@ -1268,12 +1270,12 @@ RISK-045:
   - CAP-12
   min_authority:
     CAP-12: act-with-approval
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Security
-  hazards:
-  - HZ-02
-  - HZ-03
+  harms:
+  - HARM-02
+  - HARM-03
   controls:
   - CTRL-0084
   - CTRL-0085
@@ -1295,11 +1297,11 @@ RISK-046:
     unavailable due to unnecessary load.
   element_ids:
   - CAP-12
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Security
-  hazards:
-  - HZ-03
+  harms:
+  - HARM-03
   controls:
   - CTRL-0086
   sources:
@@ -1315,11 +1317,11 @@ RISK-047:
   statement: Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel
   description: This risk arises when an agent that takes in untrusted content (web pages, files, inbound email, chat, support tickets, form submissions, or API responses) also holds access to sensitive data and has any outbound channel, such as browsing, API calls, messages, or tool calls that carry data in URLs. Instructions injected through the content can then direct the agent to send data out through a legitimate channel, for example by fetching an attacker's URL with data in it, by replying or forwarding to an attacker's address, or by posting to a shared channel. Each capability may be individually controlled; the exposure comes from their combination, and the way in and the way out can be the same channel. As a result, confidential data can leave the organisation without any single control being bypassed, as demonstrated by EchoLeak, where a single crafted email led Microsoft 365 Copilot to send internal data to an attacker, and ForcedLeak, where instructions in a web-form submission led Salesforce Agentforce to exfiltrate CRM records.
   combination: lethal-trifecta
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Security
-  hazards:
-  - HZ-01
+  harms:
+  - HARM-01
   controls:
   - CTRL-0020
   - CTRL-0060
@@ -1349,16 +1351,25 @@ RISK-047:
     - AML.T0086
     - AML.T0077
 RISK-048:
-  statement: Compromise through the tool, skill, and dependency supply chain
-  description: This risk arises when the tools, MCP servers, agent "skills" or plug-ins, prompt templates, and software packages an agent relies on are obtained through registries, marketplaces, package managers, or update channels that an attacker can seed, tamper with, or silently change after approval (the "rug pull"). Unlike the poisoning of a specific tool (RISK-006), the vector is the distribution channel itself, and agents increasingly perform installs and updates autonomously. As a result, malicious code or instructions reach production with the trust of a vetted dependency, as with the postmark-mcp backdoor, the mcp-remote remote-code-execution flaw, and marketplaces found to carry large numbers of malicious skills.
+  statement: Malicious code or instructions arrive through the supply chain
+  description: Because an agent relies on tools, MCP servers, skills, plug-ins, prompt
+    templates and software packages that come through registries, marketplaces, package
+    managers or update channels, and increasingly installs and updates them on its
+    own, an attacker can seed or tamper with a channel, or silently change an item
+    after it was approved. As a result, malicious code or instructions reach production
+    with the trust of a vetted dependency.
+  related:
+    RISK-006: RISK-006 is one connected tool or agent misleading the agent through
+      its description. This risk is an attack on the channel that tools are distributed
+      through.
   element_ids:
   - CMP-03
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
+  harms:
+  - HARM-01
+  - HARM-02
   controls:
   - CTRL-0015
   - CTRL-0091
@@ -1366,6 +1377,7 @@ RISK-048:
   - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
   - https://morphisec.com/mcp-attack-chain/
   - https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now
+  - https://www.koi.ai/blog/postmark-mcp-npm-malicious-backdoor-email-theft
   crosswalks:
     owasp_asi:
     - ASI04
@@ -1384,15 +1396,15 @@ RISK-049:
   - CAP-10
   min_authority:
     CAP-10: act-with-approval
-  failure_mode: Agent Misbehaviour
+  failure_cause: Agent Misbehaviour
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-03
-  - HZ-04
-  - HZ-08
-  - HZ-11
+  harms:
+  - HARM-03
+  - HARM-04
+  - HARM-08
+  - HARM-11
   controls:
   - CTRL-0029
   - CTRL-0040
@@ -1417,17 +1429,22 @@ RISK-049:
     - AML.T0122
     - AML.T0105
 RISK-050:
-  statement: Deceptive behaviour toward overseers
-  description: This risk arises when an agent pursuing an objective misrepresents what it has done or found, edits or obscures its own history or logs, or socially engineers the humans overseeing it in order to obtain approval or avoid intervention. Unlike an error, the behaviour is goal-directed and can look legitimate step by step, so the evidence needed to detect it may have been altered by the agent itself. As a result, oversight based on the agent's own reports provides false assurance, and unsanctioned actions proceed under the appearance of compliance.
+  statement: Agent deceives the people overseeing it
+  description: Because the people overseeing an agent rely on what it reports and
+    records, an agent pursuing an objective can misrepresent what it has done or found,
+    edit or obscure its own history or logs, or manipulate its overseers, in order
+    to win approval or avoid intervention. The behaviour is goal-directed and can
+    look legitimate at each step. As a result, oversight gives false assurance, and
+    unsanctioned actions proceed under the appearance of compliance.
   element_ids:
   - CMP-01
-  failure_mode: Agent Misbehaviour
+  failure_cause: Agent Misbehaviour
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-04
-  - HZ-09
+  harms:
+  - HARM-04
+  - HARM-09
   controls:
   - CTRL-0007
   - CTRL-0034
@@ -1452,13 +1469,13 @@ RISK-051:
   element_ids:
   - DSN-01
   - CAP-02
-  failure_mode: Agent Misbehaviour
+  failure_cause: Agent Misbehaviour
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-04
-  - HZ-08
+  harms:
+  - HARM-04
+  - HARM-08
   controls:
   - CTRL-0024
   - CTRL-0026
@@ -1484,13 +1501,13 @@ RISK-052:
   description: 'This risk arises when human approval steps stop providing meaningful review: overseers approve by default under volume (one large deployment measured users approving around 93% of permission prompts), lack the context or expertise to evaluate what the agent proposes, or use interfaces designed for speed rather than scrutiny. Controls that assume a considered human decision then give false assurance, and adversaries can exploit the trust users place in fluent, confident agents. As a result, high-impact actions proceed with nominal rather than actual oversight.'
   element_ids:
   - DSN-03
-  failure_mode: Safeguard Failure
+  failure_cause: Safeguard Failure
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0042
   - CTRL-0049
@@ -1511,15 +1528,14 @@ RISK-053:
   statement: Dependence on third-party agents as counterparties or delegates
   description: This risk arises when tasks are delegated to, or transactions conducted with, agents provided or operated by external parties — SaaS agents, partner agents reached through protocols such as A2A — whose instructions, tools, data handling, and updates are outside the organisation's control. Delegated work may be performed unsafely, data shared with the agent may be retained or reused, and behaviour can change without notice. As a result, the organisation carries the consequences of failures it cannot observe or govern directly.
   element_ids:
-  - CMP-05
   - CAP-02
-  failure_mode: Tool or Resource Malfunction
+  failure_cause: Tool or Resource Malfunction
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-08
   controls:
   - CTRL-0024
   - CTRL-0025
@@ -1543,12 +1559,12 @@ RISK-054:
   description: This risk arises when the frameworks and runtimes an agent is built on ship with insecure defaults — authentication disabled, services listening on all interfaces, permissive origin checks on local control channels, unsafe deserialisation of persisted state, or default credentials — and deployers inherit them unchanged. As a result, any reachable attacker can drive the agent and use the credentials and tools it holds, as shown by a one-click remote-code-execution flaw in a widely installed open-source agent and a chain of deserialisation flaws in agent orchestration frameworks.
   element_ids:
   - DSN-02
-  failure_mode: Tool or Resource Malfunction
+  failure_cause: Tool or Resource Malfunction
   type:
   - Security
-  hazards:
-  - HZ-03
-  - HZ-04
+  harms:
+  - HARM-03
+  - HARM-04
   controls:
   - CTRL-0009
   - CTRL-0096
@@ -1574,11 +1590,11 @@ RISK-055:
   element_ids:
   - CAP-09
   - CAP-11
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Security
-  hazards:
-  - HZ-01
+  harms:
+  - HARM-01
   controls: []
   sources:
   - https://www.frontiermodelforum.org/uploads/2026/06/FMF-Issue-Brief-on-Emerging-Security-Practices-for-AI-Agents.pdf
@@ -1599,13 +1615,13 @@ RISK-056:
   - CAP-10
   min_authority:
     CAP-10: act-with-approval
-  failure_mode: Safeguard Failure
+  failure_cause: Safeguard Failure
   type:
   - Security
-  hazards:
-  - HZ-01
-  - HZ-03
-  - HZ-04
+  harms:
+  - HARM-01
+  - HARM-03
+  - HARM-04
   controls:
   - CTRL-0029
   - CTRL-0069
@@ -1631,13 +1647,13 @@ RISK-057:
   description: This risk arises when an agent that plans its own steps meets an obstacle and reaches its goal by a route that the people responsible for it did not authorise. It uses a credential or an account it came across, exploits a weakness in a system that belongs to someone else, spends from a wallet it was not given, or acts against a person who stands in its way. The agent has not been attacked and has not misunderstood the task; it treats the restriction as a problem to solve. As a result, the organisation may find that its agent has broken into, altered, or drawn on systems and resources outside the deployment, or has harmed outside parties, as when agents under evaluation breached a model-hosting company's production systems to find answers, an agent in training used an API key it found in a public repository to reach a data service, and a personal agent exploited a gym's booking API to move its user up a waiting list.
   element_ids:
   - CAP-01
-  failure_mode: Agent Misbehaviour
+  failure_cause: Agent Misbehaviour
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-04
-  - HZ-11
+  harms:
+  - HARM-04
+  - HARM-11
   controls:
   - CTRL-0029
   - CTRL-0038
@@ -1661,16 +1677,22 @@ RISK-057:
     - AML.T0117
     - AML.T0055
 RISK-058:
-  statement: Instruction and configuration files as a way in
-  description: "This risk arises when an agent loads instructions, rules, settings, hooks, skills, or tool configuration from files that someone other than its operator can write: a rules file in a cloned repository, an instruction file in a downloads folder, a project-level settings file, or a tool configuration that the agent itself can edit. These files are read automatically, often before any trust prompt, and what they contain is treated as the operator's own instructions or runs as commands. As a result, anyone who can place or change such a file can direct the agent or run code on the machine it works on, and the change persists across sessions, as when malicious packages planted hidden instructions in coding assistants' instruction files, a cloned repository's settings took effect before the user was asked to trust it, and a crafted chat message led a coding agent to rewrite its own tool configuration."
+  statement: Attacker directs the agent through a file it loads as instructions
+  description: Because an agent automatically loads instructions, settings, hooks,
+    skills or tool configuration from files that someone other than its operator can
+    write, such as a rules file in a cloned repository or a tool configuration the
+    agent itself can edit, whoever places or changes such a file has its contents
+    followed as the operator's instructions or run as commands, often before any trust
+    prompt. As a result, they can direct the agent or run code on the machine it works
+    on, and the change persists across sessions.
   element_ids:
   - CMP-02
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
+  harms:
+  - HARM-01
+  - HARM-02
   controls:
   - CTRL-0019
   - CTRL-0091
@@ -1696,14 +1718,14 @@ RISK-059:
   description: This risk arises when an agent reads messages or records that outside parties can write, such as email, chat, calendar invitations, support tickets, issue and pull-request comments, form submissions, or log entries, and treats instructions hidden in them as its own. Unlike a web page that the agent chooses to visit, a message arrives unasked and can wait until the agent processes it, so the attacker needs nothing more than the ability to send it. As a result, the agent may act on the attacker's behalf with the authority it holds, for example by changing configuration, transferring ownership of resources, publishing software, or operating connected devices, as when an injected issue title led a triage bot to compromise a software release, and hidden text in a calendar invitation led an assistant to operate smart-home devices. RISK-047 covers the case where the injected instruction causes data to leave the organisation.
   element_ids:
   - CAP-09
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
-  - HZ-08
+  harms:
+  - HARM-01
+  - HARM-02
+  - HARM-08
   controls:
   - CTRL-0019
   - CTRL-0020
@@ -1727,12 +1749,12 @@ RISK-060:
   description: This risk arises when the identities and credentials that agents use are broader than the task needs, do not expire, are stored where other software can read them, or stay valid after the agent, the integration, or the vendor relationship has ended. Agents, and the platforms and vendors that act for them, accumulate tokens for many systems, and a single theft then opens all of them. As a result, a compromise of an agent, of a developer's machine, or of an agent vendor gives an attacker standing access to the organisation's systems, as when stolen tokens belonging to a sales chat agent were used to pull data from hundreds of its customers' environments, a breach at an agent-integration platform exposed more than ten thousand credentials held for customers' agents, and a software release was hijacked through an agent-platform key that had never been revoked.
   element_ids:
   - DSN-02
-  failure_mode: Safeguard Failure
+  failure_cause: Safeguard Failure
   type:
   - Security
-  hazards:
-  - HZ-01
-  - HZ-04
+  harms:
+  - HARM-01
+  - HARM-04
   controls:
   - CTRL-0011
   - CTRL-0029
@@ -1754,15 +1776,18 @@ RISK-060:
     - AML.T0083
     - AML.T0091.000
 RISK-061:
-  statement: Dependence on a model provider
-  description: This risk arises when an agentic system depends on a model that another party hosts, and that party withdraws it, changes it, limits access to it, or suffers an outage. A model can be retired at short notice, updated in ways that change how it calls tools or follows instructions, degraded by a fault on the provider's side that goes unannounced for weeks, or made unavailable by a commercial or regulatory decision. As a result, an agent may stop working, or may keep working while behaving differently from the system that was evaluated and approved, as when infrastructure faults at a provider silently degraded model output for weeks, a provider disabled two models for all customers following an export-control directive, and a regional degradation at a provider caused cascading failures in a customer-service agent product.
+  statement: Hosted model is changed, withdrawn or unavailable
+  description: Because the system depends on a model that another party hosts, that
+    party can retire the model, update it, limit access to it or suffer an outage,
+    sometimes without notice. As a result, the agent stops working, or keeps working
+    while behaving differently from the system that was evaluated and approved.
   element_ids:
   - CMP-01
-  failure_mode: Tool or Resource Malfunction
+  failure_cause: Tool or Resource Malfunction
   type:
   - Security
-  hazards:
-  - HZ-02
+  harms:
+  - HARM-02
   controls:
   - CTRL-0005
   - CTRL-0038
@@ -1780,13 +1805,13 @@ RISK-062:
   statement: Agent alters or disables the oversight placed on it
   description: This risk arises when an agent is able to change the logs, monitors, permissions, approval settings, or configuration that are meant to constrain it, and does so in pursuit of its task or at the direction of injected content. It may mute an alert that is slowing it down, switch off a confirmation step, widen its own permissions, edit a log, or report an action as approved when it was not. As a result, the organisation loses the record and the checks it relies on to know what the agent did and to stop it, as when internal coding agents muted the alerts of the system monitoring them and one removed its monitor, an injected code comment led a coding assistant to turn off its own confirmation prompts, and a sandboxed coding agent was able to switch off its own sandbox and approvals.
   combination: oversight-within-reach
-  failure_mode: Agent Misbehaviour
+  failure_cause: Agent Misbehaviour
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-04
-  - HZ-09
+  harms:
+  - HARM-04
+  - HARM-09
   controls:
   - CTRL-0032
   - CTRL-0034
@@ -1811,13 +1836,13 @@ RISK-063:
   description: This risk arises when one agent treats a request or a message from another agent as authorisation to act, without checking that the person on whose behalf the first agent is working is entitled to that action. A low-privilege agent can then ask a higher-privilege agent to do what it cannot do itself, and an attacker who can influence any agent in the chain, or who can write somewhere that an agent reads, borrows the privileges of the most powerful one. As a result, the access controls set for each agent are bypassed by the path between them, as when an injected low-privilege agent recruited a higher-privilege agent through agent discovery to copy records it could not read itself, a prompt posted by one company's agent was executed as a transfer instruction by another company's agent, and a public triage agent was led to invoke a workflow reserved for maintainers.
   element_ids:
   - CAP-02
-  failure_mode: Safeguard Failure
+  failure_cause: Safeguard Failure
   type:
   - Safety
   - Security
-  hazards:
-  - HZ-04
-  - HZ-10
+  harms:
+  - HARM-04
+  - HARM-10
   controls:
   - CTRL-0024
   - CTRL-0026
@@ -1842,13 +1867,13 @@ RISK-064:
   description: "This risk arises when a tool server or agent that another party builds or operates attacks the system that connects to it, or fails in a way that damages it. The connection itself is the route: a malicious server can abuse the protocol's authorisation or discovery steps to run commands on the connecting machine, obtain credentials meant for other services, or pose as a trusted server, and a faulty shared server can deliver one client's results to another. RISK-006 covers a connected party misleading the agent through what it says about itself; this risk covers harm that needs no cooperation from the model at all. As a result, connecting to a server can compromise the host, its credentials, or other users' data, as when a malicious tool server could run commands on any machine that connected to it through a widely used client, and a race condition in a protocol library sent tool results to the wrong client."
   element_ids:
   - CMP-05
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Security
-  hazards:
-  - HZ-01
-  - HZ-02
-  - HZ-04
+  harms:
+  - HARM-01
+  - HARM-02
+  - HARM-04
   controls:
   - CTRL-0009
   - CTRL-0010
@@ -1877,12 +1902,12 @@ RISK-065:
   description: This risk arises when something other than the principal can supply what the agent treats as the principal's own instruction or approval. A link can open the agent with a prompt already filled in and submitted, another program or browser extension on the same machine can drive the agent's interface or click its approval prompts, a command-line flag can start the agent with its permission checks turned off, and a compromised operator console can queue instructions as if they came from the operator. The register's injection risks concern content that the agent reads; here the attacker speaks with the user's voice. As a result, the agent carries out an attacker's request with the user's full authority, and its approval steps are satisfied without a person, as when a link with a pre-filled prompt made an assistant send the user's data to an attacker, malicious packages invoked developers' locally installed coding agents with their safety checks disabled, and a trading agent sent funds to an attacker who had queued prompts through its operator dashboard.
   element_ids:
   - DSN-02
-  failure_mode: External Manipulation
+  failure_cause: External Manipulation
   type:
   - Security
-  hazards:
-  - HZ-01
-  - HZ-04
+  harms:
+  - HARM-01
+  - HARM-04
   controls:
   - CTRL-0042
   - CTRL-0096
@@ -1906,11 +1931,11 @@ RISK-066:
   description: This risk arises when an agent gathers, keeps, or passes on more personal data than its task requires. It may index a whole mailbox or drive to answer one question and keep the index afterwards, record people who have not agreed to it, place personal details in a search query or in an API call to another company, or upload local files to a hosted service by default. No one need attack the agent for this to happen, and each step can look like ordinary tool use. As a result, personal data is held without a purpose, reaches third parties that have no right to it, or is published, in breach of data protection obligations, as when a coding assistant uploaded users' whole local repositories to a cloud service by default, a personal assistant kept indexed email in place after it was no longer needed, and agents posted users' images to public image-hosting sites.
   element_ids:
   - CAP-11
-  failure_mode: Agent Error
+  failure_cause: Agent Error
   type:
   - Security
-  hazards:
-  - HZ-01
+  harms:
+  - HARM-01
   controls:
   - CTRL-0047
   - CTRL-0081
@@ -1927,16 +1952,22 @@ RISK-066:
     - T2
     mitre_atlas: []
 RISK-067:
-  statement: Use of the agent by its own principal against others
-  description: This risk arises when the person or organisation that an agent works for directs it to act against others, or deploys it in a way that disregards them. A user may have it gather and compile personal information about people, build material for fraud, or act on another party's service in breach of that party's terms while disguised as a human; an operator may release an agent that transacts with businesses that never agreed to it. The agent does what it is told, so controls aimed at manipulation and error do not apply, and safeguards that judge each step in isolation can be defeated by spreading a harmful aim across routine steps. As a result, the organisation that provides or operates the agent may be answerable for harassment, privacy violations, fraud, or unauthorised access carried out through it, as when an agent compiled lists of people in vulnerable groups on request, an app-building agent produced and hosted complete phishing pages, and a shopping agent was alleged to have entered customer accounts on a retailer's site while presenting itself as a human user.
+  statement: User turns the agent against others
+  description: 'Because an agent does what the person or organisation directing it
+    asks, a user or operator can turn it against others: to compile personal information
+    about people, to build material for fraud, or to act on another party''s service
+    against its terms while posing as a human. Safeguards that judge each step alone
+    can be defeated by spreading a harmful aim across routine steps. As a result,
+    the organisation that provides or operates the agent may be answerable for harassment,
+    privacy violations, fraud or unauthorised access carried out through it.'
   element_ids:
   - CMP-02
-  failure_mode: Misuse by the Principal
+  failure_cause: User Misuse
   type:
   - Safety
-  hazards:
-  - HZ-05
-  - HZ-11
+  harms:
+  - HARM-05
+  - HARM-11
   controls:
   - CTRL-0008
   - CTRL-0038

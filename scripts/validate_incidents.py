@@ -28,7 +28,7 @@ INCIDENTS_DIR = ROOT / 'incidents'
 REGISTER_DIR = ROOT / 'arc-risk-register'
 
 KINDS = {'harm', 'vulnerability', 'research'}
-CAUSES = {'attack', 'agent-error', 'agent-goal-seeking', 'principal-misuse', 'platform-fault'}
+CAUSES = {'attack', 'agent-error', 'agent-goal-seeking', 'user-misuse', 'platform-fault'}
 EVIDENCE = {'primary', 'press'}
 STATUSES = {'triaged', 'verified'}
 REASONS = {'not-agentic', 'offensive-use', 'no-event', 'generic-infrastructure', 'insufficient-evidence',

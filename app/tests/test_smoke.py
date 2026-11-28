@@ -54,7 +54,7 @@ def test_loader_helpers():
 
     from utils.llm_utils import format_risks_for_prompt
     text = format_risks_for_prompt(["RISK-034"], risks, caps, comps, design)
-    assert risks["RISK-034"]["statement"] in text and "Failure mode:" in text
+    assert risks["RISK-034"]["statement"] in text and "Failure cause:" in text
 
 
 def _fake_capability_analysis(app_info, capabilities):

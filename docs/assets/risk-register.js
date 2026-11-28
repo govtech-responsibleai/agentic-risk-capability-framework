@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Populate filter options
     const elementFilter = document.getElementById('element-filter');
-    const failureFilter = document.getElementById('failure-filter');
+    const failureFilter = document.getElementById('cause-filter');
 
     // Populate element categories
     const categories = [...new Set(data.risks.flatMap(r => r.element_categories))].sort();
@@ -31,18 +31,18 @@ document.addEventListener('DOMContentLoaded', async function() {
         elementFilter.appendChild(option);
     });
 
-    // Populate hazards (from register metadata, so the list matches hazards.yaml)
-    const hazardFilter = document.getElementById('hazard-filter');
-    (data.metadata.hazards || []).forEach(hz => {
+    // Populate harms (from register metadata, so the list matches harms.yaml)
+    const harmFilter = document.getElementById('harm-filter');
+    (data.metadata.harms || []).forEach(h => {
         const option = document.createElement('option');
-        option.value = hz.id;
-        option.textContent = `${hz.name} (${hz.type})`;
-        hazardFilter.appendChild(option);
+        option.value = h.id;
+        option.textContent = `${h.name} (${h.type})`;
+        harmFilter.appendChild(option);
     });
 
-    // Populate failure modes
-    const failureModes = [...new Set(data.risks.map(r => r.failure_mode))].sort();
-    failureModes.forEach(mode => {
+    // Populate failure causes
+    const failureCauses = [...new Set(data.risks.map(r => r.failure_cause))].sort();
+    failureCauses.forEach(mode => {
         const option = document.createElement('option');
         option.value = mode;
         option.textContent = mode;
@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         return `<span class="control-count-badge" style="background: #6b21a8; box-shadow: 0 2px 4px rgba(107, 33, 168, 0.3);">${count} controls</span>`;
     }
 
-    // Custom formatter for failure mode
-    function failureModeFormatter(cell) {
+    // Custom formatter for failure cause
+    function failureCauseFormatter(cell) {
         let mode = cell.getValue();
         // Shorten "Tool or Resource Malfunction" to "Tool Malfunction"
         if (mode === "Tool or Resource Malfunction") {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (mode === "External Manipulation") {
             mode = "Ext. Manipulation";
         }
-        return `<span class="failure-mode-badge">${mode}</span>`;
+        return `<span class="failure-cause-badge">${mode}</span>`;
     }
 
     // Crosswalk badges: {framework: [{id, title}]} -> inline badges with the external framework's title on hover
@@ -124,16 +124,29 @@ document.addEventListener('DOMContentLoaded', async function() {
         descriptionDiv.innerHTML = `<strong>Description:</strong> ${data.description} <a href="../register-full-text/#${data.id}" style="font-size: 0.85em;" title="Link to this risk in the full-text register">(link)</a>`;
         holderEl.appendChild(descriptionDiv);
 
-        // Hazards: the resulting impact of the risk
-        if (data.hazards && data.hazards.length > 0) {
-            const hazardsDiv = document.createElement("div");
-            hazardsDiv.style.marginBottom = "15px";
-            hazardsDiv.style.fontSize = "0.9em";
-            const hazardBadges = data.hazards.map(hz =>
-                `<span class="risk-type-badge risk-type-${hz.type.toLowerCase()}" title="${hz.type} hazard">${hz.name}</span>`
+        // Related risks: how this risk differs from its neighbours. Each sentence names the other risk.
+        const related = Object.values(data.related || {});
+        if (related.length > 0) {
+            const relatedDiv = document.createElement("div");
+            relatedDiv.style.marginBottom = "15px";
+            relatedDiv.style.fontSize = "0.9em";
+            const items = related.map(sentence => '<li>' + sentence.replace(
+                /\b((?:[A-Z][A-Z0-9]{1,7}-)?RISK-\d{3})\b/g,
+                '<a href="../register-full-text/#$1" title="Open this risk in the full-text register">$1</a>') + '</li>').join('');
+            relatedDiv.innerHTML = `<strong>Related risks:</strong><ul style="margin: 4px 0 0 0;">${items}</ul>`;
+            holderEl.appendChild(relatedDiv);
+        }
+
+        // Harms: the resulting impact of the risk
+        if (data.harms && data.harms.length > 0) {
+            const harmsDiv = document.createElement("div");
+            harmsDiv.style.marginBottom = "15px";
+            harmsDiv.style.fontSize = "0.9em";
+            const harmBadges = data.harms.map(h =>
+                `<span class="risk-type-badge risk-type-${h.type.toLowerCase()}" title="${h.type} harm">${h.name}</span>`
             ).join(' ');
-            hazardsDiv.innerHTML = `<strong>Hazards:</strong> ${hazardBadges}`;
-            holderEl.appendChild(hazardsDiv);
+            harmsDiv.innerHTML = `<strong>Harms:</strong> ${harmBadges}`;
+            holderEl.appendChild(harmsDiv);
         }
 
         // References (if available)
@@ -332,11 +345,11 @@ document.addEventListener('DOMContentLoaded', async function() {
                 vertAlign: "middle"
             },
             {
-                title: "Failure Mode",
-                field: "failure_mode",
+                title: "Failure Cause",
+                field: "failure_cause",
                 minWidth: 140,
                 widthGrow: 1.5,
-                formatter: failureModeFormatter,
+                formatter: failureCauseFormatter,
                 responsive: 2,
                 headerFilter: false,
                 vertAlign: "middle"
@@ -408,9 +421,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Filter functions
     function applyFilters() {
         const elementCategory = document.getElementById('element-filter').value;
-        const failureMode = document.getElementById('failure-filter').value;
+        const failureCause = document.getElementById('cause-filter').value;
         const riskType = document.getElementById('type-filter').value;
-        const hazard = document.getElementById('hazard-filter').value;
+        const harm = document.getElementById('harm-filter').value;
         const searchTerm = document.getElementById('search-filter').value.toLowerCase().trim();
 
         // Use a single custom filter function for all filters
@@ -420,8 +433,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 return false;
             }
             
-            // Failure mode filter
-            if (failureMode && data.failure_mode !== failureMode) {
+            // Failure cause filter
+            if (failureCause && data.failure_cause !== failureCause) {
                 return false;
             }
             
@@ -430,8 +443,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 return false;
             }
 
-            // Hazard filter
-            if (hazard && !(data.hazards || []).some(hz => hz.id === hazard)) {
+            // Harm filter
+            if (harm && !(data.harms || []).some(h => h.id === harm)) {
                 return false;
             }
             
@@ -456,17 +469,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Add filter event listeners
     document.getElementById('element-filter').addEventListener('change', applyFilters);
-    document.getElementById('failure-filter').addEventListener('change', applyFilters);
+    document.getElementById('cause-filter').addEventListener('change', applyFilters);
     document.getElementById('type-filter').addEventListener('change', applyFilters);
-    document.getElementById('hazard-filter').addEventListener('change', applyFilters);
+    document.getElementById('harm-filter').addEventListener('change', applyFilters);
     document.getElementById('search-filter').addEventListener('input', applyFilters);
 
     // Clear filters
     document.getElementById('clear-filters').addEventListener('click', function() {
         document.getElementById('element-filter').value = '';
-        document.getElementById('failure-filter').value = '';
+        document.getElementById('cause-filter').value = '';
         document.getElementById('type-filter').value = '';
-        document.getElementById('hazard-filter').value = '';
+        document.getElementById('harm-filter').value = '';
         document.getElementById('search-filter').value = '';
         table.clearFilter();
         setTimeout(updateStats, 50);

@@ -10,7 +10,7 @@ The register version lives in `arc-risk-register/register.yaml` and follows `MAJ
 
 | Change | Bump | Examples |
 | --- | --- | --- |
-| The model changes — elements, failure modes, hazard categories, or what the control levels mean | **MAJOR** | adding a failure mode; redefining Level 0 |
+| The model changes — elements, failure causes, harm categories, or what the control levels mean | **MAJOR** | adding a failure cause; redefining Level 0 |
 | Entries are added, retired, merged, re-tiered, or re-mapped | **MINOR** | new risks; a control moved between levels; a control attached to a different risk |
 | Wording, references, or crosswalks change without altering meaning | **PATCH** | clarifying a recommendation; adding a source |
 
@@ -27,34 +27,34 @@ Version 2.0 changes the model, so an assessment or a contextualised register wri
 
 **Migrating an assessment from 1.x**
 
-1. Record whether the system has each conditional component: Memory (it keeps information beyond a session) and Protocols (it connects to another party's tool servers or agents). Their risks apply only if it does.
+1. Record whether the system has each conditional component: Memory (it keeps information beyond a session) and Protocols (it connects to another party's tool servers or agents). Their risks apply only if it does. If you do not say, both are assumed present.
 2. Record how each capability is used: its authority, and whether its effects are irreversible or external. This step is optional. If you skip it, the most cautious case is assumed and nothing drops out.
 3. Check the capabilities that the declared ones bring with them, then run the two combination rules.
 4. Replace retired entries: RISK-055 with RISK-047, CTRL-0006 with CTRL-0042, and CTRL-0014 with CTRL-0091.
 5. Assess the twelve new risks, RISK-056 to RISK-067, that apply.
-6. Use the new failure-mode names if your records quote them: "Agent Failure" is now Agent Error, Agent Misbehaviour or Safeguard Failure.
+6. Use the new terms and IDs if your records quote them: a failure mode is now a *failure cause*, a hazard is now a *harm*, and HZ-01 to HZ-11 are now HARM-01 to HARM-11. "Agent Failure" is now Agent Error, Agent Misbehaviour or Safeguard Failure.
 
 **Migrating a contextualised register from 1.x**
 
-Rewrite it as an [overlay](../implementation/for-governance-teams.md#keeping-your-version-as-an-overlay) on 2.0.0: one file holding only your changes. Entries of your own take a namespaced ID. A register that still uses the single `element_id` field from before 1.3 can be read by the assessment skill, but not by the validator.
+Rewrite it as an [overlay](../implementation/for-governance-teams.md#keeping-your-version-as-an-overlay) on 2.0.0: one file holding only your changes. Entries of your own take a namespaced ID. In those entries, rename the field `failure_mode` to `failure_cause` and `hazards` to `harms`, and change the IDs HZ-01 to HZ-11 to HARM-01 to HARM-11. A register that still uses the single `element_id` field from before 1.3 can be read by the assessment skill, but not by the validator.
 
 **What changed**
 
-- **Protocols is a component.** CMP-05 covers the standard interfaces, such as MCP and A2A, through which a system connects to tools, services and agents that another party builds or operates, in either direction. This follows the Cyber Security Agency of Singapore's addendum and IMDA's framework, which both list protocols as a component, with a narrower definition: a function or API wrapper that the system's own team writes is a tool, not a protocol connection. RISK-006 (tool poisoning) now arises from Protocols, and its description covers hidden instructions in tool descriptions and agent cards, shadowing, and definitions that change after approval. RISK-053 (third-party agents) now requires both Protocols and Agent Delegation.
-- **Conditional components.** A component can state when a system has it (`present_when`). Memory is present when the system keeps information beyond a single session or shares it across users or tasks; Protocols when another party's tool server or agent is connected through an agent protocol. The risks of a conditional component apply only to systems that have it. This replaces the 1.3.0 practice of listing those risks for every system and waiving their Level 0 controls one by one. A system without persistent memory or outside connections now has 17 baseline risks, down from 20.
+- **Protocols is a component.** CMP-05 covers the standard interfaces, such as MCP and A2A, through which a system connects to tools, services and agents that another party builds or operates, in either direction. This follows the Cyber Security Agency of Singapore's addendum and IMDA's framework, which both list protocols as a component, with a narrower definition: a function or API wrapper that the system's own team writes is a tool, not a protocol connection. RISK-006 (tool poisoning) now arises from Protocols, and its description covers hidden instructions in tool descriptions and agent cards, shadowing, and definitions that change after approval. Another team in the same organisation counts as another party.
+- **Conditional components.** A component can state when a system has it (`present_when`). Memory is present when the system keeps information beyond a single session or shares it across users or tasks; Protocols when another party's tool server or agent is connected through an agent protocol. The risks of a conditional component apply only to systems that have it. This replaces the 1.3.0 practice of listing those risks for every system and waiving their Level 0 controls one by one. Three risks leave the baseline this way: the two Memory risks and tool poisoning. When an assessment does not say whether a system has a conditional component, it is assumed to have it.
 - **Twelve new risks, written from the incident file.** A [curated list of 366 cases](https://github.com/govtech-responsibleai/agentic-risk-capability-framework/tree/main/incidents) was mapped to the register, and each gap that had three or more cases, at least one of them harm, from more than one source, became a risk:
     - RISK-056 Actions beyond the agent's tools through code execution and reachable credentials (Code Execution)
     - RISK-057 Pursuit of a goal by means the principal did not sanction (Planning and Goal Management)
-    - RISK-058 Instruction and configuration files as a way in (Instructions)
+    - RISK-058 Attacker directs the agent through a file it loads as instructions (Instructions)
     - RISK-059 Prompt injection through inbound messages (Other Programmatic Interfaces)
     - RISK-060 Agent credentials that are over-broad, long-lived, or outlive their use (Roles and Access Controls)
-    - RISK-061 Dependence on a model provider (LLM)
+    - RISK-061 Hosted model is changed, withdrawn or unavailable (LLM)
     - RISK-062 Agent alters or disables the oversight placed on it (the new rule "oversight within reach")
     - RISK-063 Authority passing between agents without a check (Agent Delegation)
     - RISK-064 Harm from a connected tool server or agent to the system that connects to it (Protocols)
     - RISK-065 Instructions or approvals forged in the principal's name (Roles and Access Controls)
     - RISK-066 Personal data collected, kept, or passed on beyond what the task needs (File and Data Management)
-    - RISK-067 Use of the agent by its own principal against others (Instructions; the first risk under Misuse by the Principal)
+    - RISK-067 User turns the agent against others (Instructions; the first risk under User Misuse)
 - **Ten new controls.** Three are Level 0: CTRL-0098 (keep credentials and backups out of reach of agent-run code), CTRL-0100 (load instruction and configuration files only from locations the operator controls) and CTRL-0101 (no write access for agents to their own instructions, configuration, permissions, logs or monitors). Seven are Level 1: CTRL-0099, CTRL-0102, CTRL-0103, CTRL-0104, CTRL-0105, CTRL-0106 and CTRL-0107.
 - **A second combination rule.** "Oversight within reach" is present when a capability lets the agent change what governs it. It brings RISK-062 into scope and requires CTRL-0101.
 - **MCP-specific controls apply only with Protocols.** CTRL-0010, CTRL-0012, CTRL-0013 and CTRL-0031 now mitigate RISK-064, which arises from the Protocols component, and are removed from RISK-004, RISK-005, RISK-048 and RISK-015. A system with no outside tool servers or agents no longer carries them.
@@ -72,9 +72,12 @@ Rewrite it as an [overlay](../implementation/for-governance-teams.md#keeping-you
 - **Official Communication and Business Transactions no longer assume autonomy.** Their definitions drop "autonomously", "without prior human review or approval" and "within predefined authorisation limits". A system that drafts official messages for a person to send now has CAP-05, at the authority *propose*.
 - **Risks can need a minimum authority** (`min_authority`). RISK-032 (unauthorised transactions), RISK-041 (unintended overwriting or deletion), RISK-045 (misconfiguration of system resources) and RISK-049 (sandbox escape) apply only when the agent itself carries out the action, that is, at *act with approval* or above.
 - **Control levels can depend on context** (`level_when`). CTRL-0042 (human confirmation before high-impact or irreversible tool actions) is Level 0 when a capability acts alone with irreversible and external effects. CTRL-0043 (log all tool invocations) is Level 0 when a capability acts alone. Both remain Level 1 otherwise.
-- **Six failure modes.** "Agent Failure", which held 37 of 55 risks, is split into *Agent Error* (the agent makes a mistake; 26 risks) and *Agent Misbehaviour* (the agent pursues an objective by means its principal did not sanction; RISK-002, 022, 049, 050 and 051). *Safeguard Failure* is new and holds the risks that describe a missing or weak safeguard, not a trigger: RISK-015, 016, 017, 018 and 052. *Misuse by the Principal* is new and covers harm that the agent's own user or operator directs. RISK-011 (leakage across memory contexts) moves to Tool or Resource Malfunction. External Manipulation is unchanged.
-- **Two new hazards.** HZ-10 Financial or contractual loss, on RISK-031, RISK-032 and RISK-033, and HZ-11 Harm to third parties, on RISK-049. RISK-032 and RISK-033 become Safety and Security risks as a result.
+- **Related risks.** A risk can say how it differs from a neighbouring risk in a new optional field, `related`, which maps the other risk's ID to a short comparison. The comparison is entered on both risks, the validator checks that it is, and the register shows it under "Related risks". Descriptions no longer compare one risk with another. RISK-048 (supply chain) and RISK-006 (a connected tool's description) are the first pair.
+- **Two terms renamed, to match safety engineering.** A *failure mode* is now a **failure cause**, and a *hazard* is now a **harm**. In safety engineering, a hazard is a potential source of harm, which comes before the event, and a failure mode is one specific way of failing, which is the level of a single risk in this register. ARC had used both words differently. In the YAML, `failure_mode` becomes `failure_cause`, `hazards` becomes `harms`, and `hazards.yaml` becomes `harms.yaml`. The IDs HZ-01 to HZ-11 become HARM-01 to HARM-11, with the same numbers. The assessment skill still reads registers that use the old names. The [Risks page](risks.md) sets ARC's terms beside those of safety engineering.
+- **Six failure causes.** "Agent Failure", which held 37 of 55 risks, is split into *Agent Error* (the agent makes a mistake; 26 risks) and *Agent Misbehaviour* (the agent pursues an objective by means its principal did not sanction; RISK-002, 022, 049, 050 and 051). *Safeguard Failure* is new and holds the risks that describe a missing or weak safeguard, not a trigger: RISK-015, 016, 017, 018 and 052. *User Misuse* is new and covers harm that a person with the right to direct the agent uses it to do. RISK-011 (leakage across memory contexts) moves to Tool or Resource Malfunction. External Manipulation is unchanged.
+- **Two new harms.** HARM-10 Financial or contractual loss, on RISK-031, RISK-032 and RISK-033, and HARM-11 Harm to third parties, on RISK-049. RISK-032 and RISK-033 become Safety and Security risks as a result.
 - **No thirteenth capability.** Agent-to-agent interaction is not added as a capability. Agent Delegation (CAP-02) remains the capability, and Protocols covers the channel to other parties' agents, including requests they send in.
+- Register: 55 → 66 risks and 95 → 103 controls, not counting one retired risk and two retired controls; Level 0 controls 44 → 46; elements 19 → 20. A system with neither conditional component has 22 baseline risks, against 20 in 1.3.0; a system with both has 26.
 
 ## 1.3.0 — November 2026 { #v1-3-0 }
 

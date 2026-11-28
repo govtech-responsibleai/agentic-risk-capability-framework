@@ -33,7 +33,7 @@ import arc  # noqa: E402  (the overlay logic lives with the skill, which must st
 import validate_risk_register  # noqa: E402
 
 WRITTEN = ('register', 'risks', 'controls', 'capabilities', 'combinations')   # files an overlay can change
-COPIED = ('components', 'design', 'hazards', 'crosswalk_references')          # files it cannot
+COPIED = ('components', 'design', 'harms', 'crosswalk_references')          # files it cannot
 
 
 def main():
@@ -49,7 +49,7 @@ def main():
     for name in arc.REGISTER_FILES + arc.OPTIONAL_FILES:
         path = args.base / f'{name}.yaml'
         base[name] = yaml.safe_load(path.read_text()) if path.exists() else None
-    base['hazards'] = base['hazards'] or {}
+    base['harms'] = base['harms'] or {}
     wanted, have = str(overlay['overlay']['base']), str(base['register'].get('version'))
     if wanted != have:
         print(f'  warning: the overlay was written against register {wanted}; the base here is {have}')

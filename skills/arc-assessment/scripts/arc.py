@@ -13,7 +13,8 @@ Commands:
   elements                       components, design elements and capabilities, with definitions
   assess --capabilities IDS      applicable risks and their controls for a system, and a check for
          [--components IDS]      capability combinations such as the lethal trifecta; --components names
-                                 the conditional components the system has (e.g. CMP-04 for persistent memory)
+                                 the conditional components the system has (e.g. CMP-04 for persistent memory),
+                                 or `none`. If omitted, the system is assumed to have them all
          [--priority IDS|all]    ...and the controls in scope once priority risks are known
          [--profile FILE]        ...for a system described in a YAML file (capabilities with their
                                  authority, whether their effects are irreversible or external, and
@@ -62,7 +63,8 @@ except ImportError:
 
 REPO_RAW = "https://raw.githubusercontent.com/govtech-responsibleai/agentic-risk-capability-framework"
 SITE = "https://govtech-responsibleai.github.io/agentic-risk-capability-framework/"
-REGISTER_FILES = ("register", "risks", "controls", "capabilities", "components", "design", "hazards")
+REGISTER_FILES = ("register", "risks", "controls", "capabilities", "components", "design", "harms")
+OLD_FILE_NAMES = {"harms": "hazards"}  # registers before 2.0 call the file hazards.yaml
 OPTIONAL_FILES = ("combinations",)  # older registers and organisation registers may lack them
 TEMPLATE_PATH = "docs/implementation/assessment-template.md"
 LEVELS = {0: "Level 0 · Cardinal", 1: "Level 1 · Standard", 2: "Level 2 · Best Practice"}
@@ -396,19 +398,24 @@ def load_base_register(args):
     if args.register:
         src = args.register
         for name in REGISTER_FILES:
-            if src.startswith(("http://", "https://")):
-                try:
-                    data[name] = load_yaml_text(http_get(f"{src.rstrip('/')}/{name}.yaml"), f"{name}.yaml")
-                except urllib.error.HTTPError:
-                    data[name] = None
-            else:
-                p = Path(src) / f"{name}.yaml"
-                data[name] = load_yaml_text(p.read_text(), str(p)) if p.exists() else None
-        missing = [n for n in REGISTER_FILES if data[n] is None and n not in ("hazards", "register")]
+            data[name] = None
+            for file_name in filter(None, (name, OLD_FILE_NAMES.get(name))):
+                if data[name] is not None:
+                    break
+                if src.startswith(("http://", "https://")):
+                    try:
+                        data[name] = load_yaml_text(http_get(f"{src.rstrip('/')}/{file_name}.yaml"), f"{file_name}.yaml")
+                    except urllib.error.HTTPError:
+                        pass
+                else:
+                    p = Path(src) / f"{file_name}.yaml"
+                    if p.exists():
+                        data[name] = load_yaml_text(p.read_text(), str(p))
+        missing = [n for n in REGISTER_FILES if data[n] is None and n not in ("harms", "register")]
         if missing:
             raise ArcError(f"{src} is missing {', '.join(f'{m}.yaml' for m in missing)}; an organisation's "
                            "register must use the same file layout as arc-risk-register/.")
-        data["hazards"] = data["hazards"] or {}
+        data["harms"] = data["harms"] or {}
         data["register"] = data["register"] or {"version": "unversioned", "released": ""}
         for name in OPTIONAL_FILES:
             data[name] = None
@@ -427,6 +434,14 @@ def load_base_register(args):
         try:
             data[name] = load_yaml_text(cached_get(url, ref, f"{name}.yaml", args.refresh), f"{name}.yaml")
         except urllib.error.HTTPError as e:
+            if e.code == 404 and name in OLD_FILE_NAMES:   # a release before 2.0
+                old = OLD_FILE_NAMES[name]
+                try:
+                    data[name] = load_yaml_text(cached_get(f"{REPO_RAW}/{ref}/arc-risk-register/{old}.yaml", ref,
+                                                           f"{old}.yaml", args.refresh), f"{old}.yaml")
+                    continue
+                except urllib.error.HTTPError as e2:
+                    e = e2
             if e.code == 404:
                 raise ArcError(f"release {ref} not found in the ARC repository"
                                + ("; check --version" if args.version else "; pass --version to choose one"))
@@ -514,6 +529,11 @@ def apply_overlay(reg, overlay):
         if gone:
             del reg["risks"][rid]
             notes.append(f"{rid} is left out because the overlay removes {', '.join(gone)}")
+    for r in reg["risks"].values():   # a comparison with a risk that is no longer in the register goes with it
+        if r.get("related"):
+            r["related"] = {k: v for k, v in r["related"].items() if k in reg["risks"]}
+            if not r["related"]:
+                del r["related"]
     combinations = reg.get("combinations") or {}
     for role in (combinations.get("roles") or {}).values():
         for cap in removed["capabilities"]:
@@ -691,7 +711,7 @@ def applicable_risks(reg, present, profile=None):
 
 def risk_record(reg, rid, elements, detail=False, profile=None):
     r = reg["risks"][rid]
-    hazards = reg["hazards"] or {}
+    harms = reg["harms"] or {}
     controls = []
     for cid in r.get("controls", []) or []:
         c = reg["controls"].get(cid)
@@ -713,9 +733,13 @@ def risk_record(reg, rid, elements, detail=False, profile=None):
                      if r.get("combination") else
                      [f"{elements[e]['kind']}: {elements[e]['name']} ({e})" if e in elements else e
                       for e in risk_elements(r)]),
-        "failure_mode": r.get("failure_mode", ""),
+        # registers before 2.0 call these fields failure_mode and hazards
+        "failure_cause": r.get("failure_cause") or r.get("failure_mode", ""),
         "type": r.get("type", []),
-        "hazards": [f"{hazards[h]['name']} ({h})" if h in hazards else h for h in r.get("hazards", []) or []],
+        "harms": [f"{harms[h]['name']} ({h})" if h in harms else h
+                  for h in (r.get("harms") or r.get("hazards") or [])],
+        # how this risk differs from its neighbours: {other risk: a sentence that names it}
+        **({"related": dict(r["related"])} if r.get("related") else {}),
         "controls": controls,
     }
 
@@ -813,7 +837,9 @@ def parse_capabilities(text):
 
 
 def read_profile(path):
-    """A system profile file -> (capabilities, authority, reversible, internal, components)."""
+    """A system profile file -> (capabilities, authority, reversible, internal, components).
+
+    `components` is None when the file does not say which conditional components the system has."""
     data = load_yaml_text(Path(path).read_text(), path) or {}
     entries = data.get("capabilities") or {}
     if isinstance(entries, list):
@@ -823,7 +849,8 @@ def read_profile(path):
     authority = {c: str(v["authority"]).lower() for c, v in entries.items() if v.get("authority")}
     reversible = [c for c, v in entries.items() if v.get("irreversible") is False]
     internal = [c for c, v in entries.items() if v.get("external") is False]
-    return caps, authority, reversible, internal, [str(c).upper() for c in data.get("components") or []]
+    components = [str(c).upper() for c in data.get("components") or []] if "components" in data else None
+    return caps, authority, reversible, internal, components
 
 
 def describe_context(context):
@@ -862,7 +889,7 @@ def cmd_assess(reg, source, args):
     elements = element_index(reg)
     caps, authority = parse_capabilities(args.capabilities)
     reversible, internal = parse_ids(args.reversible), parse_ids(args.internal)
-    profile_components = []
+    profile_components = None
     if args.profile:
         if caps:
             raise ArcError("--profile and --capabilities are alternatives")
@@ -871,10 +898,14 @@ def cmd_assess(reg, source, args):
     if unknown:
         valid = ", ".join(f"{e['id']} {e['name']}" for e in elements.values() if e["kind"] == "Capability")
         raise ArcError(f"unknown capability ID(s): {', '.join(unknown)}. Valid: {valid}")
-    components = parse_ids(getattr(args, "components", "") or "") or profile_components
+    # Conditional components: the flag wins over the profile; "none" or an empty value says the system has none.
+    # When neither says, the system is assumed to have them all, so that nothing drops out unnoticed.
+    flag = getattr(args, "components", None)
+    stated = (parse_ids("" if flag.strip().lower() == "none" else flag) if flag is not None else profile_components)
     profile = build_profile(reg, caps, authority, reversible, internal)
     too_low = {rid: below_authority(r, profile) for rid, r in reg["risks"].items() if below_authority(r, profile)}
     conditional = {e["id"]: e for e in elements.values() if e["present_when"]}
+    components = list(conditional) if stated is None else stated
     stray = [c for c in components if c not in conditional]
     if stray:
         valid = ", ".join(f"{e['id']} {e['name']}" for e in conditional.values()) or "none in this register"
@@ -914,11 +945,13 @@ def cmd_assess(reg, source, args):
     v = reg["register"].get("version")
     if args.format == "json":
         out = {"register_version": v, "source": source, "capabilities": caps, "components": components,
+               "components_stated": stated is not None,
                "context": profile,
                "below_authority": [{"id": rid, "capability": cap, "needs": minimum}
                                    for rid, (cap, minimum) in too_low.items()],
                "conditional_components": [{"id": e["id"], "name": e["name"], "present_when": e["present_when"],
-                                           "present": e["id"] in components} for e in conditional.values()],
+                                           "present": e["id"] in components, "assumed": stated is None}
+                                          for e in conditional.values()],
                "risks": {"baseline": [records[r] for r in baseline], "capability": [records[r] for r in single],
                          "combination": [records[r] for r in combination]},
                "level0_controls": [{"id": k, **val} for k, val in level0.items()],
@@ -941,7 +974,9 @@ def cmd_assess(reg, source, args):
     for rid, (cap, minimum) in too_low.items():
         print(f"**Left out:** {rid} {reg['risks'][rid].get('statement', '')}. It needs {cap} at {minimum} or above.\n")
     for e in conditional.values():
-        state = "present" if e["id"] in components else "not present (its risks are left out; pass --components to include them)"
+        state = ("assumed present, because the assessment does not say (pass `--components none`, or list the ones "
+                 "the system has)" if stated is None else
+                 "present" if e["id"] in components else "not present (its risks are left out)")
         print(f"**{e['id']} {e['name']}:** {state}. Present when: {e['present_when']}\n")
     print(f"**{len(applicable)} applicable risks:** {len(baseline)} baseline, {len(single)} from single "
           f"capabilities, {len(combination)} from combinations of elements. Between them they list "
@@ -955,8 +990,8 @@ def cmd_assess(reg, source, args):
         for rid in ids:
             rec = records[rid]
             print(f"### {rid} · {rec['statement']}\n")
-            print(f"Arises from: {' + '.join(rec['elements'])} · Failure mode: {rec['failure_mode']} · "
-                  f"Hazards: {', '.join(rec['hazards'])}\n")
+            print(f"Arises from: {' + '.join(rec['elements'])} · Failure cause: {rec['failure_cause']} · "
+                  f"Harms: {', '.join(rec['harms'])}\n")
             print(f"{rec['description']}\n")
             for c in rec["controls"]:
                 raised = (f"; Level {c['level_outside_this_context']} outside this context"
@@ -1052,8 +1087,10 @@ def cmd_show(reg, source, args):
             print(f"## {e['id']} · {e['name']} ({e['kind']}{', ' + e['category'] if e['category'] else ''})\n\n"
                   f"{e['description']}\n\nRisks arising from it: {', '.join(e['risks']) or 'none'}")
         elif "controls" in e:
-            print(f"## {e['id']} · {e['statement']}\n\nArises from: {' + '.join(e['elements'])} · Failure mode: "
-                  f"{e['failure_mode']} · Hazards: {', '.join(e['hazards'])}\n\n{e['description']}\n")
+            print(f"## {e['id']} · {e['statement']}\n\nArises from: {' + '.join(e['elements'])} · Failure cause: "
+                  f"{e['failure_cause']} · Harms: {', '.join(e['harms'])}\n\n{e['description']}\n")
+            if e.get("related"):
+                print("Related risks:\n" + "\n".join(f"- {s}" for s in e["related"].values()) + "\n")
             for c in e["controls"]:
                 print(f"- {c['id']} [{LEVELS.get(c['level'], c['level'])}] {c['statement']}")
             if e.get("sources"):
@@ -1130,8 +1167,10 @@ def main(argv=None):
     p_assess.add_argument("--internal", default="", help="capabilities whose effects stay inside the organisation")
     p_assess.add_argument("--profile", help="a YAML file describing the system: capabilities (each with authority, "
                                             "irreversible, external) and components")
-    p_assess.add_argument("--components", default="", help="comma-separated conditional components the system has, "
-                                                           "e.g. CMP-04,CMP-05 (see `elements` for the conditions)")
+    p_assess.add_argument("--components", default=None, help="comma-separated conditional components the system has, "
+                                                             "e.g. CMP-04,CMP-05, or `none` (see `elements` for the "
+                                                             "conditions). If omitted, the system is assumed to have "
+                                                             "them all")
     p_assess.add_argument("--priority", help="comma-separated priority risk IDs (or 'all'): also list every "
                                              "control in scope")
     p_assess.add_argument("--detail", action="store_true", help="include each control's implementation guidance")

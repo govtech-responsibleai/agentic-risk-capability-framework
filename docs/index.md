@@ -16,7 +16,8 @@
     - **How a capability is used**: each capability that acts on the world is recorded with its [authority, reversibility and reach](arc_framework/elements.md#context-how-a-capability-is-used), so an assistant that drafts a payment and an agent that pays by itself no longer get the same risks and controls
     - **Protocols** is a fifth component, for connections to tool servers and agents that another party builds or operates; it and Memory are conditional, so their risks apply only to systems that have them
     - **Combination rules** bring a risk into scope whenever a system's capabilities can complete a [dangerous combination](arc_framework/capability-combinations.md), whichever capabilities supply the parts
-    - **Six failure modes**, separating an agent's mistakes from goal-directed misbehaviour, and adding safeguard failure and misuse by the principal
+    - **Six failure causes**, separating an agent's mistakes from goal-directed misbehaviour, and adding safeguard failure and user misuse
+    - **Terms from safety engineering**: what 1.x called failure modes are now *failure causes*, and hazards are now *harms*
     - **Twelve new risks**, written from a curated file of 366 incidents, covering instruction files, agent credentials, provider dependence, agents that work around their limits, and more
     - **Every control** says where it is enforced, who owns it, what evidence shows it is in place and how to test it, and cites its sources
     - **Overlays** let an organisation keep its own version as one file of changes
@@ -43,7 +44,7 @@ On this website, you'll find all the resources you need to get started with unde
 - **[Framework Introduction](arc_framework/introduction.md)** — Design rationale, literature review, and theoretical foundation
 - **[Agentic System Elements](arc_framework/elements.md)** — Detailed examination of components, design, and capabilities
 - **[Capability Taxonomy](arc_framework/elements.md#capabilities)** — Cognitive, interaction, and operational capability categories with definitions
-- **[Risk Register](arc_framework/risk-register.md)** — 66 component, design, capability and combination risks with their hazards and 103 recommended controls at three levels, filterable and searchable
+- **[Risk Register](arc_framework/risk-register.md)** — 66 component, design, capability and combination risks with their harms and 103 recommended controls at three levels, filterable and searchable
 - **[Capability Combinations](arc_framework/capability-combinations.md)** — Risks that arise only when capabilities are held together, and the check for the lethal trifecta
 - **[Crosswalks](arc_framework/crosswalks.md)** — Entry-level mappings to the OWASP Top 10 for Agentic Applications, OWASP's agentic threat taxonomy, the Cyber Security Agency of Singapore's Securing Agentic AI Addendum, and IMDA's Model AI Governance Framework for Agentic AI
 

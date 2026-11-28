@@ -4,7 +4,7 @@ Here is our baseline **Risk Register** which we developed for the ARC Framework.
 
 !!! note "How to use the Risk Register"
 
-    Click any risk row to expand and view its full description, hazards, references, crosswalks to other frameworks, and recommended controls, then click individual control statements for detailed implementation guidance. Controls are colour-coded by level (red = Level 0 Cardinal, amber = Level 1 Standard, green = Level 2 Best Practice). A risk whose Element column joins several elements with "+" is a *composite* risk that applies only when all of those elements are present. Filter by element, failure mode, hazard, or risk type, or search by keyword.
+    Click any risk row to expand and view its full description, harms, references, crosswalks to other frameworks, and recommended controls, then click individual control statements for detailed implementation guidance. Controls are colour-coded by level (red = Level 0 Cardinal, amber = Level 1 Standard, green = Level 2 Best Practice). A risk whose Element column joins several elements with "+" is a *composite* risk that applies only when all of those elements are present. Filter by element, failure cause, harm, or risk type, or search by keyword.
 
 <div class="risk-register-container">
     <!-- Stats Summary -->
@@ -21,9 +21,9 @@ Here is our baseline **Risk Register** which we developed for the ARC Framework.
                 </select>
             </div>
             <div>
-                <label for="failure-filter" style="font-weight: 600; display: block; margin-bottom: 5px;">Failure Mode:</label>
-                <select id="failure-filter" style="width: 100%; padding: 8px; border-radius: 3px; border: 1px solid #ccc; font-size: 0.8em;">
-                    <option value="">All Failure Modes</option>
+                <label for="cause-filter" style="font-weight: 600; display: block; margin-bottom: 5px;">Failure Cause:</label>
+                <select id="cause-filter" style="width: 100%; padding: 8px; border-radius: 3px; border: 1px solid #ccc; font-size: 0.8em;">
+                    <option value="">All Failure Causes</option>
                 </select>
             </div>
             <div>
@@ -35,9 +35,9 @@ Here is our baseline **Risk Register** which we developed for the ARC Framework.
                 </select>
             </div>
             <div>
-                <label for="hazard-filter" style="font-weight: 600; display: block; margin-bottom: 5px;">Hazard:</label>
-                <select id="hazard-filter" style="width: 100%; padding: 8px; border-radius: 3px; border: 1px solid #ccc; font-size: 0.8em;">
-                    <option value="">All Hazards</option>
+                <label for="harm-filter" style="font-weight: 600; display: block; margin-bottom: 5px;">Harm:</label>
+                <select id="harm-filter" style="width: 100%; padding: 8px; border-radius: 3px; border: 1px solid #ccc; font-size: 0.8em;">
+                    <option value="">All Harms</option>
                 </select>
             </div>
             <div>
@@ -165,7 +165,7 @@ Here is our baseline **Risk Register** which we developed for the ARC Framework.
     box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
 }
 
-.failure-mode-badge {
+.failure-cause-badge {
     display: inline-block;
     padding: 4px 10px;
     border-radius: 4px;

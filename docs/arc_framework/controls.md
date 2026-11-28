@@ -2,12 +2,12 @@
 
 !!! abstract "Page Summary"
 
-    This page defines technical controls for mitigating risks in agentic systems, organised into three tiers: Cardinal (Level 0 - fundamental requirements), Standard (Level 1 - adopt or adapt), and Best Practice (Level 2 - good to consider, especially for high-risk systems). Each control aims to either reduce the potential impact of failures or decrease the likelihood of specific failure modes occurring.
+    This page defines technical controls for mitigating risks in agentic systems, organised into three tiers: Cardinal (Level 0 - fundamental requirements), Standard (Level 1 - adopt or adapt), and Best Practice (Level 2 - good to consider, especially for high-risk systems). Each control aims to either reduce the potential impact of failures or decrease the likelihood of specific failures occurring.
 
 Controls are essential to mitigate risks to an acceptable level. Within the **Risk Register**, each risk comes with a set of **recommended technical controls** that aim to either:
 
 1. **Reduce the potential impact** by limiting the scope or severity of a failure, or
-2. **Decrease the likelihood** of a specific failure mode occurring.
+2. **Decrease the likelihood** of a specific failure occurring.
 
 ---
 
@@ -29,11 +29,11 @@ To ensure controls remain relevant, meaningful, and effective for tackling agent
 
 ??? question "Is it possible for a single control to tackle multiple risks?"
 
-    Yes! This is because several risks may share the same failure mode. For example, prompt injection guardrails are likely to be useful to deal with prompt injection attacks from the memory component, website, or internal files.
+    Yes! This is because several risks may share the same failure cause. For example, prompt injection guardrails are likely to be useful to deal with prompt injection attacks from the memory component, website, or internal files.
 
 ### 🔨 Developing controls
 
-First, we start by analysing the risk for its failure mode and hazard, and consider how to address the risk by reducing either its likelihood of occurring or the adverse impact if it does occur. Some helpful questions for brainstorming possible controls include:
+First, we start by analysing the risk for its failure cause and harm, and consider how to address the risk by reducing either its likelihood of occurring or the adverse impact if it does occur. Some helpful questions for brainstorming possible controls include:
 
 * How can we **limit the blast radius** by restricting the resources the agent or system has access to?
 * How can we **blunt the effectiveness of attacks** by preventively blocking potential attacks?
@@ -55,7 +55,7 @@ Next, we categorise the control into three levels based on its criticality:
     A Level 0 control is mandatory for every system in which its risk is **applicable**. A risk is applicable when what it arises from is present:
 
     - a **baseline** risk arises only from components and design elements that every agentic system has, so it always applies;
-    - a risk that arises from a **conditional component** (Memory, Protocols) applies when the system has that component;
+    - a risk that arises from a **conditional component** (Memory, Protocols) applies when the system has that component, and is assumed to apply when the assessment does not say;
     - a **capability** risk applies when the system has the capability, and, where the risk states a minimum authority, uses it at that authority or above;
     - a risk that arises from a **combination rule** applies when the rule is present or possible for the system's capabilities.
 

@@ -16,7 +16,7 @@ The script needs only Python 3.9+ (it uses PyYAML if present, and a built-in par
 ```bash
 ARC elements                                          # definitions of components, design elements, capabilities
 ARC assess --capabilities CAP-03,CAP-07               # applicable risks, their controls, and the combination check
-ARC assess --capabilities ... --components CMP-04     # ...for a system that also has a conditional component
+ARC assess --capabilities ... --components CMP-04     # ...for a system whose only conditional component is Memory (`none` if it has neither)
 ARC assess --capabilities CAP-06=act-with-approval,CAP-11=read --internal CAP-11   # ...with the context of each capability
 ARC assess --profile system.yaml                      # ...or with the whole system described in a file
 ARC assess --capabilities ... --priority RISK-...     # ...plus every control in scope, once each
@@ -59,12 +59,12 @@ Ask the user these questions. If you can't reach them, choose a sensible default
    If you cannot establish a fact, leave it unstated: the script then assumes the most cautious case.
 
    Also list the capabilities you ruled out, with reasons.
-6. Decide which conditional components the system has. `ARC elements` marks them and gives the condition for each, for example Memory (the system keeps information beyond a session or shares it across users or tasks) and Protocols (a tool server or agent that another party builds or operates is connected through an agent protocol such as MCP or A2A). Record the evidence for each answer, including for the ones that are absent.
+6. Decide which conditional components the system has. `ARC elements` marks them and gives the condition for each, for example Memory (the system keeps information beyond a session or shares it across users or tasks) and Protocols (a tool server or agent that another party builds or operates is connected through an agent protocol such as MCP or A2A). Another team in the same organisation counts as another party. Record the evidence for each answer, including for the ones that are absent. If you do not say, the script assumes the system has every conditional component.
 7. Show the user the capability list, the conditional components, and the evidence. Get their confirmation before Step 2.
 
 ## Step 2: Evaluate risks
 
-1. Run `ARC --version X.Y.Z assess --capabilities <confirmed IDs, each with =authority> --reversible <IDs> --internal <IDs> --components <conditional components present>`, or put the same facts in a profile file and pass `--profile`:
+1. Run `ARC --version X.Y.Z assess --capabilities <confirmed IDs, each with =authority> --reversible <IDs> --internal <IDs> --components <conditional components present, or none>`, or put the same facts in a profile file and pass `--profile`:
 
    ```yaml
    capabilities:

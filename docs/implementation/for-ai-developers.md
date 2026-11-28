@@ -217,8 +217,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 | Risk ID | Element | Risk Statement | Assessment |
 |----------|---------|----------------|------------|
-| RISK-002 | CMP-01 (LLM) | Insufficient alignment of LLM behaviour | **[Impact: 4, Likelihood: 4]** LLM misalignment could cause it to ignore safety constraints or misinterpret fact-checking instructions, undermining verification accuracy. |
-| RISK-007 | CMP-03 (Tools) | Lack of input sanitisation | **[Impact: 5, Likelihood: 4]** Critical given web search tools. Unsanitized web content from malicious sites could inject prompts to manipulate verification results. |
+| RISK-002 | CMP-01 (LLM) | LLM acts against the goals, instructions or policies it was given | **[Impact: 4, Likelihood: 4]** LLM misalignment could cause it to ignore safety constraints or misinterpret fact-checking instructions, undermining verification accuracy. |
+| RISK-007 | CMP-03 (Tools) | Tool processes malformed or malicious input from the agent | **[Impact: 5, Likelihood: 4]** Critical given web search tools. Unsanitized web content from malicious sites could inject prompts to manipulate verification results. |
 | RISK-028 | CAP-04 (Multimodal Understanding) | Generation of non-factual or hallucinated content | **[Impact: 5, Likelihood: 4]** Hallucinated "facts" directly undermine the system's core purpose of verifying truthfulness. |
 | RISK-034 | CAP-07 (Internet Access) | Prompt injection via malicious websites | **[Impact: 5, Likelihood: 4]** Critical vulnerability given reliance on web sources. Adversarial sites could embed instructions to override verification logic. |
 | RISK-035 | CAP-07 (Internet Access) | Unreliable information or websites | **[Impact: 5, Likelihood: 4]** Core risk—retrieving and trusting unreliable sources undermines verification accuracy and could propagate misinformation. |
@@ -233,8 +233,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 #### Step 3: Implement Controls
 
-<!-- arc:example fact-checker risks=45 level0=28 lethal-trifecta=present oversight-within-reach=not-present -->
-This system has 45 applicable risks: 22 baseline, 19 from single capabilities, and four from combinations (RISK-047, plus the multi-agent risks RISK-012, RISK-013 and RISK-051 that Agent Delegation brings in). RISK-041, unintended overwriting or deletion, is left out because the system only reads its knowledge base. Between them the 45 risks carry 28 Level 0 controls. All 28 are implemented as-is and recorded in the assessment; the table below shows the priority risks only — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
+<!-- arc:example fact-checker risks=46 level0=28 lethal-trifecta=present oversight-within-reach=not-present -->
+This system has 46 applicable risks: 22 baseline, 20 from single capabilities, and four from combinations (RISK-047, plus the multi-agent risks RISK-012, RISK-013 and RISK-051 that Agent Delegation brings in). RISK-041, unintended overwriting or deletion, is left out because the system only reads its knowledge base. Between them the 46 risks carry 28 Level 0 controls. All 28 are implemented as-is and recorded in the assessment; the table below shows the priority risks only — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
 
 | Risk ID | Selected Controls | Implementation |
 |---------|-------------------|----------------|
@@ -295,8 +295,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 | Risk ID | Element | Risk Statement | Assessment |
 |---------|---------|----------------|------------|
-| RISK-002 | CMP-01 (LLM) | Insufficient alignment of LLM behaviour | **[Impact: 4, Likelihood: 3]** Misaligned LLM may ignore security constraints or execute dangerous operations when instructed to "fix it quickly" without proper validation. |
-| RISK-007 | CMP-03 (Tools) | Lack of input sanitisation | **[Impact: 5, Likelihood: 4]** Critical given file system and command execution tools. Malicious file contents or unsanitized tool outputs could inject prompts to manipulate assistant behaviour or execute unintended operations. |
+| RISK-002 | CMP-01 (LLM) | LLM acts against the goals, instructions or policies it was given | **[Impact: 4, Likelihood: 3]** Misaligned LLM may ignore security constraints or execute dangerous operations when instructed to "fix it quickly" without proper validation. |
+| RISK-007 | CMP-03 (Tools) | Tool processes malformed or malicious input from the agent | **[Impact: 5, Likelihood: 4]** Critical given file system and command execution tools. Malicious file contents or unsanitized tool outputs could inject prompts to manipulate assistant behaviour or execute unintended operations. |
 | RISK-028 | CAP-04 (Multimodal Understanding) | Generation of non-factual or hallucinated content | **[Impact: 4, Likelihood: 4]** Hallucinating incorrect code patterns, API usage, or architectural decisions leads developers to implement buggy or insecure features. |
 | RISK-038 | CAP-09 (Other Programmatic Interfaces) | Incorrect use of unfamiliar programmatic interfaces | **[Impact: 3, Likelihood: 4]** Assistant may misinterpret bespoke API semantics when interacting with internal tools or non-standard interfaces. |
 | RISK-039 | CAP-10 (Code Execution) | Production or execution of poor or ineffective code | **[Impact: 5, Likelihood: 3]** Generated code may be incorrect, inefficient, or contain bugs that cause operational disruptions when deployed or run. |
@@ -315,8 +315,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 #### Step 3: Implement Controls
 
-<!-- arc:example coding-assistant risks=49 level0=37 lethal-trifecta=possible oversight-within-reach=possible -->
-This system has 49 applicable risks: 22 baseline, 21 from single capabilities, and six from combinations (the three multi-agent risks that Agent Delegation brings in; RISK-049, sandbox escape, which Code Execution brings in; and RISK-047 and RISK-062 from the two combination rules). They carry 37 Level 0 controls, all of which are implemented as-is. The table shows the priority risks — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
+<!-- arc:example coding-assistant risks=50 level0=37 lethal-trifecta=possible oversight-within-reach=possible -->
+This system has 50 applicable risks: 22 baseline, 22 from single capabilities, and six from combinations (the three multi-agent risks that Agent Delegation brings in; RISK-049, sandbox escape, which Code Execution brings in; and RISK-047 and RISK-062 from the two combination rules). They carry 37 Level 0 controls, all of which are implemented as-is. The table shows the priority risks — every Level 0 control of each, plus the Level 1 and 2 controls we selected:
 
 | Risk ID | Selected Controls | Implementation |
 |---------|-------------------|----------------|
@@ -387,8 +387,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 | Risk ID | Element | Risk Statement | Assessment | Why Not Priority |
 |---------|---------|----------------|------------|------------------|
-| RISK-002 | CMP-01 (LLM) | Insufficient alignment of LLM behaviour | **[Impact: 4, Likelihood: 2]** Modern LLMs with strong safety training are unlikely to catastrophically misalign in customer service contexts. | Likelihood too low |
-| RISK-007 | CMP-03 (Tools) | Lack of input sanitisation | **[Impact: 3, Likelihood: 3]** Tool injection could manipulate responses but unlikely to cause severe customer harm in this context. | Impact too low |
+| RISK-002 | CMP-01 (LLM) | LLM acts against the goals, instructions or policies it was given | **[Impact: 4, Likelihood: 2]** Modern LLMs with strong safety training are unlikely to catastrophically misalign in customer service contexts. | Likelihood too low |
+| RISK-007 | CMP-03 (Tools) | Tool processes malformed or malicious input from the agent | **[Impact: 3, Likelihood: 3]** Tool injection could manipulate responses but unlikely to cause severe customer harm in this context. | Impact too low |
 | RISK-047 | Lethal trifecta (combination rule) | Data exfiltration through combined access to untrusted content, sensitive data, and an outbound channel | **[Impact: 4, Likelihood: 2]** A caller could try to talk the assistant into reading out another customer's records, but the agents can reach only the verified caller's own records and can send data only to that caller and the booking system. | Likelihood too low |
 
 *(Additional risks documented but not shown here for brevity)*
@@ -399,8 +399,8 @@ We identify risks from baseline components and capabilities, assessing likelihoo
 
 #### Step 3: Implement Controls
 
-<!-- arc:example call-assistant risks=46 level0=31 lethal-trifecta=possible oversight-within-reach=not-present -->
-This system has 46 applicable risks: 22 baseline, 20 from single capabilities, and four from combinations (the three multi-agent risks that Agent Delegation brings in, and RISK-047 from the lethal trifecta rule). RISK-041 is left out because the system only reads its data stores. The 46 risks carry 31 Level 0 controls, all implemented as-is even under the higher risk appetite — the appetite affects only which Level 1 and 2 controls are taken up. For the three priority risks we implement:
+<!-- arc:example call-assistant risks=47 level0=31 lethal-trifecta=possible oversight-within-reach=not-present -->
+This system has 47 applicable risks: 22 baseline, 21 from single capabilities, and four from combinations (the three multi-agent risks that Agent Delegation brings in, and RISK-047 from the lethal trifecta rule). RISK-041 is left out because the system only reads its data stores. The 47 risks carry 31 Level 0 controls, all implemented as-is even under the higher risk appetite — the appetite affects only which Level 1 and 2 controls are taken up. For the three priority risks we implement:
 
 | Risk ID | Selected Controls | Implementation |
 |---------|-------------------|----------------|

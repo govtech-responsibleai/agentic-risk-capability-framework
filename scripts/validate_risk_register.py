@@ -9,14 +9,14 @@ built or deployed silently.
 
 Checks:
   - IDs are well-formed (RISK-###, CTRL-####, CMP/DSN/CAP-##)
-  - every risk has statement, description, element_ids, failure_mode, type, controls
+  - every risk has statement, description, element_ids, failure_cause, type, harms, controls
   - element_ids is a non-empty list of distinct, defined components, design elements,
     or capabilities (a risk with several elements arises from their combination)
   - a component or design element may carry `present_when`, a sentence saying when a system
     has it; such an element is conditional, and its risks apply only to systems that have it.
     Capabilities are always chosen per system, so they may not carry it
-  - failure_mode and type values come from the allowed sets
-  - every risk lists at least one hazard from hazards.yaml, and the hazard types
+  - failure_cause and type values come from the allowed sets
+  - every risk lists at least one harm from harms.yaml, and the harm types
     (Safety/Security) agree exactly with the risk's type
   - every control has a statement, a valid level (0/1/2), and at least one risk
   - every control says where it is enforced (`enforcement`: one or two of prompt, model, harness,
@@ -37,6 +37,9 @@ Checks:
     control, and risks that carry that control and name the rule in their `combination` field;
     `implies` maps a capability to the capabilities it gives a system
   - a risk arises either from elements (`element_ids`) or from a combination rule (`combination`)
+  - a risk may carry `related`, which maps another live risk's ID to a sentence that names that risk
+    and says how the two differ; the other risk must name this one back (an entry that an overlay adds
+    may name a risk of the base register without being named back)
   - a retired entry carries `superseded_by`, naming a live entry of the same kind, and is no longer
     linked to controls or risks
   - warnings (non-fatal) for empty sources, missing recommendations, or missing crosswalks
@@ -50,13 +53,14 @@ import yaml
 
 DATA_DIR = Path(__file__).parent.parent / 'arc-risk-register'
 
-FAILURE_MODES = {'Agent Error', 'Agent Misbehaviour', 'External Manipulation', 'Tool or Resource Malfunction',
-                 'Safeguard Failure', 'Misuse by the Principal'}
+FAILURE_CAUSES = {'Agent Error', 'Agent Misbehaviour', 'External Manipulation', 'Tool or Resource Malfunction',
+                  'Safeguard Failure', 'User Misuse'}
 RISK_TYPES = {'Safety', 'Security'}
+RENAMED_FIELDS = {'failure_mode': 'failure_cause', 'hazards': 'harms'}   # renamed in register 2.0
 RISK_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?RISK-\d{3}$')     # an overlay's own entries carry a namespace: ORG-RISK-001
 CTRL_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?CTRL-\d{4}$')
 ELEMENT_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?(CMP|DSN|CAP)-\d{2}$')
-HAZARD_ID = re.compile(r'^HZ-\d{2}$')
+HARM_ID = re.compile(r'^HARM-\d{2}$')
 COMBINATION_ID = re.compile(r'^[a-z][a-z0-9-]*$')
 AUTHORITY = ('read', 'propose', 'act-with-approval', 'act-alone')   # least to most
 CONTEXT_ANSWERS = ('always', 'never', 'ask')
@@ -175,7 +179,7 @@ def validate():
     controls = load('controls.yaml')
     elements = {**load('components.yaml'), **load('design.yaml'), **load('capabilities.yaml')}
     references = load('crosswalk_references.yaml')
-    hazards = load('hazards.yaml')
+    harms = load('harms.yaml')
     register = load('register.yaml') or {}
 
     if not SEMVER.match(str(register.get('version', ''))):
@@ -201,11 +205,11 @@ def validate():
             for field in ('irreversible', 'external'):
                 if element.get(field) not in CONTEXT_ANSWERS:
                     errors.append(f'{element_id}: {field} must be one of {list(CONTEXT_ANSWERS)}')
-    for hazard_id, hazard in hazards.items():
-        if not HAZARD_ID.match(hazard_id):
-            errors.append(f'{hazard_id}: malformed hazard ID')
-        if hazard.get('type') not in RISK_TYPES:
-            errors.append(f'{hazard_id}: hazard type must be one of {sorted(RISK_TYPES)}')
+    for harm_id, harm in harms.items():
+        if not HARM_ID.match(harm_id):
+            errors.append(f'{harm_id}: malformed harm ID')
+        if harm.get('type') not in RISK_TYPES:
+            errors.append(f'{harm_id}: harm type must be one of {sorted(RISK_TYPES)}')
 
     combinations = load('combinations.yaml') if (DATA_DIR / 'combinations.yaml').exists() else {}
     rules = (combinations or {}).get('rules') or {}
@@ -230,7 +234,10 @@ def validate():
                 errors.append(f'{risk_id}: combination "{risk["combination"]}" is not a rule in combinations.yaml')
             elif risk_id not in (rules[risk['combination']].get('risks') or []):
                 errors.append(f'{risk_id}: rule "{risk["combination"]}" does not list this risk')
-        for field in ('statement', 'description', origin, 'failure_mode', 'type', 'hazards', 'controls'):
+        for old, new in RENAMED_FIELDS.items():
+            if old in risk:
+                errors.append(f'{risk_id}: the field "{old}" is called "{new}" from register 2.0')
+        for field in ('statement', 'description', origin, 'failure_cause', 'type', 'harms', 'controls'):
             if not risk.get(field):
                 errors.append(f'{risk_id}: missing or empty field "{field}"')
         element_ids = risk.get('element_ids') or []
@@ -247,22 +254,38 @@ def validate():
                 errors.append(f'{risk_id}: min_authority names {cap_id}, which is not one of its elements')
             elif minimum not in (elements.get(cap_id, {}).get('authority') or []):
                 errors.append(f'{risk_id}: min_authority {minimum!r} is not an authority level of {cap_id}')
-        if risk.get('failure_mode') and risk['failure_mode'] not in FAILURE_MODES:
-            errors.append(f'{risk_id}: unknown failure_mode "{risk["failure_mode"]}"')
+        related = risk.get('related') or {}
+        if not isinstance(related, dict):
+            errors.append(f'{risk_id}: related must map a risk ID to a sentence on how the two risks differ')
+            related = {}
+        for other_id, difference in related.items():
+            other = risks.get(other_id)
+            if other is None or other_id == risk_id:
+                errors.append(f'{risk_id}: related names {other_id}, which is not another risk in the register')
+            elif other.get('superseded_by'):
+                errors.append(f'{risk_id}: related names retired risk {other_id}; use {other["superseded_by"]}')
+            elif risk_id.startswith('RISK-') and risk_id not in (other.get('related') or {}):
+                errors.append(f'{risk_id}: related names {other_id}, but {other_id} does not name {risk_id} back')
+            if not isinstance(difference, str) or str(other_id) not in difference:
+                errors.append(f'{risk_id}: the related entry for {other_id} must be a sentence that names {other_id}')
+        if risk.get('failure_cause') and risk['failure_cause'] not in FAILURE_CAUSES:
+            errors.append(f'{risk_id}: unknown failure_cause "{risk["failure_cause"]}"')
         for t in risk.get('type') or []:
             if t not in RISK_TYPES:
                 errors.append(f'{risk_id}: unknown type "{t}"')
-        risk_hazards = risk.get('hazards') or []
-        if not isinstance(risk_hazards, list):
-            errors.append(f'{risk_id}: hazards must be a list')
-            risk_hazards = []
-        for hazard_id in risk_hazards:
-            if hazard_id not in hazards:
-                errors.append(f'{risk_id}: unknown hazard "{hazard_id}"')
-        hazard_types = {hazards[h]['type'] for h in risk_hazards if h in hazards}
-        if risk_hazards and hazard_types != set(risk.get('type') or []):
+        risk_harms = risk.get('harms') or []
+        if not isinstance(risk_harms, list):
+            errors.append(f'{risk_id}: harms must be a list')
+            risk_harms = []
+        for harm_id in risk_harms:
+            if harm_id not in harms:
+                renamed = re.sub(r'^HZ-', 'HARM-', str(harm_id))
+                errors.append(f'{risk_id}: unknown harm "{harm_id}"'
+                              + (f'; it is called {renamed} from register 2.0' if renamed in harms else ''))
+        harm_types = {harms[h]['type'] for h in risk_harms if h in harms}
+        if risk_harms and harm_types != set(risk.get('type') or []):
             errors.append(f'{risk_id}: type {sorted(risk.get("type") or [])} does not match '
-                          f'the types of its hazards {sorted(hazard_types)}')
+                          f'the types of its harms {sorted(harm_types)}')
         for ctrl_id in risk.get('controls') or []:
             if ctrl_id not in controls:
                 errors.append(f'{risk_id}: references undefined control {ctrl_id}')

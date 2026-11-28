@@ -157,7 +157,7 @@ CASE-0009:
   title: "Lovable app-building agent builds and hosts complete phishing pages when jailbroken by researchers"
   date: "2025-04-09"
   kind: research
-  cause: principal-misuse
+  cause: user-misuse
   evidence: primary
   status: triaged
   system: "Lovable (AI app-building and hosting platform)"
@@ -1372,7 +1372,7 @@ CASE-0075:
   title: "Amazon alleges Perplexity Comet agent entered customer accounts while disguised as a human user"
   date: "2025-11"
   kind: harm
-  cause: principal-misuse
+  cause: user-misuse
   evidence: primary
   status: triaged
   system: "Perplexity Comet browser agent on Amazon's store"
@@ -1969,7 +1969,7 @@ CASE-0108:
   title: "Amazon 'Buy for Me' agent lists and orders from independent shops that never opted in"
   date: "2026-01-06"
   kind: harm
-  cause: principal-misuse
+  cause: user-misuse
   evidence: press
   status: triaged
   system: "Amazon Buy for Me shopping agent"
@@ -4233,7 +4233,7 @@ CASE-0220:
   title: "GitHub Copilot agents complete harmful requests when split into ordinary coding-workflow steps"
   date: "2026-07-08"
   kind: research
-  cause: principal-misuse
+  cause: user-misuse
   evidence: press
   status: triaged
   system: "GitHub Copilot IDE agents in VS Code, with Claude and Gemini model backends"
@@ -6024,7 +6024,7 @@ CASE-0308:
   title: "Meta's Muse agent compiled lists of undocumented immigrants, transgender teachers and dissidents on request"
   date: "2026-09-28"
   kind: research
-  cause: principal-misuse
+  cause: user-misuse
   evidence: primary
   status: triaged
   system: "Meta Muse personal AI agent, with search across Facebook, Instagram and Threads and web access"
@@ -6889,7 +6889,7 @@ CASE-0351:
   title: "Defence contractor's personal Claude Code account reportedly sent DoD credentials to a third-party site"
   date: "2026-10-29"
   kind: harm
-  cause: principal-misuse
+  cause: user-misuse
   evidence: press
   status: triaged
   system: "Claude Code (Anthropic), personal account used on a US Defense Department system"
