@@ -51,7 +51,7 @@ import yaml
 DATA_DIR = Path(__file__).parent.parent / 'arc-risk-register'
 
 FAILURE_CAUSES = {'Agent Error', 'Agent Misbehaviour', 'External Manipulation', 'Tool or Resource Malfunction',
-                  'Safeguard Failure', 'Misuse by the Principal'}
+                  'Safeguard Failure', 'User Misuse'}
 RISK_TYPES = {'Safety', 'Security'}
 RENAMED_FIELDS = {'failure_mode': 'failure_cause', 'hazards': 'harms'}   # renamed in register 2.0
 RISK_ID = re.compile(r'^(?:[A-Z][A-Z0-9]{1,7}-)?RISK-\d{3}$')     # an overlay's own entries carry a namespace: ORG-RISK-001

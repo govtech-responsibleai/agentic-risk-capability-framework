@@ -16,7 +16,7 @@
     - **How a capability is used**: each capability that acts on the world is recorded with its [authority, reversibility and reach](arc_framework/elements.md#context-how-a-capability-is-used), so an assistant that drafts a payment and an agent that pays by itself no longer get the same risks and controls
     - **Protocols** is a fifth component, for connections to tool servers and agents that another party builds or operates; it and Memory are conditional, so their risks apply only to systems that have them
     - **Combination rules** bring a risk into scope whenever a system's capabilities can complete a [dangerous combination](arc_framework/capability-combinations.md), whichever capabilities supply the parts
-    - **Six failure causes**, separating an agent's mistakes from goal-directed misbehaviour, and adding safeguard failure and misuse by the principal
+    - **Six failure causes**, separating an agent's mistakes from goal-directed misbehaviour, and adding safeguard failure and user misuse
     - **Terms from safety engineering**: what 1.x called failure modes are now *failure causes*, and hazards are now *harms*
     - **Twelve new risks**, written from a curated file of 366 incidents, covering instruction files, agent credentials, provider dependence, agents that work around their limits, and more
     - **Every control** says where it is enforced, who owns it, what evidence shows it is in place and how to test it, and cites its sources

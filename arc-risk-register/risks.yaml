@@ -215,11 +215,11 @@ RISK-007:
     - AML.T0053
     - AML.T0050
 RISK-008:
-  statement: Vague or underspecified instructions
-  description: This risk arises when instructions provided to an LLM are ambiguous,
-    incomplete, or poorly scoped, leading the model to make unintended assumptions
-    when interpreting tasks or constraints. As a result, the LLM may behave unpredictably,
-    bypass safeguards, or take actions that introduce safety or security risks.
+  statement: LLM fills gaps in its instructions with its own assumptions
+  description: Because the instructions given to an LLM are ambiguous, incomplete
+    or poorly scoped, the model makes assumptions that nobody intended when it interprets
+    a task or a constraint. As a result, it behaves unpredictably, bypasses safeguards
+    or takes actions that cause safety or security failures.
   element_ids:
   - CMP-02
   failure_cause: Agent Error
@@ -243,11 +243,12 @@ RISK-008:
     - T6
     mitre_atlas: []
 RISK-009:
-  statement: Unsanitised inputs in system instructions
-  description: This risk arises when untrusted or user-controlled inputs are incorporated
-    into system instructions without proper sanitisation or validation. As a result,
-    malicious or malformed content may manipulate the model's behaviour, override
-    intended constraints, or trigger unintended actions.
+  statement: Untrusted input in the system instructions manipulates the model
+  description: Because untrusted or user-controlled input is placed into the system
+    instructions without being sanitised or validated, the model reads malicious or
+    malformed content in that input as part of its instructions. As a result, the
+    content manipulates the model's behaviour, overrides its intended constraints
+    or triggers actions that nobody intended.
   element_ids:
   - CMP-02
   failure_cause: External Manipulation
@@ -1665,8 +1666,14 @@ RISK-057:
     - AML.T0117
     - AML.T0055
 RISK-058:
-  statement: Instruction and configuration files as a way in
-  description: "This risk arises when an agent loads instructions, rules, settings, hooks, skills, or tool configuration from files that someone other than its operator can write: a rules file in a cloned repository, an instruction file in a downloads folder, a project-level settings file, or a tool configuration that the agent itself can edit. These files are read automatically, often before any trust prompt, and what they contain is treated as the operator's own instructions or runs as commands. As a result, anyone who can place or change such a file can direct the agent or run code on the machine it works on, and the change persists across sessions, as when malicious packages planted hidden instructions in coding assistants' instruction files, a cloned repository's settings took effect before the user was asked to trust it, and a crafted chat message led a coding agent to rewrite its own tool configuration."
+  statement: Attacker directs the agent through a file it loads as instructions
+  description: Because an agent automatically loads instructions, settings, hooks,
+    skills or tool configuration from files that someone other than its operator can
+    write, such as a rules file in a cloned repository or a tool configuration the
+    agent itself can edit, whoever places or changes such a file has its contents
+    followed as the operator's instructions or run as commands, often before any trust
+    prompt. As a result, they can direct the agent or run code on the machine it works
+    on, and the change persists across sessions.
   element_ids:
   - CMP-02
   failure_cause: External Manipulation
@@ -1934,11 +1941,17 @@ RISK-066:
     - T2
     mitre_atlas: []
 RISK-067:
-  statement: Use of the agent by its own principal against others
-  description: This risk arises when the person or organisation that an agent works for directs it to act against others, or deploys it in a way that disregards them. A user may have it gather and compile personal information about people, build material for fraud, or act on another party's service in breach of that party's terms while disguised as a human; an operator may release an agent that transacts with businesses that never agreed to it. The agent does what it is told, so controls aimed at manipulation and error do not apply, and safeguards that judge each step in isolation can be defeated by spreading a harmful aim across routine steps. As a result, the organisation that provides or operates the agent may be answerable for harassment, privacy violations, fraud, or unauthorised access carried out through it, as when an agent compiled lists of people in vulnerable groups on request, an app-building agent produced and hosted complete phishing pages, and a shopping agent was alleged to have entered customer accounts on a retailer's site while presenting itself as a human user.
+  statement: User turns the agent against others
+  description: 'Because an agent does what the person or organisation directing it
+    asks, a user or operator can turn it against others: to compile personal information
+    about people, to build material for fraud, or to act on another party''s service
+    against its terms while posing as a human. Safeguards that judge each step alone
+    can be defeated by spreading a harmful aim across routine steps. As a result,
+    the organisation that provides or operates the agent may be answerable for harassment,
+    privacy violations, fraud or unauthorised access carried out through it.'
   element_ids:
   - CMP-02
-  failure_cause: Misuse by the Principal
+  failure_cause: User Misuse
   type:
   - Safety
   harms:
